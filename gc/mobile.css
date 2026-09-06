@@ -496,10 +496,13 @@ hr {
    hold a hover after a tap.
 
    The :not() list is every button that already carries its own hover in a
-   scoped stylesheet — keep it in sync when adding one. */
+   scoped stylesheet — keep it in sync when adding one. Nothing on the map
+   surface (.mobile-map-fill: pins, eye, crow, legend, draw tools) gets the
+   tint — a grey box floating over the map reads as a glitch, not a hover. */
 @media (hover: hover) and (pointer: fine) {
 	body.mobile-app
 		:is(button, [role="button"], [role="tab"]):not(
+			.mobile-map-fill *,
 			:disabled,
 			[aria-disabled="true"],
 			.rt-gold-btn,
