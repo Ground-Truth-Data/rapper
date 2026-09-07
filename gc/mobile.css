@@ -1235,7 +1235,7 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	color: #ece7da;
 }
 
-/* Intensity gauge = supplied artwork (static/mobileAssets/fire_intensity/), replacing an SVG ring whose level-5 state overlapped its tail. aria-hidden; "5 of 5" text is the accessible carrier. Built by fireLayer.ts intensityGlyph. */
+/* Intensity gauge = supplied artwork (getCache_OfflineMap/lib/assets/fire_intensity/), replacing an SVG ring whose level-5 state overlapped its tail. aria-hidden; "5 of 5" text is the accessible carrier. Built by fireLayer.ts intensityGlyph. */
 .rt-fire-ring {
 	flex: 0 0 auto;
 	display: block;

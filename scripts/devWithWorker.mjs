@@ -73,7 +73,7 @@ if (workerDir && !(await portBusy(8787))) {
 	}
 	if (existsSync(path.join(workerDir, "node_modules"))) {
 		console.log("[dev] starting the local tile worker on :8787…");
-		start("npm", ["run", "dev:local"], { cwd: workerDir }, "tile worker");
+		start("npm", ["run", "dev"], { cwd: workerDir }, "tile worker");
 	}
 } else if (workerDir) {
 	console.log("[dev] a tile worker already answers on :8787 — not starting another.");

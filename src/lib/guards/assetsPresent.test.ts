@@ -3,7 +3,8 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-// rapper must serve its own /mobileAssets — a missing file 404s here even though the identical URL 200s under ReTreever, and it draws nothing rather than announcing itself.
+// rapper must serve its own /mobileAssets/worldBase — a missing tile 404s here even though the identical URL 200s under ReTreever, and it draws nothing rather than announcing itself.
+// worldBase is the ONLY thing left under this URL: every other map image is imported by the child that owns it, so the bundler carries it. Nothing new belongs in this list.
 // ⚠️ This test FAILS on missing assets; it does not copy them. Fix: npm run predev (runs the child's fetchAssets.sh).
 // ⚠️ rapper never reaches into ReTreever at runtime — assets must be rapper's own real files, never a fallback path into ReTreever's static/.
 
@@ -12,11 +13,6 @@ const ASSETS = join(RAPPER_ROOT, "static", "mobileAssets");
 
 // witness = one real file per group, not just the folder — cp -R interrupted halfway leaves an empty dir that a folder-only check would pass.
 const REQUIRED: ReadonlyArray<{ group: string; witness: string; why: string }> = [
-	{
-		group: "pin_library_small",
-		witness: "pin_library_small/pin_default_sm.webp",
-		why: "every dropped pin renders as a broken-image square without it",
-	},
 	{
 		group: "worldBase",
 		witness: "worldBase/base/tiles/6/18/23.pbf",
@@ -27,16 +23,6 @@ const REQUIRED: ReadonlyArray<{ group: string; witness: string; why: string }> =
 		witness: "worldBase/glyphs/Noto Sans Regular/0-255.pbf",
 		why: "MapLibre re-requests a missing glyph range on every tile, forever",
 	},
-	{
-		group: "hand_phoneV3.webp",
-		witness: "hand_phoneV3.webp",
-		why: "the phone-in-hand decor the surrogate parent lends the child",
-	},
-	{
-		group: "getcache_DT_bg.webp",
-		witness: "getcache_DT_bg.webp",
-		why: "the desktop backdrop behind the phone",
-	},
 ];
 
 describe("rapper serves the assets its mounted child asks for", () => {
@@ -44,8 +30,8 @@ describe("rapper serves the assets its mounted child asks for", () => {
 		expect(
 			existsSync(ASSETS),
 			`${ASSETS} is missing.\n` +
-				"rapper serves no /mobileAssets/* without it, so the mounted child's " +
-				"pins and basemap 404 while working fine under ReTreever.\n" +
+				"rapper serves no /mobileAssets/worldBase/* without it, so the mounted child's " +
+				"basemap 404s while working fine under ReTreever.\n" +
 				"Fix: npm run predev  (runs getCache_OfflineMap/fetchAssets.sh)",
 		).toBe(true);
 	});

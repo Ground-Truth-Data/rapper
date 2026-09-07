@@ -169,14 +169,11 @@
      support takes the WOFF2 and never fetches the OTF — the OTF stays only for
      ancient engines. Generated with `woff2_compress retreeverFont.otf`; the
      roundtrip is lossless, so regenerate it whenever the OTF is replaced. */
-  /* Served from mobileAssets/, NOT pub-Rtvr/, because the NATIVE app needs
-     this face and only mobileAssets/ ships to the phone (see
-     scripts/prune-cap-assets.mjs). app.css loads on every surface, so the
-     pub-Rtvr path 404'd in the Capacitor bundle and every heading in the app
-     silently fell back to system sans. Copies exist in both folders: the web
-     keeps its own, the app reads this one. */
-  src: url('/mobileAssets/retreeverFont.woff2') format('woff2'),
-       url('/mobileAssets/retreeverFont.otf') format('opentype');
+  /* Relative so Vite bundles the face: a static URL 404s in any tier that
+     does not copy the file, and the native bundle prunes everything but
+     what the build emits. */
+  src: url('./assets/retreeverFont.woff2') format('woff2'),
+       url('./assets/retreeverFont.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   /* Render the fallback immediately and swap Retreever in when it loads,
@@ -617,7 +614,7 @@
 	inset: 0;
 	/* Landscape photo behind the phone + hand. `cover` fills the viewport
 	   without distorting the image's aspect ratio (it crops, never stretches). */
-	background: #000 url('/mobileAssets/getcache_DT_bg.webp') center / cover no-repeat;
+	background: #000 url('./assets/getcache_DT_bg.webp') center / cover no-repeat;
 	display: flex;
 	/* Centre the phone on the stage. This is flex centring, which the old
 	   comment here explicitly forbade — the reason it was banned is now gone,
