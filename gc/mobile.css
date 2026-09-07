@@ -1255,6 +1255,147 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 }
 .rt-fire-trend svg { display: block; }
 
+/* Hospital card — same glass as the fire card (built by getCache_OfflineMap/routes/hospitals/hospitalLayer.ts), the pin itself in the header so the card says what it is. Two maps, one card. */
+.rt-hospital-popup .mapboxgl-popup-content,
+.rt-hospital-popup .maplibregl-popup-content {
+	background: rgba(26, 28, 24, 0.94);
+	backdrop-filter: blur(14px);
+	-webkit-backdrop-filter: blur(14px);
+	color: #ece7da;
+	font-family: var(--rt-font-display, "Retreever", sans-serif);
+	padding: 0.7rem 0.75rem 0.75rem;
+	border-radius: 0.95rem;
+	border: 2px solid color-mix(in srgb, var(--palette-terracotta), transparent 25%);
+	box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
+}
+.rt-hospital-popup .mapboxgl-popup-tip,
+.rt-hospital-popup .maplibregl-popup-tip {
+	border-top-color: rgba(26, 28, 24, 0.94);
+	border-bottom-color: rgba(26, 28, 24, 0.94);
+}
+.rt-hospital-popup .mapboxgl-popup-close-button,
+.rt-hospital-popup .maplibregl-popup-close-button {
+	top: 0.45rem;
+	right: 0.45rem;
+	width: 30px;
+	height: 30px;
+	border: 1.5px solid rgba(255, 255, 255, 0.17);
+	border-radius: 10px;
+	background: rgba(0, 0, 0, 0.3);
+	color: #b7bba6;
+	font-size: 1.2rem;
+	line-height: 1;
+	padding: 0;
+}
+.rt-hospital-card { min-width: 190px; }
+.rt-hospital-head {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 0 0 0.45rem;
+	padding-right: 2.5rem;
+}
+.rt-hospital-pinimg {
+	flex: 0 0 auto;
+	width: 22px;
+	height: 30px;
+	object-fit: contain;
+}
+.rt-hospital-head h4 {
+	margin: 0;
+	font-size: 1rem;
+	font-weight: 700;
+	line-height: 1.15;
+	letter-spacing: 0.01em;
+	color: var(--rt-yellow, #ffd700);
+}
+.rt-hospital-row {
+	display: flex;
+	align-items: baseline;
+	gap: 0.6rem;
+	padding: 0.22rem 0;
+}
+.rt-hospital-k {
+	flex: 0 0 4.2rem;
+	font-size: 0.74rem;
+	font-weight: 700;
+	letter-spacing: 0.01em;
+	color: var(--rt-rust, #c97a4a);
+}
+.rt-hospital-v {
+	flex: 1 1 auto;
+	font-size: 0.8rem;
+	font-weight: 600;
+	line-height: 1.3;
+	color: #ece7da;
+}
+/* The number is a button, not a link: tap = copy (a text, a sat phone), never a dial on this device. */
+.rt-hospital-tel {
+	padding: 0;
+	border: 0;
+	background: none;
+	font: inherit;
+	font-weight: 600;
+	color: var(--rt-yellow, #ffd700);
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+}
+.rt-hospital-v:has(.rt-hospital-tel) {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+}
+.rt-hospital-copy {
+	flex: 0 0 auto;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 22px;
+	height: 22px;
+	padding: 0 0.3rem;
+	border: 1.5px solid rgba(255, 255, 255, 0.17);
+	border-radius: 7px;
+	background: rgba(0, 0, 0, 0.3);
+	color: #b7bba6;
+	font: inherit;
+	font-size: 0.66rem;
+	font-weight: 700;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+}
+.rt-hospital-copy svg {
+	width: 14px;
+	height: 14px;
+}
+.rt-hospital-copy.is-copied {
+	color: #1a1a1a;
+	background: var(--rt-yellow, #ffd700);
+	border-color: transparent;
+}
+.rt-hospital-actions {
+	display: flex;
+	gap: 0.5rem;
+	margin-top: 0.55rem;
+}
+.rt-hospital-loc {
+	flex: 1 1 0;
+	padding: 0.45rem 0.6rem;
+	border-radius: 10px;
+	font: inherit;
+	font-size: 0.8rem;
+	font-weight: 700;
+	text-align: center;
+	text-decoration: none;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+}
+.rt-hospital-loc {
+	background: rgba(0, 0, 0, 0.3);
+	color: #ece7da;
+	border: 1.5px solid rgba(255, 255, 255, 0.17);
+}
+.rt-hospital-loc:active { transform: scale(0.96); }
+
 /* Double-tap-to-pin — shared by /mobile/map + /mobile/offlinev4, built by doubleTapToPin.ts. Dark pill + accent text, "Drop" button, gold bullseye. */
 .rtr-droppin-popup .mapboxgl-popup-content,
 .rtr-droppin-popup .maplibregl-popup-content {
