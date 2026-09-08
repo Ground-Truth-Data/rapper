@@ -70,6 +70,16 @@
 	/* Sage = third accent: gold=commit, terracotta/rust=context, sage=nature. Same value as --rt-fg-muted/app.css --palette-sage — alias, don't repeat. */
 	--rt-sage: #838963;
 
+	/* ── Admin / consequential (project share, rename warnings) ─
+	   Orange sits between gold (commit, everyday) and danger (destructive):
+	   actions that are irreversible-ish and belong to whoever runs the crew,
+	   not to everyone. Tan is its quieter sibling — the rename accent, and
+	   secondary emphasis inside orange copy. */
+	--rt-orange: #e6943c;
+	--rt-orange-soft: rgba(230, 148, 60, 0.06);
+	--rt-orange-line: rgba(230, 148, 60, 0.45);
+	--rt-tan: #c7a878;
+
 	/* ── Danger ─────────────────────────────────────────────── */
 	--rt-danger: #d4574a;
 	--rt-danger-soft: rgba(214, 90, 74, 0.16);
@@ -509,6 +519,7 @@ hr {
 			.cache-popover-ok,
 			.set-size-cta,
 			.cache-drawer-handle,
+			.shovel-handle,
 			.rt-btn--neutral,
 			.rt-btn--ghost,
 			.rt-btn--danger,
@@ -522,6 +533,7 @@ hr {
 			.note-glyph,
 			.plaque,
 			.plaque-trigger,
+			.placard-trigger,
 			.placard,
 			.rt-popover-opt,
 			.rt-row,
