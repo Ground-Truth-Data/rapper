@@ -169,11 +169,14 @@
      support takes the WOFF2 and never fetches the OTF — the OTF stays only for
      ancient engines. Generated with `woff2_compress retreeverFont.otf`; the
      roundtrip is lossless, so regenerate it whenever the OTF is replaced. */
-  /* Relative so Vite bundles the face: a static URL 404s in any tier that
-     does not copy the file, and the native bundle prunes everything but
-     what the build emits. */
-  src: url('./assets/retreeverFont.woff2') format('woff2'),
-       url('./assets/retreeverFont.otf') format('opentype');
+  /* Aliased, NOT relative, so Vite bundles the face: a static URL 404s in any
+     tier that does not copy the file, and the native bundle prunes everything
+     but what the build emits. `./` cannot work here — a tier reaches this
+     sheet through `@import '$gc/theme.css'`, which FLATTENS the rule into the
+     importer's bundle, so a relative URL resolves against the output CSS
+     directory and 404s as `assets/assets/…`. The alias survives flattening. */
+  src: url('$gc/assets/retreeverFont.woff2') format('woff2'),
+       url('$gc/assets/retreeverFont.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   /* Render the fallback immediately and swap Retreever in when it loads,
@@ -614,7 +617,7 @@
 	inset: 0;
 	/* Landscape photo behind the phone + hand. `cover` fills the viewport
 	   without distorting the image's aspect ratio (it crops, never stretches). */
-	background: #000 url('./assets/getcache_DT_bg.webp') center / cover no-repeat;
+	background: #000 url('$gc/assets/getcache_DT_bg.webp') center / cover no-repeat;
 	display: flex;
 	/* Centre the phone on the stage. This is flex centring, which the old
 	   comment here explicitly forbade — the reason it was banned is now gone,
