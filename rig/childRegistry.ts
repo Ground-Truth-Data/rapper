@@ -36,7 +36,7 @@ export type ChildRecord = {
 	 *  mounted, and that child has its own row. Hence no `paths` either. */
 	tier?: boolean;
 	/**
-	 * Served under APP_PREFIX by every parent (`/app/offline`). `paths` still
+	 * Served under APP_PREFIX by every parent (`/app/offlinev10`). `paths` still
 	 * spell the child's own routes/ folder, which is flat — mountPath() joins them.
 	 */
 	app?: true;
@@ -112,8 +112,8 @@ export const CHILDREN: ChildRecord[] = [
 		owner: "Get Cache",
 		logo: "GC_fly_logo_transparent.webp",
 		icon: "favicon.png",
-		paths: ["/", "/offline", "/georef"],
-		defaultPath: "/offline",
+		paths: ["/", "/offlinev10", "/georef"],
+		defaultPath: "/offlinev10",
 		soloPaths: ["/"],
 		// No nav views: every control this map has lives ON the map itself.
 		views: [],
@@ -152,8 +152,8 @@ export const CHILDREN: ChildRecord[] = [
 ];
 
 /**
- * The child serving this pathname, longest-prefix so /offline/debug beats
- * /offline. Undefined for a path no child claims — a parent's own page.
+ * The child serving this pathname, longest-prefix so /offlinev10/debug beats
+ * /offlinev10. Undefined for a path no child claims — a parent's own page.
  */
 export function childForPath(pathname: string): ChildRecord | undefined {
 	// `paths` mirror the child's own routes/ folder, which is flat; both tiers
@@ -177,7 +177,7 @@ export function childForPath(pathname: string): ChildRecord | undefined {
 	return best;
 }
 
-/** Where a parent actually serves one of a child's paths: `/app/offline` for a Get Cache child, `/who` for a ReTreever one. */
+/** Where a parent actually serves one of a child's paths: `/app/offlinev10` for a Get Cache child, `/who` for a ReTreever one. */
 export function mountPath(child: ChildRecord, path: string = child.defaultPath ?? "/"): string {
 	if (!child.app) return path;
 	return path === "/" ? APP_PREFIX : APP_PREFIX + path;
