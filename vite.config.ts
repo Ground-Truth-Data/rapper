@@ -96,13 +96,21 @@ const tierFacts = dev
 			JSON.stringify(mountedChildRoutes()),
 		),
 		// Slot is FIXED per tier (retreever left, rapper right), not by "me" — otherwise the halves swap sides between ports and the control moves under the cursor.
-		// A scaffold states its one child explicitly — childForPath(pathname) inference is wrong there; the workspace rapper serves every child and leaves this empty so the bar looks the live path up.
-		"import.meta.env.VITE_MOUNTED_CHILD": JSON.stringify(
-			mountedChildRepo() ?? "",
-		),
 		"import.meta.env.VITE_TIER_SLOT": JSON.stringify("right"),
 	}
 	: {};
+
+// UNGATED: which child this install serves is true in every build, so it must
+// not ride the two-tier `dev` check above — a scaffold has no sibling ReTreever,
+// and with this undefined the nav fell back to childForPath("/"), which
+// who_what claims, labelling every solo install "who_what".
+// Empty in the workspace checkout, where rapper serves every child and the bar
+// looks the live path up instead.
+const mountedFact = {
+	"import.meta.env.VITE_MOUNTED_CHILD": JSON.stringify(
+		mountedChildRepo() ?? "",
+	),
+};
 
 return {
 
@@ -114,7 +122,7 @@ return {
 	],
 
 	// Parent name/origin injected here by RAPPER only — a child has two possible parents and ships standalone, so it must never hardcode this (see noParentNames.test.ts). Keys MUST be import.meta.env.VITE_*, not bare globals: a bare __X__ throws in a child cloned without rapper, and typeof __X__ === "string" makes Vite skip the substitution entirely.
-	define: tierFacts,
+	define: { ...tierFacts, ...mountedFact },
 	server: {
 		fs: {
 			// SvelteKit replaces Vite's default allow-list with src/, .svelte-kit and node_modules — the workspace root is never consulted — so rig/, gc/, rt/ and every sibling child 404 in dev without this. Kit appends to a list you set.
