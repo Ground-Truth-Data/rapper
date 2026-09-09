@@ -20,10 +20,10 @@
  * list against ITS OWN assets — see `resolve` below — so the list names logos
  * without either tier shipping the other's artwork.
  *
- * COPIED, NOT IMPORTED. This file is the source; gitEr/syncRetreeved.sh copies
- * it into rapper on every run_dev_start. rapper must clone WITHOUT this
- * monorepo, so a path or alias into ReTreever would resolve here and nowhere
- * else — the clone would build on this machine and die on a contractor's.
+ * Lives in rapper so both tiers import it in place. rapper must clone WITHOUT
+ * this monorepo, so a path or alias into ReTreever would resolve here and
+ * nowhere else — the clone would build on this machine and die on a
+ * contractor's.
  */
 
 /** One brand mark in the menu. `key` is the stable name; the URL is resolved

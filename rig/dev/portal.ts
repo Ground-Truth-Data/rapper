@@ -10,8 +10,7 @@
  * node across, wiring, state and scoped styles intact.
  *
  * Lives in rapper/rig for the same reason the card does: it is the one tree
- * both tiers read (ReTreever owns it, syncRetreeved.sh carries it to rapper),
- * and every child reaches it as `$rig/…`. It used to be a private
+ * both tiers read, and every child reaches it as `$rig/…`. It used to be a private
  * function inside the offline map; the online map needed the same twelve
  * lines, and two copies of a seam is how seams drift.
  */
