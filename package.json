@@ -1,90 +1,90 @@
 {
-	"name": "@retreever/create-rapper",
-	"version": "0.1.16",
-	"type": "module",
-	"engines": {
-		"node": ">=22"
-	},
-	"_why": "THE THIN RAPPER: a SvelteKit config, an app shell, and the children — nothing else. Every script and dependency here must be traceable to something this project actually runs.",
-	"_why_tailwind": "Tailwind v4 is live: gc/theme.css and gc/base.css `@import 'tailwindcss'` — v4 syntax, so there is no `@tailwind` directive to grep for, and its absence has been misread as 'unused' once already. postcss.config.js loads @tailwindcss/postcss; ReTreever_who_what/lib/cn.ts uses tailwind-merge.",
-	"_why_prepublishOnly": "prepublishOnly, not prepack: gitEr/packTest.sh runs `npm pack` itself, so prepack would recurse. It proves the tarball installs and builds every child in a sterile dir — several minutes, ~2 GB. Never `npm publish --ignore-scripts`: that publishes something no one has proven installs.",
-	"scripts": {
-		"_why_predev": "rapper ships no static/: without this copy every /mobileAssets/worldBase/… request from the mounted child (basemap tiles, glyphs) 404s, and a child cannot fetch across into a parent. The copy is gitignored; ReTreever/static/mobileAssets is the source. Names no child — the mounted one is read from kit.files.routes; a hardcoded name once broke `npm run dev` for every other install, since a failing pre-script aborts the script it precedes and only `npm run dev` exercises predev (packTest.sh never does).",
-		"predev": "node scripts/childAssets.mjs",
-		"dev": "node scripts/devWithWorker.mjs",
-		"dev:vite": "vite dev --port 5174",
-		"prebuild": "svelte-kit sync",
-		"build": "vite build",
-		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"test:unit": "vitest",
-		"prepack": "node ../rapper_director/bin/vendor-children.mjs",
-		"postpack": "node ../rapper_director/bin/clean-children.mjs",
-		"prepublishOnly": "bash ../gitEr/packTest.sh"
-	},
-	"dependencies": {
-		"clsx": "^2.1.1",
-		"mapbox-gl": "^3.24.0",
-		"mapbox-gl-opacity": "^1.2.0",
-		"maplibre-gl": "^5.24.0",
-		"tailwind-merge": "^3.4.0"
-	},
-	"devDependencies": {
-		"@sveltejs/adapter-static": "^3.0.10",
-		"@sveltejs/adapter-vercel": "^6.2.0",
-		"@sveltejs/kit": "^2.16.0",
-		"@sveltejs/vite-plugin-svelte": "^4.0.4",
-		"@tailwindcss/postcss": "^4.3.3",
-		"@types/node": "^22.19.1",
-		"postcss": "^8.5.26",
-		"svelte": "^5.19.0",
-		"svelte-check": "^4.1.4",
-		"tailwindcss": "^4.3.3",
-		"tailwindcss-animate": "^1.0.7",
-		"typescript": "^5.7.3",
-		"vite": "^5.4.12",
-		"vitest": "^2.1.9"
-	},
-	"description": "A SvelteKit rapper that runs any one of ReTreever and Get Cache's component repos on its own.",
-	"license": "AGPL-3.0-or-later",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/Ground-Truth-Data/rapper.git"
-	},
-	"homepage": "https://github.com/Ground-Truth-Data/rapper#readme",
-	"bugs": {
-		"url": "https://github.com/Ground-Truth-Data/rapper/issues"
-	},
-	"keywords": [
-		"sveltekit",
-		"reforestation",
-		"offline-map",
-		"retreever",
-		"getcache"
-	],
-	"bin": {
-		"create-rapper": "./bin/create-rapper.mjs"
-	},
-	"files": [
-		"bin/",
-		"scripts/",
-		"src/",
-		"rig/",
-		"gc/",
-		"rt/",
-		"_children/",
-		"_director/",
-		"svelte.config.js",
-		"vite.config.ts",
-		"tsconfig.json",
-		"postcss.config.js",
-		".env.example",
-		"README.md",
-		"CONTRIBUTING.md",
-		"LICENSE"
-	],
-	"publishConfig": {
-		"access": "public"
-	},
-	"packageManager": "npm@11.19.1"
+  "name": "@retreever/create-rapper",
+  "version": "0.1.17",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "_why": "THE THIN RAPPER: a SvelteKit config, an app shell, and the children \u2014 nothing else. Every script and dependency here must be traceable to something this project actually runs.",
+  "_why_tailwind": "Tailwind v4 is live: gc/theme.css and gc/base.css `@import 'tailwindcss'` \u2014 v4 syntax, so there is no `@tailwind` directive to grep for, and its absence has been misread as 'unused' once already. postcss.config.js loads @tailwindcss/postcss; ReTreever_who_what/lib/cn.ts uses tailwind-merge.",
+  "_why_prepublishOnly": "prepublishOnly, not prepack: gitEr/packTest.sh runs `npm pack` itself, so prepack would recurse. It proves the tarball installs and builds every child in a sterile dir \u2014 several minutes, ~2 GB. Never `npm publish --ignore-scripts`: that publishes something no one has proven installs.",
+  "scripts": {
+    "_why_predev": "rapper ships no static/: without this copy every /mobileAssets/worldBase/\u2026 request from the mounted child (basemap tiles, glyphs) 404s, and a child cannot fetch across into a parent. The copy is gitignored; ReTreever/static/mobileAssets is the source. Names no child \u2014 the mounted one is read from kit.files.routes; a hardcoded name once broke `npm run dev` for every other install, since a failing pre-script aborts the script it precedes and only `npm run dev` exercises predev (packTest.sh never does).",
+    "predev": "node scripts/childAssets.mjs",
+    "dev": "node scripts/devWithWorker.mjs",
+    "dev:vite": "vite dev --port 5174",
+    "prebuild": "svelte-kit sync",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "test:unit": "vitest",
+    "prepack": "node ../rapper_director/bin/vendor-children.mjs",
+    "postpack": "node ../rapper_director/bin/clean-children.mjs",
+    "prepublishOnly": "bash ../gitEr/packTest.sh"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "mapbox-gl": "^3.24.0",
+    "mapbox-gl-opacity": "^1.2.0",
+    "maplibre-gl": "^5.24.0",
+    "tailwind-merge": "^3.4.0"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-static": "^3.0.10",
+    "@sveltejs/adapter-vercel": "^6.2.0",
+    "@sveltejs/kit": "^2.16.0",
+    "@sveltejs/vite-plugin-svelte": "^4.0.4",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^22.19.1",
+    "postcss": "^8.5.26",
+    "svelte": "^5.19.0",
+    "svelte-check": "^4.1.4",
+    "tailwindcss": "^4.3.3",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5.7.3",
+    "vite": "^5.4.12",
+    "vitest": "^2.1.9"
+  },
+  "description": "A SvelteKit rapper that runs any one of ReTreever and Get Cache's component repos on its own.",
+  "license": "AGPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ground-Truth-Data/rapper.git"
+  },
+  "homepage": "https://github.com/Ground-Truth-Data/rapper#readme",
+  "bugs": {
+    "url": "https://github.com/Ground-Truth-Data/rapper/issues"
+  },
+  "keywords": [
+    "sveltekit",
+    "reforestation",
+    "offline-map",
+    "retreever",
+    "getcache"
+  ],
+  "bin": {
+    "create-rapper": "./bin/create-rapper.mjs"
+  },
+  "files": [
+    "bin/",
+    "scripts/",
+    "src/",
+    "rig/",
+    "gc/",
+    "rt/",
+    "_children/",
+    "_director/",
+    "svelte.config.js",
+    "vite.config.ts",
+    "tsconfig.json",
+    "postcss.config.js",
+    ".env.example",
+    "README.md",
+    "CONTRIBUTING.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "packageManager": "npm@11.19.1"
 }
