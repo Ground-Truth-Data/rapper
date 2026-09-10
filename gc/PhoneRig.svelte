@@ -34,6 +34,8 @@ let {
 	viewport = false,
 	landscape = false,
 }: { children?: Snippet; viewport?: boolean; landscape?: boolean } = $props();
+
+const year = new Date().getFullYear();
 </script>
 
 {#snippet rig()}
@@ -51,6 +53,15 @@ let {
 				{@render children?.()}
 			{/if}
 		</div>
+	</div>
+
+	<!-- ON THE BACKDROP, NOT IN THE PHONE. Only the framed widths show any
+	     backdrop, so the CSS hides this below the phone-frame breakpoint —
+	     on a real phone the art fills the box and there is no margin to sit in.
+	     Outside .mobile-preview-wrapper so --fit never scales the type. -->
+	<div class="rig-legal" aria-hidden="false">
+		<span class="rig-legal__item">&copy; {year} Get Cache</span>
+		<a class="rig-legal__item" href="/getcache/privacy">Privacy policy</a>
 	</div>
 </div>
 {/snippet}

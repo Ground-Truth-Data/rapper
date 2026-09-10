@@ -651,6 +651,78 @@
 	container-type: size;
 }
 
+/* THE SMALL PRINT, ON THE BACKDROP. Copyright left, privacy right, in the
+   margin beside the phone — the only place on a framed page that is neither
+   the phone nor the art around it.
+
+   Hidden below the phone-frame breakpoint: narrower, the backdrop is entirely
+   filled by the hand and there is no margin to sit in, so the words would land
+   on the phone itself. 551px is THE breakpoint (breakpoint.ts, MOBILE_MAX_PX +
+   1); it is a literal here because CSS cannot import it.
+
+   Each item carries its own feathered wash rather than a bar across the
+   bottom: the backdrop runs from bright sky to dark ground to bare branches,
+   so a single panel would be invisible over some of it and a heavy smudge over
+   the rest. An ellipse per item darkens only the ink's own patch and fades to
+   nothing before it reaches the phone. */
+.rig-legal {
+	display: none;
+}
+
+@media (min-width: 551px) {
+	.rig-legal {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		gap: 1rem;
+		/* Clear of the bottom corners: the backdrop art has a yellow arrow in
+		   the left one that the copyright otherwise sits on top of. */
+		padding: 0 clamp(1.5rem, 3vw, 2.5rem) 1.4rem;
+		font-family: var(--rt-font-body);
+		font-size: 0.85rem;
+		line-height: 1;
+		letter-spacing: 0.02em;
+		/* Under the download pin and the phone, over the backdrop art. */
+		z-index: 1;
+		pointer-events: none;
+	}
+
+	.rig-legal__item {
+		position: relative;
+		padding: 0.4rem 0.9rem;
+		color: color-mix(in srgb, var(--rt-cream) 80%, transparent);
+		text-decoration: none;
+		white-space: nowrap;
+		/* The link is the only part that needs the pointer back. */
+		pointer-events: auto;
+	}
+
+	/* The wash. Behind the ink, feathered to nothing at the edges — closest-side
+	   so the ellipse hugs the words at either length. */
+	.rig-legal__item::before {
+		content: "";
+		position: absolute;
+		inset: -0.5rem -1.1rem;
+		z-index: -1;
+		background: radial-gradient(
+			ellipse closest-side,
+			rgba(0, 0, 0, 0.85) 0%,
+			rgba(0, 0, 0, 0.62) 50%,
+			rgba(0, 0, 0, 0) 100%
+		);
+	}
+
+	a.rig-legal__item:hover,
+	a.rig-legal__item:focus-visible {
+		color: var(--rt-yellow);
+		outline: none;
+	}
+}
+
 /* THE WHOLE-WINDOW CASE. A phone-only page (no nav, no footer — the Capacitor
    app, rapper's (gc) routes) wraps the rig in this, and the backdrop's
    inset:0 then resolves against the viewport. `fixed` rather than a 100dvh
