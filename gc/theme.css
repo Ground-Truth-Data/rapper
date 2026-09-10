@@ -846,6 +846,12 @@
 	   Growing is one uniform scale of the finished composition, so nothing
 	   reflows and no hand-tuned knob is re-solved — the ban is on re-tuning the
 	   art, not on the size of the whole. */
+	/* EDGE TO EDGE WHEN TURNED. Portrait holds the phone back to 0.92 of the
+	   stage because the arm sweeps in from the left and needs room to read as
+	   an arm. Turned, the arm comes over the TOP, so the width it was being
+	   given back is spare — measured at 1900px wide, 76px of dead stage each
+	   side. --stage-pad still keeps the phone off the top and bottom edges. */
+	--stage-reach: 1;
 	--fit-h: calc((100cqh - var(--stage-pad)) / var(--phone-width));
 	--fit-w: calc(100cqw * var(--stage-reach) / var(--phone-height));
 	--fit: min(var(--fit-h), var(--fit-w));
