@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { isLandscapeRoute } from "./rigOrientation";
+import { hasBottomBar, hasTopBar, isLandscapeRoute } from "./rigOrientation";
 
 /**
  * THE PHONE, TURNED. The rig is rapper's furniture and every tier renders the
@@ -118,6 +118,30 @@ describe("which routes are turned", () => {
 		expect(isLandscapeRoute("/app/georef")).toBe(true);
 		expect(isLandscapeRoute("/georef")).toBe(true);
 		expect(isLandscapeRoute("/app/georef/")).toBe(true);
+	});
+
+	// A route that gives up its bars must give up BOTH: the stand-in reserves
+	// exactly what the tier will draw, so a mismatch lays the child out against
+	// a height it never gets — the one thing HostChrome exists to prevent.
+	it("drops both bars together, never one", () => {
+		expect(hasTopBar("/app/georef")).toBe(false);
+		expect(hasBottomBar("/app/georef")).toBe(false);
+		expect(hasBottomBar("/georef")).toBe(false);
+	});
+
+	it("leaves the bars alone everywhere else", () => {
+		for (const route of ["/app/map", "/app/offlinev10", "/"]) {
+			expect(hasTopBar(route)).toBe(true);
+			expect(hasBottomBar(route)).toBe(true);
+		}
+	});
+
+	// Both mounts draw the tab strip — ReTreever's real one and the child's
+	// stand-in — so both have to ask, or the route loses it in one tier only.
+	it("is asked by every mount that draws a bar", () => {
+		const chrome = read("./HostChrome.svelte");
+		const rt = read("../../ReTreever/src/routes/(getcache)/+layout@.svelte");
+		for (const src of [chrome, rt]) expect(src).toMatch(/hasBottomBar\(/);
 	});
 
 	it("leaves every other route standing up", () => {

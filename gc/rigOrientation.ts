@@ -33,18 +33,26 @@ export function isLandscapeRoute(pathname: string): boolean {
 }
 
 /**
- * Routes that take the whole screen, with no top bar over them.
+ * Routes that take the whole screen, with no bars over or under them.
  *
- * The top bar is navigation, and a route here is one where the content needs
- * the height more than the page needs a way out: /app/georef fits a fixed-size
- * sheet-and-satellite spread into a landscape phone, where the bar is a sixth
- * of the screen. The BOTTOM bar stays — the tab strip is the way back, so
- * dropping the top one costs nothing that is not still on screen.
+ * The bars are navigation, and a route here is one where the content needs the
+ * height more than the page needs a way out: /app/georef fits a sheet and the
+ * satellite side by side into a landscape phone, where the two bands together
+ * are a third of the screen.
+ *
+ * This is the STAND-IN's answer as much as the tier's — HostChrome reserves
+ * exactly what the mounting tier will draw, so a route that gets no bar
+ * mounted must reserve none standalone either, or the child is laid out
+ * against a height it will not get.
  */
-const NO_TOP_BAR_ROUTES = new Set(["/app/georef", "/georef"]);
+const NO_CHROME_ROUTES = new Set(["/app/georef", "/georef"]);
 
 export function hasTopBar(pathname: string): boolean {
-	return !NO_TOP_BAR_ROUTES.has(normalise(pathname));
+	return !NO_CHROME_ROUTES.has(normalise(pathname));
+}
+
+export function hasBottomBar(pathname: string): boolean {
+	return !NO_CHROME_ROUTES.has(normalise(pathname));
 }
 
 const normalise = (pathname: string) => pathname.replace(/\/+$/, "") || "/";

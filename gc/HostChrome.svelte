@@ -15,7 +15,7 @@
  */
 import { page } from "$app/state";
 import type { Snippet } from "svelte";
-import { hasTopBar } from "./rigOrientation";
+import { hasBottomBar, hasTopBar } from "./rigOrientation";
 
 let {
 	children,
@@ -33,14 +33,17 @@ let {
 // that never arrives and the child is laid out against the wrong height —
 // which is the one thing this component exists to prevent.
 const topBar = $derived(hasTopBar(page.url.pathname));
+const bottomBar = $derived(hasBottomBar(page.url.pathname));
 </script>
 
-<div class="host" class:no-top={!topBar}>
+<div class="host" class:no-top={!topBar} class:no-bottom={!bottomBar}>
 	{#if topBar}
 		<div class="bar top" aria-hidden="true">{header}</div>
 	{/if}
 	<div class="slot">{@render children?.()}</div>
-	<div class="bar bottom" aria-hidden="true">{footer}</div>
+	{#if bottomBar}
+		<div class="bar bottom" aria-hidden="true">{footer}</div>
+	{/if}
 </div>
 
 <style>
@@ -54,6 +57,12 @@ const topBar = $derived(hasTopBar(page.url.pathname));
 }
 .host.no-top {
 	grid-template-rows: 1fr auto;
+}
+.host.no-bottom {
+	grid-template-rows: auto 1fr;
+}
+.host.no-top.no-bottom {
+	grid-template-rows: 1fr;
 }
 .slot {
 	position: relative;
