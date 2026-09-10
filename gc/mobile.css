@@ -519,7 +519,8 @@ hr {
    background-COLOR (not background) so a gradient-filled button is untouched;
    outline (not box-shadow) so a bevel is untouched. Solid gold / rust buttons
    glow via their own rules instead. Hover-capable pointers only: a phone must
-   never hold a hover after a tap.
+   never hold a hover after a tap. A SELECTED item hovers exactly like any
+   other — being current is said by its lit state, never by a brighter wash.
 
    The :not() list is every button that already carries its own hover in a
    scoped stylesheet — keep it in sync when adding one. Nothing on the map
@@ -563,26 +564,6 @@ hr {
 		background-color: color-mix(in srgb, var(--rt-yellow) 30%, transparent);
 		outline: 3px solid color-mix(in srgb, currentColor 9%, transparent);
 		outline-offset: 0;
-	}
-
-	/* Already sitting on gold: 30% over gold is invisible, so the wash goes to
-	   70% and reads as the same gesture. Keyed off every marker this app uses
-	   for "this one is selected" — and selected means gold-filled here. Miss
-	   one and the button silently falls back to the 30% dark wash. */
-	body.mobile-app
-		:is(button, a, [role="button"], [role="tab"]):not(
-			.mobile-map-fill *,
-			:disabled,
-			[aria-disabled="true"]
-		):is(
-			.active,
-			.selected,
-			.rt-on-gold,
-			[data-on-gold],
-			[aria-pressed="true"],
-			:not([role="option"])[aria-selected="true"]
-		):hover {
-		background-color: color-mix(in srgb, var(--rt-yellow) 30%, transparent);
 	}
 }
 
