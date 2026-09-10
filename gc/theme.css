@@ -670,6 +670,18 @@
 	inherits: false;
 	initial-value: 1;
 }
+/* Same typing, same reason: these hold cq-unit maths and must be EVALUATED at
+   the wrapper, not pasted into min() as text. */
+@property --fit-h {
+	syntax: "<number>";
+	inherits: false;
+	initial-value: 1;
+}
+@property --fit-w {
+	syntax: "<number>";
+	inherits: false;
+	initial-value: 1;
+}
 
 /* Wrapper holds the hand image + phone frame together.
    The box is the PHONE. The arm hangs out the bottom as decoration and is
@@ -696,9 +708,8 @@
 	flex-shrink: 0;
 
 	/* THE CROP RULE. The phone screen must land inside the stage top-to-bottom
-	   at every window size and every browser zoom, and must never grow past its
-	   hand-tuned size. So scale the whole assembly uniformly by
-	   (stage height ÷ phone height), capped at 1. It only ever shrinks.
+	   at every window size and every browser zoom. So scale the whole assembly
+	   uniformly to whatever the stage allows — see the two-axis fit below.
 
 	   The art cannot reflow: --phone-width/height, --hand-width, --hand-left/-top
 	   and --hand-stretch are hand-tuned against hand_phoneV3.webp and only hold
@@ -729,9 +740,31 @@
 	   Declaring `syntax: '<number>'` forces the browser to actually evaluate it
 	   here, where 100cqh is meaningful. Do not "simplify" the @property away.
 
+	   IT GROWS TOO. This used to be min(1, height-only): the phone could shrink
+	   to fit a short stage but never grow, and width was not an input at all —
+	   so a wide stage left the phone at its 452px drawing size with dead
+	   gutters either side, at every width from 700 to 1400.
+
+	   Now it takes the SMALLER of the two fits, which is what "as big as the
+	   stage allows" means with an aspect ratio to respect: whichever axis runs
+	   out first decides. Growing is still one uniform scale of the finished
+	   picture, so nothing reflows and no knob above is re-tuned — the ban is on
+	   re-tuning the art, not on the size of the whole.
+
+	   The width fit measures against --stage-reach, not the phone: the arm is
+	   drawn ~2.7x the phone's width and runs off the left edge on purpose, so
+	   fitting the ART would shrink the screen to protect scenery (same reason
+	   the height fit uses --phone-height, not phone + arm). --stage-reach is
+	   how much stage one phone-width is allowed to claim.
+
 	   --stage-pad is the breathing room: ~10px above AND below the screen. */
 	--stage-pad: 20px;
-	--fit: min(1, calc((100cqh - var(--stage-pad)) / var(--phone-height)));
+	/* The share of the stage's width the phone screen may fill. 1 = edge to
+	   edge; the arm still runs off-frame beyond it. */
+	--stage-reach: 0.92;
+	--fit-h: calc((100cqh - var(--stage-pad)) / var(--phone-height));
+	--fit-w: calc(100cqw * var(--stage-reach) / var(--phone-width));
+	--fit: min(var(--fit-h), var(--fit-w));
 	transform: translate(var(--wrapper-nudge), var(--wrapper-drop))
 		scale(var(--fit));
 	transform-origin: center center;

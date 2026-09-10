@@ -200,6 +200,20 @@
 	--rt-dur-base: 220ms; /* fade scrim */
 	--rt-dur-panel: 260ms; /* slide-in panels */
 
+	/* ── Bottom tab bar ─────────────────────────────────────── */
+	/* Anything that must sit ON the tab bar's top edge (export bars, drawers,
+	   sheets) offsets by this — nudging the bar used to leave six hardcoded
+	   copies a hairline out of line. Tablet override is the rule below. */
+	--gc-navbar-h: calc(3.5625rem + max(env(safe-area-inset-bottom), 10px));
+}
+
+/* The tab bar grows at this container width, so everything pinned to its top
+   edge must grow with it. `.mobile-shell` is inside the desktop phone frame's
+   container; on native there is no container and the base value holds. */
+@container (min-width: 500px) {
+	.mobile-shell {
+		--gc-navbar-h: calc(4.3125rem + max(env(safe-area-inset-bottom), 10px));
+	}
 }
 
 /* Global <hr> divider — rust/terracotta line, visible outdoors. Never style hr locally; change THIS rule instead. */
@@ -496,14 +510,16 @@ hr {
 }
 
 /* ── Pointer hover — hollow buttons ─────────────────────────────────────
-   One hover language for every outline / bare button in Get Cache: the fill
-   tints toward the button's own colour and a soft ring of it appears outside
-   the edge. currentColor makes it self-tinting — white pill, gold clicker,
-   rust link all get their own hue from one rule. background-COLOR (not
-   background) so a gradient-filled button is untouched; outline (not
-   box-shadow) so a bevel is untouched. Solid gold / rust buttons glow via
-   their own rules instead. Hover-capable pointers only: a phone must never
-   hold a hover after a tap.
+   One hover language for every outline / bare button in Get Cache: a gold wash
+   fills it and a soft ring in the button's own colour appears outside the edge.
+   The RING is currentColor, the FILL never is — a fill in currentColor
+   converges on the ink and the label erases itself (gold chip on gold, dark
+   ink on dark). The wash is a fixed gold at two strengths, because one strength
+   cannot serve both grounds: 30% over dark, 70% over an already-gold button.
+   background-COLOR (not background) so a gradient-filled button is untouched;
+   outline (not box-shadow) so a bevel is untouched. Solid gold / rust buttons
+   glow via their own rules instead. Hover-capable pointers only: a phone must
+   never hold a hover after a tap.
 
    The :not() list is every button that already carries its own hover in a
    scoped stylesheet — keep it in sync when adding one. Nothing on the map
@@ -544,9 +560,29 @@ hr {
 			.fault-card,
 			.fault-card--usual
 		):hover {
-		background-color: color-mix(in srgb, currentColor 12%, transparent);
+		background-color: color-mix(in srgb, var(--rt-yellow) 30%, transparent);
 		outline: 3px solid color-mix(in srgb, currentColor 9%, transparent);
 		outline-offset: 0;
+	}
+
+	/* Already sitting on gold: 30% over gold is invisible, so the wash goes to
+	   70% and reads as the same gesture. Keyed off every marker this app uses
+	   for "this one is selected" — and selected means gold-filled here. Miss
+	   one and the button silently falls back to the 30% dark wash. */
+	body.mobile-app
+		:is(button, a, [role="button"], [role="tab"]):not(
+			.mobile-map-fill *,
+			:disabled,
+			[aria-disabled="true"]
+		):is(
+			.active,
+			.selected,
+			.rt-on-gold,
+			[data-on-gold],
+			[aria-pressed="true"],
+			:not([role="option"])[aria-selected="true"]
+		):hover {
+		background-color: color-mix(in srgb, var(--rt-yellow) 30%, transparent);
 	}
 }
 
@@ -1533,10 +1569,10 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
     filter: none;
 }
 
-/* The line indicator is the ONE signal for "this tab is focused" — 4px gold on the seam, with a soft shadow. */
+/* The line indicator is the ONE signal for "this tab is focused" — gold on the seam, with a soft shadow. */
 .nav-line {
     position: absolute;
-    height: 3px;
+    height: 2px;
     background: var(--rt-yellow-bright);
     box-shadow: var(--rt-nav-line);
     pointer-events: none;

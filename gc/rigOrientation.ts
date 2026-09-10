@@ -29,5 +29,22 @@ const LANDSCAPE_ROUTES = new Set(["/app/georef", "/georef"]);
  * portrait in another.
  */
 export function isLandscapeRoute(pathname: string): boolean {
-	return LANDSCAPE_ROUTES.has(pathname.replace(/\/+$/, "") || "/");
+	return LANDSCAPE_ROUTES.has(normalise(pathname));
 }
+
+/**
+ * Routes that take the whole screen, with no top bar over them.
+ *
+ * The top bar is navigation, and a route here is one where the content needs
+ * the height more than the page needs a way out: /app/georef fits a fixed-size
+ * sheet-and-satellite spread into a landscape phone, where the bar is a sixth
+ * of the screen. The BOTTOM bar stays — the tab strip is the way back, so
+ * dropping the top one costs nothing that is not still on screen.
+ */
+const NO_TOP_BAR_ROUTES = new Set(["/app/georef", "/georef"]);
+
+export function hasTopBar(pathname: string): boolean {
+	return !NO_TOP_BAR_ROUTES.has(normalise(pathname));
+}
+
+const normalise = (pathname: string) => pathname.replace(/\/+$/, "") || "/";
