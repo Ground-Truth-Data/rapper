@@ -781,6 +781,86 @@
 	container-type: inline-size;
 }
 
+/* ── THE PHONE, TURNED A QUARTER TURN ──
+   Opt-in via <PhoneRig landscape>. The turn is a rotation of the finished
+   composition, NOT a second set of knobs: the phone, the hand and their
+   alignment are the settled numbers above and are used here unchanged. There
+   is no landscape variant of --hand-left/-top and there must never be one —
+   that is the duplicate geometry the block above exists to prevent.
+
+   CLOCKWISE: the arm enters the portrait art from the bottom, so a clockwise
+   turn swings it to the TOP, the way a hand comes over a phone laid sideways.
+
+   THE PHONE TURNS; THE SCREEN DOES NOT. Rotating the wrapper alone turns its
+   children too, and the page inside comes out reading bottom-to-top — a
+   rotated PICTURE of a phone, not a phone held sideways. So the turn is
+   applied twice: once to the assembly, and once back on the frame's contents.
+   What the page gets is an upright screen that is wide instead of tall, which
+   is the whole point of asking for it. */
+.mobile-preview-backdrop.rig-landscape .mobile-preview-wrapper {
+	/* THE FIT DIVIDES BY THE AXIS THAT IS VERTICAL ON SCREEN, which after the
+	   turn is --phone-width. Reusing --phone-height here lets a 936px-long
+	   phone claim it needs only 452px of headroom: it computes --fit: 1 on
+	   almost any window and runs off both sides instead of scaling down. This
+	   is the ONE thing a rotation genuinely changes, and it is the reason the
+	   turn is a stated mode rather than a transform bolted on at the callsite. */
+	--fit: min(1, calc((100cqh - var(--stage-pad)) / var(--phone-width)));
+	/* NO HORIZONTAL NUDGE WHEN TURNED. --wrapper-nudge slides the composition
+	   sideways so the arm — which hangs off the LEFT in the portrait art — does
+	   not make the phone look off-centre. That is a portrait concern: there the
+	   phone is 452px in a wide stage and the offset is spare room being spent.
+	   Turned, the phone is 936px across and very nearly IS the stage, so the
+	   same 38px is room that does not exist; measured at 760x560 it pushed the
+	   frame 28px past the right edge. */
+	/* Rotation LAST — transforms apply right to left, so the phone is turned
+	   about its own centre first and the scale then acts on the turned box in
+	   screen axes. Written the other way round the offsets would push the phone
+	   along an axis that no longer points where it did. */
+	transform: translate(0, var(--wrapper-drop)) scale(var(--fit)) rotate(90deg);
+}
+
+/* THE SCREEN, PUT BACK UPRIGHT. One box holding everything the page renders,
+   sized to the frame's dimensions swapped and turned the other way, so what
+   lands inside it is an ordinary upright screen that happens to be wide.
+
+   ONE BOX, not this rule applied to each child. The frame's children are
+   static blocks that stack vertically; turning each about its own corner puts
+   the first one right and throws the rest out of the phone — measured, the
+   second child landed 200px LEFT of the frame. Normal flow has to happen
+   INSIDE the turned box, which is why <PhoneRig> renders this wrapper rather
+   than the stylesheet trying to catch children one at a time.
+
+   Turning about top-left and then sliding by one full height is deliberate: a
+   centre origin needs the offset written as half the difference of two
+   dimensions, which silently drifts the moment either of them changes. */
+.mobile-preview-screen {
+	width: var(--phone-height);
+	height: var(--phone-width);
+	transform-origin: top left;
+	transform: rotate(-90deg) translate(calc(-1 * var(--phone-height)), 0);
+	/* The page inside positions against the screen, not the phone — otherwise
+	   a `position: fixed` child measures from the frame's untouched, still
+	   portrait box and lands in the rotated axes. */
+	position: relative;
+	overflow: hidden;
+	contain: layout;
+	container-type: inline-size;
+}
+
+/* THE STAGE IS NOW LIMITED BY ITS WIDTH TOO. The turned phone is 936px across;
+   on a narrow window that overflows sideways even though it fits vertically.
+   The height rule above cannot see this — it only ever asked about headroom —
+   so the width gets its own term and the smaller of the two wins. */
+@container (max-width: 936px) {
+	.mobile-preview-backdrop.rig-landscape .mobile-preview-wrapper {
+		--fit: min(
+			1,
+			calc((100cqh - var(--stage-pad)) / var(--phone-width)),
+			calc((100cqw - var(--stage-pad)) / var(--phone-height))
+		);
+	}
+}
+
 /* Historical: Tablet mode (551–1040px, font-size: 26px scaling) was removed in
    April 2026. It caused persistent layout drift with fixed-position elements.
    A proper tablet-native layout is a future goal. See git history. */

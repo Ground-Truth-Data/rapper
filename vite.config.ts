@@ -135,10 +135,29 @@ return {
 		// node_modules, whose vendored test files vitest's default excludes miss outside the root.
 		include: [
 			"src/**/*.{test,spec}.{js,ts}",
+			// The shared tree is rapper's own furniture and carries its own
+			// tests; without these two globs they are collected by nothing and
+			// pass by never running — rig/nav/tierRoutes.test.ts sat unrun.
+			"rig/**/*.{test,spec}.{js,ts}",
+			"gc/**/*.{test,spec}.{js,ts}",
 			...mountedChildRepos().flatMap((r) => [
 				`../${r}/lib/**/*.{test,spec}.{js,ts}`,
 				`../${r}/routes/**/*.{test,spec}.{js,ts}`,
 			]),
+		],
+		// Scoping the globs to lib/ was meant to keep vendored tests out, but a
+		// child's own service can have its own node_modules UNDER lib/ — the
+		// GDAL service does — and vitest's default excludes only cover the
+		// project root. Eight third-party suites were being collected and
+		// failing on missing chai/puppeteer, noise that reads as a broken repo.
+		// The leading ../ matters: these globs are matched against paths that
+		// resolve OUTSIDE this project, and a root-anchored "**/node_modules/**"
+		// does not reach them.
+		exclude: [
+			"**/node_modules/**",
+			"../**/node_modules/**",
+			"**/dist/**",
+			"**/.svelte-kit/**",
 		],
 		// Same as ReTreever's runner — without it a spy leaks across tests and
 		// bakeService's geolocation/indexedDB stubs bleed into the next file.
