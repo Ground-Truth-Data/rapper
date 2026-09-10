@@ -15,19 +15,25 @@ const read = (rel: string) =>
 const rig = read("./PhoneRig.svelte");
 const theme = read("./theme.css");
 
-/** Every --fit DECLARATION under a .rig-landscape rule, comments stripped.
- *  Slicing the file and grepping the remainder is not enough: the prose
- *  explaining the axis names both custom properties, so a pattern spanning the
- *  rest of the file is satisfied by the comment and passes even when the rule
- *  itself divides by the wrong one. Whole declarations, not lines — the
- *  narrow-window min() spans several lines. */
+/** The .rig-landscape rules with comments stripped. Stripping is not optional:
+ *  the prose explaining the axis names both custom properties, so a pattern
+ *  spanning the rest of the file is satisfied by the COMMENT and passes even
+ *  when the rule itself divides by the wrong one. */
+const landscapeRule = () =>
+	theme.slice(theme.indexOf(".rig-landscape")).replace(/\/\*[\s\S]*?\*\//g, "");
+
 const landscapeFits = () =>
-	[
-		...theme
-			.slice(theme.indexOf(".rig-landscape"))
-			.replace(/\/\*[\s\S]*?\*\//g, "")
-			.matchAll(/--fit:([^;]*);/g),
-	].map((m) => m[1].replace(/\s+/g, " ").trim());
+	[...landscapeRule().matchAll(/--fit:([^;]*);/g)].map((m) =>
+		m[1].replace(/\s+/g, " ").trim(),
+	);
+
+/** Which phone axis each vertical (100cqh) term divides by. The axis lives in
+ *  --fit-h now rather than inline in --fit, so matching only --fit finds no
+ *  100cqh at all and the loop below would assert on an empty list. */
+const landscapeHeadrooms = () =>
+	[...landscapeRule().matchAll(/100cqh[^;]*?\/\s*var\((--phone-\w+)\)/g)].map(
+		(m) => m[1],
+	);
 
 describe("the phone can be turned a quarter turn", () => {
 	it("is opt-in, so every other page keeps the portrait rig", () => {
@@ -70,15 +76,12 @@ describe("the phone can be turned a quarter turn", () => {
 
 describe("the fit rule follows the turn", () => {
 	it("divides by the axis that is vertical ON SCREEN, not the taller one", () => {
-		const fits = landscapeFits();
-		expect(fits.length).toBeGreaterThan(0);
+		const headrooms = landscapeHeadrooms();
+		expect(headrooms.length).toBeGreaterThan(0);
 		// Turned, the phone's on-screen height is --phone-width. Dividing the
 		// headroom by --phone-height lets it claim it needs 452px when it needs
-		// 936, so it computes --fit:1 and runs off both sides of the window.
-		for (const fit of fits) {
-			const headroom = fit.match(/100cqh[^/]*\/\s*var\((--phone-\w+)\)/);
-			expect(headroom?.[1]).toBe("--phone-width");
-		}
+		// 936, so it fits on any window and runs off both sides of it.
+		for (const axis of headrooms) expect(axis).toBe("--phone-width");
 	});
 
 	// Found by measuring the live page, not by looking at it: at 760x560 the
@@ -94,8 +97,21 @@ describe("the fit rule follows the turn", () => {
 		expect(transform).not.toMatch(/--wrapper-nudge/);
 	});
 
-	it("still never scales the phone UP past its hand-tuned size", () => {
-		for (const fit of landscapeFits()) expect(fit).toMatch(/^min\(\s*1\s*,/);
+	// The turned phone grows to fill the stage, exactly as the portrait rig
+	// does. It used to carry a min(1, ...) clamp that let it shrink but never
+	// grow, so a wide window drew a 936px phone with ~500px of dead stage
+	// either side. What must not creep back is a clamp, so the assertion is
+	// now the inverse of the one it replaces.
+	it("grows to fill the stage rather than stopping at its drawing size", () => {
+		for (const fit of landscapeFits()) expect(fit).not.toMatch(/min\(\s*1\s*,/);
+	});
+
+	// Both axes are inputs. A height-only fit overflows a narrow window
+	// sideways; a width-only fit overflows a short one vertically.
+	it("asks about both axes, so whichever runs out first decides", () => {
+		const rule = landscapeRule();
+		expect(rule).toMatch(/--fit-h:[^;]*100cqh[^;]*--phone-width/);
+		expect(rule).toMatch(/--fit-w:[^;]*100cqw[^;]*--phone-height/);
 	});
 });
 
