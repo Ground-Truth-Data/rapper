@@ -831,13 +831,24 @@
    What the page gets is an upright screen that is wide instead of tall, which
    is the whole point of asking for it. */
 .mobile-preview-backdrop.rig-landscape .mobile-preview-wrapper {
-	/* THE FIT DIVIDES BY THE AXIS THAT IS VERTICAL ON SCREEN, which after the
-	   turn is --phone-width. Reusing --phone-height here lets a 936px-long
-	   phone claim it needs only 452px of headroom: it computes --fit: 1 on
-	   almost any window and runs off both sides instead of scaling down. This
-	   is the ONE thing a rotation genuinely changes, and it is the reason the
-	   turn is a stated mode rather than a transform bolted on at the callsite. */
-	--fit: min(1, calc((100cqh - var(--stage-pad)) / var(--phone-width)));
+	/* THE AXES SWAP, NOTHING ELSE DOES. Turned, the phone's on-screen height is
+	   --phone-width and its on-screen width is --phone-height. Dividing the
+	   headroom by --phone-height instead lets a 936px-long phone claim it needs
+	   only 452px: it fits on almost any window and runs off both sides rather
+	   than scaling down. This is the ONE thing a rotation genuinely changes,
+	   and the reason the turn is a stated mode rather than a transform bolted
+	   on at the callsite.
+
+	   Both terms, smaller wins — same as portrait: whichever axis runs out
+	   first decides how big the whole picture may be. There is no upper clamp:
+	   the phone grows to fill the stage exactly as the portrait rig does, so a
+	   wide window shows a big phone instead of a 936px one adrift in gutters.
+	   Growing is one uniform scale of the finished composition, so nothing
+	   reflows and no hand-tuned knob is re-solved — the ban is on re-tuning the
+	   art, not on the size of the whole. */
+	--fit-h: calc((100cqh - var(--stage-pad)) / var(--phone-width));
+	--fit-w: calc(100cqw * var(--stage-reach) / var(--phone-height));
+	--fit: min(var(--fit-h), var(--fit-w));
 	/* NO HORIZONTAL NUDGE WHEN TURNED. --wrapper-nudge slides the composition
 	   sideways so the arm — which hangs off the LEFT in the portrait art — does
 	   not make the phone look off-centre. That is a portrait concern: there the
@@ -880,19 +891,6 @@
 	container-type: inline-size;
 }
 
-/* THE STAGE IS NOW LIMITED BY ITS WIDTH TOO. The turned phone is 936px across;
-   on a narrow window that overflows sideways even though it fits vertically.
-   The height rule above cannot see this — it only ever asked about headroom —
-   so the width gets its own term and the smaller of the two wins. */
-@container (max-width: 936px) {
-	.mobile-preview-backdrop.rig-landscape .mobile-preview-wrapper {
-		--fit: min(
-			1,
-			calc((100cqh - var(--stage-pad)) / var(--phone-width)),
-			calc((100cqw - var(--stage-pad)) / var(--phone-height))
-		);
-	}
-}
 
 /* Historical: Tablet mode (551–1040px, font-size: 26px scaling) was removed in
    April 2026. It caused persistent layout drift with fixed-position elements.
