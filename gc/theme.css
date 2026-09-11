@@ -657,8 +657,8 @@
 
    Hidden below the phone-frame breakpoint: narrower, the backdrop is entirely
    filled by the hand and there is no margin to sit in, so the words would land
-   on the phone itself. 551px is THE breakpoint (breakpoint.ts, MOBILE_MAX_PX +
-   1); it is a literal here because CSS cannot import it.
+   on the phone itself. 900px is THE breakpoint (breakpoint.ts,
+   PHONE_RIG_MIN_PX); it is a literal here because CSS cannot import it.
 
    Each item carries its own feathered wash rather than a bar across the
    bottom: the backdrop runs from bright sky to dark ground to bare branches,
@@ -669,7 +669,7 @@
 	display: none;
 }
 
-@media (min-width: 551px) {
+@media (min-width: 900px) {
 	.rig-legal {
 		position: absolute;
 		left: 0;
