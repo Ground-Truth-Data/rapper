@@ -866,7 +866,13 @@
 	width: var(--phone-width);
 	height: var(--phone-height);
 	background: var(--color-background);
-	overflow: hidden;
+	/* THE WALL: nothing inside the phone may paint outside it. `clip` not
+	   `hidden` — hidden does NOT clip a position:fixed descendant, and every
+	   popover in the app is fixed, so for years they escaped the frame while
+	   being positioned by it (contain:layout below). Positioned in, clipped
+	   out: that gap is what let a mis-computed popover land on the desktop.
+	   `clip` closes it without creating a scroll container. */
+	overflow: clip;
 	position: relative;
 	z-index: 0;
 	/* Rounded corners to match the phone screen shape in the hand image */
@@ -877,11 +883,12 @@
 	   painted opening. The knobs above are now solved so the art covers the
 	   frame by 3px on every side, so there is no gap to hide. If a sliver ever
 	   reappears, re-solve the knobs; do not re-add a ring. */
-	/* CRITICAL: Contain position:fixed children within the frame.
-	   - contain: layout — makes this a containing block for ALL positioned descendants
-	     (including position:fixed), so fixed elements position relative to the frame
-	   NOTE: Do NOT use `contain: paint` — it clips the big hand animation that slides
-	   in from outside the frame. The `overflow: hidden` above handles clipping. */
+	/* Makes the frame the containing block for fixed descendants, so a popover's
+	   top/left are measured from the phone rather than the desktop window. The
+	   other half of the pair — clipping — is `overflow: clip` above; neither
+	   alone keeps a popover in.
+	   Do NOT use `contain: paint`: it clips the hand that slides in from outside
+	   the frame. `clip` on the frame does not, because the hand is not inside it. */
 	contain: layout;
 	container-type: inline-size;
 }
