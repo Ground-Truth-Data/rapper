@@ -664,11 +664,13 @@ body.mobile-app .rt-selectable * {
 
 /* Map scale bar — shared by /mobile/map + /mobile/offlinev2/lite. Lives here (not MobMapPage's <style>) because the offline route never mounts MobMapPage. */
 
-/* Mapbox logo + scale bar share a baseline; logo nudged up/right to clear the rounded phone-frame corner. */
+/* Bottom of the map-chrome stack (scale bar > pills > logo). Right-aligned with
+   the zoom pill: on the left the shovel artwork sits behind the logo. */
 .mobile-map-fill .mapboxgl-ctrl-bottom-left,
 .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	bottom: calc(env(safe-area-inset-bottom) + 1.25rem + 56px + 15px + 6px) !important;
-	left: calc(0.75rem + 10px) !important;
+	left: auto !important;
+	right: 0.75rem !important;
 	padding: 0 !important;
 }
 .mobile-map-fill .mapboxgl-ctrl-logo,
