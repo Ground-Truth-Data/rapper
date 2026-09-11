@@ -168,6 +168,20 @@ describe("which routes are turned", () => {
 	// The page that wants the turn is a DESCENDANT of the layout that draws the
 	// rig, so it cannot pass a prop up. Left to the layouts, the same route
 	// would be listed three times and drift the first time one was edited.
+	/* A RATIO CANNOT PROMISE PIXELS. --stage-reach: 0.97 leaves 30px of phone
+	   showing at a 2000px window and 18px at 1200px, and the ask was a minimum
+	   at every width. Subtracting a fixed gutter is the only shape that holds,
+	   so the test is on the shape, not on the number. */
+	it("keeps the turned phone off the window edges by a fixed gutter", () => {
+		const rule = landscapeRule();
+		expect(rule).toMatch(/--stage-side:\s*\d+px/);
+		expect(rule).toMatch(/--fit-w:[^;]*100cqw\s*-\s*var\(--stage-side\)/);
+	});
+
+	it("does not go back to reaching for the whole stage", () => {
+		expect(landscapeRule()).not.toMatch(/--stage-reach:\s*1\s*;/);
+	});
+
 	it("is decided in one table, not once per mounting layout", () => {
 		const mounts = [
 			read("../../getCache_OnlineMap/routes/+layout.svelte"),

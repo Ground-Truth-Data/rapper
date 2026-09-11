@@ -918,14 +918,19 @@
 	   Growing is one uniform scale of the finished composition, so nothing
 	   reflows and no hand-tuned knob is re-solved — the ban is on re-tuning the
 	   art, not on the size of the whole. */
-	/* EDGE TO EDGE WHEN TURNED. Portrait holds the phone back to 0.92 of the
-	   stage because the arm sweeps in from the left and needs room to read as
-	   an arm. Turned, the arm comes over the TOP, so the width it was being
-	   given back is spare — measured at 1900px wide, 76px of dead stage each
-	   side. --stage-pad still keeps the phone off the top and bottom edges. */
-	--stage-reach: 1;
+	/* A MARGIN IN PIXELS, NOT A RATIO. Portrait holds the phone back to 0.92 of
+	   the stage because the arm sweeps in from the left and needs room to read
+	   as an arm; turned, the arm comes over the TOP, so that width is spare and
+	   the phone may use nearly all of it. Nearly: running the body flush to the
+	   window edge cropped the phone's own rounded corner, which reads as the
+	   page being broken rather than as a phone filling the frame.
+	   --stage-reach cannot express that — a ratio yields whatever it yields at
+	   the window you happen to be at (0.97 is 30px at 2000px wide and 18px at
+	   1200px). Subtracting the gutter buys the same amount of phone at every
+	   width, the way --fit-h already subtracts --stage-pad on the other axis. */
+	--stage-side: 60px;
 	--fit-h: calc((100cqh - var(--stage-pad)) / var(--phone-width));
-	--fit-w: calc(100cqw * var(--stage-reach) / var(--phone-height));
+	--fit-w: calc((100cqw - var(--stage-side)) / var(--phone-height));
 	--fit: min(var(--fit-h), var(--fit-w));
 	/* NO HORIZONTAL NUDGE WHEN TURNED. --wrapper-nudge slides the composition
 	   sideways so the arm — which hangs off the LEFT in the portrait art — does
