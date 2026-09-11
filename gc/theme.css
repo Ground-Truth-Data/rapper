@@ -701,6 +701,20 @@
 		pointer-events: auto;
 	}
 
+	/* Only the LINK reads as pressable. The copyright beside it is the same
+	   ink and the same size, so without an outline of its own the link would
+	   be indistinguishable from a label until the pointer happened to cross
+	   it. Border at rest, filled on hover — the fill is the press. */
+	a.rig-legal__item {
+		border: 1px solid color-mix(in srgb, var(--rt-yellow) 55%, transparent);
+		border-radius: 999px;
+		transition:
+			background-color 0.16s ease,
+			border-color 0.16s ease,
+			color 0.16s ease,
+			transform 0.16s ease;
+	}
+
 	/* The wash. Behind the ink, feathered to nothing at the edges — closest-side
 	   so the ellipse hugs the words at either length. */
 	.rig-legal__item::before {
@@ -718,8 +732,15 @@
 
 	a.rig-legal__item:hover,
 	a.rig-legal__item:focus-visible {
-		color: var(--rt-cream);
+		background: var(--rt-yellow);
+		border-color: var(--rt-yellow);
+		color: #000;
+		transform: translateY(-1px);
 		outline: none;
+	}
+
+	a.rig-legal__item:active {
+		transform: translateY(0);
 	}
 }
 

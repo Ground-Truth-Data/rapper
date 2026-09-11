@@ -51,6 +51,9 @@ const dev = import.meta.env.DEV;
 	z-index: 8900;
 	color: #d8d4c8;
 	font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+	/* A rail of readouts, not a card of sentences — the tight padding is the
+	   instrument look. SideCard's roomier default is for the public cards. */
+	--card-pad: 12px 14px;
 }
 :global(.dock:empty) { display: none; }
 /* The dock owns placement, the item keeps its look. */
