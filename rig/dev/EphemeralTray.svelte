@@ -32,7 +32,6 @@ import { page } from "$app/state";
 import EphemeralCard from "./EphemeralCard.svelte";
 import EphemeralDock from "./EphemeralDock.svelte";
 import { trayHost } from "./trayHost.svelte";
-import { dockFold, toggleDockFold } from "./dockFold.svelte";
 import arrowGold from "../assets/arrowIconGold.webp";
 
 let { title }: { title?: string } = $props();
@@ -51,7 +50,6 @@ const FOLD_KEY = "rt-ephem-collapsed";
 const urlEphem = page.url.searchParams.get("ephem");
 let collapsed = $state(urlEphem !== "1");
 let tab = $state<HTMLElement>();
-let dockTab = $state<HTMLElement>();
 
 onMount(() => {
 	if (urlEphem === null) collapsed = sessionStorage.getItem(FOLD_KEY) !== "0";
@@ -66,13 +64,6 @@ function toggleFold() {
 // otherwise become the containing block and pin the tab to the phone's corner.
 $effect(() => {
 	const el = tab;
-	if (!el) return;
-	document.body.appendChild(el);
-	return () => el.remove();
-});
-
-$effect(() => {
-	const el = dockTab;
 	if (!el) return;
 	document.body.appendChild(el);
 	return () => el.remove();
@@ -100,19 +91,6 @@ $effect(() => {
 </script>
 
 {#if dev}
-	<!-- Always mounted, never hidden with the docks — it is the only way back
-	     once they are folded. -->
-	<button
-		type="button"
-		class="dock-tab"
-		class:dock-tab--folded={dockFold.folded}
-		bind:this={dockTab}
-		onclick={toggleDockFold}
-		title={dockFold.folded ? "Show side panels" : "Hide side panels"}
-		aria-pressed={!dockFold.folded}
-	>
-		▤
-	</button>
 	{#if collapsed}
 		<button type="button" class="ephem-tab" bind:this={tab} onclick={toggleFold} aria-label="Show dev tray">
 			<img src={arrowGold} alt="" />
@@ -125,32 +103,6 @@ $effect(() => {
 {/if}
 
 <style>
-.dock-tab {
-	all: unset;
-	position: fixed;
-	bottom: 14px;
-	left: 58px;
-	z-index: 8901;
-	cursor: pointer;
-	display: grid;
-	place-items: center;
-	width: 30px;
-	height: 30px;
-	border-radius: 6px;
-	font-size: 15px;
-	line-height: 1;
-	color: var(--rt-yellow, #e8b923);
-	background: rgba(20, 20, 20, 0.72);
-	border: 1px solid rgba(232, 185, 35, 0.45);
-	opacity: 0.55;
-	transition: opacity 0.15s;
-}
-.dock-tab:hover { opacity: 1; }
-.dock-tab--folded {
-	opacity: 0.9;
-	color: #8a8578;
-	border-color: rgba(138, 133, 120, 0.5);
-}
 .ephem-tab {
 	all: unset;
 	position: fixed;

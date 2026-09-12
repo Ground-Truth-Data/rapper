@@ -19,11 +19,9 @@ import "./devCard.css";
  * a page uses to move its own nodes in.
  */
 import type { Snippet } from "svelte";
-import { onMount } from "svelte";
 import { page } from "$app/state";
 import SideCard from "$gc/SideCard.svelte";
 import { devChromeShows } from "$gc/devChrome";
-import { dockFold, initDockFold } from "./dockFold.svelte";
 
 let {
 	side = "left",
@@ -49,11 +47,9 @@ const dev = import.meta.env.DEV;
  * so the question is asked of the URL, here, once for every dock.
  */
 const shows = $derived(dev && devChromeShows(page.url));
-
-onMount(() => initDockFold(page.url));
 </script>
 
-{#if shows && !dockFold.folded}
+{#if shows}
 	<SideCard {side} {top} bind:el={host} class="dock" data-ephemeral-dock>
 		{@render children?.()}
 	</SideCard>
