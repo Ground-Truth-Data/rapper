@@ -310,6 +310,31 @@ hr {
 	box-sizing: border-box;
 }
 
+/* A ROUNDED BOX THAT SCROLLS KEEPS ITS SCROLLBAR OFF THE CORNERS. Left alone
+   the track runs the full height of the box, so at either end the thumb rides
+   out over the curve and crosses the border. Set --scroll-inset to the box's
+   own radius wherever this is used; the default suits a 1rem corner. */
+.rt-scroll-inset {
+	scrollbar-width: thin;
+	scrollbar-color: var(--rt-border-strong, rgb(255 255 255 / 0.28)) transparent;
+}
+
+.rt-scroll-inset::-webkit-scrollbar {
+	width: 6px;
+}
+
+.rt-scroll-inset::-webkit-scrollbar-track {
+	background: transparent;
+	/* margin, not padding: the track BOX shrinks, so the thumb cannot reach the
+	   corner even at the extremes of the scroll. */
+	margin-block: var(--scroll-inset, 1rem);
+}
+
+.rt-scroll-inset::-webkit-scrollbar-thumb {
+	background: var(--rt-border-strong, rgb(255 255 255 / 0.28));
+	border-radius: 99px;
+}
+
 /* Gold lowercase title — the popover's heading row. */
 .rt-popover-title {
 	display: block;
