@@ -205,6 +205,14 @@
 	   sheets) offsets by this — nudging the bar used to leave six hardcoded
 	   copies a hairline out of line. Tablet override is the rule below. */
 	--gc-navbar-h: calc(3.5625rem + max(env(safe-area-inset-bottom), 10px));
+
+	/* ── Top nav bar ────────────────────────────────────────── */
+	/* Twin of --gc-navbar-h, for anything that hangs off the top bar's bottom
+	   edge. TopBarMobile overwrites this on :root with the nav's MEASURED
+	   height (it is content-sized by its tallest icon); this value is only the
+	   pre-mount fallback, kept in step with the 4rem truck + its 0.3rem link
+	   padding. */
+	--gc-topbar-h: calc(4.6rem + env(safe-area-inset-top));
 }
 
 /* The tab bar grows at this container width, so everything pinned to its top
