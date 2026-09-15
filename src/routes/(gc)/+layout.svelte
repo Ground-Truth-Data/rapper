@@ -9,6 +9,8 @@ configureTilesFromEnv();
 let { children } = $props();
 </script>
 
-<PhoneRig viewport landscape={isLandscapeRoute(page.url.pathname)}>
+<!-- No `viewport`: rapper draws a nav above every page in dev, so the phone
+     takes the box under it, never the window. -->
+<PhoneRig landscape={isLandscapeRoute(page.url.pathname)}>
 	{@render children()}
 </PhoneRig>
