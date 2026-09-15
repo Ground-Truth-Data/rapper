@@ -322,6 +322,54 @@ hr {
 	box-sizing: border-box;
 }
 
+/* THE PAD AND ITS KEYS — one tray of five equal keys. Used by BOTH courses of
+   the feature card: the section rail and the pin library. They are one object
+   seen twice, so they are ONE class, not two rules that happen to agree. Two
+   flex rows in two files each computing "a fifth" their own way is what let
+   them drift until one row had keys and the other was loose labels.
+
+   Like a dial pad: every key is a key. A key never loses its border or its
+   fill to say something about its contents — state paints OVER the key
+   (sage = holds data, gold = showing, terracotta = action), the way CANCEL is
+   red and ENTER green while both stay obviously keys. Height is the ONLY
+   thing a course may set for itself: --rt-key-h, because pin art needs more
+   room than a caption. */
+.rt-pad {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	align-items: stretch;
+	gap: 6px;
+	padding: 6px;
+	border-radius: 16px;
+	background: rgba(0, 0, 0, 0.3);
+	border: 1.5px solid rgba(255, 255, 255, 0.07);
+	box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+.rt-key {
+	min-width: 0;
+	height: var(--rt-key-h, 46px);
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 3px;
+	padding: 3px 2px;
+	border-radius: 11px;
+	background: rgba(255, 255, 255, 0.045);
+	border: 1.4px solid rgba(255, 255, 255, 0.1);
+	color: var(--rt-fg-muted);
+	font-family: inherit;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+	transition:
+		background 0.16s ease,
+		border-color 0.16s ease,
+		color 0.16s ease,
+		box-shadow 0.16s ease;
+}
+
 /* A ROUNDED BOX THAT SCROLLS KEEPS ITS SCROLLBAR OFF THE CORNERS. Left alone
    the track runs the full height of the box, so at either end the thumb rides
    out over the curve and crosses the border. Set --scroll-inset to the box's
