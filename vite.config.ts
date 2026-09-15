@@ -3,6 +3,7 @@ import { existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
 import { noEscapeHatch } from "./src/lib/guards/noEscapePlugin";
+import { noRawCamera } from "./src/lib/guards/noRawCameraPlugin";
 import { CHILDREN, childByRepo, mountPath } from "./rig/childRegistry";
 import { mountedChild } from "./scripts/mounted.mjs";
 
@@ -118,6 +119,9 @@ return {
 		printLandingUrl(),
 		// noEscapeHatch guard, rooted at the WORKSPACE (not rapper/) — children are siblings of both parents, so scoping to rapper/ would make every child look "outside" and the guard vacuous.
 		noEscapeHatch(fileURLToPath(new URL("..", import.meta.url))),
+		// Camera mutations go through safeMap.ts — see the plugin for why this is a
+		// build step and not the lint script it replaces.
+		noRawCamera(fileURLToPath(new URL("..", import.meta.url))),
 		sveltekit(),
 	],
 
