@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
 import { noEscapeHatch } from "./src/lib/guards/noEscapePlugin";
 import { noRawCamera } from "./src/lib/guards/noRawCameraPlugin";
+import { pdfjsWasm } from "./src/lib/vite/pdfjsWasmPlugin";
 import { CHILDREN, childByRepo, mountPath } from "./rig/childRegistry";
 import { mountedChild } from "./scripts/mounted.mjs";
 
@@ -122,6 +123,8 @@ return {
 		// Camera mutations go through safeMap.ts — see the plugin for why this is a
 		// build step and not the lint script it replaces.
 		noRawCamera(fileURLToPath(new URL("..", import.meta.url))),
+		// pdf.js's JPEG 2000 decoder, served by fixed name (see the plugin).
+		pdfjsWasm(import.meta.url),
 		sveltekit(),
 	],
 
