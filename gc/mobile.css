@@ -458,6 +458,12 @@ hr {
 	font-weight: 500;
 	text-transform: lowercase;
 	letter-spacing: 0.02em;
+	/* The shared display-type shadow, same as every plaque name — it thickens
+	   the letterform, which is what carries gold in direct sun. */
+	text-shadow:
+		1px 1px 0 rgba(0, 0, 0, 0.9),
+		2px 2px 4px rgba(0, 0, 0, 0.7),
+		0 0 8px rgba(0, 0, 0, 0.5);
 }
 
 /* Hand-drawn ✕ close button — the ONE close glyph for every popup. Gold = do-this-next, red = trash, ghost = quiet exit.
