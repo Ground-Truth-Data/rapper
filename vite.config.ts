@@ -1,11 +1,12 @@
 import { sveltekit } from "@sveltejs/kit/vite";
+import tailwindcss from "@tailwindcss/vite";
 import { existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
-import { noEscapeHatch } from "./src/lib/guards/noEscapePlugin";
-import { noRawCamera } from "./src/lib/guards/noRawCameraPlugin";
-import { pdfjsWasm } from "./src/lib/vite/pdfjsWasmPlugin";
-import { CHILDREN, childByRepo, mountPath } from "./rig/childRegistry";
+import { noEscapeHatch } from "./src/lib/guards/noEscapePlugin.ts";
+import { noRawCamera } from "./src/lib/guards/noRawCameraPlugin.ts";
+import { pdfjsWasm } from "./src/lib/vite/pdfjsWasmPlugin.ts";
+import { CHILDREN, childByRepo, mountPath } from "./rig/childRegistry.ts";
 import { mountedChild } from "./scripts/mounted.mjs";
 
 // No PWA plugin here on purpose — Get Cache is a Capacitor native app, no service worker/manifest needed; one left here before silently shipped an unused SW until it crossed workbox's precache limit and broke the build.
@@ -125,6 +126,7 @@ return {
 		noRawCamera(fileURLToPath(new URL("..", import.meta.url))),
 		// pdf.js's JPEG 2000 decoder, served by fixed name (see the plugin).
 		pdfjsWasm(import.meta.url),
+		tailwindcss(),
 		sveltekit(),
 	],
 
