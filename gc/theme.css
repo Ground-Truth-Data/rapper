@@ -1,21 +1,15 @@
-/* THE SHARED THEME — imported by every tier's src/app.unique.css, which then
-   overrides the tokens the tiers disagree on. Must not know which tier imported it. */
-/* ALL @imports MUST come first */
+/* Imported by every tier's app.unique.css, which overrides the tokens the tiers disagree on. */
 @import 'tailwindcss';
 @import './mobile.css';
 @import './base.css';
-/* Vendor map CSS is ALWAYS `layer(vendor)`, never bare: both vendors ship
-   `.…-popup-content { background: #fff }` and unlayered they beat our overrides
-   on source order. Both renderers are live — Mapbox online, MapLibre offline. */
+/* Vendor map CSS is ALWAYS `layer(vendor)`, never bare — unlayered, both vendors' popup fills beat our overrides on source order. */
 @import 'mapbox-gl/dist/mapbox-gl.css' layer(vendor);
 @import 'maplibre-gl/dist/maplibre-gl.css' layer(vendor);
 @import 'mapbox-gl-opacity/dist/mapbox-gl-opacity.css' layer(vendor);
 
-/* Force class-based dark mode (disabled - we don't add .dark class) */
 @variant dark (&:where(.dark, .dark *));
 
-/* One @source per flat child: a glob would drag in every directory in fetch/.
-   A child missing here loses its Tailwind classes silently. */
+/* One @source per flat child: a glob would drag in every directory in fetch/; a child missing here loses its Tailwind classes silently. */
 @source '../../getCache_OnlineMap/**/*.{html,js,svelte,ts}';
 @source '../../getCache_OfflineMap/**/*.{html,js,svelte,ts}';
 @source '../../ReTreever_where/**/*.{html,js,svelte,ts}';
@@ -28,7 +22,6 @@
 	--color-background: var(--rt-bg);
 	--color-foreground: var(--rt-fg);
 
-	/* No gray-on-black: muted-foreground is terracotta-hint. */
 	--color-muted-foreground: #d18a5e;
 
 	--color-popover: var(--rt-bg);
@@ -53,7 +46,6 @@
 	/* Three accents: gold = commit, terracotta = context, sage = nature. */
 	--palette-gold: var(--rt-yellow);
 	--palette-terracotta: #b36940;
-	/* Links are rust, not gold: a link is a way out, not the thing to do. */
 	--palette-rust: #c97a4a;
 	--color-link: var(--palette-rust);
 	--palette-terracotta-hint: #d18a5e;
@@ -63,27 +55,20 @@
 	--color-accent-terracotta: var(--palette-terracotta);
 	--color-accent-sage: var(--palette-sage);
 
-	/* Role aliases. Text roles use base terracotta; luminous roles use the hint shade to pass AA. */
 	--color-section-header: var(--color-accent-terracotta);
 	--color-nav: var(--color-accent-terracotta);
 	--color-heading: var(--color-accent-terracotta);
 	--color-hint: var(--palette-terracotta-hint);
 	--color-mode-indicator: var(--palette-terracotta-hint);
 	--color-readout: var(--palette-terracotta-hint);
-	/* Map line/polygon draw stroke — matches the dark rust font, not the lighter hint. */
 	--color-draw: var(--color-accent-terracotta);
 
-	/* The .org site's gold is deliberately warmer than --rt-yellow: a poster's
-	   brand colour, not a tool's commit accent. Never collapse them — that
-	   repaints the mobile app. Two golds because the artwork uses two. Nothing
-	   on the .org site types a gold literal; alias it here. */
+	/* .org's gold is deliberately warmer than --rt-yellow — never collapse them, that repaints the mobile app. */
 	--color-gold-bar: #f5a119;
 	--color-gold-shard: #f0b60a;
 
-	/* Custom ReTreever Colors */
 	--color-border-accent: var(--rt-yellow);
 
-	/* DotMatrix Scoreboard */
 	--color-accent-lower: #ff9500;
 	--color-dot-off: var(--rt-input);
 	--color-dot-bg: #000000;
@@ -94,35 +79,27 @@
 
 	--font-retreever: var(--rt-font-display);
 
-	/* dt-web general font: a geometric sans with HARD edges. Rounded terminals read as bubbly against this artwork. */
 	--rt-font-web: Futura, "Century Gothic", "Trebuchet MS", sans-serif;
 }
 
-/* Custom Fonts - must come AFTER @import 'tailwindcss' */
 @font-face {
   font-family: 'Retreever';
-  /* Regenerate the WOFF2 with `woff2_compress retreeverFont.otf` whenever the OTF changes.
-     Aliased, not relative: `@import '$gc/theme.css'` flattens this rule into
-     the importer's bundle, so a relative URL resolves against the output dir and 404s. */
+  /* Aliased, not relative: `@import '$gc/theme.css'` flattens this rule, so a relative URL 404s against the output dir. */
   src: url('$gc/assets/retreeverFont.woff2') format('woff2'),
        url('$gc/assets/retreeverFont.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
-  /* swap, not block: headings were invisible for up to ~3s while the font loaded. */
   font-display: swap;
 }
 
 @layer base {
-	/* Prevent iOS WKWebView long-press context menu crash on ALL images */
-	img {
+img {
 		-webkit-touch-callout: none;
 		-webkit-user-select: none;
 		user-select: none;
 	}
 
-	/* `clip`, not `hidden`: hidden makes a scroll container on both axes, and
-	   pages here deliberately overflow sideways, so a trackpad gesture's
-	   horizontal delta rubber-banded instead of scrolling. */
+	/* `clip`, not `hidden`: pages here deliberately overflow sideways, and hidden's scroll container rubber-banded a trackpad's horizontal delta. */
 	html {
 		overflow-x: clip;
 	}
@@ -136,8 +113,7 @@
 
 	body.mobile-app {
 		position: fixed;
-		/* THE UNFRAMED CAP: 0.742 is APP_MAX_RATIO (breakpoint.ts), held by
-		   breakpoint.test.ts since CSS cannot import it. */
+		/* 0.742 is APP_MAX_RATIO (breakpoint.ts); held by breakpoint.test.ts since CSS cannot import it. */
 		width: min(100%, 74.2vh);
 		margin-inline: auto;
 		inset-inline: 0;
@@ -147,8 +123,7 @@
 		font-family: var(--font-retreever);
 	}
 
-	/* Rig on: the frame sets the width, so the unframed cap must let go. */
-	body.mobile-app-framed {
+body.mobile-app-framed {
 		width: 100%;
 	}
 
@@ -158,8 +133,7 @@
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	}
 
-	/* Bright and large for outdoor visibility. */
-	body.mobile-app {
+body.mobile-app {
 		color: var(--rt-fg);
 		font-size: 1.15rem;
 	}
@@ -207,9 +181,7 @@
 		opacity: 0.8;
 	}
 
-	/* Get Cache prose: emphasis is gold, an inline link is rust — two jobs, never
-	   one accent. .rt-text-title as well as h1: the footer tagline is display
-	   type on every page but an h1 only on the landing one. */
+	/* .rt-text-title as well as h1: the footer tagline is display type on every page but an h1 only on the landing one. */
 	.gc-shell :where(h1, .rt-text-title) {
 		text-shadow: var(--rt-bevel-text);
 	}
@@ -242,10 +214,7 @@
 
 }
 
-/* THE GOLD BUTTON — one recipe, every surface: a gradient, a hard bevel and a
-   glow, never a flat fill. `rt-gold-btn` on any <button> or <a>; sizes -sm / -lg.
-   Global so every tier can reach it (GoldButton.svelte consumes this class).
-   Colours from the --rt-gold-* tokens, never a literal hex. Gold fills NEVER
+/* THE GOLD BUTTON: never a literal hex, always the --rt-gold-* tokens. Gold fills NEVER
    carry white text — it disappears in sunlight; `.rt-on-gold` for anything custom. */
 .rt-gold-btn {
     display: inline-flex;
@@ -275,10 +244,7 @@
     color: var(--rt-gold-ink);
 }
 
-/* Letterpress: dark ink on a saturated fill gets a lit edge below and a shaded
-   edge above; the asymmetry carries it. SVGs take the same offsets as
-   drop-shadows. Also keyed on `color:` because hand-rolled gold fills wear no
-   shared class — dark ink is only ever chosen because the ground is saturated. */
+/* Also keyed on `color:` — hand-rolled gold fills wear no shared class, and dark ink is only ever chosen because the ground is saturated. */
 .rt-letterpress,
 .rt-letterpress *,
 .rt-gold-btn,
@@ -394,8 +360,6 @@
         drop-shadow(0 -1px 0 var(--rt-press-hi));
 }
 
-/* Touch-focus utilities: the class plus a `data-active` attribute; one element
-   per group stays lit until another in the group is touched. */
 @layer utilities {
 	.touch-active-text:where([data-active]) {
 		@apply text-accent;
@@ -418,8 +382,7 @@
   color-scheme: dark;
 }
 
-/* dt-web marketing surface, scoped to .rt-marketing. Dark only: the artwork is
-   painted for one background. The --web-* names stay because page CSS reads them. */
+/* Dark only: the artwork is painted for one background. The --web-* names stay because page CSS reads them. */
 .rt-marketing {
 	--web-bg: var(--rt-bg);
 	--web-fg: var(--rt-fg);
@@ -429,9 +392,7 @@
 	font-family: var(--rt-font-web);
 }
 
-/* Map controls. Every rule is doubled: the online map is Mapbox (`.mapboxgl-*`),
-   the offline map MapLibre (`.maplibregl-*`), and a mapbox-only selector fails
-   invisibly — the map renders, the controls land unstyled. */
+/* Every rule is doubled (Mapbox `.mapboxgl-*`, MapLibre `.maplibregl-*`) — a mapbox-only selector fails invisibly, controls land unstyled. */
 .mapboxgl-ctrl-group,
 .maplibregl-ctrl-group {
   background: rgba(0, 0, 0, 0.7) !important;
@@ -443,17 +404,14 @@
 .maplibregl-ctrl-group button + button {
   border-top: 1px solid rgba(255, 215, 0, 0.2) !important;
 }
-/* Zoom in — gold cross */
 .mapboxgl-ctrl button.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon,
 .maplibregl-ctrl button.maplibregl-ctrl-zoom-in .maplibregl-ctrl-icon {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' viewBox='0 0 29 29'%3E%3Cpath fill='%23ffd700' d='M14.5 8.5c-.75 0-1.5.75-1.5 1.5v3h-3c-.75 0-1.5.75-1.5 1.5S9.25 16 10 16h3v3c0 .75.75 1.5 1.5 1.5S16 19.75 16 19v-3h3c.75 0 1.5-.75 1.5-1.5S19.75 13 19 13h-3v-3c0-.75-.75-1.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
 }
-/* Zoom out — gold dash */
 .mapboxgl-ctrl button.mapboxgl-ctrl-zoom-out .mapboxgl-ctrl-icon,
 .maplibregl-ctrl button.maplibregl-ctrl-zoom-out .maplibregl-ctrl-icon {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' viewBox='0 0 29 29'%3E%3Cpath fill='%23ffd700' d='M10 13c-.75 0-1.5.75-1.5 1.5S9.25 16 10 16h9c.75 0 1.5-.75 1.5-1.5S19.75 13 19 13h-9z'/%3E%3C/svg%3E") !important;
 }
-/* Compass needle — gold north, faded gold south */
 .mapboxgl-ctrl-compass-arrow,
 .mapboxgl-ctrl button.mapboxgl-ctrl-compass .mapboxgl-ctrl-icon,
 .maplibregl-ctrl-compass-arrow,
@@ -461,12 +419,8 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' viewBox='0 0 29 29'%3E%3Cpath fill='%23ffd700' d='M10.5 14L14.5 4 18.5 14z'/%3E%3Cpath fill='%23ffd700' fill-opacity='.4' d='M10.5 14L14.5 24 18.5 14z'/%3E%3C/svg%3E") !important;
 }
 
-/* THE PHONE FRAME — the only definition of the phone's geometry, hand-tuned
-   against hand_phoneV3.webp so the drawn screen lines up with the frame. Never
-   re-derive, round or copy these; a page that looks wrong is the page's fault.
-   Only `?tune=1` in dev writes here. Knobs in tuning order: --hand-width,
-   --hand-left/-top, --hand-stretch (last resort; >1.05 means the asset is
-   wrong), --wrapper-nudge/-drop (shift the whole composition). */
+/* Hand-tuned against hand_phoneV3.webp. Never re-derive, round or copy these — a page
+   that looks wrong is the page's fault. Only `?tune=1` in dev writes here. */
 :root {
 	--phone-width: 452px;
 	--phone-height: 936px;
@@ -474,40 +428,31 @@
 	--hand-left: -673px;
 	--hand-top: -51px;
 	--hand-stretch: 1.023;
-	/* Aliases for consumers that redefine --hand-left/-top on themselves (the stage's .hand-rig). */
-	--hand-left-base: var(--hand-left);
+--hand-left-base: var(--hand-left);
 	--hand-top-base: var(--hand-top);
 	--hand-stretch-base: var(--hand-stretch);
 	--wrapper-nudge: 38px;
-	/* Moves the phone down from centre; composition only, never layout correction. */
-	--wrapper-drop: 0px;
+--wrapper-drop: 0px;
 }
 
-/* `absolute`: the phone gets the box left over under a nav. A phone-only page
-   wraps it in .phone-viewport; never re-declare position. */
+/* `absolute`: the phone gets the box left over under a nav; a phone-only page wraps it in .phone-viewport instead. */
 .mobile-preview-backdrop {
 	position: absolute;
 	inset: 0;
 	background: #000 url('$gc/assets/getcache_DT_bg.webp') center / cover no-repeat;
 	display: flex;
-	/* Flex centring, not margin:auto: margin collapses to 0 once the unscaled
-	   box is taller than the stage and pins the phone to the top. The crop rule
-	   always fits the phone, so flex centres the box the scale then shrinks about. */
+	/* Flex centring, not margin:auto: margin collapses to 0 once the unscaled box is taller than the stage, pinning the phone to the top. */
 	align-items: center;
 	justify-content: center;
 	overflow: hidden;
-	/* The stage 100cqh measures: cq units resolve against the NEAREST size container. */
-	container-type: size;
+container-type: size;
 }
 
-/* Small print on the backdrop, hidden below the phone-frame breakpoint where
-   there is no margin to sit in. Each item carries its own feathered wash: a
-   bar would be invisible over sky and a smudge over branches. */
+/* Each item carries its own feathered wash: a bar would be invisible over sky, a smudge over branches. */
 .rig-legal {
 	display: none;
 }
 
-/* Keyed off the body class from PHONE_FRAME_QUERY, not a copy of its width. */
 body.mobile-app-framed {
 	.rig-legal {
 		position: absolute;
@@ -518,14 +463,12 @@ body.mobile-app-framed {
 		justify-content: space-between;
 		align-items: flex-end;
 		gap: 1rem;
-		/* Clear of the backdrop art's yellow arrow in the bottom-left corner. */
-		padding: 0 clamp(1.5rem, 3vw, 2.5rem) 1.4rem;
+padding: 0 clamp(1.5rem, 3vw, 2.5rem) 1.4rem;
 		font-family: var(--rt-font-body);
 		font-size: 1.05rem;
 		line-height: 1;
 		letter-spacing: 0.02em;
-		/* Under the download pin and the phone, over the backdrop art. */
-		z-index: 1;
+z-index: 1;
 		pointer-events: none;
 	}
 
@@ -535,12 +478,10 @@ body.mobile-app-framed {
 		color: var(--rt-yellow);
 		text-decoration: none;
 		white-space: nowrap;
-		/* The link is the only part that needs the pointer back. */
-		pointer-events: auto;
+pointer-events: auto;
 	}
 
-	/* Only the link reads as pressable: border at rest, filled on hover. */
-	a.rig-legal__item {
+a.rig-legal__item {
 		border: 1px solid color-mix(in srgb, var(--rt-yellow) 55%, transparent);
 		border-radius: 999px;
 		transition:
@@ -550,8 +491,7 @@ body.mobile-app-framed {
 			transform 0.16s ease;
 	}
 
-	/* closest-side so the ellipse hugs the words at either length. */
-	.rig-legal__item::before {
+.rig-legal__item::before {
 		content: "";
 		position: absolute;
 		inset: -0.5rem -1.1rem;
@@ -578,15 +518,13 @@ body.mobile-app-framed {
 	}
 }
 
-/* A phone-only page (the Capacitor app; not rapper, which draws a nav). `fixed`
-   so the mobile URL bar sliding in cannot resize the stage. */
+/* Capacitor app only, not rapper. `fixed` so the mobile URL bar sliding in cannot resize the stage. */
 .phone-viewport {
 	position: fixed;
 	inset: 0;
 }
 
-/* --fit MUST be typed: untyped, 100cqh is substituted as text, never resolves,
-   and the scale() using it is dropped (the phone overflows at full size). */
+/* --fit MUST be typed: untyped, 100cqh substitutes as text and never resolves — scale() using it is dropped, phone overflows. */
 @property --fit {
 	syntax: "<number>";
 	inherits: false;
@@ -603,25 +541,20 @@ body.mobile-app-framed {
 	initial-value: 1;
 }
 
-/* The box is the PHONE; the arm hangs out the bottom and reserves no layout
-   space, or the browser centres phone+arm and the phone rides high. */
+/* The box is the PHONE; the arm hangs out the bottom and reserves no layout space, or the browser centres phone+arm and rides high. */
 .mobile-preview-wrapper {
 	position: relative;
 	width: var(--phone-width);
 	height: var(--phone-height);
 	flex-shrink: 0;
 
-	/* THE CROP RULE: scale the whole assembly to what the stage allows. The art
-	   cannot reflow, so never re-tune the knobs above to make something fit.
-	   Fit the PHONE, not the arm, which runs off the edge on purpose. 100cqh
-	   measures the backdrop. The smaller of the two fits wins; the width fit
-	   measures against --stage-reach, the share of the stage one phone may claim. */
+	/* THE CROP RULE: the art cannot reflow, so never re-tune the knobs above to make something fit.
+	   Fits the PHONE, not the arm, which runs off the edge on purpose; the smaller of the two fits wins. */
 	--stage-pad: 20px;
 	--stage-reach: 0.92;
 	--fit-h: calc((100cqh - var(--stage-pad)) / var(--phone-height));
 	--fit-w: calc(100cqw * var(--stage-reach) / var(--phone-width));
-	/* The 1 is a ceiling: a tall window must not upscale the tuned art. */
-	--fit: min(1, var(--fit-h), var(--fit-w));
+--fit: min(1, var(--fit-h), var(--fit-w));
 	transform: translate(var(--wrapper-nudge), var(--wrapper-drop))
 		scale(var(--fit));
 	transform-origin: center center;
@@ -645,84 +578,66 @@ body.mobile-app-framed {
 	width: var(--phone-width);
 	height: var(--phone-height);
 	background: var(--color-background);
-	/* `clip`, not `hidden`: hidden does not clip a position:fixed descendant, and every popover is fixed. */
+	/* `clip`, not `hidden` — hidden does not clip a position:fixed descendant, and every popover is fixed. */
 	overflow: clip;
 	position: relative;
 	z-index: 0;
 	border-radius: 40px;
-	/* The containing block for fixed descendants; the other half is `overflow: clip`
-	   above. NOT `contain: paint` — it clips the hand sliding in from outside the frame. */
+	/* The containing block for fixed descendants (paired with `overflow: clip` above). NOT `contain: paint` — it clips the hand sliding in. */
 	contain: layout;
 	container-type: inline-size;
 }
 
-/* THE PHONE TURNED A QUARTER TURN (<PhoneRig landscape>): a rotation of the
-   finished composition, never a second set of knobs. Clockwise, so the arm
-   comes over the top. The turn is applied twice — once to the assembly, once
-   back on the frame's contents — so the screen stays upright. */
+/* A rotation of the finished composition, never a second set of knobs. Applied twice — once to
+   the assembly, once back on the frame's contents — so the screen stays upright. */
 .mobile-preview-backdrop.rig-landscape .mobile-preview-wrapper {
-	/* The axes swap: turned, the on-screen height is --phone-width. A pixel
-	   gutter, not a ratio, because a ratio yields a different gutter at every
-	   width. Zero for now: a gutter sizes the phone but cannot place it, so the
-	   whole gap lands on one side. */
+	/* Axes swap: turned, the on-screen height is --phone-width. A pixel gutter, not a ratio — a ratio yields a different gutter at every width. */
 	--stage-side: 0px;
 	--fit-h: calc((100cqh - var(--stage-pad)) / var(--phone-width));
 	--fit-w: calc((100cqw - var(--stage-side)) / var(--phone-height));
-	/* No ceiling here: the 936px long side runs across a wider window and a cap leaves dead stage either side. */
-	--fit: min(var(--fit-h), var(--fit-w));
-	/* No --wrapper-nudge: turned, the phone very nearly IS the stage. Rotation
-	   last — transforms apply right to left, so the scale acts on the turned box. */
+--fit: min(var(--fit-h), var(--fit-w));
+	/* No --wrapper-nudge here: turned, the phone very nearly IS the stage. Rotation last — the scale must act on the turned box. */
 	transform: translate(0, var(--wrapper-drop)) scale(var(--fit)) rotate(90deg);
 }
 
-/* The screen put back upright: ONE box holding everything, because turning
-   each child about its own corner throws the rest out of the phone. Top-left
-   origin plus a full-height slide, not a centre origin whose offset drifts
-   when a dimension changes. */
+/* ONE box holding everything — turning each child about its own corner throws the rest out of the phone.
+   Top-left origin plus a full-height slide, not a centre origin whose offset drifts as dimensions change. */
 .mobile-preview-screen {
 	width: var(--phone-height);
 	height: var(--phone-width);
 	transform-origin: top left;
 	transform: rotate(-90deg) translate(calc(-1 * var(--phone-height)), 0);
-	/* A `position: fixed` child must measure from the screen, not the still-portrait frame. */
-	position: relative;
+position: relative;
 	overflow: hidden;
 	contain: layout;
 	container-type: inline-size;
 }
 
 
-/* The ONE place gray-on-black is correct: an accent makes an empty input look
-   filled. Overrides Tailwind's placeholder:text-muted-foreground. */
+/* The ONE place gray-on-black is correct: an accent would make an empty input look filled. */
 input::placeholder,
 textarea::placeholder {
 	color: #888 !important;
-	opacity: 1; /* Firefox dims by default; force full opacity so #888 stays #888. */
+	opacity: 1;
 }
 
-/* backdrop-filter is the most GPU-expensive thing the native WebView renders
-   (~half FPS on any swipe). app.html tags <html class="native"> before first
-   paint; this strips blur app-wide on device. Regular CSS only — it must sit
-   AFTER the @source/@plugin/@theme directives or Tailwind's scanning breaks. */
+/* backdrop-filter halves FPS on any swipe in the native WebView; app.html tags <html class="native">
+   before first paint so this strips blur app-wide. Must sit AFTER @source/@plugin/@theme or Tailwind's scanning breaks. */
 html.native *,
 html.native *::before,
 html.native *::after {
 	backdrop-filter: none !important;
 	-webkit-backdrop-filter: none !important;
 }
-/* With blur gone, glass reads see-through over satellite imagery; denser instead. */
 html.native {
 	--rt-popover-glass: rgba(12, 12, 12, 0.92);
 }
-/* Exception: tiny and transient, and its outline buttons need real frosting over imagery. */
 html.native .measure-pop {
 	backdrop-filter: blur(24px) saturate(180%) !important;
 	-webkit-backdrop-filter: blur(24px) saturate(180%) !important;
 }
 
-/* THE GUTTER BESIDE THE PHONE: viewport edge to the frame, even margins, width
-   from publishDockWidths. Here, not devCard.css, because the public wiki pages
-   dock here too; .dev-lane aliases these. */
+/* Here, not devCard.css, because the public wiki pages dock here too; .dev-lane aliases these rules. */
 .gc-lane {
 	position: fixed;
 	--band: var(--dock-width, min(28vw, 40rem));
@@ -734,8 +649,7 @@ html.native .measure-pop {
 .gc-lane--left { --dock-width: var(--dock-width-left); left: 12px; right: var(--lane-far); }
 .gc-lane--right { --dock-width: var(--dock-width-right); right: 12px; left: var(--lane-far); }
 
-/* Links are rust: gold is the commit colour. Inside `base` on purpose — an
-   unlayered `a {}` outranks every utility colour. */
+/* Inside `base` on purpose — an unlayered `a {}` outranks every utility colour. */
 @layer base {
 	a {
 		color: var(--color-link);
