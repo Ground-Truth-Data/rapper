@@ -1,19 +1,13 @@
-/**
- * Every child, one record each, keyed by path. Names no tier, host, port or
- * parent repo, so either tier reads it verbatim.
- */
+// Names no tier, host, port or parent repo, so either tier reads it verbatim.
 
 export type ChildRecord = {
-	/** The repo name exactly as on GitHub; also the display label. */
 	repo: string;
 	org: string;
-	/** Short human name for the bar. */
 	name: string;
-	/** The product this child belongs to — the bar's title beside the logo. */
 	owner: string;
-	/** Logo filename inside sharedAssets/ — a name, not a path, resolved by the mounting parent. */
+	/** Filename inside sharedAssets/ — a name, not a path, resolved by the mounting parent. */
 	logo: string;
-	/** Tab-icon filename, resolved like `logo`; absent means the logo is the icon. */
+	/** Resolved like `logo`; absent means the logo is the tab icon. */
 	icon?: string;
 	/** Every pathname this child serves, longest-prefix matched; mirrors its routes/ folder. */
 	paths: string[];
@@ -21,22 +15,18 @@ export type ChildRecord = {
 	tier?: boolean;
 	/** Served under APP_PREFIX by every parent; `paths` still spell the flat routes/ folder. */
 	app?: true;
-	/** Where this child starts when mounted alone. Declared, never inferred. */
 	defaultPath?: string;
 	/** Paths no parent mirrors — the standalone preview; excluded from the tier table. */
 	soloPaths?: string[];
-	/** This child's nav buttons, resolved by which child owns the live pathname. */
 	views?: NavView[];
 };
 
 export type NavView = {
-	/** Pathname on the mounting tier; must be one in `paths`. */
+	/** Must be one in `paths`. */
 	href: string;
-	/** Lowercase, terse: dev chrome, not product UI. */
 	label: string;
 };
 
-/** Where every tier mounts the Get Cache app — one prefix, every environment. */
 export const APP_PREFIX = "/app";
 
 export const CHILDREN: ChildRecord[] = [

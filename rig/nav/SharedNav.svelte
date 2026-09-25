@@ -1,5 +1,5 @@
 <script lang="ts">
-/** The shared nav: rapper's shell, rendered by the child's layout. Dev only. */
+// rapper's shell, rendered by the child's layout. Dev only.
 import {
 	TIER_HOME,
 	currentRepo,
@@ -38,22 +38,19 @@ let {
 	repo: string;
 	views?: View[];
 	ghIcon: string;
-	/** The pill's facts, passed through: this bar does not know which tier it is. */
+	/** Passed through: this bar does not know which tier it is. */
 	tier: string;
 	otherTier: string;
-	/** Which half this tier occupies — fixed, so the pill never reorders. */
+	/** Fixed, so the pill never reorders. */
 	tierSlot?: "left" | "right";
 	otherHost?: string;
-	/** The other tier's landing route for an unmapped page; "/" is where a
-	 *  server answers, not where its work is. */
+	/** "/" is where a server answers, not where its work is. */
 	otherHome?: string;
-	/** This tier's route table, declared by the mounting parent. */
 	routes?: TierRoute[];
-	/** The mounting tier's repo, for the first GitHub link. */
 	selfRepo?: string;
-	/** Passed in, not read from $app/state: a non-SvelteKit parent also mounts this. */
+	/** Not read from $app/state: a non-SvelteKit parent also mounts this. */
 	pathname?: string;
-	/** The query string with its leading "?", carried across the tier switch. */
+	/** With its leading "?", carried across the tier switch. */
 	search?: string;
 } = $props();
 
@@ -74,7 +71,6 @@ function viewUrl(href: string): string {
 	return q ? `${path}?${q}` : path;
 }
 
-/** Which view is CURRENT — path AND the view's own params must both match. */
 function isCurrentView(href: string): boolean {
 	const [path, own = ""] = href.split("?");
 	if (path !== pathname) return false;
@@ -90,8 +86,7 @@ function isCurrentView(href: string): boolean {
 	return [...ownParams].every(([k]) => live.has(k));
 }
 
-// Origin and path both resolve from the DESTINATION: looked up by the source
-// path, a fallback route builds the link on the wrong host.
+// Origin and path both resolve from the DESTINATION — a fallback route builds the link on the wrong host.
 const otherOrigin = $derived(
 	otherTierOrigin(otherPath, routes.map((r) => ({ ...r, path: r.otherPath ?? r.path }))),
 );
@@ -138,8 +133,7 @@ const viewRepo = $derived(
 );
 const viewName = $derived(viewChild?.name ?? name);
 
-// From the registry for the child serving THIS page; the prop is the fallback
-// for a child cloned with no registry reachable.
+// The prop is the fallback for a child cloned with no registry reachable.
 const viewButtons: View[] = $derived(viewChild?.views ?? views);
 
 const offMountedChild = $derived.by(() => {

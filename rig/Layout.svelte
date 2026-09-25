@@ -1,9 +1,6 @@
 <script lang="ts">
-/**
- * Every child's +layout.svelte renders this: nav on top, the page below.
- * --host-chrome is declared here and read by the nav, the docks and the tray.
- * Product-neutral: a phone app wraps its own children in $gc/PhoneRig.
- */
+// --host-chrome is declared here and read by the nav, the docks and the tray.
+// Product-neutral: a phone app wraps its own children in $gc/PhoneRig.
 import "$parent/src/app.unique.css";
 import { page } from "$app/state";
 import SharedNav from "./nav/SharedNav.svelte";
@@ -23,8 +20,7 @@ let {
 
 const dev = import.meta.env.DEV;
 
-// Injected by rapper's vite.config.ts `define`; undefined in a solo clone.
-// Never a hardcoded parent name.
+// Injected by rapper's vite.config.ts `define`; undefined in a solo clone. Never hardcoded.
 const ENV = import.meta.env as Record<string, string | undefined>;
 const THIS_TIER = ENV.VITE_RAPPER_TIER ?? "";
 const OTHER_TIER = ENV.VITE_OTHER_TIER ?? "";
@@ -32,7 +28,6 @@ const OTHER_ORIGIN = ENV.VITE_OTHER_ORIGIN;
 const OTHER_HOME = ENV.VITE_OTHER_HOME;
 const THIS_SLOT = (ENV.VITE_TIER_SLOT ?? "right") as "left" | "right";
 
-// A malformed table is a typo in a dev tool; it must never white-screen the app.
 function readRoutes(raw: string | undefined): TierRoute[] {
 	if (!raw) return [];
 	try {
@@ -47,10 +42,8 @@ const TIER_ROUTES = readRoutes(ENV.VITE_TIER_ROUTES);
 
 <svelte:head>
 	<title>{`${child.owner} — ${child.name}`}</title>
-	<!-- The wide nav wordmark reads as a smudge at 16px. -->
 	<link rel="icon" href={icon ?? logo} />
 	{#if dev}
-		<!-- Dev only, so production reserves nothing. 64px bar + 3px gold rule. -->
 		<style>
 			:root { --host-chrome: 67px; }
 		</style>
@@ -77,7 +70,6 @@ const TIER_ROUTES = readRoutes(ENV.VITE_TIER_ROUTES);
 	/>
 {/if}
 
-<!-- Renders nothing outside `vite dev`. -->
 <EphemeralTray />
 
 <main>
@@ -85,8 +77,6 @@ const TIER_ROUTES = readRoutes(ENV.VITE_TIER_ROUTES);
 </main>
 
 <style>
-	/* A positioned, sized <main> is what a child filling its slot
-	   (position:absolute; inset:0) fills. */
 	:global(body) {
 		margin: 0;
 		height: 100dvh;

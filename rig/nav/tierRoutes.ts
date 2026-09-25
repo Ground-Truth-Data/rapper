@@ -1,22 +1,16 @@
-/**
- * Where this page lives under the other tier. The two tiers serve different
- * routes, so each parent passes its own translation table in; this file names
- * no tier, host or repo, and a child cloned alone hands none and gets no pill.
- */
+// Each parent passes its own translation table in; this file names no tier, host or
+// repo, so a child cloned alone hands none and gets no pill.
 
-/** One route this tier serves, and what it corresponds to elsewhere. */
 export type TierRoute = {
-	/** A pathname on THIS tier, matched longest-prefix. */
+	/** Matched longest-prefix. */
 	path: string;
-	/** The pathname on the OTHER tier showing the same thing; omit when none. */
+	/** Omit when this route has no equivalent on the other tier. */
 	otherPath?: string;
-	/** The child repo backing this view, for the GitHub link. */
 	repo?: string;
-	/** The origin serving `otherPath` when a tier splits by hostname. */
+	/** Only when a tier splits by hostname. */
 	otherOrigin?: string;
 };
 
-/** Last-resort fallback: "/" resolves to something on any server. */
 export const TIER_HOME = "/";
 
 /** Longest-prefix match, so /who/acme finds the /who entry. */
@@ -30,10 +24,7 @@ function matchRoute(pathname: string, routes: TierRoute[]): TierRoute | undefine
 	return best;
 }
 
-/**
- * The other tier's pathname for the current page; unlisted falls back to
- * `otherHome`, which only the tier being linked to knows.
- */
+/** Unlisted falls back to `otherHome`, which only the tier being linked to knows. */
 export function otherTierPath(
 	pathname: string,
 	routes: TierRoute[],
@@ -42,7 +33,7 @@ export function otherTierPath(
 	return matchRoute(pathname, routes)?.otherPath ?? otherHome ?? TIER_HOME;
 }
 
-/** The origin serving this page on the other tier; undefined = the tier's default. */
+/** undefined = the tier's default. */
 export function otherTierOrigin(
 	pathname: string,
 	routes: TierRoute[],
@@ -50,7 +41,6 @@ export function otherTierOrigin(
 	return matchRoute(pathname, routes)?.otherOrigin;
 }
 
-/** The child repo backing the current page, or undefined for a parent's own page. */
 export function currentRepo(pathname: string, routes: TierRoute[]): string | undefined {
 	return matchRoute(pathname, routes)?.repo;
 }
@@ -62,12 +52,9 @@ export function servesOtherSide(pathname: string, routes: TierRoute[]): boolean 
 
 export type OtherSideStatus = "serves" | "missing" | "unknown";
 
-/**
- * HEAD the page on the other tier: a rapper install serves one child, a subset
- * of what the table lists. Dev only — the sole caller is behind
- * `import.meta.env.DEV`. Failure is "unknown", never "missing", so the pill
- * stays live rather than greying out a destination that may be fine.
- */
+// A rapper install serves one child, a subset of what the table lists. Dev only — the
+// sole caller is behind `import.meta.env.DEV`. Failure is "unknown", never "missing",
+// so the pill stays live rather than greying out a destination that may be fine.
 export async function probeOtherSide(
 	origin: string,
 	path: string,
@@ -81,7 +68,6 @@ export async function probeOtherSide(
 		});
 		if (res.status === 404) return "missing";
 		if (res.ok) return "serves";
-		// A 5xx means the route exists and is broken, not that it is missing.
 		return res.status >= 500 ? "serves" : "unknown";
 	} catch {
 		return "unknown";

@@ -2,12 +2,9 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
-/**
- * The landscape rig rotates `.mobile-preview-screen` -90°. Turned,
- * `rect.width / offsetWidth` reads the aspect ratio, not the scale, and a raw
- * difference of rect edges is a screen-space distance on the wrong axis. Both
- * stay finite and plausible, so they are pinned as source assertions.
- */
+// The landscape rig rotates `.mobile-preview-screen` -90°: turned, `rect.width /
+// offsetWidth` reads the aspect ratio not the scale, and a raw rect-edge difference
+// is a screen-space distance on the wrong axis. Both stay plausible, so pinned here.
 const read = (rel: string) =>
 	readFileSync(fileURLToPath(new URL(rel, import.meta.url)), "utf8");
 
@@ -18,13 +15,11 @@ const atv = read("./atvShare.ts");
 const portal = read("./handPortal.ts");
 
 describe("the scale survives a turn", () => {
-	// hypot(a, b) is the x-axis scale of the accumulated matrix, which holds the
-	// rotation and the scale separately. The rect ratio conflates them.
+	// hypot(a, b) is the accumulated matrix's x-axis scale; the rect ratio conflates it with rotation.
 	it("derives scale from the matrix, not the rect's width", () => {
 		expect(strip(fcb)).toMatch(/Math\.hypot\(\s*m\.a\s*,\s*m\.b\s*\)/);
 	});
 
-	// Correct whenever nothing is rotated, but never the primary answer.
 	it("keeps the rect ratio only as a fallback", () => {
 		const body = strip(fcb);
 		const ratio = body.indexOf("r.width / el.offsetWidth");
@@ -57,7 +52,6 @@ describe("the quad measures its runway in page axes", () => {
 		expect(strip(atv)).toMatch(/point\([^)]*\.right[^)]*\.bottom[^)]*\)/);
 	});
 
-	// Turned, the conversion can flip which end is larger.
 	it("sorts the converted edges instead of trusting their order", () => {
 		const body = strip(atv);
 		expect(body).toMatch(/Math\.min\(/);
@@ -66,8 +60,7 @@ describe("the quad measures its runway in page axes", () => {
 });
 
 describe("the overlay home follows the turn", () => {
-	// The frame is not rotated and the screen inside it is, so an overlay given
-	// the frame rides along an axis the page does not share.
+	// The frame is not rotated and the screen inside it is, so an overlay given the frame rides the wrong axis.
 	it("prefers the turned screen box over the frame that holds it", () => {
 		const body = strip(portal);
 		expect(body).toContain("mobile-preview-screen");
