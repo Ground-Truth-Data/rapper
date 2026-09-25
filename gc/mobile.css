@@ -3,24 +3,22 @@
 @import "./rowShell.css";
 
 :root {
-	/* ── Surfaces ───────────────────────────────────────────── */
-	--rt-bg: #1a1a1a; /* page bg */
-	--rt-surface: #1f1f1f; /* card / row bg */
-	--rt-panel: #141414; /* modal / share-panel bg */
-	--rt-input: #222222; /* text input bg */
-	--rt-overlay: rgba(0, 0, 0, 0.45); /* drawer / modal scrim */
-	--rt-overlay-deep: rgba(0, 0, 0, 0.7); /* full-screen modal scrim */
+	--rt-bg: #1a1a1a;
+	--rt-surface: #1f1f1f;
+	--rt-panel: #141414;
+	--rt-input: #222222;
+	--rt-overlay: rgba(0, 0, 0, 0.45);
+	--rt-overlay-deep: rgba(0, 0, 0, 0.7);
 
-	/* --rt-popover-glass/-scrim = the one knob for every popover. ⚠️ backdrop-filter is disabled on dt-web's preview frame (contain kills it); keep alpha low enough to read without blur. */
+	/* --rt-popover-glass/-scrim = the one knob for every popover; backdrop-filter is disabled on dt-web's preview frame, so alpha must read without blur. */
 	--rt-popover-glass: rgba(0, 0, 0, 0.5);
 	--rt-popover-scrim: rgba(0, 0, 0, 0.18);
-	--rt-bg-card: #272727; /* cache row card bg */
-	--rt-bg-button: #3a3a3a; /* plaque / neutral button bg */
+	--rt-bg-card: #272727;
+	--rt-bg-button: #3a3a3a;
 	--rt-bg-button-hover: #444444;
-	--rt-bg-dark: #2a2a2a; /* deep panels (bags, block widgets) */
-	--rt-bg-input-alt: #333333; /* cache input bg (darker than --rt-input) */
+	--rt-bg-dark: #2a2a2a;
+	--rt-bg-input-alt: #333333;
 
-	/* ── Borders ────────────────────────────────────────────── */
 	--rt-border: rgba(255, 215, 0, 0.18);
 	--rt-border-subtle: rgba(255, 215, 0, 0.10);
 	--rt-border-active: rgba(255, 215, 0, 0.55);
@@ -29,13 +27,13 @@
 
 	/* HARD RULE: no gray-on-black — greys vanish in outdoor sunlight; use an accent. */
 	/* --rt-fg lives in app.unique.css — the token the two parents disagree on. */
-	--rt-fg-dim: #d18a5e; /* secondary text */
-	--rt-fg-muted: #838963; /* tertiary / placeholder text */
+	--rt-fg-dim: #d18a5e;
+	--rt-fg-muted: #838963;
 
 	/* Archive rows: gold = FOCUS only. Rest: cream (top-level) / dim cream (nested); meta (sender/date/count) = bright terracotta. */
-	--rt-cream: #f4e8d0; /* top-level rows at rest (border + title) */
-	--rt-cream-dim: rgba(244, 232, 208, 0.65); /* nested children */
-	--rt-meta: #e88a5a; /* sender + meta labels (dates, counts) */
+	--rt-cream: #f4e8d0;
+	--rt-cream-dim: rgba(244, 232, 208, 0.65);
+	--rt-meta: #e88a5a;
 
 	--rt-row-sender: #c3c8ac; /* sender name — the tint IS the "from" */
 	--rt-row-sep: #5c6046; /* " • " separator — divides without being read */
@@ -43,25 +41,22 @@
 	--rt-row-when: #8c9170; /* date at rest — glance target, not read target */
 	--rt-row-when-fresh: #86a65c; /* date for now / a time-of-day today ONLY */
 
-	/* ── Yellow / Gold ──────────────────────────────────────── */
-	--rt-yellow: #ffd700; /* primary accent */
-	--rt-yellow-bright: #ffd42a; /* small text on dark panels */
+	--rt-yellow: #ffd700;
+	--rt-yellow-bright: #ffd42a;
 	--rt-yellow-soft: rgba(255, 215, 0, 0.1);
 	--rt-yellow-tint: rgba(255, 215, 0, 0.06);
 
-	/* GoldButton gradient (top → bottom). Light buttery → medium gold */
-	--rt-gold-1: #f5d565; /* gradient top, default */
-	--rt-gold-2: #e8b923; /* gradient bottom, default */
-	--rt-gold-1-press: #c9a028; /* gradient top, pressed */
+	--rt-gold-1: #f5d565;
+	--rt-gold-2: #e8b923;
+	--rt-gold-1-press: #c9a028;
 	--rt-gold-2-press: var(--rt-gold-2); /* only the TOP darkens on press */
-	--rt-gold-bevel: #8a6a0d; /* hard 0 2px 0 bevel beneath */
-	--rt-gold-ink: #1c0d04; /* text + icon-badge color on gold */
+	--rt-gold-bevel: #8a6a0d;
+	--rt-gold-ink: #1c0d04;
 
 	/* Letterpress: light line below, dark line above — never symmetric, never swapped. */
 	--rt-press-lo: rgba(255, 255, 255, 0.55); /* lit edge, below */
 	--rt-press-hi: rgba(0, 0, 0, 0.18); /* shaded edge, above */
 
-	/* ── Rust (section labels, "imported" pills) ───── */
 	--rt-rust: #c97a4a;
 	--rt-rust-soft: rgba(200, 127, 88, 0.14);
 	--rt-rust-label: var(--rt-rust);
@@ -75,22 +70,20 @@
 	--rt-orange-line: rgba(230, 148, 60, 0.45);
 	--rt-tan: #c7a878;
 
-	/* ── Danger ─────────────────────────────────────────────── */
 	--rt-danger: #d4574a;
 	--rt-danger-soft: rgba(214, 90, 74, 0.16);
 
 	/* Quality-704 status: UNDER=rose(missed), OVER=teal(excess), FAULT=red. Dark-UI + on-white(PDF) tone each; -soft = translucent pill fill. Add colours HERE, never hardcode per-component. */
 	--rt-q704-under: #ec6c9c; /* rose — under target (missed spots) */
-	--rt-q704-under-ink: #c42a6e; /* on-white tone for PDF text/number */
+	--rt-q704-under-ink: #c42a6e;
 	--rt-q704-under-soft: rgba(236, 108, 156, 0.16);
 	--rt-q704-over: #3fb6c8; /* teal — over target (excess) */
-	--rt-q704-over-ink: #1d7d8e; /* on-white tone for PDF text/number */
+	--rt-q704-over-ink: #1d7d8e;
 	--rt-q704-over-soft: rgba(63, 182, 200, 0.16);
 	--rt-q704-fault: #f0463a; /* distinctly red — too close to --rt-q704-under (rose) and they read as the same chip */
-	--rt-q704-fault-ink: #c41f12; /* on-white tone for PDF text/number */
+	--rt-q704-fault-ink: #c41f12;
 	--rt-q704-fault-soft: rgba(240, 70, 58, 0.16);
 
-	/* ── Spacing scale (4px base) ───────────────────────────── */
 	--rt-space-1: 4px;
 	--rt-space-2: 8px;
 	--rt-space-3: 10px;
@@ -100,18 +93,15 @@
 	--rt-space-7: 20px;
 	--rt-space-8: 24px;
 
-	/* ── Corner radii ───────────────────────────────────────── */
-	--rt-radius-sm: 8px; /* small buttons, share pill */
-	--rt-radius-md: 10px; /* tabs, action tiles */
-	--rt-radius-lg: 12px; /* row cards */
-	--rt-radius-xl: 14px; /* modals */
-	--rt-radius-pill: 999px; /* badges */
+	--rt-radius-sm: 8px;
+	--rt-radius-md: 10px;
+	--rt-radius-lg: 12px;
+	--rt-radius-xl: 14px;
+	--rt-radius-pill: 999px;
 
-	/* ── Borders widths ─────────────────────────────────────── */
-	--rt-border-w-structural: 1px; /* dividers */
-	--rt-border-w-interactive: 1.5px; /* row cards, tabs */
+	--rt-border-w-structural: 1px;
+	--rt-border-w-interactive: 1.5px;
 
-	/* ── Shadows ────────────────────────────────────────────── */
 	--rt-shadow-gold:
 		0 2px 0 var(--rt-gold-bevel), 0 6px 14px rgba(232, 185, 35, 0.25),
 		inset 0 1px 0 rgba(255, 255, 255, 0.45);
@@ -123,8 +113,7 @@
 		0 2px 0 var(--rt-gold-bevel), 0 6px 14px rgba(232, 185, 35, 0.25),
 		0 0 22px 4px rgba(243, 198, 30, 0.5),
 		inset 0 1px 0 rgba(255, 255, 255, 0.45);
-	/* Hard offset bevel for type, never a blurred halo; em so it tracks the size.
-	   DISPLAY SIZES ONLY — at body size the offset closes up the counters. */
+	/* Hard offset bevel for type, never blurred; DISPLAY SIZES ONLY — at body size it closes up the counters. */
 	--rt-bevel-text: 0 0.07em 0 var(--rt-gold-bevel);
 
 	--rt-shadow-modal: 0 22px 50px rgba(0, 0, 0, 0.7);
@@ -142,65 +131,55 @@
 		0 4px 10px rgba(0, 0, 0, 0.55),
 		0 2px 4px rgba(0, 0, 0, 0.4);
 
-	/* Neutral button shadow (still used by .bagout-btn-adjacent components) */
 	--rt-shadow-btn: 0 3px 0 #363636, 0 5px 5px rgba(0, 0, 0, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.04);
 
-	/* ── Plaque / neutral button primitives ─────────────────── */
 	--rt-btn-radius: 0.75rem;
 	--rt-btn-neutral-bg: linear-gradient(180deg, #555 0%, #424242 100%);
 	--rt-btn-neutral-bg-hover: linear-gradient(180deg, #5a5a5a 0%, #4a4a4a 100%);
 	--rt-btn-neutral-border: none;
 	--rt-btn-neutral-text: var(--rt-fg);
 
-	/* Readout (read-only numeric display, e.g. totals) */
 	--rt-readout-bg: #262626;
 	--rt-readout-border: 1px solid rgba(255, 255, 255, 0.08);
 	--rt-readout-text: var(--rt-fg);
 
-	/* Commit button (gold CTA — bag-out, save) */
 	--rt-btn-commit-bg: #daa520;
 	--rt-btn-commit-bg-active: #b8890d;
 	--rt-btn-commit-border: 2px solid #000;
 	--rt-btn-commit-text: var(--rt-bg);
 
-	/* ── Type ───────────────────────────────────────────────── */
 	--rt-font-display: "Retreever", sans-serif;
 	--rt-font-body:
 		system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 	--rt-font-mono: ui-monospace, "SF Mono", Menlo, monospace;
 
-	/* Type scale (mobile) */
-	--rt-fs-title: 2rem; /* page titles ("account") */
-	--rt-fs-drawer: 1.65rem; /* drawer headers */
+	--rt-fs-title: 2rem;
+	--rt-fs-drawer: 1.65rem;
 	--rt-fs-button-lg: 1.25rem;
 	--rt-fs-button-md: 1.15rem;
-	--rt-fs-row: 1rem; /* row card titles */
-	--rt-fs-section: 0.95rem; /* section labels (rust) */
+	--rt-fs-row: 1rem;
+	--rt-fs-section: 0.95rem;
 	--rt-fs-button-sm: 0.9rem;
-	--rt-fs-meta: 0.78rem; /* "0/5 on", helper text */
-	--rt-fs-pill: 0.62rem; /* uppercase badges */
+	--rt-fs-meta: 0.78rem;
+	--rt-fs-pill: 0.62rem;
 
-	/* Letter-spacing presets */
-	--rt-ls-uppercase: 0.1em; /* section/uppercase labels */
-	--rt-ls-pill: 0.16em; /* ACTIVE / IMPORTED pills */
-	--rt-ls-display: 0.04em; /* page titles in Retreever */
+	--rt-ls-uppercase: 0.1em;
+	--rt-ls-pill: 0.16em;
+	--rt-ls-display: 0.04em;
 
-	/* ── Motion ─────────────────────────────────────────────── */
 	--rt-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
-	--rt-dur-fast: 80ms; /* button press */
-	--rt-dur-base: 220ms; /* fade scrim */
-	--rt-dur-panel: 260ms; /* slide-in panels */
+	--rt-dur-fast: 80ms;
+	--rt-dur-base: 220ms;
+	--rt-dur-panel: 260ms;
 
 	/* ── Bottom tab bar ─────────────────────────────────────── */
-	/* Anything that sits on the tab bar's top edge offsets by this. 15cqw tracks
-	   the phone frame, so the bar scales with the art above it. */
+	/* Anything on the tab bar's top edge offsets by this; 15cqw tracks the phone frame. */
 	--gc-navbar-h: calc(
 		clamp(3.5625rem, 15cqw, 5.7rem) + max(env(safe-area-inset-bottom), 10px)
 	);
 
 	/* ── Top nav bar ────────────────────────────────────────── */
-	/* Twin of --gc-navbar-h. TopBarMobile overwrites this on :root with the
-	   nav's measured height; this is the pre-mount fallback (4rem truck + 0.3rem padding). */
+	/* Twin of --gc-navbar-h; TopBarMobile overwrites this on :root once measured — this is the pre-mount fallback. */
 	--gc-topbar-h: calc(4.6rem + env(safe-area-inset-top));
 }
 
@@ -257,7 +236,6 @@ hr {
 	letter-spacing: var(--rt-ls-pill);
 }
 
-/* Popover inputs — pair with a per-popover class for width/height/font-size/text-align. */
 .popover-input {
 	padding: 0 0.75rem;
 	border-radius: 0.5rem;
@@ -284,7 +262,7 @@ hr {
 	border-color: var(--rt-yellow);
 }
 
-/* THE popover look for every card in the app — translucent glass, 2px gold border+glow, gold lowercase title. Reuse this, don't duplicate CSS per popover. */
+/* Reuse .rt-popover-surface for every card — don't duplicate this CSS per popover. */
 .rt-popover-surface {
 	background: var(--rt-popover-glass);
 	backdrop-filter: blur(10px);
@@ -298,16 +276,12 @@ hr {
 	box-sizing: border-box;
 }
 
-/* THE PAD: one tray of five equal keys, shared by the section rail and the pin
-   library. State paints OVER a key (sage = holds data, gold = showing,
-   terracotta = action); a key never loses its border or fill. --rt-key-h is
-   the only per-course knob. */
+/* THE PAD: state paints OVER a key (sage=holds data, gold=showing, terracotta=action); a key never loses its border or fill. */
 .rt-pad {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	align-items: stretch;
-	/* Keys touch: each .7px side border meets its neighbour's as a groove.
-	   No overflow:hidden — it would clip the open key's glow. */
+	/* Keys touch: each .7px side border meets its neighbour's as a groove; no overflow:hidden, it would clip the open key's glow. */
 	gap: 0;
 	padding: 0;
 	border-radius: 16px;
@@ -353,7 +327,6 @@ hr {
 	gap: 3px;
 	padding: 3px 2px;
 	border-radius: 11px;
-	/* A solid moulded keycap: a translucent fill read as switched off. */
 	background: linear-gradient(180deg, #272a20, #1b1d15);
 	border: 1.4px solid rgba(255, 255, 255, 0.15);
 	box-shadow:
@@ -404,7 +377,6 @@ hr {
 	border-radius: 99px;
 }
 
-/* Gold lowercase title — the popover's heading row. */
 .rt-popover-title {
 	display: block;
 	color: var(--rt-yellow);
@@ -420,10 +392,7 @@ hr {
 		0 0 8px rgba(0, 0, 0, 0.5);
 }
 
-/* The ONE close glyph for every popup, the map popups' vendor buttons included.
-   A painted WebP, so `color` no longer reaches it: pick the tone by swapping the
-   image. A caller's <svg> is hidden, not removed, so <Icon name="close-x"/> call
-   sites keep working. */
+/* The ONE close glyph for every popup: a painted WebP, so `color` no longer reaches it — pick the tone by swapping the image. A caller's <svg> is hidden, not removed, so <Icon name="close-x"/> keeps working. */
 .rt-popover-close,
 .rt-fire-popup .mapboxgl-popup-close-button,
 .rt-fire-popup .maplibregl-popup-close-button,
@@ -461,9 +430,6 @@ hr {
 	display: none;
 }
 
-/* ── Mobile animations ── */
-
-/* Validation error pulse */
 @keyframes mob-buzz-red {
 	0% { box-shadow: none; background: var(--rt-bg-button); }
 	20% { box-shadow: 0 0 0 2px rgba(220, 60, 60, 0.7); background: #4a2020; }
@@ -491,7 +457,6 @@ hr {
 	border: none;
 }
 
-/* Branded sonner toast — override Sonner's CSS vars + !important for every variant; offset set on <Toaster offset=...>. */
 [data-sonner-toaster] {
 	/* Just under Z_HANDS (zTiers.ts) so hands and the share quad ride over a toast. */
 	z-index: 10400 !important;
@@ -515,7 +480,7 @@ hr {
 	--gray12: var(--rt-fg);
 }
 
-/* Sonner's own <600px query pins toasts left/right off-screen — this restores centring, capped to the containing block so a toast can't leave the viewport. */
+/* Sonner's own <600px query pins toasts left/right off-screen; this restores centring, capped so a toast can't leave the viewport. */
 @media (max-width: 600px) {
 	[data-sonner-toaster][data-x-position="center"] {
 		left: 50% !important;
@@ -536,7 +501,6 @@ hr {
 	padding: 0.75rem 0.9rem !important;
 	/* Guard rail: a long unbroken token (e.g. a filename) collapses the toast into a one-char vertical pill without this width. */
 	width: min(22rem, calc(100vw - 2rem)) !important;
-	/* Sonner's <600px mode stretches toasts left:0/right:0, which left-pins them at our fixed width — auto margins keep it centred. */
 	margin-inline: auto !important;
 	box-sizing: border-box !important;
 	overflow-wrap: anywhere !important;
@@ -590,7 +554,6 @@ hr {
 	display: none !important;
 }
 
-/* Subdrawer back-chip, shared by SubDrawer + DrawerTabHeader. */
 .rt-subdrawer-back {
 	display: inline-flex;
 	align-items: center;
@@ -610,7 +573,6 @@ hr {
 .rt-subdrawer-back-arrow { height: 0.9rem; width: auto; }
 .rt-subdrawer-back-icon { width: 1.35rem; height: 1.35rem; object-fit: contain; }
 
-/* Centered, gold display title used by SubDrawer-style headers. */
 .rt-subdrawer-title {
 	font-family: var(--rt-font-display);
 	font-size: var(--rt-fs-drawer);
@@ -621,11 +583,7 @@ hr {
 	text-align: center;
 }
 
-/* Pointer hover for every hollow button: a fixed gold wash (currentColor would
-   erase the label) plus a ring in the button's own colour. background-color, not
-   background, so gradients survive; outline, not box-shadow, so bevels survive.
-   The :not() list is every button with its own scoped hover — keep it in sync
-   when adding one. Nothing on the map surface gets the tint. */
+/* background-color not background (gradients survive); outline not box-shadow (bevels survive). The :not() list is every button with its own scoped hover — keep it in sync when adding one. */
 @media (hover: hover) and (pointer: fine) {
 	body.mobile-app
 		:is(button, [role="button"], [role="tab"]):not(
@@ -737,7 +695,7 @@ body.shovel-cursor .fake-cursor {
 	}
 }
 
-/* Selection killed app-wide (body.mobile-app) because long-press text-select fights every drag gesture; re-enabled only on form fields + .rt-selectable. dt-web routes keep normal selection. */
+/* Selection killed app-wide: long-press text-select fights every drag gesture; re-enabled only on form fields + .rt-selectable. */
 body.mobile-app {
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
@@ -751,7 +709,7 @@ body.mobile-app a {
 	-webkit-user-drag: none;
 }
 
-/* Re-enables selection: form fields + .rt-selectable. CacheRowList's local user-select:text still wins; this just backstops the body default. */
+/* Re-enables selection on form fields + .rt-selectable; backstops the body default only. */
 body.mobile-app input,
 body.mobile-app textarea,
 body.mobile-app [contenteditable],
@@ -762,7 +720,6 @@ body.mobile-app .rt-selectable * {
 	user-select: text;
 }
 
-/* Map scale bar — shared by both maps; the offline route never mounts MobMapPage. */
 
 /* Right-aligned with the zoom pill: on the left the shovel artwork sits behind the logo. */
 .mobile-map-fill .mapboxgl-ctrl-bottom-left,
@@ -837,9 +794,8 @@ body.mobile-app .rt-selectable * {
 .mobile-map-fill .nice-scale-bar__tick--mid { transform: translateX(-50%); }
 .mobile-map-fill .nice-scale-bar__tick--end { right: 0; }
 
-/* Full-bleed map chrome, shared by both maps via .mobile-map-fill. */
 
-/* Map fills the frame BEHIND the bars so map-only mode reveals it. position:fixed resolves to .mobile-preview-frame on dt-web (contain:layout). */
+/* position:fixed resolves to .mobile-preview-frame on dt-web (contain:layout), not the viewport. */
 .mobile-map-fill {
 	position: fixed;
 	inset: 0;
@@ -851,7 +807,6 @@ body.mobile-app .rt-selectable * {
 	height: 100%;
 }
 
-/* Armed draw tool — coloured frame around the whole map viewport. */
 .draw-active-poly::before,
 .draw-active-line::before,
 .draw-active-pin::before {
@@ -871,7 +826,6 @@ body.mobile-app .rt-selectable * {
 	border-color: var(--color-accent);
 }
 
-/* Map init failure panel. */
 .map-error {
 	position: absolute;
 	inset: 0;
@@ -897,14 +851,14 @@ body.mobile-app .rt-selectable * {
 	color: #6b7280 !important;
 }
 
-/* Lifts top/tab bars above the fullscreen map so they cover its edges in normal mode; scoped to map pages only. */
+/* Scoped to map pages only, so bars cover the map's edges in normal mode. */
 body.demo-map-fullbleed .mobile-nav,
 body.demo-map-fullbleed .bottom-nav {
 	position: relative;
 	z-index: 10;
 }
 
-/* Map-only mode: bars stay in flex layout (removing them would reflow the map) and instead slide off-screen + fade. */
+/* Bars stay in flex layout here — removing them would reflow the map — and instead slide off-screen + fade. */
 
 /* Transitions apply unconditionally so the return trip is as smooth as the exit. */
 .mobile-nav,
@@ -957,7 +911,6 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	pointer-events: none;
 }
 
-/* ── Mapbox control chrome (zoom buttons etc.) ── */
 .mobile-map-fill .mapboxgl-ctrl,
 .mobile-map-fill .maplibregl-ctrl { margin: 0 !important; }
 
@@ -1032,7 +985,7 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	}
 }
 
-/* Grid plot popup — emitted by shared mapGrid code, so it must style on BOTH routes. */
+/* Emitted by shared mapGrid code, so it must style on BOTH routes. */
 .mapboxgl-popup.grid-plot-popup .mapboxgl-popup-content,
 .maplibregl-popup.grid-plot-popup .maplibregl-popup-content {
 	background: linear-gradient(165deg, #16263c 0%, #0d1828 100%);
@@ -1048,7 +1001,6 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	border-top-color: #5aa6e6 !important;
 	border-bottom-color: #5aa6e6 !important;
 }
-/* [copy ⧉] [code] [quality ✦] in a row. */
 .grid-plot-popup-inner {
 	display: flex;
 	flex-direction: row;
@@ -1127,7 +1079,7 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	pointer-events: none;
 }
 
-/* Line-length labels: leg=monospace, total=display weight, so the running total reads as a different category. Rendered by components/mobMap/lineLabels.ts. */
+/* leg=monospace, total=display weight, so the running total reads as a different category. */
 .rt-line-label {
 	pointer-events: none;
 	white-space: nowrap;
@@ -1155,7 +1107,7 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
 }
 
-/* holdToLift: press-hold lifts a read-only text copy on a dark band, keeping the field's own font/colour. Global (not scoped) so the action's classes survive. */
+/* Global, not scoped, so the holdToLift action's classes survive. */
 .rt-lift-pop {
 	position: fixed;
 	z-index: 9999;
@@ -1186,7 +1138,7 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	user-select: none;
 }
 
-/* Wildfire hotspot card — terracotta, NEVER red: red means destructive here, and this is information, not a button. Built by fireLayer.ts; words from fireHotspotCopy.ts. */
+/* Terracotta, NEVER red: red means destructive here, and this is information, not a button. */
 .rt-fire-popup .mapboxgl-popup-content,
 .rt-fire-popup .maplibregl-popup-content {
 	/* Near-opaque: thin glass let satellite imagery read straight through in sun. */
@@ -1227,13 +1179,11 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	top: 100%;
 	height: 16px;
 }
-/* Card BELOW the fire → trail runs UP from its top edge. */
 .rt-fire-popup.mapboxgl-popup-anchor-top::after,
 .rt-fire-popup.maplibregl-popup-anchor-top::after {
 	bottom: 100%;
 	height: 16px;
 }
-/* Sideways anchors: the gap is horizontal, so the trail is too. */
 .rt-fire-popup.mapboxgl-popup-anchor-left::after,
 .rt-fire-popup.maplibregl-popup-anchor-left::after,
 .rt-fire-popup.mapboxgl-popup-anchor-right::after,
@@ -1254,7 +1204,7 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 .rt-fire-popup.maplibregl-popup-anchor-left::after { right: 100%; }
 .rt-fire-popup.mapboxgl-popup-anchor-right::after,
 .rt-fire-popup.maplibregl-popup-anchor-right::after { left: 100%; }
-/* Diagonal anchors: card corner sits on the glyph already (~2px offset, see firePopupOptions) — no gap to bridge, so no trail. */
+/* Diagonal anchors: card corner already sits on the glyph — no gap to bridge, so no trail. */
 .rt-fire-popup.mapboxgl-popup-anchor-top-left::after,
 .rt-fire-popup.maplibregl-popup-anchor-top-left::after,
 .rt-fire-popup.mapboxgl-popup-anchor-top-right::after,
@@ -1268,7 +1218,7 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	display: none;
 }
 
-/* Mapbox's own close button, dressed as the ✕. 28px, not 36: at 36 it crowded the gauge; the ::before below grows the tap area to 44px. */
+/* 28px, not 36: at 36 it crowded the gauge; ::before below grows the tap area to 44px. */
 .rt-fire-popup .mapboxgl-popup-close-button,
 .rt-fire-popup .maplibregl-popup-close-button {
 	position: absolute;
@@ -1289,7 +1239,7 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	/* Without this the ::before hit pad is clipped. */
 	overflow: visible;
 }
-/* Grows the tap area to 44px; fix a miss by enlarging the inset, never width/height. */
+/* Fix a miss by enlarging the inset, never width/height. */
 .rt-fire-popup .mapboxgl-popup-close-button::before,
 .rt-fire-popup .maplibregl-popup-close-button::before {
 	content: "";
@@ -1367,7 +1317,6 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 }
 .rt-fire-trend svg { display: block; }
 
-/* Hospital card — same glass as the fire card, built by hospitalLayer.ts. */
 .rt-hospital-popup .mapboxgl-popup-content,
 .rt-hospital-popup .maplibregl-popup-content {
 	background: rgba(26, 28, 24, 0.94);
@@ -1505,7 +1454,6 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 }
 .rt-hospital-loc:active { transform: scale(0.96); }
 
-/* Double-tap-to-pin popup, built by doubleTapToPin.ts. */
 .rtr-droppin-popup .mapboxgl-popup-content,
 .rtr-droppin-popup .maplibregl-popup-content {
 	background: rgba(18, 18, 18, 0.28);
@@ -1592,7 +1540,6 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
     100% { transform: scale(2.6); opacity: 0; }
 }
 
-/* Nav feedback (tap→flash→hold), shared by top + bottom bars via the `navFlash` action. */
 
 :root {
     --rt-nav-glow: rgba(255, 212, 42, 0.55);

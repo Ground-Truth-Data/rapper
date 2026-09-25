@@ -1,8 +1,4 @@
-/**
- * The ancestor a `position: fixed` descendant of `el` resolves against, or
- * null for the viewport. Transform, filter, perspective, contain, will-change
- * and container-type all make a containing block without being positioned.
- */
+/** Ancestor a `position: fixed` descendant of `el` resolves against, or null for the viewport. */
 export function fixedContainingBlock(el: Element): HTMLElement | null {
 	for (let p = el.parentElement; p; p = p.parentElement) {
 		const s = getComputedStyle(p);
@@ -21,9 +17,8 @@ export function fixedContainingBlock(el: Element): HTMLElement | null {
 	return null;
 }
 
-// The accumulated transform holds the turn and the scale separately; a
-// rect/offsetWidth ratio reads the aspect ratio once the rig is rotated.
-// DOMMatrix is unavailable under jsdom and SSR, hence the rect fallback.
+// Holds turn and scale separately; a rect/offsetWidth ratio reads aspect ratio once rotated.
+// DOMMatrix is unavailable under jsdom and SSR, hence the rect fallback below.
 function accumulated(el: HTMLElement): DOMMatrixReadOnly | null {
 	if (typeof DOMMatrixReadOnly !== "function") return null;
 	let m = new DOMMatrixReadOnly();
@@ -43,11 +38,7 @@ function scaleOf(el: HTMLElement, r: DOMRect): number {
 	return el.offsetWidth > 0 ? r.width / el.offsetWidth : 1;
 }
 
-/**
- * Convert screen px into the local CSS px an overlay's `left`/`top` are
- * written in: dt-web scales the phone by `--fit`, so rects answer in screen
- * px. Identity on native, where there is no frame.
- */
+/** Converts screen px into local CSS px (dt-web scales the phone by `--fit`); identity on native. */
 export function localFrom(host: Element): {
 	x: (screenX: number) => number;
 	y: (screenY: number) => number;
@@ -77,8 +68,7 @@ export function localFrom(host: Element): {
 	const bt = Number.parseFloat(cs.borderTopWidth) || 0;
 	const k = scaleOf(cb, r);
 
-	// `x`/`y` are independent scalars and cannot express a turn; a caller that
-	// must be right on a landscape route uses `point`.
+	// `x`/`y` are independent scalars and cannot express a turn; use `point` on landscape routes.
 	const inv = accumulated(cb)?.inverse();
 	const point = (screenX: number, screenY: number) => {
 		if (!inv || !Number.isFinite(inv.a)) {

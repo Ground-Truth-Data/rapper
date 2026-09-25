@@ -1,11 +1,6 @@
 <script lang="ts">
-/**
- * The card beside the phone. Three placements from the MEASURED frame, never a
- * media query: beside when the gutter is at least MIN_LANE_REM, over the phone
- * screen when narrower, centred in the viewport when there is no phone. It
- * escapes to <body> on mount: the rig's transform would otherwise be the
- * containing block for `position: fixed` and the card would land on the phone.
- */
+// Three placements from the MEASURED frame, never a media query. Escapes to <body> on
+// mount: the rig's transform would otherwise be the containing block for `position: fixed`.
 import type { Snippet } from "svelte";
 import { onMount } from "svelte";
 import { type FrameBox, watchPhoneFrame } from "./phoneFrame.svelte";
@@ -24,21 +19,18 @@ let {
 	...rest
 }: {
 	side?: "left" | "right";
-	/** Small label in the header row. Omitted = no header. */
+	/** Omitted = no header. */
 	title?: string;
-	/** Extra offset below the host chrome. */
 	top?: string;
-	/** Beside the phone: hang from its top edge, so a growing card grows down, not into the nav. */
+	/** "top": hangs from the phone's top edge, so a growing card grows down, not into the nav. */
 	align?: "centre" | "top";
-	/** The element itself, for a caller that portals DOM into it. */
 	el?: HTMLElement;
 	class?: string;
 	children?: Snippet;
 	[key: string]: unknown;
 } = $props();
 
-// `undefined` until looked for — painting a guess first flashes a card in the
-// wrong place. `null` is a page with no frame.
+// `undefined` until looked for — painting a guess first flashes a card in the wrong place.
 let frame = $state<FrameBox | null | undefined>(undefined);
 $effect(() => watchPhoneFrame((box) => (frame = box)));
 
@@ -92,12 +84,10 @@ onMount(() => {
 	padding: var(--card-pad, 20px 22px);
 }
 
-/* Beside the phone: centred in the space under the host chrome. */
 .side-card.gc-lane {
 	top: calc(50% + var(--host-chrome, 0px) / 2);
 	transform: translateY(calc(-50% + var(--nudge, 0px)));
 }
-/* Top edge on the phone's top edge, never above the host chrome. */
 .side-card.gc-lane.side-card--top {
 	top: max(var(--phone-frame-top, 0px), var(--host-chrome, 0px) + 12px);
 	transform: translateY(var(--nudge, 0px));
@@ -109,9 +99,8 @@ onMount(() => {
 	transform: translate(-50%, -50%);
 }
 
-/* No phone: the box is the viewport minus its chrome. A gutter, not a
-   percentage, so there is padding off the edge at every width; the bars are
-   not symmetrical, so centring shifts by half their difference. */
+/* A gutter, not a percentage, so there is padding off the edge at every width; the bars
+   are not symmetrical, so centring shifts by half their difference. */
 .side-card--centred {
 	left: 50%;
 	top: calc(50% + var(--host-chrome-top, 0px) / 2 - var(--host-chrome-bottom, 0px) / 2);

@@ -1,8 +1,4 @@
-/**
- * The gold ATV that drives out from behind a share button. The sprite rides
- * its own layer at Z_HANDS (the hands' home) with the button's rect masked
- * out, so the real button is the mask and the ride paints over any drawer.
- */
+/** ATV sprite rides its own layer at Z_HANDS with the button's rect masked out. */
 
 import { localFrom } from "./fixedContainingBlock.js";
 import { frameFor } from "./handPortal";
@@ -12,9 +8,8 @@ import { FILE_EXPORTED_EVENT } from "./fileEvents.js";
 const MIN_H = 36; // px floor so tiny icon buttons still throw a visible ATV
 const MIN_RUNWAY = 48; // one quad-length; less and exiting right reads as a glitch
 
-// The sprite is a treadmill (quad drives in place, registered on its nose,
-// loops forever); CSS owns the travel along a random polyline. Duration is
-// derived from path length so ground speed is constant however twisty.
+// Sprite treadmills in place; CSS drives the polyline. Duration derives from
+// path length so ground speed is constant however twisty.
 const SPRITE_W = 314;
 const SPRITE_H = 132;
 // Rear axle in sprite px: a quad pivots about its back wheels.
@@ -25,15 +20,12 @@ const SPEED_SPRITE_PX_PER_S = (911 / (19 * 58)) * 1000;
 const LAUNCH_FRAC = 0.06; // straight run out from under the button
 const MIN_LEG_FRAC = 0.15; // below this a leg reads as vibration
 const MAX_TURN_DEG = 25;
-// Kept well under 45°: a long leg's vertical drift is len*sin(heading), and
-// at 55° it walks the quad off the top or bottom before it reaches the side.
+// Kept well under 45°: at 55° a leg's vertical drift (len*sin) walks the quad off-frame first.
 const MAX_HEADING_DEG = 30;
 const SETTLE_MS = 120;
 
 type Exit = "left" | "right" | "auto";
 
-// The quad CONFIRMS an export: buttons ARM it and FILE_EXPORTED_EVENT rides
-// it, so a flow that never announces never rides.
 let armed: { btn: HTMLElement; exit: Exit; at: number } | null = null;
 let listenerInstalled = false;
 const ARM_TTL_MS = 3 * 60_000; // a stale arm from an abandoned flow never rides
@@ -55,9 +47,8 @@ export function armAtvShare(btn: HTMLElement, exit: Exit = "auto"): void {
 
 function resolveExit(btn: HTMLElement, exit: Exit): "left" | "right" {
 	if (exit !== "auto") return exit;
-	// Runway against the app shell, not the viewport: the dt-web preview window
-	// is far wider than the app. Measured in CSS px and in the PAGE's rightward
-	// direction — turned a quarter turn, screen px and screen right are wrong.
+	// Runway against .mobile-shell, not the viewport (dt-web's preview is wider than the
+	// app), in CSS px along the PAGE's right — turned a quarter turn, screen-right is wrong.
 	const host = btn.closest(".mobile-shell") ?? document.documentElement;
 	const { point } = localFrom(btn);
 	const hr = host.getBoundingClientRect();
@@ -73,19 +64,14 @@ function resolveExit(btn: HTMLElement, exit: Exit): "left" | "right" {
 
 type Leg = { x: number; y: number; heading: number; len: number };
 
-/**
- * Random route in fractions of `run`, so a 40px icon and a full-width bar get
- * the same-shaped ride. Headings are in the quad's own frame (0 = ahead);
- * only the final transform flips for a left-bound quad.
- */
+/** Route in fractions of `run`, so a 40px icon and a full-width bar ride the same shape. */
 function buildRoute(run: number, drift: number): Leg[] {
 	const legs: Leg[] = [];
 	let x = 0;
 	let y = 0;
 	let heading = 0;
 
-	// A random launch heading: launched straight, a 1-turn route has its only
-	// turn cancelled by the homing exit leg and ~1 ride in 5 drives dead straight.
+	// A 1-turn route has its only turn cancelled by the homing exit leg, so ~1/5 rides straight.
 	heading = (Math.random() * 2 - 1) * MAX_TURN_DEG;
 	const launch = run * LAUNCH_FRAC;
 	const lrad = (heading * Math.PI) / 180;
@@ -93,7 +79,6 @@ function buildRoute(run: number, drift: number): Leg[] {
 	y += Math.sin(lrad) * launch;
 	legs.push({ x, y, heading, len: launch });
 
-	// 1–5 turns including the one that sets up the exit leg.
 	const turns = 1 + Math.floor(Math.random() * 5);
 	const minLeg = run * MIN_LEG_FRAC;
 
@@ -101,10 +86,9 @@ function buildRoute(run: number, drift: number): Leg[] {
 		const forwardLeft = run - x;
 		if (forwardLeft <= minLeg) break;
 
-		// Steer back toward centre as vertical room runs out: a hard clamp shows
-		// as the quad sliding along an invisible wall.
+		// A hard clamp here reads as the quad sliding along an invisible wall.
 		const swing = (Math.random() * 2 - 1) * MAX_TURN_DEG;
-		const room = drift > 0 ? y / drift : 0; // -1..1, how close to the edge
+		const room = drift > 0 ? y / drift : 0;
 		heading = Math.max(
 			-MAX_HEADING_DEG,
 			Math.min(MAX_HEADING_DEG, heading + swing - room * MAX_TURN_DEG),
@@ -113,7 +97,6 @@ function buildRoute(run: number, drift: number): Leg[] {
 		const maxLeg = forwardLeft / Math.max(1, turns - i);
 		let len = Math.max(minLeg, maxLeg * (0.6 + Math.random() * 0.6));
 
-		// Never let a single leg punch through the vertical budget.
 		const rad = (heading * Math.PI) / 180;
 		const dy = Math.sin(rad);
 		if (drift > 0 && Math.abs(dy) > 0.01) {
@@ -127,8 +110,7 @@ function buildRoute(run: number, drift: number): Leg[] {
 		legs.push({ x, y, heading, len });
 	}
 
-	// Final leg always clears the edge, shedding MOST of the drift: homing
-	// exactly to y=0 straightens the ride just as it leaves.
+	// Homes toward y=0 to shed drift, so the ride straightens just as it exits.
 	const forwardLeft = run - x;
 	if (forwardLeft > 0) {
 		heading = Math.max(
@@ -149,16 +131,12 @@ function buildRoute(run: number, drift: number): Leg[] {
 }
 
 export function playAtvShare(btn: HTMLElement, exit: Exit = "auto"): void {
-	// Not gated on prefers-reduced-motion: the guard silently killed the app's
-	// share signature on every Mac with Reduce Motion on.
+	// Not gated on prefers-reduced-motion: that guard killed the share signature on every Mac with Reduce Motion on.
 	const dir = resolveExit(btn, exit);
 
-	// All distances go through point(): a raw rect/offsetWidth divide reads
-	// the aspect ratio, not the scale, once the rig is turned a quarter turn.
+	// All distances go through point(): a raw rect/offsetWidth divide reads aspect ratio, not scale, once turned.
 	const local = localFrom(btn);
 	const { point } = local;
-	// The fixed layer resolves against the containing block localFrom measured
-	// from; frameFor is only the fallback for a page with none (native).
 	const home = local.origin ?? frameFor(btn) ?? document.body;
 
 	const h = btn.offsetHeight;
@@ -178,8 +156,7 @@ export function playAtvShare(btn: HTMLElement, exit: Exit = "auto"): void {
 	type AtvHost = HTMLElement & { __atvLayer?: HTMLElement | null };
 	(btn as AtvHost).__atvLayer?.remove();
 
-	// Full-home layer with the button's rect masked out (composited exclude), so
-	// the quad starts under the button. WebKit needs the -webkit- mask props.
+	// Full-home layer masks out the button's rect (composited exclude) so the quad starts under it.
 	const layer = document.createElement("div");
 	(btn as AtvHost).__atvLayer = layer;
 	layer.setAttribute("aria-hidden", "true");
@@ -212,7 +189,6 @@ export function playAtvShare(btn: HTMLElement, exit: Exit = "auto"): void {
 			? "/mobileAssets/share_atv_tread_left.webp"
 			: "/mobileAssets/share_atv_tread_right.webp";
 
-	// Park the nose at the button's edge, tucked under by the corner radius.
 	const st = img.style;
 	st.position = "absolute";
 	st.pointerEvents = "none";
@@ -233,9 +209,7 @@ export function playAtvShare(btn: HTMLElement, exit: Exit = "auto"): void {
 		st.maskImage = m;
 	}
 
-	// Every shell edge goes through point() too: a raw rect difference is a
-	// screen-space distance, and turned a quarter turn "right of the button"
-	// is the gap BELOW it. A turn also swaps the ends, so the corners are sorted.
+	// Shell edges go through point() too: turned, "right of the button" can be the gap below it.
 	const host = btn.closest(".mobile-shell") ?? document.documentElement;
 	const hostRect = host.getBoundingClientRect();
 	const a = point(hostRect.left, hostRect.top);
