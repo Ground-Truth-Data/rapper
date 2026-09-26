@@ -93,7 +93,7 @@
 }
 
 @layer base {
-img {
+	img {
 		-webkit-touch-callout: none;
 		-webkit-user-select: none;
 		user-select: none;
@@ -123,7 +123,7 @@ img {
 		font-family: var(--font-retreever);
 	}
 
-body.mobile-app-framed {
+	body.mobile-app-framed {
 		width: 100%;
 	}
 
@@ -133,7 +133,7 @@ body.mobile-app-framed {
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	}
 
-body.mobile-app {
+	body.mobile-app {
 		color: var(--rt-fg);
 		font-size: 1.15rem;
 	}
@@ -428,11 +428,11 @@ body.mobile-app {
 	--hand-left: -673px;
 	--hand-top: -51px;
 	--hand-stretch: 1.023;
---hand-left-base: var(--hand-left);
+	--hand-left-base: var(--hand-left);
 	--hand-top-base: var(--hand-top);
 	--hand-stretch-base: var(--hand-stretch);
 	--wrapper-nudge: 38px;
---wrapper-drop: 0px;
+	--wrapper-drop: 0px;
 }
 
 /* `absolute`: the phone gets the box left over under a nav; a phone-only page wraps it in .phone-viewport instead. */
@@ -445,7 +445,7 @@ body.mobile-app {
 	align-items: center;
 	justify-content: center;
 	overflow: hidden;
-container-type: size;
+	container-type: size;
 }
 
 /* Each item carries its own feathered wash: a bar would be invisible over sky, a smudge over branches. */
@@ -463,12 +463,12 @@ body.mobile-app-framed {
 		justify-content: space-between;
 		align-items: flex-end;
 		gap: 1rem;
-padding: 0 clamp(1.5rem, 3vw, 2.5rem) 1.4rem;
+		padding: 0 clamp(1.5rem, 3vw, 2.5rem) 1.4rem;
 		font-family: var(--rt-font-body);
 		font-size: 1.05rem;
 		line-height: 1;
 		letter-spacing: 0.02em;
-z-index: 1;
+		z-index: 1;
 		pointer-events: none;
 	}
 
@@ -478,10 +478,10 @@ z-index: 1;
 		color: var(--rt-yellow);
 		text-decoration: none;
 		white-space: nowrap;
-pointer-events: auto;
+		pointer-events: auto;
 	}
 
-a.rig-legal__item {
+	a.rig-legal__item {
 		border: 1px solid color-mix(in srgb, var(--rt-yellow) 55%, transparent);
 		border-radius: 999px;
 		transition:
@@ -491,7 +491,7 @@ a.rig-legal__item {
 			transform 0.16s ease;
 	}
 
-.rig-legal__item::before {
+	.rig-legal__item::before {
 		content: "";
 		position: absolute;
 		inset: -0.5rem -1.1rem;
@@ -554,7 +554,7 @@ a.rig-legal__item {
 	--stage-reach: 0.92;
 	--fit-h: calc((100cqh - var(--stage-pad)) / var(--phone-height));
 	--fit-w: calc(100cqw * var(--stage-reach) / var(--phone-width));
---fit: min(1, var(--fit-h), var(--fit-w));
+	--fit: min(1, var(--fit-h), var(--fit-w));
 	transform: translate(var(--wrapper-nudge), var(--wrapper-drop))
 		scale(var(--fit));
 	transform-origin: center center;
@@ -595,7 +595,7 @@ a.rig-legal__item {
 	--stage-side: 0px;
 	--fit-h: calc((100cqh - var(--stage-pad)) / var(--phone-width));
 	--fit-w: calc((100cqw - var(--stage-side)) / var(--phone-height));
---fit: min(var(--fit-h), var(--fit-w));
+	--fit: min(var(--fit-h), var(--fit-w));
 	/* No --wrapper-nudge here: turned, the phone very nearly IS the stage. Rotation last — the scale must act on the turned box. */
 	transform: translate(0, var(--wrapper-drop)) scale(var(--fit)) rotate(90deg);
 }
@@ -607,7 +607,7 @@ a.rig-legal__item {
 	height: var(--phone-width);
 	transform-origin: top left;
 	transform: rotate(-90deg) translate(calc(-1 * var(--phone-height)), 0);
-position: relative;
+	position: relative;
 	overflow: hidden;
 	contain: layout;
 	container-type: inline-size;
