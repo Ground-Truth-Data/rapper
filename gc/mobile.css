@@ -66,8 +66,6 @@
 
 	/* Orange = admin / consequential, between gold and danger; tan is its quieter sibling. */
 	--rt-orange: #e6943c;
-	--rt-orange-soft: rgba(230, 148, 60, 0.06);
-	--rt-orange-line: rgba(230, 148, 60, 0.45);
 	--rt-tan: #c7a878;
 
 	--rt-danger: #d4574a;
@@ -144,8 +142,6 @@
 	--rt-readout-text: var(--rt-fg);
 
 	--rt-btn-commit-bg: #daa520;
-	--rt-btn-commit-bg-active: #b8890d;
-	--rt-btn-commit-border: 2px solid #000;
 	--rt-btn-commit-text: var(--rt-bg);
 
 	--rt-font-display: "Retreever", sans-serif;
@@ -155,7 +151,6 @@
 
 	--rt-fs-title: 2rem;
 	--rt-fs-drawer: 1.65rem;
-	--rt-fs-button-lg: 1.25rem;
 	--rt-fs-button-md: 1.15rem;
 	--rt-fs-row: 1rem;
 	--rt-fs-section: 0.95rem;
@@ -168,9 +163,6 @@
 	--rt-ls-display: 0.04em;
 
 	--rt-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
-	--rt-dur-fast: 80ms;
-	--rt-dur-base: 220ms;
-	--rt-dur-panel: 260ms;
 
 	/* ── Bottom tab bar ─────────────────────────────────────── */
 	/* Anything on the tab bar's top edge offsets by this; 15cqw tracks the phone frame. */
@@ -198,21 +190,6 @@ hr {
 	color: var(--rt-yellow);
 	line-height: 1;
 	margin: 0;
-}
-.rt-text-drawer {
-	font-family: var(--rt-font-display);
-	font-size: var(--rt-fs-drawer);
-	letter-spacing: var(--rt-ls-display);
-	color: var(--rt-yellow);
-	line-height: 1;
-	margin: 0;
-}
-.rt-text-section {
-	font-family: var(--rt-font-display);
-	font-size: var(--rt-fs-section);
-	color: var(--rt-rust-label);
-	letter-spacing: 0.02em;
-	line-height: 1.1;
 }
 .rt-text-row {
 	font-family: var(--rt-font-display);
@@ -632,15 +609,6 @@ body.shovel-cursor,
 body.shovel-cursor * {
 	cursor: none !important;
 }
-/* Touch devices: restore default cursor so anything reading `cursor` isn't broken. */
-@media (pointer: coarse) {
-	body.mobile-app,
-	body.mobile-app *,
-	body.shovel-cursor,
-	body.shovel-cursor * {
-		cursor: auto !important;
-	}
-}
 .fake-cursor {
 	position: fixed;
 	top: 0;
@@ -657,12 +625,6 @@ body.shovel-cursor * {
 body.mobile-app .fake-cursor,
 body.shovel-cursor .fake-cursor {
 	display: block;
-}
-@media (pointer: coarse) {
-	body.mobile-app .fake-cursor,
-	body.shovel-cursor .fake-cursor {
-		display: none;
-	}
 }
 
 /* Click splash — companion to .fake-cursor; shows WHEN a tap lands, not just where. Created/self-removed by ShovelCursor.svelte. */
@@ -688,14 +650,22 @@ body.shovel-cursor .fake-cursor {
 		transform: scale(2.6);
 	}
 }
-/* Touch devices already give real feedback; this is a desktop-recording aid. */
+/* Touch devices: real cursor and feedback; the fake hand and splash are a desktop-recording aid. */
 @media (pointer: coarse) {
+	body.mobile-app,
+	body.mobile-app *,
+	body.shovel-cursor,
+	body.shovel-cursor * {
+		cursor: auto !important;
+	}
+	body.mobile-app .fake-cursor,
+	body.shovel-cursor .fake-cursor,
 	.click-splash {
 		display: none;
 	}
 }
 
-/* Selection killed app-wide: long-press text-select fights every drag gesture; re-enabled only on form fields + .rt-selectable. */
+/* Selection killed app-wide: long-press text-select fights every drag gesture; re-enabled only on form fields. */
 body.mobile-app {
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
@@ -709,13 +679,11 @@ body.mobile-app a {
 	-webkit-user-drag: none;
 }
 
-/* Re-enables selection on form fields + .rt-selectable; backstops the body default only. */
+/* Re-enables selection on form fields; backstops the body default only. */
 body.mobile-app input,
 body.mobile-app textarea,
 body.mobile-app [contenteditable],
-body.mobile-app [contenteditable] *,
-body.mobile-app .rt-selectable,
-body.mobile-app .rt-selectable * {
+body.mobile-app [contenteditable] * {
 	-webkit-user-select: text;
 	user-select: text;
 }
@@ -866,13 +834,11 @@ body.demo-map-fullbleed .bottom-nav {
 	transition: transform 280ms cubic-bezier(.2,.8,.2,1), opacity 220ms ease;
 	will-change: transform, opacity;
 }
-.mobile-map-fill .shovel-drawer,
 .mobile-map-fill .mob-drawer,
 .mobile-map-fill .mob-drawer-scrim,
 .mobile-map-fill .shovel-handle,
 .mobile-map-fill .drawer-scrim,
 .mobile-map-fill .draw-strip,
-.mobile-map-fill .pull-hint,
 .mobile-map-fill .mapboxgl-ctrl-top-right,
 .mobile-map-fill .maplibregl-ctrl-top-right,
 .mobile-map-fill .mapboxgl-ctrl-bottom-right,
@@ -894,13 +860,11 @@ body.map-only .bottom-nav {
 	pointer-events: none;
 }
 
-body.map-only .mobile-map-fill .shovel-drawer,
 body.map-only .mobile-map-fill .mob-drawer,
 body.map-only .mobile-map-fill .mob-drawer-scrim,
 body.map-only .mobile-map-fill .shovel-handle,
 body.map-only .mobile-map-fill .drawer-scrim,
 body.map-only .mobile-map-fill .draw-strip,
-body.map-only .mobile-map-fill .pull-hint,
 body.map-only .mobile-map-fill .mapboxgl-ctrl-top-right,
 body.map-only .mobile-map-fill .maplibregl-ctrl-top-right,
 body.map-only .mobile-map-fill .mapboxgl-ctrl-bottom-right,
@@ -1446,58 +1410,11 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	text-decoration: none;
 	cursor: pointer;
 	-webkit-tap-highlight-color: transparent;
-}
-.rt-hospital-loc {
 	background: rgba(0, 0, 0, 0.3);
 	color: #ece7da;
 	border: 1.5px solid rgba(255, 255, 255, 0.17);
 }
 .rt-hospital-loc:active { transform: scale(0.96); }
-
-.rtr-droppin-popup .mapboxgl-popup-content,
-.rtr-droppin-popup .maplibregl-popup-content {
-	background: rgba(18, 18, 18, 0.28);
-	backdrop-filter: blur(8px);
-	-webkit-backdrop-filter: blur(8px);
-	color: var(--color-accent);
-	font-family: var(--rt-font-display, "Retreever", sans-serif);
-	font-size: 0.8rem;
-	font-weight: 700;
-	padding: 0.3rem 0.6rem;
-	border-radius: 0.5rem;
-	border: 1px solid color-mix(in srgb, var(--color-accent), transparent 60%);
-	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
-}
-.rtr-droppin-popup .mapboxgl-popup-tip,
-.rtr-droppin-popup .maplibregl-popup-tip { display: none; }
-.rtr-droppin-card { display: flex; flex-direction: column; gap: 0.45rem; align-items: stretch; }
-.rtr-droppin-label { font-size: 0.85rem; font-weight: 800; color: var(--color-accent); }
-.rtr-droppin-coords {
-	font-size: 0.72rem;
-	font-weight: 600;
-	font-variant-numeric: tabular-nums;
-	letter-spacing: 0.01em;
-	color: color-mix(in srgb, var(--color-accent), transparent 25%);
-}
-.rtr-droppin-btn {
-	font-family: var(--rt-font-display, "Retreever", sans-serif);
-	font-size: 0.8rem;
-	font-weight: 700;
-	letter-spacing: 0.03em;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 0.3rem;
-	padding: 0.35rem 0.7rem;
-	border-radius: 0.4rem;
-	border: 1px solid currentColor;
-	background: transparent;
-	color: var(--color-accent);
-	cursor: pointer;
-	-webkit-tap-highlight-color: transparent;
-}
-.rtr-droppin-btn:active { background: color-mix(in srgb, var(--color-accent) 16%, transparent); }
-.rtr-droppin-icon { width: 16px; height: auto; display: block; }
 
 /* Native user-location dot — WKWebView cannot render Mapbox's GeolocateControl. */
 .user-location-dot {
