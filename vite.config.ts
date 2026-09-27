@@ -90,7 +90,7 @@ const tierFacts = dev
 		"import.meta.env.VITE_RAPPER_TIER": JSON.stringify("rapper"),
 		"import.meta.env.VITE_OTHER_TIER": JSON.stringify("retreever"),
 		"import.meta.env.VITE_OTHER_ORIGIN": JSON.stringify(
-			"http://retreever.localhost:5173",
+			"http://retreever.localhost:5176",
 		),
 		// Not "/": ReTreever's "/" is a marketing homepage, not the search.
 		"import.meta.env.VITE_OTHER_HOME": JSON.stringify(otherHome()),
