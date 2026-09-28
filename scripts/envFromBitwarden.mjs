@@ -120,7 +120,7 @@ for (const [key, uuid] of bitwardenKeys) {
 	if (key !== name && bare !== name) {
 		wrong.push(
 			`${key}: Bitwarden calls it "${name}" — rename the KEY in ${SCHEMA} and the code to "${name}" ` +
-				`(prefix allowed: ${FORCED_PREFIXES.map((p) => p + name).join(" / ")}). Never rename the secret.`,
+				`(prefix allowed: ${FORCED_PREFIXES.map((p) => p + name).join(" / ")}), or, when a tool fixes the name, rename the secret in Bitwarden to "${key.replace(/^(PUBLIC_|VITE_)/, "")}".`,
 		);
 	}
 }
