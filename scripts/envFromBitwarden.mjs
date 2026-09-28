@@ -1,30 +1,38 @@
 #!/usr/bin/env node
-// Regenerates the current repo's .env from .env.schema and fails the build
-// when schema, code and Bitwarden disagree. npm runs it as `prebuild` with the
-// repo root as cwd.
+// Writes the current repo's .env.schema Bitwarden block from `bws secret list`,
+// regenerates .env from the schema, and fails the build when code reads a name
+// the vault does not have. npm runs it as predev and prebuild, cwd = repo root.
 //
-// Vite inlines PUBLIC_*/VITE_* values by scanning .env on disk, before any
-// process (varlock included) can inject them — so those keys, and only those,
-// are written to a generated .env. Everything else reaches the process through
-// `varlock run` and never touches disk.
+// Bitwarden's name is the only name. The block between the two markers is
+// written from the vault, so no hand-typed secret name exists to disagree with
+// it; a repo declares every vault secret that its source, or the source of a
+// child it serves, names. Vite inlines PUBLIC_* by scanning .env on disk before
+// any process can inject them, so those keys, and only those, land in .env.
 
 import { spawnSync } from "node:child_process";
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
 
 const SCHEMA = ".env.schema";
 const ENV = ".env";
-// Names a framework forces onto the browser side; the rest of the key is still Bitwarden's name.
-const FORCED_PREFIXES = ["PUBLIC_", "VITE_"];
+const BROWSER_PREFIX = "PUBLIC_";
+const BEGIN = "# --- Bitwarden block: written from `bws secret list` by rapper/scripts/envFromBitwarden.mjs. Hand edits here are overwritten. ---";
+const END = "# --- end Bitwarden block ---";
 const KEY_LINE = /^([A-Za-z_][A-Za-z0-9_]*)=/gm;
+const SOURCE = /\.(m?[jt]s|cjs|svelte|prisma|py|sh|json|toml|ya?ml)$/;
+const SKIP_DIRS = new Set([
+	".git", "node_modules", ".svelte-kit", ".svelte-kit-cap", ".vercel", "build", "build-cap",
+	"dist", "ios", "android", "_rapper", "_siblings", ".wt", ".test", ".playwright-mcp",
+]);
 
 const BANNER = `# ############################################################################
 # #  GENERATED — DO NOT EDIT. THIS FILE IS OVERWRITTEN ON EVERY BUILD.       #
 # #  Written by rapper/scripts/envFromBitwarden.mjs from .env.schema.        #
 # #  Secrets go in Bitwarden Secrets Manager. Names go in .env.schema.       #
-# #  A key here that .env.schema does not declare FAILS the next build.      #
+# #  Anything you add here is gone on the next build.                        #
 # ############################################################################
+# shellcheck disable=SC2034  # editors lint this as shell; nothing here is "unused"
 `;
 
 const fail = (msg) => {
@@ -46,28 +54,58 @@ const varlock = (args, opts = {}) =>
 if (!existsSync(SCHEMA)) {
 	fail(`${process.cwd()} has no ${SCHEMA}. Every repo that reads a secret declares it there.`);
 }
-const schemaSrc = readFileSync(SCHEMA, "utf8");
-const schemaKeys = [...schemaSrc.matchAll(KEY_LINE)].map((m) => m[1]);
-const bitwardenKeys = new Map(
-	[...schemaSrc.matchAll(/^([A-Za-z_][A-Za-z0-9_]*)=bitwarden\("([0-9a-f-]{36})"\)/gm)].map(
-		(m) => [m[1], m[2]],
-	),
-);
-if (schemaKeys.length === 0) fail(`${SCHEMA} declares no keys — this proves nothing.`);
+let schemaSrc = readFileSync(SCHEMA, "utf8");
 
-// A hand-added key would be silently lost on regeneration; refuse instead.
-if (existsSync(ENV)) {
-	const declared = new Set(schemaKeys);
-	const stray = [...readFileSync(ENV, "utf8").matchAll(KEY_LINE)]
-		.map((m) => m[1])
-		.filter((k) => !declared.has(k));
-	if (stray.length) {
-		fail(
-			`${ENV} holds ${stray.join(", ")}, not declared in ${SCHEMA}.\n` +
-				`  ${ENV} is generated. Put the secret in Bitwarden and its name in ${SCHEMA}, never here.`,
-		);
+// The folders whose source may name a secret this repo must resolve: itself,
+// plus the children its svelte.config.js serves — they read the parent's .env.
+const roots = ["."];
+if (existsSync("svelte.config.js")) {
+	for (const [, child] of readFileSync("svelte.config.js", "utf8").matchAll(/\$parent\/siblings\/(\w+)"/g)) {
+		if (existsSync(path.join("..", child))) roots.push(path.join("..", child));
 	}
 }
+function* sourceFiles(dir) {
+	for (const e of readdirSync(dir, { withFileTypes: true })) {
+		if (e.isDirectory()) {
+			if (!SKIP_DIRS.has(e.name)) yield* sourceFiles(path.join(dir, e.name));
+		} else if (SOURCE.test(e.name)) yield path.join(dir, e.name);
+	}
+}
+const corpus = roots.flatMap((r) => [...sourceFiles(r)]).map((f) => readFileSync(f, "utf8")).join("\n");
+const named = (key) => new RegExp(`(^|[^A-Za-z0-9_])${key}(?![A-Za-z0-9_])`).test(corpus);
+
+// No bws (Vercel): the committed block stands. It was written from the vault
+// on a developer's machine, and the audit below still proves it against code.
+const bws = spawnSync("bws", ["secret", "list", "--output", "json"], { encoding: "utf8" });
+if (bws.error?.code === "ENOENT") {
+	console.warn(`⚠ envFromBitwarden: bws CLI not on PATH — ${SCHEMA} kept as committed, not rewritten from the vault.`);
+} else {
+	if (bws.status !== 0) fail(`bws secret list failed:\n${bws.stderr}`);
+	const begin = schemaSrc.indexOf(BEGIN);
+	const end = schemaSrc.indexOf(END);
+	if (begin < 0 || end < begin) fail(`${SCHEMA} has no Bitwarden block. Add these two lines:\n  ${BEGIN}\n  ${END}`);
+	const block = [BEGIN];
+	const prefixed = [];
+	for (const s of JSON.parse(bws.stdout).sort((a, b) => a.key.localeCompare(b.key))) {
+		if (named(s.key)) {
+			// The note is the secret's documentation; an at-sign in it would read as a decorator.
+			const note = (s.note ?? "").replace(/\s+/g, " ").replaceAll("@", "at ").trim();
+			if (note) block.push(`# ${note}`);
+			block.push(`# @auditIgnore${s.key.startsWith(BROWSER_PREFIX) ? "" : " @sensitive"}`);
+			block.push(`${s.key}=bitwarden("${s.id}")`);
+		} else if (named(BROWSER_PREFIX + s.key)) {
+			prefixed.push(`${BROWSER_PREFIX}${s.key} is read; Bitwarden has "${s.key}". The browser needs the prefix, so the SECRET is renamed ${BROWSER_PREFIX}${s.key} in Bitwarden. Only Chris does that.`);
+		}
+	}
+	schemaSrc = schemaSrc.slice(0, begin) + block.join("\n") + "\n" + schemaSrc.slice(end);
+	writeFileSync(SCHEMA, schemaSrc);
+	console.log(`✓ envFromBitwarden: ${SCHEMA} Bitwarden block written from the vault (${(block.length - 1) / 3 | 0} secrets named in ${roots.join(", ")}).`);
+	if (prefixed.length) console.warn(`⚠ envFromBitwarden:\n  ${prefixed.join("\n  ")}`);
+}
+
+const schemaKeys = [...schemaSrc.matchAll(KEY_LINE)].map((m) => m[1]);
+const bitwardenKeys = [...schemaSrc.matchAll(/^(\w+)=bitwarden\(/gm)].map((m) => m[1]);
+if (schemaKeys.length === 0) fail(`${SCHEMA} declares no keys — this proves nothing.`);
 
 // -p resolves from the schema ALONE. A value already sitting in .env would
 // otherwise win over Bitwarden, and a rotated secret would never arrive.
@@ -75,54 +113,27 @@ const load = varlock(["load", "--format", "json", "-p", SCHEMA]);
 if (load.status !== 0) fail(`varlock could not resolve ${SCHEMA}:\n${load.stderr || load.stdout}`);
 const resolved = JSON.parse(load.stdout);
 
-const unresolved = [...bitwardenKeys.keys()].filter((k) => !resolved[k]);
+const unresolved = bitwardenKeys.filter((k) => !resolved[k]);
 if (unresolved.length) {
 	fail(
 		`Bitwarden returned no value for: ${unresolved.join(", ")}.\n` +
-			"  Check the UUID and that this machine account can read that secret.",
+			"  Check that this machine account can read that secret.",
 	);
 }
 
-const audit = varlock(["audit"], { stdio: "inherit", encoding: undefined });
-if (audit.status !== 0) fail("varlock audit found schema/code drift (above).");
-
-const buildTime = schemaKeys.filter(
-	(k) => FORCED_PREFIXES.some((p) => k.startsWith(p)) && resolved[k],
-);
+// Written before the audit: varlock overlays .env on the schema, so a stale
+// generated file would report its old keys as drift.
+const buildTime = schemaKeys.filter((k) => k.startsWith(BROWSER_PREFIX) && resolved[k]);
 writeFileSync(ENV, BANNER + buildTime.map((k) => `${k}=${resolved[k]}`).join("\n") + "\n");
+
+const audit = varlock(["audit"], { stdio: "inherit", encoding: undefined });
+if (audit.status !== 0) {
+	fail(
+		"varlock audit found drift (above). A name code reads that Bitwarden lacks is fixed in the code,\n" +
+			"  or Chris creates the secret in Bitwarden. A secret name is never typed into a schema.",
+	);
+}
 console.log(
-	`✓ envFromBitwarden: ${bitwardenKeys.size} Bitwarden pointers resolved, audit clean, ` +
+	`✓ envFromBitwarden: ${bitwardenKeys.length} Bitwarden pointers resolved, audit clean, ` +
 		`${ENV} regenerated with ${buildTime.length} build-time keys.`,
 );
-
-// Last, so everything above is proven first. Bitwarden's name is THE name: a
-// mismatch is fixed in the schema and the code, never by renaming the secret.
-// Needs the bws CLI; where it is absent (Vercel) this is reported as skipped,
-// never as passed.
-const bws = spawnSync("bws", ["secret", "list", "--output", "json"], {
-	encoding: "utf8",
-	env: { ...process.env, BWS_ACCESS_TOKEN: resolved.BWS_ACCESS_TOKEN ?? process.env.BWS_ACCESS_TOKEN },
-});
-if (bws.error?.code === "ENOENT") {
-	console.warn("⚠ envFromBitwarden: bws CLI not on PATH — schema-name vs Bitwarden-name check SKIPPED.");
-	process.exit(0);
-}
-if (bws.status !== 0) fail(`bws secret list failed:\n${bws.stderr}`);
-const nameByUuid = new Map(JSON.parse(bws.stdout).map((s) => [s.id, s.key]));
-const wrong = [];
-for (const [key, uuid] of bitwardenKeys) {
-	const name = nameByUuid.get(uuid);
-	if (!name) {
-		wrong.push(`${key}: no Bitwarden secret has UUID ${uuid}`);
-		continue;
-	}
-	const bare = FORCED_PREFIXES.reduce((k, p) => (k.startsWith(p) ? k.slice(p.length) : k), key);
-	if (key !== name && bare !== name) {
-		wrong.push(
-			`${key}: Bitwarden calls it "${name}" — rename the KEY in ${SCHEMA} and the code to "${name}" ` +
-				`(prefix allowed: ${FORCED_PREFIXES.map((p) => p + name).join(" / ")}), or, when a tool fixes the name, rename the secret in Bitwarden to "${key.replace(/^(PUBLIC_|VITE_)/, "")}".`,
-		);
-	}
-}
-if (wrong.length) fail(`schema names do not match Bitwarden:\n  ${wrong.join("\n  ")}`);
-console.log(`✓ envFromBitwarden: ${bitwardenKeys.size} schema keys match their Bitwarden name.`);

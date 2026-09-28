@@ -126,6 +126,8 @@ return {
 	// Keys MUST be import.meta.env.VITE_*, not bare globals: a bare __X__ throws
 	// in a child cloned without rapper, and `typeof __X__` makes Vite skip the substitution.
 	define: { ...tierFacts, ...mountedFact },
+	// PUBLIC_ is the one browser prefix; a child reads it through import.meta.env.
+	envPrefix: ["PUBLIC_"],
 	server: {
 		fs: {
 			// SvelteKit replaces Vite's allow-list with src/ only; rig/, gc/, rt/ and every sibling 404 without this.

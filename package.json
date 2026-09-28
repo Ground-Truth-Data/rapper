@@ -9,10 +9,10 @@
 	"_why_tailwind": "Tailwind v4 is live: gc/theme.css and gc/base.css `@import 'tailwindcss'` — v4 syntax, so there is no `@tailwind` directive to grep for, and its absence has been misread as 'unused' once already. vite.config.ts loads @tailwindcss/vite (Vite 8 cannot resolve the bare import through PostCSS); ReTreever_who_what/lib/cn.ts uses tailwind-merge.",
 	"scripts": {
 		"_why_predev": "rapper ships no static/: without this copy every /mobileAssets/worldBase/… request from the mounted child (basemap tiles, glyphs) 404s, and a child cannot fetch across into a parent. The copy is gitignored; ReTreever/static/mobileAssets is the source. Names no child — the mounted one is read from kit.files.routes; a hardcoded name once broke `npm run dev` for every other install, since a failing pre-script aborts the script it precedes and only `npm run dev` exercises predev (packTest.sh never does).",
-		"predev": "node scripts/childAssets.mjs",
+		"predev": "node scripts/envFromBitwarden.mjs && node scripts/childAssets.mjs",
 		"dev": "node scripts/devWithWorker.mjs",
 		"dev:vite": "vite dev --port 5174",
-		"prebuild": "svelte-kit sync",
+		"prebuild": "node scripts/envFromBitwarden.mjs && svelte-kit sync",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
