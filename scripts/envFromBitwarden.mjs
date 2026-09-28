@@ -78,6 +78,7 @@ const named = (key) => new RegExp(`(^|[^A-Za-z0-9_])${key}(?![A-Za-z0-9_])`).tes
 // on a developer's machine, and the audit below still proves it against code.
 const bws = spawnSync("bws", ["secret", "list", "--output", "json"], { encoding: "utf8" });
 if (bws.error?.code === "ENOENT") {
+	if (!process.env.VERCEL) fail("bws CLI not on PATH. Install it:  curl https://bws.bitwarden.com/install | sh");
 	console.warn(`⚠ envFromBitwarden: bws CLI not on PATH — ${SCHEMA} kept as committed, not rewritten from the vault.`);
 } else {
 	if (bws.status !== 0) fail(`bws secret list failed:\n${bws.stderr}`);
