@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
 import { noEscapeHatch } from "./src/lib/guards/noEscapePlugin.ts";
 import { noRawCamera } from "./src/lib/guards/noRawCameraPlugin.ts";
+import { workspaceRoot } from "./src/lib/guards/workspaceRoot.ts";
 import { pdfjsWasm } from "./src/lib/vite/pdfjsWasmPlugin.ts";
 import { CHILDREN, childByRepo, mountPath } from "./rig/childRegistry.ts";
 import { mountedChild } from "./scripts/mounted.mjs";
@@ -116,8 +117,8 @@ return {
 	plugins: [
 		printLandingUrl(),
 		// Rooted at the WORKSPACE: children are siblings of rapper, so rooting at rapper/ makes the guard vacuous.
-		noEscapeHatch(fileURLToPath(new URL("..", import.meta.url))),
-		noRawCamera(fileURLToPath(new URL("..", import.meta.url))),
+		noEscapeHatch(workspaceRoot(import.meta.url)),
+		noRawCamera(workspaceRoot(import.meta.url)),
 		pdfjsWasm(import.meta.url),
 		tailwindcss(),
 		sveltekit(),
