@@ -309,12 +309,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				title: "Parents and unlinked children in one alphabetical list",
 			},
 			{
-				key: "projects",
-				label: "Projects",
-				href: `${RETREEVER_TOOL}/projects`,
-				title: "Parent projects and unlinked listings",
-			},
-			{
 				key: "platforms",
 				label: "Platforms",
 				href: `${RETREEVER_TOOL}/platforms`,
@@ -492,13 +486,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				title:
 					"What each platform has yielded so far, against what its index says is there",
 			},
-			{
-				key: "merges",
-				label: "merges",
-				href: `${FOUNDR_TOOL}/merges`,
-				title:
-					"Listings linked under a parent, and the same-name pairs across platforms the upsert recorded for a human to link or reject",
-			},
 			// The same screen as ReTreever's Platforms pill; the project dropdown
 			// reads this table.
 			{
@@ -513,12 +500,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				label: "Orgs",
 				href: `${FOUNDR_TOOL}/orgs`,
 				title: "Parents and unlinked children in one alphabetical list",
-			},
-			{
-				key: "projects",
-				label: "Projects",
-				href: `${FOUNDR_TOOL}/projects`,
-				title: "Parent projects and unlinked listings",
 			},
 			// The same database from this side; `ownRow` so the tables show on
 			// every Foundr screen.
