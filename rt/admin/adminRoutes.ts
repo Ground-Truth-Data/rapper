@@ -51,7 +51,7 @@ export type AdminTool = {
 	title?: string;
 	/** Host the pages live on; omitted = admin. `getcache` is the app's own deployment — the header resolves hrefs against it. */
 	site?: "admin" | "getcache";
-	/** An absolute URL on another server, opened in a new tab (the offline map debugger on :5174). */
+	/** An absolute URL on another server, opened in a new tab (the offline preview debugger on :5174). */
 	external?: string;
 	/** Hide this tool unless running a local dev server. */
 	devOnly?: boolean;
