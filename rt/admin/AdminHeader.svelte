@@ -432,10 +432,9 @@ $effect(() => {
         display: flex;
         flex-direction: column;
         gap: 0.6rem;
-        /* Same 1400px column as .admin-wrap, via padding — not max-width+auto margin, which would shrink the element and stop its background short of the edges. */
         padding-top: 0.75rem;
         padding-bottom: 0.6rem;
-        padding-inline: max(24px, calc((100% - 1400px) / 2 + 24px));
+        padding-inline: 24px;
         /* NOT sticky — the header scrolls away with the page; only the table's own column-header row freezes. `relative` positions .account. */
         position: relative;
         background: #0c0c0c;

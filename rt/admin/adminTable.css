@@ -69,8 +69,6 @@
 
 .admin-wrap {
 	/* Keep in sync with .admin-hd's padding-inline in AdminHeader.svelte — the header's pills sit on this column. Bottom 100px is scroll room, not spacing. */
-	max-width: 1400px;
-	margin: 0 auto;
 	padding: 40px 24px 100px;
 }
 /* Parent Linking is a reading queue, not a spreadsheet — held narrower to keep name and suggestion close. */
