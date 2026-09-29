@@ -1,0 +1,224 @@
+import { describe, expect, it } from "vitest";
+import {
+	applyColumnOrder,
+	hiddenFromParams,
+	hiddenToParams,
+	showOnly,
+	toggleColumn,
+	visibleColumns,
+} from "./columnPrefs";
+
+const COLS = ["a", "b", "c", "d", "e", "f", "g", "h"];
+
+describe("visibleColumns", () => {
+	it("shows everything when nothing is hidden", () => {
+		expect(visibleColumns(COLS, [])).toEqual(COLS);
+	});
+
+	it("drops the hidden ones, keeping schema order", () => {
+		expect(visibleColumns(COLS, ["c", "a"])).toEqual([
+			"b",
+			"d",
+			"e",
+			"f",
+			"g",
+			"h",
+		]);
+	});
+
+	// The picker is reached from the header, so an empty header is a screen
+	// with no way back to its own columns.
+	it("never renders an empty table, however much is hidden", () => {
+		expect(visibleColumns(COLS, COLS)).toEqual(["a"]);
+	});
+
+	it("ignores a hidden column the table no longer has", () => {
+		expect(visibleColumns(["a", "b"], ["gone"])).toEqual(["a", "b"]);
+	});
+});
+
+describe("hiddenFromParams", () => {
+	it("hides nothing when the URL says nothing and there are no defaults", () => {
+		expect(hiddenFromParams(new URLSearchParams(), COLS)).toEqual([]);
+	});
+
+	it("reads the hidden set out of ?hide=", () => {
+		expect(hiddenFromParams(new URLSearchParams("hide=c,e"), COLS)).toEqual([
+			"c",
+			"e",
+		]);
+	});
+
+	it("tolerates spaces around the names", () => {
+		expect(hiddenFromParams(new URLSearchParams("hide=c, e"), COLS)).toEqual([
+			"c",
+			"e",
+		]);
+	});
+
+	// A saved link outlives the schema it was made against. A name that no
+	// longer exists must not travel on through every link copied from this one.
+	it("drops a name the table does not have", () => {
+		expect(hiddenFromParams(new URLSearchParams("hide=c,ghost"), COLS)).toEqual(
+			["c"],
+		);
+	});
+
+	// THE REPORT MUST NOT ROT. This is the reason the param names what is OFF:
+	// a column added to the schema after the link was saved is not in the
+	// hidden list, so it simply appears.
+	it("shows a column added since the link was saved", () => {
+		const saved = new URLSearchParams("hide=c");
+		const grown = [...COLS, "newColumn"];
+		expect(visibleColumns(grown, hiddenFromParams(saved, grown))).toContain(
+			"newColumn",
+		);
+	});
+});
+
+describe("hiddenToParams", () => {
+	it("writes the hidden set when few are hidden", () => {
+		const p = hiddenToParams(new URLSearchParams(), ["c", "e"], COLS);
+		expect(p.get("hide")).toBe("c,e");
+		expect(p.has("cols")).toBe(false);
+	});
+
+	// "Everything on" is spelled by absence, so the plain table URL stays plain.
+	it("removes the param entirely when nothing is hidden", () => {
+		const p = hiddenToParams(new URLSearchParams("hide=c"), [], COLS);
+		expect(p.has("hide")).toBe(false);
+		expect(p.has("cols")).toBe(false);
+	});
+
+	it("leaves the other params alone", () => {
+		const p = hiddenToParams(
+			new URLSearchParams("fcol=platformId&page=3"),
+			["c"],
+			COLS,
+		);
+		expect(p.get("fcol")).toBe("platformId");
+		expect(p.get("page")).toBe("3");
+	});
+
+	it("round-trips through hiddenFromParams", () => {
+		const hidden = ["b", "d", "h"];
+		const p = hiddenToParams(new URLSearchParams(), hidden, COLS);
+		expect(hiddenFromParams(p, COLS)).toEqual(hidden);
+	});
+
+	// A NARROW REPORT MUST NOT PRODUCE A HUGE URL. Naming the 27 columns you
+	// did not pick to show 5 was a 538-character link — long enough that mail
+	// and chat clients wrap and break it.
+	it("flips to ?cols= when that is the shorter half", () => {
+		const keep = ["a", "b"];
+		const p = hiddenToParams(new URLSearchParams(), showOnly(COLS, keep), COLS);
+		expect(p.get("cols")).toBe("a,b");
+		expect(p.has("hide")).toBe(false);
+	});
+
+	it("round-trips the narrow spelling too", () => {
+		const keep = ["a", "b"];
+		const p = hiddenToParams(new URLSearchParams(), showOnly(COLS, keep), COLS);
+		expect(visibleColumns(COLS, hiddenFromParams(p, COLS))).toEqual(keep);
+	});
+
+	// The two spellings differ ON PURPOSE, and only here: `?cols=` names a
+	// closed set, so "the contact report" stays those fields rather than
+	// growing whatever is added next.
+	it("?cols= does NOT pick up a column added later", () => {
+		const p = hiddenToParams(
+			new URLSearchParams(),
+			showOnly(COLS, ["a", "b"]),
+			COLS,
+		);
+		const grown = [...COLS, "newColumn"];
+		expect(visibleColumns(grown, hiddenFromParams(p, grown))).not.toContain(
+			"newColumn",
+		);
+	});
+});
+
+describe("toggleColumn", () => {
+	it("hides a shown column and shows a hidden one", () => {
+		const off = toggleColumn([], "c");
+		expect(off).toEqual(["c"]);
+		expect(toggleColumn(off, "c")).toEqual([]);
+	});
+});
+
+describe("showOnly", () => {
+	it("hides everything outside the keep list", () => {
+		expect(showOnly(COLS, ["a", "c"])).toEqual(["b", "d", "e", "f", "g", "h"]);
+	});
+
+	it("round-trips through visibleColumns", () => {
+		const keep = ["b", "e"];
+		expect(visibleColumns(COLS, showOnly(COLS, keep))).toEqual(keep);
+	});
+});
+
+// The saved order is localStorage — written by an older build, by another
+// table, or by a bug. A repeated name renders as two columns sharing one key,
+// and a keyed {#each} does not degrade: it throws `each_key_duplicate` and the
+// whole table blanks. Uniqueness is enforced HERE, where the list is rebuilt,
+// because every caller passes this value straight to the render.
+describe("applyColumnOrder — the saved order is untrusted input", () => {
+	it("never returns the same column twice, whatever was saved", () => {
+		expect(applyColumnOrder(["a", "b", "c"], ["a", "b", "a"])).toEqual([
+			"a",
+			"b",
+			"c",
+		]);
+	});
+
+	it("de-dupes the defaults too", () => {
+		expect(applyColumnOrder(["a", "a", "b"])).toEqual(["a", "b"]);
+	});
+
+	it("drops saved names the table no longer has", () => {
+		expect(applyColumnOrder(["x", "y"], ["a", "b"])).toEqual(["x", "y"]);
+	});
+
+	it("keeps the saved order and slots a new column beside its neighbour", () => {
+		expect(applyColumnOrder(["a", "b", "c"], ["c", "a"])).toEqual([
+			"c",
+			"a",
+			"b",
+		]);
+	});
+});
+
+describe("a table with default columns", () => {
+	const DEF = ["b", "d"];
+
+	it("opens on its defaults when the URL says nothing", () => {
+		const hidden = hiddenFromParams(new URLSearchParams(), COLS, DEF);
+		expect(visibleColumns(COLS, hidden)).toEqual(DEF);
+	});
+
+	// Links copied before defaults existed must open exactly as they did.
+	it("leaves ?hide= and ?cols= meaning what they meant", () => {
+		expect(hiddenFromParams(new URLSearchParams("hide=c"), COLS, DEF)).toEqual(["c"]);
+		expect(
+			visibleColumns(COLS, hiddenFromParams(new URLSearchParams("cols=a,e"), COLS, DEF)),
+		).toEqual(["a", "e"]);
+	});
+
+	it("spells 'every column' as an empty ?hide=", () => {
+		const p = hiddenToParams(new URLSearchParams(), [], COLS, DEF);
+		expect(p.toString()).toBe("hide=");
+		expect(hiddenFromParams(p, COLS, DEF)).toEqual([]);
+	});
+
+	it("writes no param for the defaults, in any order", () => {
+		const hidden = showOnly(COLS, DEF).reverse();
+		const p = hiddenToParams(new URLSearchParams("hide=c"), hidden, COLS, DEF);
+		expect(p.toString()).toBe("");
+	});
+
+	it("round-trips a choice that is neither", () => {
+		const hidden = showOnly(COLS, ["a", "b", "d"]);
+		const p = hiddenToParams(new URLSearchParams(), hidden, COLS, DEF);
+		expect(visibleColumns(COLS, hiddenFromParams(p, COLS, DEF))).toEqual(["a", "b", "d"]);
+	});
+});
