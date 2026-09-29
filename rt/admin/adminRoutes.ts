@@ -285,6 +285,14 @@ const mirroredTablePills = (base: string): AdminLink[] =>
 		kind: "table" as const,
 	}));
 
+const deviceTablePills = (base: string): AdminLink[] =>
+	DEVICE_TABLES.map((t) => ({
+		label: tableLabel(t),
+		href: `${base}/${t}`,
+		title: t,
+		kind: "table" as const,
+	}));
+
 export const ADMIN_PARENTS: AdminParent[] = [
 	{
 		key: "retreever",
@@ -409,12 +417,15 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				href: "/app/sqlite/cacheTable",
 				match: "/app/sqlite",
 				title: "This browser's live Get Cache database — every table",
-				tables: DEVICE_TABLES.map((t) => ({
-					label: tableLabel(t),
-					href: `/app/sqlite/${t}`,
-					title: t,
-					kind: "table" as const,
-				})),
+				tables: deviceTablePills("/app/sqlite"),
+			},
+			{
+				key: "file",
+				label: "File",
+				// Admin-hosted: a dropped file has no origin to live with.
+				href: "/getcache_dash/file",
+				title: "A Get Cache .sqlite3 dropped here — every table, opened in this browser",
+				tables: deviceTablePills("/getcache_dash/file"),
 			},
 		],
 	},
