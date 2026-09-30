@@ -451,6 +451,11 @@ const frozenLeftVar = (index: number) =>
 		font-size: 12.5px;
 		max-width: 0;
 	}
+	/* `max-width: 0` stops text widening a column but not a block of controls.
+	   Blocks only: containing an inline-block (a pill, a button) sizes it to 0. */
+	.adt-cell > :global(div) {
+		contain: inline-size;
+	}
 
 	/* THE FROZEN LEFT EDGE: these cells hold their place while everything else
 	   slides under them. THE INSET SHADOW IS AN OPAQUE FLOOR, not decoration —
