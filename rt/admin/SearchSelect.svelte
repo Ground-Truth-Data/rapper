@@ -10,6 +10,7 @@
  *
  * Matching is deliberately dumb: case- and accent-insensitive substring, no token splitting or ranking.
  */
+import { cubicOut } from "svelte/easing";
 
 interface Item {
 	value: string;
@@ -180,6 +181,17 @@ const onTriggerKeydown = (e: KeyboardEvent) => {
 	}
 };
 
+const still = () =>
+	typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/** The admin kit's hinge. `up` flips the rotation with `dropUp`, so a menu that flipped above the field still swings off the edge it is anchored to. */
+const hinge = (_node: Element, { up = false }: { up?: boolean } = {}) => ({
+	duration: still() ? 0 : 160,
+	easing: cubicOut,
+	css: (t: number, u: number) =>
+		`opacity:${t};transform:perspective(700px) rotateX(${(up ? 10 : -10) * u}deg) translateY(${(up ? 3 : -3) * u}px)`,
+});
+
 /** Typing resets the cursor: the old index pointed into a different list. */
 $effect(() => {
 	void query;
@@ -253,9 +265,11 @@ $effect(() => {
 		></button>
 
 		<div
-			class="border-input bg-background text-foreground absolute right-0 left-0 z-50 overflow-hidden rounded-md border shadow-lg {dropUp
+			class="ss-panel border-input bg-background text-foreground absolute right-0 left-0 z-50 overflow-hidden rounded-md border {dropUp
 				? 'bottom-full mb-1'
 				: 'top-full mt-1'}"
+			class:up={dropUp}
+			transition:hinge={{ up: dropUp }}
 		>
 			{#if showSearch}
 				<div class="p-2">
@@ -334,3 +348,20 @@ $effect(() => {
 		</div>
 	{/if}
 </div>
+
+<style>
+	/* The one admin-kit elevation for something that has left the grid, so this
+	   control sits on the same plane as the column picker and the export menus
+	   rather than carrying Tailwind's own shadow scale. Literal fallbacks: the
+	   forms that mount this do not all load adminTable.css. */
+	.ss-panel {
+		box-shadow:
+			var(--at-lift-3, 0 24px 48px -12px rgb(0 0 0 / 80%)),
+			var(--at-edge-hi, inset 0 1px 0 rgb(255 255 255 / 6%));
+		transform-origin: top;
+	}
+	/* Hinges off the edge it is actually anchored by once `dropUp` flipped it. */
+	.ss-panel.up {
+		transform-origin: bottom;
+	}
+</style>

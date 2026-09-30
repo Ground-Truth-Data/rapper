@@ -16,6 +16,8 @@
   an absent column.
 -->
 <script lang="ts">
+import { cubicOut } from "svelte/easing";
+import { fade } from "svelte/transition";
 import { toggleColumn } from "./columnPrefs";
 
 interface Props {
@@ -56,6 +58,17 @@ async function copyLink() {
 		// Convenience only — the address bar still holds the same URL.
 	}
 }
+
+const still = () =>
+	typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/** Hinges down from the trigger it is anchored to, so the panel reads as a lid opening off this button rather than a card appearing near it. Free here only because nothing under this panel is a `position: sticky` cell. */
+const hinge = () => ({
+	duration: still() ? 0 : 180,
+	easing: cubicOut,
+	css: (t: number, u: number) =>
+		`opacity:${t};transform:perspective(700px) rotateX(${-14 * u}deg) translateY(${-4 * u}px)`,
+});
 </script>
 
 <div class="colpick">
@@ -75,9 +88,10 @@ async function copyLink() {
 		<div
 			class="colpick-scrim"
 			role="presentation"
+			transition:fade={{ duration: still() ? 0 : 140 }}
 			onclick={() => (open = false)}
 		></div>
-		<div class="colpick-menu">
+		<div class="colpick-menu" transition:hinge>
 			<div class="colpick-head">
 				<button type="button" onclick={showAll} disabled={hidden.length === 0}>
 					Show all
@@ -142,6 +156,15 @@ async function copyLink() {
 .colpick-btn:hover {
 	border-color: var(--palette-gold, #e0b050);
 }
+.colpick-btn:active {
+	background: rgb(255 255 255 / 7%);
+}
+.colpick-btn:focus-visible,
+.colpick-head button:focus-visible,
+.colpick-menu label:focus-within {
+	outline: 1px solid var(--at-gold, #eab627);
+	outline-offset: 1px;
+}
 .count {
 	opacity: 0.6;
 	font-variant-numeric: tabular-nums;
@@ -165,8 +188,12 @@ async function copyLink() {
 	border: 1px solid var(--admin-line, #3a3a3a);
 	border-radius: 8px;
 	background: var(--admin-panel-bg, #16161a);
-	box-shadow: 0 10px 30px rgb(0 0 0 / 45%);
+	box-shadow:
+		var(--at-lift-3, 0 24px 48px -12px rgb(0 0 0 / 80%)),
+		var(--at-edge-hi, inset 0 1px 0 rgb(255 255 255 / 6%));
 	padding: 0.4rem;
+	/* The hinge line — the edge the panel is anchored by, so it swings from the trigger and not from its own middle. */
+	transform-origin: top right;
 }
 .colpick-head {
 	display: flex;

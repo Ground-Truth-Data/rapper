@@ -6,6 +6,9 @@
   geometry is thousands of lines.
 -->
 <script lang="ts">
+import { cubicOut } from "svelte/easing";
+import { fade } from "svelte/transition";
+
 interface Props {
 	/** Where the peek endpoint lives for this mount — `${pathname}/json`. */
 	endpoint: string;
@@ -22,6 +25,7 @@ let peekState = $state<
 >({ status: "loading" });
 
 let closeEl = $state<HTMLButtonElement | null>(null);
+let boxEl = $state<HTMLDivElement | null>(null);
 let opener: Element | null = null;
 
 $effect(() => {
@@ -31,6 +35,31 @@ $effect(() => {
 	return () => {
 		if (opener instanceof HTMLElement) opener.focus();
 	};
+});
+
+/** `aria-modal` PROMISES the rest of the page is unreachable; without this, Tab walks out into the grid behind and the promise is a lie. */
+function trapTab(e: KeyboardEvent) {
+	if (e.key !== "Tab" || !boxEl) return;
+	const stops = [
+		...boxEl.querySelectorAll<HTMLElement>("button:not([disabled]), [tabindex='0']"),
+	];
+	if (!stops.length) return;
+	const edge = e.shiftKey ? stops[0] : stops[stops.length - 1];
+	if (document.activeElement === edge || !boxEl.contains(document.activeElement)) {
+		e.preventDefault();
+		(e.shiftKey ? stops[stops.length - 1] : stops[0]).focus();
+	}
+}
+
+const still = () =>
+	typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/** The biggest change of context in the admin kit, so it ARRIVES in Z rather than simply existing — the grid is what it came forward from. */
+const arrive = () => ({
+	duration: still() ? 0 : 200,
+	easing: cubicOut,
+	css: (t: number, u: number) =>
+		`opacity:${t};transform:perspective(1200px) translate3d(0,${8 * u}px,${-70 * u}px)`,
 });
 
 $effect(() => {
@@ -91,11 +120,20 @@ async function copy() {
 	<div
 		class="jp-scrim"
 		role="presentation"
+		transition:fade={{ duration: still() ? 0 : 160 }}
 		onclick={(e) => {
 			if (e.target === e.currentTarget) onclose();
 		}}
 	>
-		<div class="jp-box" role="dialog" aria-modal="true" aria-label="{open.col} value">
+		<div
+			bind:this={boxEl}
+			class="jp-box"
+			role="dialog"
+			aria-modal="true"
+			aria-label="{open.col} value"
+			transition:arrive
+			onkeydown={trapTab}
+		>
 			<header>
 				<div class="jp-id">
 					<span class="mono strong">{open.col}</span>
@@ -115,7 +153,8 @@ async function copy() {
 			{:else if peekState.peek.text === ""}
 				<p class="jp-msg dim">Empty.</p>
 			{:else}
-				<pre>{peekState.peek.text}</pre>
+				<!-- Focusable because it SCROLLS: thousands of lines a keyboard user could otherwise never reach. -->
+				<pre tabindex="0">{peekState.peek.text}</pre>
 			{/if}
 
 			<!-- COPY LEADS: reading is why the dialog opens, copying is next — so the control sits where the eye already rests, not the far side of the footer. -->
@@ -155,7 +194,8 @@ async function copy() {
 	align-items: center;
 	justify-content: center;
 	padding: 1.5rem;
-	background: rgb(0 0 0 / 50%);
+	/* Part of the depth, not a separate effect: the dialog is above the grid, so the grid has to recede for it. */
+	background: rgb(0 0 0 / 62%);
 }
 .jp-box {
 	display: flex;
@@ -167,7 +207,10 @@ async function copy() {
 	border: 1px solid var(--admin-line, #3a3a3a);
 	border-radius: 10px;
 	background: var(--admin-panel-bg, #16161a);
-	box-shadow: 0 20px 60px rgb(0 0 0 / 55%);
+	box-shadow:
+		var(--at-lift-3, 0 24px 48px -12px rgb(0 0 0 / 80%)),
+		var(--at-edge-hi, inset 0 1px 0 rgb(255 255 255 / 6%));
+	transform-origin: center;
 }
 header,
 footer {
@@ -220,9 +263,17 @@ button {
 button:hover:not(:disabled) {
 	border-color: var(--palette-gold, #e0b050);
 }
+button:active:not(:disabled) {
+	background: rgb(255 255 255 / 7%);
+}
 button:disabled {
 	opacity: 0.4;
 	cursor: default;
+}
+button:focus-visible,
+pre:focus-visible {
+	outline: 1px solid var(--at-gold, #eab627);
+	outline-offset: 1px;
 }
 pre {
 	flex: 1;

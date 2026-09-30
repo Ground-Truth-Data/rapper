@@ -4,6 +4,7 @@
   — the parent owns selection state; this only reads the resolved rows.
 -->
 <script lang="ts">
+import { cubicOut } from "svelte/easing";
 import {
     copyText,
     downloadText,
@@ -72,6 +73,17 @@ function doExport(fmt: "csv" | "json" | "sql") {
     flashLabel(`⬇ ${targetRows.length} rows`);
     closeMenu();
 }
+
+const still = () =>
+    typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/** Same hinge as the column picker — a short one, because a six-item menu is a smaller claim on the screen than a thirty-two-column panel. */
+const hinge = () => ({
+    duration: still() ? 0 : 150,
+    easing: cubicOut,
+    css: (t: number, u: number) =>
+        `opacity:${t};transform:perspective(700px) rotateX(${-10 * u}deg) translateY(${-3 * u}px)`,
+});
 </script>
 
 <svelte:window onclick={closeMenu} />
@@ -87,7 +99,7 @@ function doExport(fmt: "csv" | "json" | "sql") {
             Copy <span class="caret">▾</span>
         </button>
         {#if openMenu === "copy"}
-            <div class="tt-menu" role="menu">
+            <div class="tt-menu" role="menu" transition:hinge>
                 <button type="button" role="menuitem" onclick={(e) => { e.stopPropagation(); doCopy("json"); }}>Copy as JSON</button>
                 <button type="button" role="menuitem" onclick={(e) => { e.stopPropagation(); doCopy("csv"); }}>Copy as CSV</button>
                 <button type="button" role="menuitem" onclick={(e) => { e.stopPropagation(); doCopy("md"); }}>Copy as Markdown</button>
@@ -105,7 +117,7 @@ function doExport(fmt: "csv" | "json" | "sql") {
             Export <span class="caret">▾</span>
         </button>
         {#if openMenu === "export"}
-            <div class="tt-menu" role="menu">
+            <div class="tt-menu" role="menu" transition:hinge>
                 <button type="button" role="menuitem" onclick={(e) => { e.stopPropagation(); doExport("csv"); }}>Export CSV</button>
                 <button type="button" role="menuitem" onclick={(e) => { e.stopPropagation(); doExport("json"); }}>Export JSON</button>
                 <button type="button" role="menuitem" onclick={(e) => { e.stopPropagation(); doExport("sql"); }}>Export SQL (INSERTs)</button>
@@ -139,15 +151,26 @@ function doExport(fmt: "csv" | "json" | "sql") {
         font-family: system-ui, sans-serif;
     }
     .tt-btn:hover { border-color: #555; }
+    .tt-btn:active { background: #1f1f1f; }
     .tt-btn.open { border-color: #7ba6d4; color: #bdd8f0; }
+    .tt-btn:focus-visible,
+    .tt-menu button:focus-visible,
+    .tt-clear:focus-visible {
+        outline: 1px solid var(--at-gold, #eab627);
+        outline-offset: 1px;
+    }
     .caret { color: #888; font-size: 0.7rem; }
 
     .tt-menu {
         position: absolute; top: calc(100% + 4px); left: 0; z-index: 40;
         background: #0f0f0f; border: 1px solid #333; border-radius: 8px;
         padding: 0.25rem; min-width: 12rem;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        box-shadow:
+            var(--at-lift-3, 0 24px 48px -12px rgb(0 0 0 / 80%)),
+            var(--at-edge-hi, inset 0 1px 0 rgb(255 255 255 / 6%));
         display: flex; flex-direction: column;
+        /* The hinge line — the edge this menu is anchored by. */
+        transform-origin: top left;
     }
     .tt-menu button {
         background: transparent; border: none; color: #ddd; text-align: left;
