@@ -4,11 +4,31 @@
 // Not $app/environment, so the module stays importable outside SvelteKit.
 const hasStorage = () => typeof localStorage !== "undefined";
 
+/**
+ * How a table spends the window's width.
+ *
+ * One width rule cannot serve a six-column table and a 33-column one, so the
+ * table is told which question is being asked: `comfort` fits content under a
+ * cap, `fit` shares one window across every column, `full` renders every value
+ * whole and scrolls.
+ */
+export type FitMode = "comfort" | "fit" | "full";
+export const FIT_MODES: readonly FitMode[] = ["comfort", "fit", "full"];
+/** A table nobody has touched behaves as it always did. */
+export const DEFAULT_FIT: FitMode = "comfort";
+
 // Which columns are SHOWN lives in the URL, not here — see `hiddenFromParams`.
 export type ColumnPrefs = {
 	order?: string[];
 	widths?: Record<string, number>;
+	fit?: FitMode;
 };
+
+/** The saved mode, or the default. A mode this build no longer has is not one. */
+export function fitMode(prefs: ColumnPrefs): FitMode {
+	const saved = prefs.fit;
+	return saved !== undefined && FIT_MODES.includes(saved) ? saved : DEFAULT_FIT;
+}
 
 const storageKey = (table: string) => `rtAdminCols:${table}`;
 
@@ -31,7 +51,11 @@ export function saveColumnPrefs(table: string, prefs: ColumnPrefs): void {
 
 function hasPrefs(prefs: ColumnPrefs): boolean {
 	return (
-		(prefs.order?.length ?? 0) > 0 || Object.keys(prefs.widths ?? {}).length > 0
+		(prefs.order?.length ?? 0) > 0 ||
+		Object.keys(prefs.widths ?? {}).length > 0 ||
+		// Stored even when it equals the default: what is worth keeping is that
+		// this table was answered for, not which answer won.
+		prefs.fit !== undefined
 	);
 }
 
@@ -162,7 +186,7 @@ export function moveColumn(
 	return next;
 }
 
-// Beats the stylesheet's 200px max-width cap. Undefined → stylesheet rules apply.
+// Beats the mode's max-width cap. Undefined → the mode's own width applies.
 export function widthStyle(
 	prefs: ColumnPrefs,
 	col: string,
