@@ -2,10 +2,11 @@
   The one spreadsheet body used by every admin table screen: frozen left edge,
   header pinning, column width, which element scrolls — not filters, search,
   paging, export or the page title. Rules it enforces, none a page can opt out of:
-  a column is as wide as its header (never `1fr` or `max-content`, `fit` the
-  exception); the frozen edge is cells that TILE, offset from frozenLeft(),
-  or a gap lets the scrolling columns show through; the header pins via one
-  box owning both axes, capped at `100dvh`.
+  a column is as wide as its content, never narrower than its header or 60px,
+  never wider than --adt-colmax (a longer value truncates; a click shows it);
+  the frozen edge is cells that TILE, offset from frozenLeft(), or a gap lets
+  the scrolling columns show through; the header pins via one box owning both
+  axes, capped at `100dvh`.
 -->
 <script lang="ts">
 import type { Snippet } from "svelte";
@@ -63,8 +64,6 @@ type Props = {
 	/** Rendered full-width under the row whose `rowKey` equals `openKey`. */
 	detail?: Snippet<[Record<string, unknown>]>;
 	openKey?: string | null;
-	/** Fill the page column instead of bleeding to the window edges — for a few columns, where header-wide sizing would truncate inside a mostly empty band. */
-	fit?: boolean;
 	/** A click or Enter on the row, not on a control inside it — that one is the control's. */
 	onRowClick?: (row: Record<string, unknown>) => void;
 };
@@ -92,7 +91,6 @@ let {
 	trail,
 	detail,
 	openKey = null,
-	fit = false,
 	onRowClick,
 }: Props = $props();
 
@@ -168,30 +166,24 @@ function clearWidth(col: string) {
 	commitPrefs({ ...colPrefs, widths });
 }
 
-/** A resized column keeps the width it was given; the rest fall back to the
- *  header-derived one. */
-const headWidth = (c: string) =>
-	colPrefs.widths?.[c]
-		? widthStyle(colPrefs, c)
-		: `width: ${fitWidths?.[c] ?? colWidth(label(c))}`;
+/** A resized column keeps the width it was given. */
+const headWidth = (c: string) => widthStyle(colPrefs, c) ?? `width: ${autoWidths[c]}`;
 
-// MAX across real column names, not the mean: a mean clips the widest header.
+// Character widths of the header and cell fonts; each estimate carries its cell padding.
 const CH = 0.502;
 const SORT_ARROW = 1.6;
-const colWidth = (name: string) => `${(name.length * CH + SORT_ARROW).toFixed(2)}rem`;
 const CELL_CH = 0.48;
-const FIT_CAP = 40;
-// Percentages summing to 100%, not lengths, so the band never scrolls sideways.
-const fitWidths = $derived.by(() => {
-	if (!fit) return null;
-	const want = allCols.map((c) => {
+const CELL_PAD = 1.2;
+const autoWidths = $derived.by(() => {
+	const out: Record<string, string> = {};
+	for (const c of allCols) {
 		let n = 0;
-		for (const r of rows) n = Math.max(n, text(c, r).length);
-		const head = label(c).length * CH + SORT_ARROW;
-		return Math.max(head, Math.min(n, FIT_CAP) * CELL_CH + SORT_ARROW);
-	});
-	const sum = want.reduce((a, b) => a + b, 0);
-	return Object.fromEntries(allCols.map((c, i) => [c, `${((want[i] / sum) * 100).toFixed(2)}%`]));
+		if (!isPeek(c)) for (const r of rows) n = Math.max(n, text(c, r).length);
+		const head = (label(c).length * CH + SORT_ARROW).toFixed(2);
+		const body = (n * CELL_CH + CELL_PAD).toFixed(2);
+		out[c] = `clamp(max(60px, ${head}rem), ${body}rem, var(--adt-colmax))`;
+	}
+	return out;
 });
 
 const allCols = $derived(
@@ -226,7 +218,7 @@ const frozenLeftVar = (index: number) =>
 	index < frozenTotal ? `left: var(--fz${index}, 0px)` : undefined;
 </script>
 
-<div class="admin-tablewrap adt-wrap" class:adt-fit={fit}>
+<div class="admin-tablewrap adt-wrap">
 	<table class="admin-table adt" use:frozenLeft={frozenTotal}>
 		<thead>
 			<tr>
@@ -424,6 +416,15 @@ const frozenLeftVar = (index: number) =>
 	/* Overrides the shared sheet's `width: 100%`, which would leave nothing to scroll sideways. */
 	.adt {
 		width: auto;
+		--adt-colmax: 250px;
+	}
+	@media (max-width: 1280px) {
+		.adt {
+			--adt-colmax: 200px;
+		}
+	}
+	.adt :global(th) {
+		box-sizing: border-box;
 	}
 	/* Full-bleed. NO LEFT PADDING: padding on a scroller travels with the
 	   scrolling columns, leaving a transparent strip a frozen cell's edge
@@ -516,16 +517,6 @@ const frozenLeftVar = (index: number) =>
 		padding-left: 24px;
 	}
 
-	.adt-fit {
-		margin-inline: 0;
-		padding-inline: 0;
-	}
-	.adt-fit .adt {
-		width: 100%;
-	}
-	.adt-fit .adt :global(tr > *:first-child) {
-		padding-left: var(--at-cell-pad-x);
-	}
 	.adt-trail {
 		width: 5.5rem;
 		text-align: right;
