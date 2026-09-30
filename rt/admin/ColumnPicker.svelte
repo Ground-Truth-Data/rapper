@@ -8,8 +8,7 @@
 
   The answer goes in the URL, not in storage: a chosen set of columns is a
   REPORT, and a report has to be a link somebody can send or bookmark. A bare
-  URL shows the table's `defaults` (every column when it has none); widening
-  or narrowing from there is what the params record.
+  URL shows every column; narrowing from there is what the params record.
 
   The Json columns sit in their own group and cannot be switched on: they are
   never fetched with the page. They are LISTED rather than omitted so the
@@ -17,18 +16,16 @@
   an absent column.
 -->
 <script lang="ts">
-import { showOnly, toggleColumn } from "./columnPrefs";
+import { toggleColumn } from "./columnPrefs";
 
 interface Props {
 	columns: string[];
 	jsonColumns?: string[];
 	hidden: string[];
-	/** The columns a bare URL shows; offers a way back to them. */
-	defaults?: readonly string[];
 	onchange: (hidden: string[]) => void;
 }
 
-let { columns, jsonColumns = [], hidden, defaults, onchange }: Props = $props();
+let { columns, jsonColumns = [], hidden, onchange }: Props = $props();
 
 let open = $state(false);
 const hiddenSet = $derived(new Set(hidden));
@@ -42,13 +39,6 @@ function toggle(col: string) {
 }
 
 const showAll = () => onchange([]);
-const showDefaults = () => {
-	if (defaults) onchange(showOnly(columns, defaults));
-};
-const atDefaults = $derived(
-	!defaults ||
-		(shownCount === defaults.length && defaults.every((c) => !hiddenSet.has(c))),
-);
 /** Everything off but this one — the fastest way to start a narrow report. */
 const only = (col: string) => onchange(columns.filter((c) => c !== col));
 
@@ -92,11 +82,6 @@ async function copyLink() {
 				<button type="button" onclick={showAll} disabled={hidden.length === 0}>
 					Show all
 				</button>
-				{#if defaults}
-					<button type="button" onclick={showDefaults} disabled={atDefaults}>
-						Default
-					</button>
-				{/if}
 				<!-- The choice is in the address bar, so this is what turns a
 				     view into something you can send. -->
 				<button type="button" class="copy" onclick={copyLink}>

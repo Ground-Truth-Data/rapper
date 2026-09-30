@@ -50,13 +50,11 @@ const SHOW_PARAM = "cols";
  * every old report automatically, instead of `?cols=a,b,c` freezing a report
  * at three columns forever.
  *
- * Absent means the table's `defaults`, or everything when it has none. An
- * EMPTY `?hide=` is the explicit "everything", since absence is taken.
+ * Absent or empty means every column.
  */
 export function hiddenFromParams(
 	params: URLSearchParams,
 	columns: string[],
-	defaults?: readonly string[],
 ): string[] {
 	const names = (raw: string) =>
 		raw
@@ -73,7 +71,6 @@ export function hiddenFromParams(
 	}
 
 	const raw = params.get(HIDE_PARAM);
-	if (raw === null) return defaults ? showOnly(columns, defaults) : [];
 	if (!raw) return [];
 	// A stale/typo'd name is dropped rather than carried through copied links.
 	const known = new Set(columns);
@@ -87,27 +84,16 @@ export function hiddenFromParams(
  * of 32 columns writes the 27 you didn't pick — long enough to wrap and break
  * in mail/chat clients — so a choice that hides MORE than half is written the
  * other way, as `?cols=` naming what to show. That form is deliberately
- * CLOSED: it won't pick up columns added later.
- *
- * The table's own default writes NO param. With `defaults`, "everything" is
- * an empty `?hide=`; without, it is absence.
+ * CLOSED: it won't pick up columns added later. Every column writes no param.
  */
 export function hiddenToParams(
 	params: URLSearchParams,
 	hidden: string[],
 	columns: string[],
-	defaults?: readonly string[],
 ): URLSearchParams {
 	params.delete(HIDE_PARAM);
 	params.delete(SHOW_PARAM);
-	const byDefault = defaults ? showOnly(columns, defaults) : [];
-	const off = new Set(hidden);
-	if (off.size === byDefault.length && byDefault.every((c) => off.has(c)))
-		return params;
-	if (hidden.length === 0) {
-		params.set(HIDE_PARAM, "");
-		return params;
-	}
+	if (hidden.length === 0) return params;
 
 	const shown = columns.filter((c) => !hidden.includes(c));
 	if (shown.length < hidden.length) params.set(SHOW_PARAM, shown.join(","));
@@ -133,12 +119,6 @@ export function toggleColumn(hidden: string[], col: string): string[] {
 	if (off.has(col)) off.delete(col);
 	else off.add(col);
 	return [...off];
-}
-
-/** The denylist that shows exactly `keep`. Used by the picker's shortcuts. */
-export function showOnly(cols: string[], keep: readonly string[]): string[] {
-	const wanted = new Set(keep);
-	return cols.filter((c) => !wanted.has(c));
 }
 
 // A column the saved pref doesn't know (e.g. a schema addition) is inserted

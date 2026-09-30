@@ -3,12 +3,12 @@ import {
 	applyColumnOrder,
 	hiddenFromParams,
 	hiddenToParams,
-	showOnly,
 	toggleColumn,
 	visibleColumns,
 } from "./columnPrefs";
 
 const COLS = ["a", "b", "c", "d", "e", "f", "g", "h"];
+const except = (keep: string[]) => COLS.filter((c) => !keep.includes(c));
 
 describe("visibleColumns", () => {
 	it("shows everything when nothing is hidden", () => {
@@ -38,7 +38,7 @@ describe("visibleColumns", () => {
 });
 
 describe("hiddenFromParams", () => {
-	it("hides nothing when the URL says nothing and there are no defaults", () => {
+	it("hides nothing when the URL says nothing", () => {
 		expect(hiddenFromParams(new URLSearchParams(), COLS)).toEqual([]);
 	});
 
@@ -111,14 +111,14 @@ describe("hiddenToParams", () => {
 	// and chat clients wrap and break it.
 	it("flips to ?cols= when that is the shorter half", () => {
 		const keep = ["a", "b"];
-		const p = hiddenToParams(new URLSearchParams(), showOnly(COLS, keep), COLS);
+		const p = hiddenToParams(new URLSearchParams(), except(keep), COLS);
 		expect(p.get("cols")).toBe("a,b");
 		expect(p.has("hide")).toBe(false);
 	});
 
 	it("round-trips the narrow spelling too", () => {
 		const keep = ["a", "b"];
-		const p = hiddenToParams(new URLSearchParams(), showOnly(COLS, keep), COLS);
+		const p = hiddenToParams(new URLSearchParams(), except(keep), COLS);
 		expect(visibleColumns(COLS, hiddenFromParams(p, COLS))).toEqual(keep);
 	});
 
@@ -128,7 +128,7 @@ describe("hiddenToParams", () => {
 	it("?cols= does NOT pick up a column added later", () => {
 		const p = hiddenToParams(
 			new URLSearchParams(),
-			showOnly(COLS, ["a", "b"]),
+			except(["a", "b"]),
 			COLS,
 		);
 		const grown = [...COLS, "newColumn"];
@@ -143,17 +143,6 @@ describe("toggleColumn", () => {
 		const off = toggleColumn([], "c");
 		expect(off).toEqual(["c"]);
 		expect(toggleColumn(off, "c")).toEqual([]);
-	});
-});
-
-describe("showOnly", () => {
-	it("hides everything outside the keep list", () => {
-		expect(showOnly(COLS, ["a", "c"])).toEqual(["b", "d", "e", "f", "g", "h"]);
-	});
-
-	it("round-trips through visibleColumns", () => {
-		const keep = ["b", "e"];
-		expect(visibleColumns(COLS, showOnly(COLS, keep))).toEqual(keep);
 	});
 });
 
@@ -185,40 +174,5 @@ describe("applyColumnOrder — the saved order is untrusted input", () => {
 			"a",
 			"b",
 		]);
-	});
-});
-
-describe("a table with default columns", () => {
-	const DEF = ["b", "d"];
-
-	it("opens on its defaults when the URL says nothing", () => {
-		const hidden = hiddenFromParams(new URLSearchParams(), COLS, DEF);
-		expect(visibleColumns(COLS, hidden)).toEqual(DEF);
-	});
-
-	// Links copied before defaults existed must open exactly as they did.
-	it("leaves ?hide= and ?cols= meaning what they meant", () => {
-		expect(hiddenFromParams(new URLSearchParams("hide=c"), COLS, DEF)).toEqual(["c"]);
-		expect(
-			visibleColumns(COLS, hiddenFromParams(new URLSearchParams("cols=a,e"), COLS, DEF)),
-		).toEqual(["a", "e"]);
-	});
-
-	it("spells 'every column' as an empty ?hide=", () => {
-		const p = hiddenToParams(new URLSearchParams(), [], COLS, DEF);
-		expect(p.toString()).toBe("hide=");
-		expect(hiddenFromParams(p, COLS, DEF)).toEqual([]);
-	});
-
-	it("writes no param for the defaults, in any order", () => {
-		const hidden = showOnly(COLS, DEF).reverse();
-		const p = hiddenToParams(new URLSearchParams("hide=c"), hidden, COLS, DEF);
-		expect(p.toString()).toBe("");
-	});
-
-	it("round-trips a choice that is neither", () => {
-		const hidden = showOnly(COLS, ["a", "b", "d"]);
-		const p = hiddenToParams(new URLSearchParams(), hidden, COLS, DEF);
-		expect(visibleColumns(COLS, hiddenFromParams(p, COLS, DEF))).toEqual(["a", "b", "d"]);
 	});
 });
