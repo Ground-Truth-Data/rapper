@@ -136,6 +136,7 @@ return {
 		},
 	},
 	test: {
+		silent: "passed-only",
 		// Scoped to lib/ + routes/: a bare ../<child>/** reaches worker node_modules.
 		include: [
 			"src/**/*.{test,spec}.{js,ts}",
