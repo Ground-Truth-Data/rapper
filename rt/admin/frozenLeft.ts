@@ -16,10 +16,13 @@ export function frozenLeft(table: HTMLTableElement, count: number) {
 		).slice(0, n);
 
 	const apply = () => {
+		// getBoundingClientRect is post-zoom but `left` is read pre-zoom; under CSS
+		// `zoom` the unscaled offsets open gaps the scrolling columns show through.
+		const scale = table.offsetWidth / table.getBoundingClientRect().width || 1;
 		let x = 0;
 		cells().forEach((c, i) => {
 			table.style.setProperty(`--fz${i}`, `${x}px`);
-			x += c.getBoundingClientRect().width;
+			x += c.getBoundingClientRect().width * scale;
 		});
 	};
 

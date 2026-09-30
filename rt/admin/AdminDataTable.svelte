@@ -407,7 +407,8 @@ const frozenLeftVar = (index: number) =>
 	   scrolling columns, leaving a transparent strip a frozen cell's edge
 	   would show through — the gutter lives on the first cell instead. */
 	.adt-wrap {
-		margin-inline: calc(50% - 50vw);
+		/* Under CSS `zoom` a vw is still pre-zoom, so it is divided back out or the table starts off-screen. */
+		margin-inline: calc(50% - 50vw / var(--page-zoom, 1));
 		padding-inline: 0 24px;
 	}
 
