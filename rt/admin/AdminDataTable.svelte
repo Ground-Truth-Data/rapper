@@ -353,6 +353,11 @@ const arrow = (c: string) => (sort.col === c ? (sort.asc ? "↑" : "↓") : "↕
 const openable = (s: string) => s !== "" && s !== "—";
 const text = (c: string, row: Record<string, unknown>) =>
 	render ? render(c, row) : String(row[c] ?? "");
+// FROM THE TEXT, NEVER FROM FALSINESS: "0" and "false" are measured values and
+// keep the data's full weight — dimming them would say "nothing" where the row
+// says "none". A peek column is never absent; its value was just never fetched.
+const nil = (c: string, row: Record<string, unknown>) =>
+	!isPeek(c) && !openable(text(c, row));
 
 // EACH CELL CARRIES ITS OWN OFFSET, never `nth-child`: header/Σ row/data row
 // don't agree on cell count, so the same column is a different nth-child in each.
@@ -623,6 +628,7 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 						{@const bar = barShare(c, row)}
 						<td
 							class="adt-cell"
+							class:admin-nil={nil(c, row)}
 							class:adt-frozen={i + leadCount < frozenTotal}
 							class:adt-seam={i + leadCount === frozenTotal - 1}
 							class:adt-bar={bar !== undefined}
@@ -691,7 +697,9 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 		margin-left: 5px;
 		font-size: 9.5px;
 		font-variant-numeric: tabular-nums;
-		color: #5f5b50;
+		/* A step behind absence itself: the number is a coordinate for pointing at
+		   a row out loud, and it must lose to anything the row actually holds. */
+		color: color-mix(in srgb, var(--at-muted), var(--at-bg) 35%);
 		user-select: none;
 	}
 	/* Overrides the shared sheet's `width: 100%`, which would leave nothing to scroll sideways. */
@@ -749,6 +757,10 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 	.adt-cell {
 		font-family: var(--rt-font-mono, ui-monospace, Menlo, monospace);
 		font-size: 12.5px;
+		/* The mono face is a var and can resolve to a proportional fallback; a
+		   column of figures that stops being comparable row to row is the one
+		   thing this grid exists to do. */
+		font-variant-numeric: tabular-nums;
 		max-width: 0;
 	}
 	/* `max-width: 0` stops text widening a column but not a block of controls.
@@ -793,9 +805,13 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 		box-shadow: var(--at-lift-2), var(--at-edge-hi),
 			inset 0 0 0 100vmax var(--at-inset);
 	}
+	/* --at-panel-2, matching the shared sheet's `tr.subtotal th`: the frozen and
+	   scrolling halves of one band have to be one colour. They were a step apart
+	   and it went unseen only because the whole stack was within two hex of the
+	   sheet. */
 	.adt :global(tr.subtotal th.adt-frozen) {
-		background: var(--at-panel);
-		box-shadow: inset 0 0 0 100vmax var(--at-panel);
+		background: var(--at-panel-2);
+		box-shadow: inset 0 0 0 100vmax var(--at-panel-2);
 	}
 	.adt :global(tbody tr:hover td.adt-frozen) {
 		background: var(--at-hover);
@@ -825,7 +841,7 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 			inset 0 0 0 100vmax var(--at-inset);
 	}
 	.adt :global(tr.subtotal th.adt-seam) {
-		box-shadow: var(--at-lift-1), inset 0 0 0 100vmax var(--at-panel);
+		box-shadow: var(--at-lift-1), inset 0 0 0 100vmax var(--at-panel-2);
 	}
 	.adt :global(tbody tr:hover td.adt-seam) {
 		box-shadow: var(--at-lift-1), inset 0 0 0 100vmax var(--at-hover);
@@ -854,9 +870,11 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 	.adt-clickable {
 		cursor: pointer;
 	}
+	/* 2px and inset: an outline never affects layout, so the only cost of a ring
+	   you can actually see is that it must not fall outside a clipped cell. */
 	.adt-clickable:focus-visible {
-		outline: 1px solid var(--at-gold, #eab627);
-		outline-offset: -1px;
+		outline: 2px solid var(--at-gold);
+		outline-offset: -2px;
 	}
 
 	.adt-lead {
@@ -882,8 +900,8 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 		color: var(--at-th-hover, #eab627);
 	}
 	.adt-cell-btn:focus-visible {
-		outline: 1px solid var(--at-gold, #eab627);
-		outline-offset: 1px;
+		outline: 2px solid var(--at-gold);
+		outline-offset: -2px;
 	}
 
 	/* The Σ label is prose; left to size its column it widened Orgs' first one to 430px. */
