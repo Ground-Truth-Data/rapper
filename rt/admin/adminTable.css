@@ -43,6 +43,21 @@
 	--at-radius: 14px;
 	--at-radius-sm: 8px;
 
+	/* DEPTH HAS TWO DIRECTIONS AND NO OTHERS: the light is overhead, so a plane
+	   lifted off the grid casts DOWNWARD and a frozen column's edge casts
+	   RIGHT, across the columns sliding beneath it. The three lifts are how far
+	   a thing has left the sheet — 1 is still pinned inside the grid (a frozen
+	   edge, a summary band), 2 is the head band every row passes under, 3 has
+	   left the grid entirely (a dialog, a dropdown, the filters panel). */
+	--at-lift-1: 6px 0 8px -6px rgb(0 0 0 / 90%);
+	--at-lift-2: 0 12px 16px -8px rgb(0 0 0 / 72%);
+	--at-lift-3: 0 24px 48px -12px rgb(0 0 0 / 80%);
+	/* A surface reads as LIT rather than merely paler once its top edge catches
+	   the light. Far quieter than the 45% a gold segment wears: this edge runs
+	   the width of every header cell on the page, and at that length a
+	   highlight people notice is a highlight they read as a border. */
+	--at-edge-hi: inset 0 1px 0 rgb(255 255 255 / 6%);
+
 	/* DENSITY: these are DATA screens — an admin scanning a thousand rows
 	   compares them to each other, so row count matters more than size. At
 	   38px a 900px viewport holds ~23 rows; at 65px, ~13. Tokens, not
@@ -70,10 +85,6 @@
 .admin-wrap {
 	/* Keep in sync with .admin-hd's padding-inline in AdminHeader.svelte — the header's pills sit on this column. Bottom 100px is scroll room, not spacing. */
 	padding: 40px 24px 100px;
-}
-/* Parent Linking is a reading queue, not a spreadsheet — held narrower to keep name and suggestion close. */
-.admin-wrap.narrow {
-	max-width: 1300px;
 }
 
 /* The page title band lives in AdminPageHead.svelte as SCOPED styles, so it ships with the component; tokens still come from :root above. */
@@ -440,6 +451,10 @@ main:has(.admin-table) {
 /* Worn by a <table> or a <div>; both resolve identically. */
 .admin-table {
 	width: 100%;
+	/* AdminDataTable overrides the width to `auto` so wide tables have
+	   something to scroll sideways; the floor has to be restated separately or
+	   a six-column table sits in the left third of the monitor. */
+	min-width: 100%;
 	border-collapse: collapse;
 	font-size: var(--at-font);
 	color: var(--at-fg);
@@ -458,16 +473,24 @@ main:has(.admin-table) {
 /* THE HEADER FREEZES — exactly ONE frozen thing on the page. The `:not()` is
    NOT decoration: the Σ row lives inside <thead> (so
    it stays with the head band on re-sort), so a bare `thead th` would freeze
-   it too — permanently, since the pin was never in the Σ's own block to delete. */
+   it too — permanently, since the pin was never in the Σ's own block to delete.
+   The band is a SURFACE, not a rule: a hairline can only clip the rows against
+   it, where a cast shadow puts them underneath it, which is what they do. A
+   frozen header cell declares its own box-shadow (an opaque floor and the seam
+   its edge casts) and box-shadow is one property with one winner, so the plane
+   reaches those cells only by being repeated in that list. */
 .admin-table thead tr:not(.subtotal) th {
 	position: sticky;
 	top: 0;
 	z-index: 5;
+	box-shadow: var(--at-lift-2), var(--at-edge-hi);
 }
-/* The head band's look reaches every cell in it, frozen or not. */
+/* The head band's look reaches every cell in it, frozen or not. Stated here
+   because `.admin-table th` below would otherwise hand the band the same
+   hairline every row wears, and the band is what rows pass under. */
 .admin-table thead th {
 	padding: var(--at-cell-pad-y) var(--at-cell-pad-x);
-	border-bottom: 1px solid var(--at-line);
+	border-bottom: none;
 	background: var(--at-inset);
 }
 .admin-table th[aria-sort]:hover {
@@ -503,6 +526,16 @@ main:has(.admin-table) {
 .admin-table tbody tr:last-child td {
 	border-bottom: none;
 }
+/* A RULER FOR A ROW 8000px WIDE: four screens right of the name column nothing
+   tells the eye which row it is on, and the separator above is the only mark
+   the grid allows — a zebra or a per-row background is the noise it exists to
+   avoid. So every fifth separator is simply drawn stronger. Colour only, never
+   the shorthand: the last row's `border-bottom: none` above must keep winning,
+   and hover and selection stay the only things that mark a row's STATE. */
+.admin-table tbody tr:nth-child(5n) td,
+.admin-table tbody tr:nth-child(5n) th {
+	border-bottom-color: var(--at-line-strong);
+}
 
 /* Tabular figures so digits line up and a long number is comparable to a short one at a glance. */
 .admin-table .num,
@@ -517,12 +550,13 @@ main:has(.admin-table) {
 	font-family: var(--rt-font-mono);
 }
 
-/* DELIBERATELY NOT STICKY, though it sits in <thead>: a second frozen band costs permanent vertical space and needs a hand-measured `top` that breaks the moment a density token changes. */
+/* DELIBERATELY NOT STICKY, though it sits in <thead>: a second frozen band costs permanent vertical space and needs a hand-measured `top` that breaks the moment a density token changes. Raised a whole step instead of --at-panel's one hex off the floor — it is the page's only per-column summary and it was invisible. */
 .admin-table tr.subtotal th {
-	background: var(--at-panel);
+	background: var(--at-panel-2);
 	color: var(--at-accent);
 	font-family: var(--rt-font-mono);
 	font-weight: 700;
+	border-top: 1px solid var(--at-line-strong);
 	border-bottom: 1px solid var(--at-line-strong);
 }
 

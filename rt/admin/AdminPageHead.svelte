@@ -52,8 +52,9 @@ let { title, ident, search, sub, meta, metaSlot, actions }: Props = $props();
 
 <style>
 	/* DON'T import adminTable.css from this component to "share" the look — it 500s the Tailwind pages that mount this. Scoped styles ship with the component; tokens carry literal fallbacks. */
+	/* 8px, not 22: every pixel here is a pixel of row count, and the grid's own header plane already separates the two — a wide gap was paying twice for one edge. */
 	.admin-pagehead {
-		margin-bottom: 22px;
+		margin-bottom: 8px;
 	}
 	/* baseline, not center: title and count are both TEXT, reading as one line only on a shared baseline. */
 	.admin-pagehead-row {
@@ -91,12 +92,16 @@ let { title, ident, search, sub, meta, metaSlot, actions }: Props = $props();
 	.admin-pagehead-search :global(input) {
 		width: 100%;
 		min-width: 0;
+		/* 13px matches the meta and the pager; the inherited 15.2px made the field the tallest thing in the row, so it, not the title, set the band's height. */
+		font-size: 13px;
 	}
 	/* MUST be `width`, not `flex-basis`: the slot is already `0 1 auto`-sized to its contents, so a basis here measures identically to no rule. Sized here, not in SearchInput, which is shared with the Inbox and knows nothing of an admin toolbar. */
 	.admin-pagehead-search > :global(.rt-search) {
 		width: 22rem;
 		max-width: 100%;
 		min-width: 0;
+		/* Trimmed from 8px for the same reason as the font size above. */
+		padding-block: 4px;
 	}
 	.admin-pagehead-gap {
 		flex: 1 1 0;

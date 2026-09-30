@@ -1,8 +1,12 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import {
 	applyColumnOrder,
+	DEFAULT_FIT,
+	fitMode,
 	hiddenFromParams,
 	hiddenToParams,
+	loadColumnPrefs,
+	saveColumnPrefs,
 	toggleColumn,
 	visibleColumns,
 } from "./columnPrefs";
@@ -174,5 +178,78 @@ describe("applyColumnOrder — the saved order is untrusted input", () => {
 			"a",
 			"b",
 		]);
+	});
+});
+
+describe("fitMode", () => {
+	it("defaults a table nobody has answered for to comfort", () => {
+		expect(fitMode({})).toBe("comfort");
+		expect(DEFAULT_FIT).toBe("comfort");
+	});
+
+	it("returns each of the three modes it was given", () => {
+		expect(fitMode({ fit: "comfort" })).toBe("comfort");
+		expect(fitMode({ fit: "fit" })).toBe("fit");
+		expect(fitMode({ fit: "full" })).toBe("full");
+	});
+
+	// localStorage outlives the build that wrote it, so a mode this one no longer
+	// has must read as "unanswered" rather than reach the width machinery.
+	it("falls back when storage names a mode this build dropped", () => {
+		expect(fitMode({ fit: "cosy" as never })).toBe("comfort");
+		expect(fitMode({ fit: "" as never })).toBe("comfort");
+	});
+
+	it("reads the mode past the other prefs", () => {
+		expect(fitMode({ order: ["b", "a"], widths: { a: 90 }, fit: "full" })).toBe(
+			"full",
+		);
+	});
+});
+
+describe("the mode is remembered per table", () => {
+	const store = new Map<string, string>();
+	afterEach(() => {
+		store.clear();
+		vi.unstubAllGlobals();
+	});
+	const stub = () =>
+		vi.stubGlobal("localStorage", {
+			getItem: (k: string) => store.get(k) ?? null,
+			setItem: (k: string, v: string) => void store.set(k, v),
+			removeItem: (k: string) => void store.delete(k),
+		});
+
+	it("survives a reload", () => {
+		stub();
+		saveColumnPrefs("OrganizationTable", { fit: "full" });
+		expect(fitMode(loadColumnPrefs("OrganizationTable"))).toBe("full");
+	});
+
+	// Keyed by table name, so one table's answer is not every table's.
+	it("does not leak to another table", () => {
+		stub();
+		saveColumnPrefs("OrganizationTable", { fit: "fit" });
+		expect(fitMode(loadColumnPrefs("StakeholderTable"))).toBe("comfort");
+	});
+
+	it("is worth a stored key on its own, with no order or widths", () => {
+		stub();
+		saveColumnPrefs("ClaimTable", { fit: "comfort" });
+		expect(loadColumnPrefs("ClaimTable")).toEqual({ fit: "comfort" });
+	});
+
+	it("keeps order and widths alongside it", () => {
+		stub();
+		saveColumnPrefs("ClaimTable", { order: ["b", "a"], widths: { a: 90 } });
+		saveColumnPrefs("ClaimTable", {
+			...loadColumnPrefs("ClaimTable"),
+			fit: "fit",
+		});
+		expect(loadColumnPrefs("ClaimTable")).toEqual({
+			order: ["b", "a"],
+			widths: { a: 90 },
+			fit: "fit",
+		});
 	});
 });
