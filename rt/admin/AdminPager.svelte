@@ -1,8 +1,13 @@
 <!--
   The ONE Prev/Next window control for admin table viewers. ReTreever used to
   `take: 500` with no offset, leaving rows 501+ unreachable; both dashboards
-  now share one window, moved by one control, rendered top AND bottom (bottom
-  matters — that's where you are once you've read to the end).
+  now share one window, moved by one control.
+
+  Mounted BELOW the grid and nowhere else. You reach for the next page once
+  you have read to the end, so a second copy above the grid spends a band of a
+  table screen — rows, on the one screen whose whole point is row count — on a
+  control nobody needs before they have read anything. `adminDensity.test.ts`
+  pins exactly one mount per viewer, below the grid; a second one reddens it.
 
   Links, not buttons: `?page=N` is addressable, survives reload, and a full
   navigation re-runs the server load that fetches the window.
