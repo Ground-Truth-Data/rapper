@@ -47,7 +47,7 @@ const still = () =>
 	typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /** Slides its OWN box and nothing else: a transform on any ancestor of the grid becomes the containing block for `position: sticky`, and the frozen header and frozen left edge die silently. */
-const slide = () => ({
+const slide = (_: Element) => ({
 	duration: still() ? 0 : 200,
 	easing: cubicOut,
 	css: (t: number, u: number) => `opacity:${t};transform:translateX(${100 * u}%)`,
