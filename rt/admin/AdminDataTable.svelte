@@ -705,11 +705,12 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 	/* Overrides the shared sheet's `width: 100%`, which would leave nothing to scroll sideways. */
 	.adt {
 		width: auto;
-		--adt-colmax: 400px;
+		/* Chris's numbers: 250, 200 on a small screen. Wider hides the next column; a click shows the rest. */
+		--adt-colmax: 250px;
 	}
 	@media (max-width: 1280px) {
 		.adt {
-			--adt-colmax: 320px;
+			--adt-colmax: 200px;
 		}
 	}
 	/* FULL: the cap stops being what hides a value and becomes only a stop against
