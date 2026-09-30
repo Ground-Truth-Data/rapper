@@ -4,11 +4,10 @@
   🎬 stage-controls link to the Get Cache host, tier-1 because clicking it
   doesn't change which product you're in. Band 2 (THE STRIP): everything inside the
   active parent as ONE wrapping run of captioned groups — TOOLS (the apps
-  inside the parent), screens/views (uncaptioned, not tables), then the table
-  DIRECTORY as one picker per vocabulary — CRUD (rust), LOOKUP (sage, reference
-  vocabularies) — flowing like words in a sentence so a row per group doesn't
-  push the grid under the fold; a caption can never separate from the control
-  it names (see .grp). A table appears only under the
+  inside the parent), screens/views (uncaptioned, not tables), CRUD (rust),
+  LOOKUP (sage, reference vocabularies) — flowing like words in a sentence so
+  a row per group doesn't push the grid under the fold; a caption can never
+  separate from its first pill (see .grp). A table appears only under the
   TOOL that owns it, never a parent-level fallback.
 -->
 <script lang="ts">
@@ -127,30 +126,6 @@ const crudTables = $derived(tables.filter((l) => l.kind === "table" || !l.kind))
 const crudLookups = $derived(tables.filter((l) => l.kind === "lookup"));
 const crudViews = $derived(tables.filter((l) => l.kind === "view"));
 
-// Every table the strip can reach right now, flat: a picker posts an href and has to find its link again to read the site scope off it.
-const pickable = $derived<AdminLink[]>([
-	...ownRowTools.flatMap((t) => t.tables ?? []),
-	...crudTables,
-	...crudLookups,
-]);
-
-function pickTable(e: Event) {
-	const link = pickable.find(
-		(l) => l.href === (e.currentTarget as HTMLSelectElement).value,
-	);
-	if (!link) return;
-	goto(
-		crudHref(withSiteParam(link.href, link.scopedToSite ? site || null : null)),
-	);
-}
-
-/** An <option> has nowhere to hang a tooltip or a dot, so the row count and the empty mark are spelled into the text. `=== 0`, not falsy: undefined means the sweep hasn't run and must not claim empty. */
-const optionLabel = (link: AdminLink): string => {
-	const n = tableCount(link.label);
-	if (n === undefined) return link.label;
-	return n === 0 ? `${link.label} — empty` : `${link.label} — ${n}`;
-};
-
 /**
  * Not a pathname test like every other pill: the views share ONE path,
  * differing only in `?view=`. Both halves are required — the param alone
@@ -209,28 +184,31 @@ $effect(() => {
         {tool.label}{tool.external ? " ↗" : ""}
     </a>
 {/snippet}
-<!-- The table DIRECTORY, one control per vocabulary. It keeps its group's caption and accent, so CRUD and LOOKUP still read as two different kinds of thing. -->
-{#snippet tablePicker(links: AdminLink[], lookup = false)}
-    {@const here = links.find((l) => l.href === path)}
-    <span class="lead">
-        <span class="grp-tag" class:sage-tag={lookup}>{lookup ? "LOOKUP" : "CRUD"}</span>
-        <select
-            class="tblpick"
-            class:lookup
-            class:here={!!here}
-            value={here?.href ?? ""}
-            onchange={pickTable}
-            aria-label={lookup ? "Lookup table" : "Table"}
-            title={here ? here.title : `${links.length} tables — none open`}
-        >
-            <!-- Only while none is open: a placeholder left in the list is a row that navigates nowhere. -->
-            {#if !here}
-                <option value="">{links.length} tables…</option>
+{#snippet tablePill(link: AdminLink, lookup = false)}
+    {@const n = tableCount(link.label)}
+    <a
+        class="lnk {lookup ? 'lookup-lnk' : 'table-lnk'}"
+        class:active={path === link.href}
+        href={crudHref(withSiteParam(link.href, link.scopedToSite ? site || null : null))}
+        title={n === undefined ? link.title : `${link.title} — ${n} rows`}
+    >
+        {link.label}
+        <!-- Only the EMPTY table is marked, to pick out the exception. `=== 0`, not falsy: undefined means the sweep hasn't run and must not claim empty. -->
+        {#if n === 0}<span class="empty-dot" aria-hidden="true"></span>{/if}
+    </a>
+{/snippet}
+{#snippet tableGroup(links: AdminLink[], lookup = false)}
+    <span class="grp">
+        {#each links as link, i (link.href)}
+            {#if i === 0}
+                <span class="lead">
+                    {#if lookup}<span class="grp-tag sage-tag">LOOKUP</span>{:else}<span class="grp-tag">CRUD</span>{/if}
+                    {@render tablePill(link, lookup)}
+                </span>
+            {:else}
+                {@render tablePill(link, lookup)}
             {/if}
-            {#each links as link (link.href)}
-                <option value={link.href}>{optionLabel(link)}</option>
-            {/each}
-        </select>
+        {/each}
     </span>
 {/snippet}
 
@@ -355,10 +333,10 @@ $effect(() => {
                 {@render toolPill(tool)}
                 {#if ownTables.length}
                     <span class="rule" aria-hidden="true"></span>
-                    {@render tablePicker(ownTables)}
+                    {@render tableGroup(ownTables)}
                 {/if}
                 {#if ownLookups.length}
-                    {@render tablePicker(ownLookups, true)}
+                    {@render tableGroup(ownLookups, true)}
                 {/if}
             {/each}
             <!-- The active tool's own pages. No caption: not tables, so CRUD would be lying about them. -->
@@ -393,10 +371,10 @@ $effect(() => {
                 </span>
             {/if}
             {#if crudTables.length}
-                {@render tablePicker(crudTables)}
+                {@render tableGroup(crudTables)}
             {/if}
             {#if crudLookups.length}
-                {@render tablePicker(crudLookups, true)}
+                {@render tableGroup(crudLookups, true)}
             {/if}
         </nav>
     {/if}
@@ -450,7 +428,7 @@ $effect(() => {
         flex-shrink: 0;
         white-space: nowrap;
         letter-spacing: 0.12em;
-        color: var(--rt-rust); /* same rust as the CRUD picker it introduces — see .tblpick */
+        color: var(--rt-rust); /* same rust as the CRUD group it introduces — see .table-lnk */
         border: 1px solid color-mix(in srgb, var(--rt-rust), var(--at-panel) 68%);
         border-radius: 4px;
         padding: 0.1rem 0.35rem;
@@ -704,65 +682,42 @@ $effect(() => {
         flex-shrink: 0;
     }
 
-    /* THE DIRECTORY, not the navigation. Twenty to twenty-seven table names
-       filled two of the strip's three rows as pills, and finding one among them
-       still meant reading all of them. A select keeps every one reachable, gets
-       type-ahead for nothing, and names the open table while closed. Same
-       drawn-caret vocabulary as the site picker in tier 1, sized to the pills it
-       sits beside. */
-    .tblpick {
-        appearance: none;
-        -webkit-appearance: none;
-        flex-shrink: 0;
-        max-width: 20rem;
-        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    /* RUST, smaller — subordinate to the tools. Every shade derives from the ONE --rt-rust token, so a fifth hand-rolled orange can't creep in. */
+    .table-lnk {
         font-size: 0.7rem;
-        line-height: 1;
-        /* See .proj: the OS draws this popup and reads only this property. */
-        color-scheme: dark;
-        padding: 0.26rem 1.55rem 0.26rem 0.62rem;
-        border-radius: 999px;
-        cursor: pointer;
-        text-overflow: ellipsis;
-        /* 12%, where the pills it replaced sat at 42%: a name among twenty-four
-           is carried by the wall around it, and this one has to be read on its
-           own. 42% measures 2.6:1 on this floor, 12% measures 4.6:1. The border
-           stays dim — only the text has a legibility floor. */
+        padding: 0.26rem 0.62rem;
         color: color-mix(in srgb, var(--rt-rust), var(--at-panel) 12%);
-        border: 1px solid color-mix(in srgb, var(--rt-rust), var(--at-panel) 68%);
-        background-color: var(--at-inset);
-        /* Muted, never the group's accent: this caret is chrome on all three
-           states, and one that changed colour with them would read as part of
-           the name. Keep in step with --at-muted (adminTable.css). */
-        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' fill='none' stroke='%238f8a76' stroke-width='1.5'/></svg>");
-        background-repeat: no-repeat;
-        background-position: right 0.55rem center;
-        transition: color 0.12s ease, border-color 0.12s ease;
+        border-color: color-mix(in srgb, var(--rt-rust), var(--at-panel) 68%);
     }
-    .tblpick:hover,
-    .tblpick:focus-visible {
+    .table-lnk:hover {
         color: var(--rt-rust);
         border-color: color-mix(in srgb, var(--rt-rust), var(--at-panel) 45%);
-        outline: none;
     }
-    /* SAGE, the third accent (gold = commit, rust = context, sage = nature). The
-       lookups ARE the ecological vocabularies; the rust picker beside them is the
-       working data that points AT them. */
-    .tblpick.lookup:not(.here) {
-        /* Flat sage, not a mix: sage is the darkest of the three accents and any
-           mix toward the floor drops this control's own text under 4.5:1. The
-           hover step is carried by the border instead. */
+    /* SAGE, the third accent (gold = commit, rust = context, sage = nature): the fixed vocabularies the rust tables point AT. Flat sage: any mix toward the floor drops it under 4.5:1. */
+    .lookup-lnk {
+        font-size: 0.7rem;
+        padding: 0.26rem 0.62rem;
         color: var(--rt-sage);
         border-color: color-mix(in srgb, var(--rt-sage), var(--at-panel) 68%);
     }
-    .tblpick.lookup:not(.here):hover,
-    .tblpick.lookup:not(.here):focus-visible {
+    .lookup-lnk:hover {
         border-color: color-mix(in srgb, var(--rt-sage), var(--at-panel) 45%);
     }
-    /* Outranks :hover on purpose — see .tool-lnk.active. */
-    .tblpick.here {
+    .empty-dot {
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        margin-left: 0.3rem;
+        border-radius: 50%;
+        background: #b3423a;
+        /* Nudged off the text baseline, or it reads as a full stop ending the table name. */
+        vertical-align: 0.12em;
+    }
+    /* Active is GOLD in every row: accent marks the group at rest, gold marks where you are. */
+    .table-lnk.active,
+    .lookup-lnk.active {
         color: var(--at-gold);
-        background-color: var(--at-selected);
+        background: var(--at-selected);
         border-color: var(--at-gold);
         font-weight: 600;
     }
