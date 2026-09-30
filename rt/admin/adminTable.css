@@ -526,6 +526,16 @@ main:has(.admin-table) {
 .admin-table tbody tr:last-child td {
 	border-bottom: none;
 }
+/* A RULER FOR A ROW 8000px WIDE: four screens right of the name column nothing
+   tells the eye which row it is on, and the separator above is the only mark
+   the grid allows — a zebra or a per-row background is the noise it exists to
+   avoid. So every fifth separator is simply drawn stronger. Colour only, never
+   the shorthand: the last row's `border-bottom: none` above must keep winning,
+   and hover and selection stay the only things that mark a row's STATE. */
+.admin-table tbody tr:nth-child(5n) td,
+.admin-table tbody tr:nth-child(5n) th {
+	border-bottom-color: var(--at-line-strong);
+}
 
 /* Tabular figures so digits line up and a long number is comparable to a short one at a glance. */
 .admin-table .num,
