@@ -117,8 +117,7 @@
 	background: var(--at-bg); /* opaque: rows scrolled up behind the frozen header must not show through */
 }
 /* Only the LAST row can overflow a corner — the header owns the top edge. */
-.admin-panel > *:last-child,
-.admin-panel > *:last-child > .admin-row:last-child {
+.admin-panel > *:last-child {
 	border-bottom-left-radius: var(--at-radius);
 	border-bottom-right-radius: var(--at-radius);
 }
@@ -179,7 +178,8 @@
 	overflow: hidden;
 	transition: border-color 120ms ease;
 }
-.admin-row:hover .admin-textbox {
+.admin-table tbody tr:hover .admin-textbox,
+.admin-table tbody tr:hover .admin-select {
 	border-color: var(--at-line);
 }
 .admin-textbox:focus-within {
@@ -202,31 +202,6 @@
 
 /* ── Rows ────────────────────────────────────────────────────────────── */
 
-.admin-item {
-	border-bottom: 1px solid var(--at-line);
-	/* Paints so it can't show through the frozen header, but `z-index: 0` keeps it BEHIND — a painted sibling with no z-index sits above the sticky header in paint order. */
-	background: var(--at-bg);
-	position: relative;
-	z-index: 0;
-}
-.admin-item:last-child {
-	border-bottom: none;
-}
-
-/* `cursor:pointer` is on the row because the whole row is the toggle — every control inside stops propagation, so typing into a field never collapses it. */
-.admin-row {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	/* More x-padding than the token's 8px: a flex of controls, not plain <td> text, or the first would touch the panel edge. */
-	padding: var(--at-cell-pad-y) 18px;
-	cursor: pointer;
-	transition: background-color 120ms ease;
-}
-.admin-row:hover {
-	background: var(--at-hover);
-}
-
 /* A real hit target, not a glyph — at 11px it was a decoration people aimed at and missed; the eye treats the triangle as THE control despite the row also toggling. */
 .admin-tri {
 	width: 22px;
@@ -248,27 +223,22 @@
 	padding: 0;
 	cursor: pointer;
 }
-.admin-row:hover .admin-tri {
+.admin-table tbody tr:hover .admin-tri {
 	color: var(--at-accent-bright);
 }
-.admin-item.open .admin-tri {
+.admin-table tr.row-open .admin-tri {
 	transform: rotate(90deg);
 }
 
 /* FOCUS DIMMING: opacity, not a re-tint, keeps meaningful row colour (red
    Delete, fire ratings, match pills) intact. The dim is a SCRIM and must stay
    clickable — `pointer-events: none` goes on the row's CONTENTS, never the
-   item itself, or no click could escape once the panel outgrows the viewport. */
-.admin-item.dim {
-	filter: saturate(0.6);
-	cursor: pointer;
-}
-.admin-item.dim .admin-row {
+   row itself, since a click on a dimmed row closes the open one. */
+.admin-table tr.row-dim {
 	opacity: 0.22;
-	transition: opacity 150ms ease;
+	filter: saturate(0.6);
 }
-/* The controls, not the row, are what goes out of play. */
-.admin-item.dim .admin-row * {
+.admin-table tr.row-dim * {
 	pointer-events: none;
 }
 
@@ -430,101 +400,7 @@
 	font-size: 12px;
 }
 
-/* ── Sticky table header ─────────────────────────────────────────────── */
-
-/* THE ONE THING THAT FREEZES. `top: 0`: the nav is NOT sticky, so nothing above this row to clear. Opaque, or rows sliding underneath show through when the header matters most. */
-.admin-thead {
-	display: grid;
-	gap: 10px;
-	padding: 9px 18px; /* slightly taller than a data row — a band, not a row */
-	border-bottom: 1px solid var(--at-line);
-	background: var(--at-inset);
-	position: sticky;
-	top: 0;
-	z-index: 5; /* above every row (z-index: 0), so rows pass BEHIND the frozen band */
-}
-/* A <th> IS ALREADY A TABLE CELL — never make it flex. `.admin-th` is worn by
-   both a <button> (grid pages) and a real <th>; on the <th>, `display: flex`
-   REPLACES `table-cell` and collapses every header into one column. The flex
-   belongs to the button (element-specific rule below), not this class. */
-.admin-th {
-	align-items: center;
-	gap: 6px;
-	font-weight: var(--at-th-weight);
-	font-size: var(--at-th-font);
-	color: var(--at-th); /* white, not rust — see --at-th above */
-	background: none;
-	border: 0;
-	padding: 0;
-	text-align: left;
-	cursor: pointer;
-	font-family: inherit;
-	transition: color 120ms ease;
-}
-/* Only the non-<th> forms are flex boxes; a <th> keeps table-cell and aligns its arrow with inline layout instead. */
-button.admin-th,
-span.admin-th,
-div.admin-th {
-	display: flex;
-}
-.admin-th:hover {
-	color: var(--at-th-hover);
-}
-.admin-th.right {
-	justify-content: flex-end;
-}
-/* Must sit over its column's CONTENT, not merely in its column: above a centred checkbox, a left-aligned label reads as belonging to the column to its left. */
-.admin-th.center {
-	justify-content: center;
-}
-.admin-th .arr {
-	font-size: 11px;
-	color: var(--at-th-arrow);
-}
-/* Active sort column takes the hover gold, so "what you can do" and "what is currently done" are one colour. */
-.admin-th[aria-sort],
-.admin-th[aria-sort] .arr {
-	color: var(--at-th-hover);
-}
-
-/* Counts the rows immediately below it, so lives inside the panel under the header rather than up in the toolbar. */
-.admin-countrow {
-	font-family: var(--rt-font-mono);
-	font-weight: 700;
-	font-size: var(--at-font);
-	color: var(--at-accent);
-	padding: var(--at-cell-pad-y) 18px;
-	border-bottom: 1px solid var(--at-line);
-}
-/* AdminCountRow renders a <tr> for table markup — one component in its other shape, not a second Σ row that happens to look similar. */
-.admin-table tr.admin-countrow,
-.admin-table tr.admin-countrow:hover {
-	cursor: default;
-	background: var(--at-panel);
-}
-.admin-table tr.admin-countrow td {
-	color: var(--at-accent);
-	font-weight: 600;
-	font-variant-numeric: tabular-nums;
-	border-bottom: 2px solid var(--at-line-strong); /* heavier than a row hairline: separates the total from the data */
-}
-.admin-table tr.admin-countrow td.sum-label {
-	font-family: var(--rt-font-mono);
-	font-weight: 700;
-	font-size: var(--at-font);
-	white-space: nowrap;
-}
-
-/* Not mono, not accented: context for the number, not a second number. */
-.admin-countrow .of {
-	font-family: inherit;
-	font-weight: 500;
-	font-size: 12.5px;
-	color: var(--at-muted);
-	margin-left: 8px;
-}
-
-/* With the count moved into the panel, a toolbar may hold only right-hand controls; `space-between` would then pin them LEFT. */
+/* A toolbar may hold only right-hand controls; `space-between` would then pin them LEFT. */
 .admin-toolbar > :only-child {
 	margin-left: auto;
 }
@@ -541,12 +417,6 @@ div.admin-th {
 	color: var(--at-muted);
 }
 
-/* THE TABLE — the shared surface for BOTH markups. Some pages render real
-   <table>/<thead>/<td>; others CSS-grid <div>s, since a <tr> can't hold a
-   second full-width row (for an editing panel) without a colspan hack that
-   fights every other column rule. So the markup differs and every visual
-   decision is made HERE, once, applying to both. */
-
 /* THE WRAPPER IS THE TABLE'S SCROLL BOX, both axes: the shared theme sets
    `html, body { overflow-x: clip }`, so columns past the window edge need
    this box to reach them, and header + Σ row must travel with the columns.
@@ -556,7 +426,6 @@ div.admin-th {
    top is on screen whenever the bottom is. Only the immediate table wrapper
    takes this; a page-level wrapper holding the title/toolbar too would
    scroll the chrome with the rows. */
-.table-wrap,
 .admin-tablewrap {
 	overflow: auto;
 	max-height: 100dvh;
@@ -577,10 +446,7 @@ main:has(.admin-table) {
 	background: transparent; /* flat sheet, not the panel's inset card — a card reads as objects, not a grid of values */
 }
 
-/* One rule for `<th>` and `.admin-th`, so a header can't be styled one way in a table and another in a grid. */
-.admin-table th,
-.admin-table .admin-th,
-.admin-thead .admin-th {
+.admin-table th {
 	font-size: var(--at-th-font);
 	font-weight: var(--at-th-weight);
 	color: var(--at-th);
@@ -589,11 +455,11 @@ main:has(.admin-table) {
 	background: var(--at-inset);
 	transition: color 120ms ease;
 }
-/* THE HEADER FREEZES — both markups, one rule; exactly ONE frozen thing on the
-   page. The `:not()`s are NOT decoration: the Σ row lives inside <thead> (so
+/* THE HEADER FREEZES — exactly ONE frozen thing on the page. The `:not()` is
+   NOT decoration: the Σ row lives inside <thead> (so
    it stays with the head band on re-sort), so a bare `thead th` would freeze
    it too — permanently, since the pin was never in the Σ's own block to delete. */
-.admin-table thead tr:not(.subtotal):not(.sum-row) th {
+.admin-table thead tr:not(.subtotal) th {
 	position: sticky;
 	top: 0;
 	z-index: 5;
@@ -604,9 +470,7 @@ main:has(.admin-table) {
 	border-bottom: 1px solid var(--at-line);
 	background: var(--at-inset);
 }
-.admin-table th[aria-sort]:hover,
-.admin-table .admin-th:hover,
-.admin-thead .admin-th:hover {
+.admin-table th[aria-sort]:hover {
 	color: var(--at-th-hover);
 }
 .admin-table th[aria-sort],
@@ -654,7 +518,6 @@ main:has(.admin-table) {
 }
 
 /* DELIBERATELY NOT STICKY, though it sits in <thead>: a second frozen band costs permanent vertical space and needs a hand-measured `top` that breaks the moment a density token changes. */
-.admin-table .sum-row td,
 .admin-table tr.subtotal th {
 	background: var(--at-panel);
 	color: var(--at-accent);
@@ -663,15 +526,6 @@ main:has(.admin-table) {
 	border-bottom: 1px solid var(--at-line-strong);
 }
 
-/* Selection — Get Cache's checkbox column, available to any table. */
-.admin-table .sel-col {
-	width: 2.2rem;
-	text-align: center;
-}
-.admin-table .sel-col input[type="checkbox"] {
-	cursor: pointer;
-	accent-color: var(--at-th-hover);
-}
 /* Same token the frozen cells lay their floor with — the scrolling and frozen halves of one ticked row must be the same colour. */
 .admin-table tr.row-selected {
 	background: var(--at-selected);
