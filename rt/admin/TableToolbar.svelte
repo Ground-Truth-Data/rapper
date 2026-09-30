@@ -78,7 +78,7 @@ const still = () =>
     typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /** Same hinge as the column picker — a short one, because a six-item menu is a smaller claim on the screen than a thirty-two-column panel. */
-const hinge = () => ({
+const hinge = (_node: Element) => ({
     duration: still() ? 0 : 150,
     easing: cubicOut,
     css: (t: number, u: number) =>

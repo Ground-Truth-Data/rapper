@@ -89,7 +89,7 @@ const still = () =>
 	typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /** The admin kit's dropdown arrival, hinged off the control that opened it rather than appearing beside it. */
-const hinge = () => ({
+const hinge = (_node: Element) => ({
 	duration: still() ? 0 : 180,
 	easing: cubicOut,
 	css: (t: number, u: number) =>
