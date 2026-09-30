@@ -18,7 +18,7 @@ import { lastTool, rememberTool } from "./lastTool";
 import { tableCount } from "./tableCounts.svelte";
 import { page } from "$app/state";
 import Icon from "$parent/siblings/getCache_OnlineMap/lib/components/Icon.svelte";
-import { getcacheUrl, SITES, urlOnSite } from "../sites";
+import { getcacheUrl, urlOnSite } from "../sites";
 import {
 	ADMIN_PARENTS,
 	FOUNDR_REPORTS,
@@ -37,7 +37,6 @@ import type {
 	AdminTool,
 	FoundrProject,
 } from "./adminRoutes";
-import SiteIcon from "../SiteIcon.svelte";
 import tentIcon from "$rt/assets/tentV5_white.webp";
 
 
@@ -78,10 +77,6 @@ const parentHref = (parent: AdminParent): string =>
 const crudHref = (href: string): string => onSite(currentTool?.site, href);
 
 const current = $derived(activeParent(page.url.pathname));
-// "retreever" is a SiteId, so the tab wears the site's own icon; Get Cache and Foundr have no site here, so their pill logos stand in.
-const tabIcon = $derived(
-	SITES.find((s) => s.id === current.key)?.icon ?? current.logo,
-);
 const currentTool = $derived(activeTool(page.url.pathname));
 const path = $derived(page.url.pathname);
 
@@ -169,9 +164,6 @@ $effect(() => {
     return () => ro.disconnect();
 });
 </script>
-
-<!-- Follows the lit pill, not the hostname: admin serves three products' dashboards, so SITES can't answer by hostname here. -->
-<SiteIcon override={tabIcon} />
 
 <!-- Floor, not policy: several admin pages declare no <title>, and a page's own <svelte:head><title> still wins (layout head renders first). -->
 <svelte:head>

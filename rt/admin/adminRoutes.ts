@@ -2,6 +2,7 @@ import type { IconName } from "$parent/siblings/getCache_OnlineMap/lib/component
 import rtLogo from "$rt/assets/ReTreever_logo_sm.webp";
 import foundrLogo from "$rt/assets/foundr_logo_sm2.webp";
 import GC_LOGO from "$gc/assets/GC_fly_logo_512px.webp";
+import GC_TAB from "$gc/assets/favicon.png";
 
 // Route map for the three-tier admin header: tier 1 parents, tier 2 tools inside the active parent, tier 3 the active tool's tables.
 
@@ -552,6 +553,12 @@ export function activeParent(pathname: string): AdminParent {
 	if (pathname.startsWith("/getcache_dash")) return ADMIN_PARENTS[1];
 	if (pathname.startsWith(FOUNDR_DASH)) return ADMIN_PARENTS[2];
 	return NO_PARENT;
+}
+
+/** The admin tab icon follows the lit pill; Get Cache's is its G¢ app icon, not the pill's dragonfly logo. "" with none lit. */
+export function adminTabIcon(pathname: string): string {
+	const parent = activeParent(pathname);
+	return parent.key === "getcache" ? GC_TAB : parent.logo;
 }
 
 /** The longest matching prefix, not the first: `/getcache_dash` is a prefix of every Get Cache page. Null when no tool owns the path. */

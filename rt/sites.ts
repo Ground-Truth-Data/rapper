@@ -28,7 +28,7 @@ export type Site = {
 	hosts: readonly string[];
 	/** The dev hostname to suggest when someone lands on the wrong address. */
 	devHost: string;
-	/** The favicon. Admin looks it up by parent key in AdminHeader, since one admin host shows three products. */
+	/** The favicon. On admin, `adminTabIcon` overrides it by the lit pill, since one admin host shows three products. */
 	icon: string;
 	home: string;
 	pages: readonly string[];
