@@ -55,7 +55,7 @@ const still = () =>
 	typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /** The biggest change of context in the admin kit, so it ARRIVES in Z rather than simply existing — the grid is what it came forward from. */
-const arrive = () => ({
+const arrive = (_node: Element) => ({
 	duration: still() ? 0 : 200,
 	easing: cubicOut,
 	css: (t: number, u: number) =>

@@ -63,7 +63,7 @@ const still = () =>
 	typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /** Hinges down from the trigger it is anchored to, so the panel reads as a lid opening off this button rather than a card appearing near it. Free here only because nothing under this panel is a `position: sticky` cell. */
-const hinge = () => ({
+const hinge = (_node: Element) => ({
 	duration: still() ? 0 : 180,
 	easing: cubicOut,
 	css: (t: number, u: number) =>
