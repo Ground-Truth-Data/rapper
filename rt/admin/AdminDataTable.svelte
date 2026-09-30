@@ -329,7 +329,7 @@ $effect(() => {
 // ONE listener on <tbody>, not one per cell: 500 rows of 34 columns is 17,000
 // handlers for a highlight.
 let hoverCol = $state<string | null>(null);
-function onBodyOver(e: MouseEvent) {
+function onBodyOver(e: Event) {
 	const cell = e.target instanceof Element ? e.target.closest("td") : null;
 	hoverCol = cell?.dataset.col ?? null;
 }
@@ -514,8 +514,16 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 				</tr>
 			{/if}
 		</thead>
+		<!-- `focusin`, not `focus`: focus does not bubble, and the point of one
+		     delegated listener is that it is not 17,000 of them. Tabbing through a
+		     row's cell buttons lights the same header a pointer would. -->
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-		<tbody onmouseover={onBodyOver} onmouseleave={() => (hoverCol = null)}>
+		<tbody
+			onmouseover={onBodyOver}
+			onmouseleave={() => (hoverCol = null)}
+			onfocusin={onBodyOver}
+			onfocusout={() => (hoverCol = null)}
+		>
 			<!-- Keyed by identity, never index: a re-sort/page change would otherwise leave a tick on the wrong row. -->
 			{#each rows as row, rowIx (rowKey(row))}
 				<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
