@@ -1,8 +1,7 @@
 <!--
   The one spreadsheet body used by every admin table screen: frozen left edge,
-  header pinning, column width, which element scrolls — not the pieces
-  (AdminTh, AdminCountRow, AdminPager), and not filters, search, paging,
-  export or the page title. Rules it enforces, none a page can opt out of:
+  header pinning, column width, which element scrolls — not filters, search,
+  paging, export or the page title. Rules it enforces, none a page can opt out of:
   a column is as wide as its header (never `1fr` or `max-content`, `fit` the
   exception); the frozen edge is cells that TILE, offset from frozenLeft(),
   or a gap lets the scrolling columns show through; the header pins via one
@@ -66,6 +65,8 @@ type Props = {
 	openKey?: string | null;
 	/** Fill the page column instead of bleeding to the window edges — for a few columns, where header-wide sizing would truncate inside a mostly empty band. */
 	fit?: boolean;
+	/** A click or Enter on the row, not on a control inside it — that one is the control's. */
+	onRowClick?: (row: Record<string, unknown>) => void;
 };
 let {
 	columns,
@@ -92,7 +93,11 @@ let {
 	detail,
 	openKey = null,
 	fit = false,
+	onRowClick,
 }: Props = $props();
+
+const CONTROL = "form, button, a, input, select, textarea, label";
+const onControl = (t: EventTarget | null) => t instanceof Element && t.closest(CONTROL) !== null;
 
 let colPrefs = $state<ColumnPrefs>({});
 $effect(() => {
@@ -318,7 +323,24 @@ const frozenLeftVar = (index: number) =>
 		<tbody>
 			<!-- Keyed by identity, never index: a re-sort/page change would otherwise leave a tick on the wrong row. -->
 			{#each rows as row, rowIx (rowKey(row))}
-				<tr class={rowClass?.(row) ?? ""}>
+				<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+				<tr
+					class={rowClass?.(row) ?? ""}
+					class:adt-clickable={!!onRowClick}
+					tabindex={onRowClick ? 0 : undefined}
+					onclick={onRowClick
+						? (e) => {
+								if (!onControl(e.target)) onRowClick(row);
+							}
+						: undefined}
+					onkeydown={onRowClick
+						? (e) => {
+								if (onControl(e.target) || (e.key !== "Enter" && e.key !== " ")) return;
+								e.preventDefault();
+								onRowClick(row);
+							}
+						: undefined}
+				>
 					{#if hasLead}<td
 							class="adt-lead"
 							class:adt-frozen={frozenTotal > 0}
@@ -516,6 +538,14 @@ const frozenLeftVar = (index: number) =>
 		white-space: normal;
 		box-shadow: inset 2px 0 0 var(--at-gold, #eab627);
 		border-bottom-color: color-mix(in srgb, var(--at-gold, #eab627), transparent 65%);
+	}
+
+	.adt-clickable {
+		cursor: pointer;
+	}
+	.adt-clickable:focus-visible {
+		outline: 1px solid var(--at-gold, #eab627);
+		outline-offset: -1px;
 	}
 
 	.adt-lead {
