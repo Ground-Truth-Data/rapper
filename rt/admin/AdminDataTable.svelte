@@ -15,8 +15,11 @@ import {
 	applyColumnOrder,
 	type ColumnPrefs,
 	DEFAULT_FIT,
+	distinctChars,
 	type FitMode,
+	fitLabels,
 	fitMode,
+	fitWeights,
 	loadColumnPrefs,
 	moveColumn,
 	saveColumnPrefs,
@@ -189,6 +192,15 @@ const headWidth = (c: string, i: number) =>
 		? `width: ${fitShares[leadCount + i]}`
 		: (widthStyle(colPrefs, c) ?? `min-width: ${autoWidths[c]}`);
 
+// Only the visible text shortens in Fit: the column's real name still reaches a
+// hover and a screen reader, so an abbreviation is never the only way to know
+// which column this is.
+const headLabel = (c: string) => (mode === "fit" ? fitLabel[c] : label(c));
+const headHint = (c: string) =>
+	mode === "fit"
+		? [label(c), headerTitle?.(c)].filter(Boolean).join(" — ")
+		: headerTitle?.(c);
+
 // Character widths of the header and cell fonts; each estimate carries its cell padding.
 const CH = 0.502;
 const SORT_ARROW = 1.6;
@@ -197,13 +209,24 @@ const CELL_PAD = 1.2;
 // The two demands a column makes, in rem, measured once: every mode below is a
 // different way of settling between them.
 const demands = $derived.by(() => {
-	const out: Record<string, { head: number; body: number }> = {};
+	const out: Record<string, { head: number; body: number; content: number }> =
+		{};
 	for (const c of allCols) {
 		let n = 0;
-		if (!isPeek(c)) for (const r of rows) n = Math.max(n, text(c, r).length);
+		let held = 0;
+		if (!isPeek(c))
+			for (const r of rows) {
+				const v = text(c, r);
+				n = Math.max(n, v.length);
+				if (openable(v)) held = Math.max(held, v.length);
+			}
 		out[c] = {
 			head: label(c).length * CH + SORT_ARROW,
 			body: n * CELL_CH + CELL_PAD,
+			// What the column HAS, which is not what it renders: a column of "—"
+			// renders a character per row and holds nothing, and in Fit that is the
+			// difference between being paid and not.
+			content: held * CELL_CH,
 		};
 	}
 	return out;
@@ -230,28 +253,71 @@ const autoWidths = $derived.by(() => {
 
 // Fit spends ONE window across every column, so a width there is a share of the
 // whole rather than a length: percentages under `table-layout: fixed` are the
-// only widths that add up to the window exactly, whatever the window is.
-// Shares are clamped to a band around the mean because 35 columns cannot each be
-// readable, but none may collapse to nothing either — and the band is unit-free,
-// so nothing has to be measured to know it fits.
-const FIT_FLOOR = 0.62;
-const FIT_CEIL = 2.2;
+// only widths that add up to the window exactly, whatever the window is — so
+// nothing has to be measured to know it fits.
+const HEAD_PAD = 1;
+// A capital runs a third wider than the average character, and collapsing words
+// to initials makes these labels capital-heavy — averaged, a three-letter prefix
+// came out short by the letter that made it distinct.
+const CAP_CH = 0.67;
+const headText = (s: string) =>
+	[...s].reduce(
+		(w, ch) =>
+			w + (ch !== ch.toLowerCase() && ch === ch.toUpperCase() ? CAP_CH : CH),
+		0,
+	);
+// Room for the "…" a truncated header ends in. The characters BEFORE it are what
+// tell one column from another, so they cannot be spent on it.
+const ELLIPSIS = 0.76;
+// The window Fit assumes, in rem — what these dashboards run at. It sets how
+// much width is left to bid for and nothing else; see `fitWeights`.
+const FIT_WINDOW = 112;
 // The two tracks the component owns rather than the caller: their rem widths are
 // declared in the style block, and Fit needs them as weights like any column.
 const LEAD_WEIGHT = 2.2;
 const TRAIL_WEIGHT = 5.5;
+// Both of these are properties of the whole column set, never of one name:
+// "short enough" and "tells itself apart" are only answerable against the
+// neighbours a header will be read beside.
+const fitLabel = $derived.by(() => {
+	const short = fitLabels(allCols.map((c) => label(c)));
+	const out: Record<string, string> = {};
+	allCols.forEach((c, i) => {
+		out[c] = short[i];
+	});
+	return out;
+});
+const tellApart = $derived.by(() => {
+	const short = allCols.map((c) => fitLabel[c]);
+	const chars = distinctChars(short);
+	const out: Record<string, number> = {};
+	allCols.forEach((c, i) => {
+		// Whichever is cheaper: the whole short name, or just the prefix that
+		// identifies it and the ellipsis standing for the rest.
+		out[c] = Math.min(
+			headText(short[i]) + SORT_ARROW + HEAD_PAD,
+			headText(short[i].slice(0, chars[i])) + ELLIPSIS + HEAD_PAD,
+		);
+	});
+	return out;
+});
 const fitShares = $derived.by(() => {
-	const weights = [
+	const floors = [
 		...(hasLead ? [LEAD_WEIGHT] : []),
-		...allCols.map((c) => Math.max(demands[c].head, demands[c].body)),
+		...allCols.map((c) => tellApart[c]),
 		...(trail ? [TRAIL_WEIGHT] : []),
 	];
-	const mean = weights.reduce((a, b) => a + b, 0) / weights.length;
-	const band = weights.map((w) =>
-		Math.min(Math.max(w, mean * FIT_FLOOR), mean * FIT_CEIL),
+	// Diminishing returns rather than proportion: the 200th character of a value
+	// is worth far less than the 5th, and one 2,970-character column weighted
+	// straight takes every rem there is to give.
+	const bids = [
+		...(hasLead ? [0] : []),
+		...allCols.map((c) => Math.sqrt(demands[c].content)),
+		...(trail ? [0] : []),
+	];
+	return fitWeights(floors, bids, FIT_WINDOW).map(
+		(w) => `${(w * 100).toFixed(4)}%`,
 	);
-	const total = band.reduce((a, b) => a + b, 0);
-	return band.map((w) => `${((w / total) * 100).toFixed(4)}%`);
 });
 
 const allCols = $derived(
@@ -432,7 +498,7 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 							class:adt-seam={i + leadCount === frozenTotal - 1}
 							class:adt-colhover={hoverCol === c}
 							style="{headWidth(c, i)}; {frozenLeftVar(i + leadCount) ?? ''}"
-							title="{label(c)} — open from a row">{label(c)}</th
+							title="{label(c)} — open from a row">{headLabel(c)}</th
 						>
 					{:else}
 						<th
@@ -448,7 +514,8 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 									: "descending"
 								: undefined}
 							style="{headWidth(c, i)}; {frozenLeftVar(i + leadCount) ?? ''}"
-							title={headerTitle?.(c)}
+							title={headHint(c)}
+							aria-label={mode === "fit" ? label(c) : undefined}
 							onclick={() => clickSort(c)}
 							draggable={prefsKey ? resizingCol === null : undefined}
 							ondragstart={prefsKey
@@ -460,7 +527,7 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 							ondrop={prefsKey ? (e: DragEvent) => onColDrop(c, e) : undefined}
 							ondragend={prefsKey ? onColDragEnd : undefined}
 						>
-							{label(c)}<span class="arr">{arrow(c)}</span>
+							{headLabel(c)}<span class="arr">{arrow(c)}</span>
 							{#if prefsKey && mode !== "fit"}
 								<!-- No grip in Fit: the widths there are shares of one window, so a
 								     dragged pixel width would be ignored the moment it was saved.
