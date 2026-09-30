@@ -198,13 +198,15 @@ $effect(() => {
     </a>
 {/snippet}
 {#snippet lookupPill(link: AdminLink)}
+    {@const n = tableCount(link.label)}
     <a
         class="lnk lookup-lnk"
         class:active={path === link.href}
         href={crudHref(link.href)}
-        title={link.title}
+        title={n === undefined ? link.title : `${link.title} — ${n} rows`}
     >
         {link.label}
+        {#if n === 0}<span class="empty-dot" aria-hidden="true"></span>{/if}
     </a>
 {/snippet}
 
