@@ -361,7 +361,7 @@ const frozenLeftVar = (index: number) =>
 							{:else if onPeek && openable(text(c, row))}
 								<!-- <button>, not a <span> with a click handler (unreachable by keyboard), stripped of button affordance or 500 of them read as a form. -->
 								<button type="button" class="adt-cell-btn" onclick={() => onPeek(c, row)}>
-									{text(c, row)}
+									{#if cell}{@render cell(c, row)}{:else}{text(c, row)}{/if}
 								</button>
 							{:else if cell}
 								{@render cell(c, row)}
