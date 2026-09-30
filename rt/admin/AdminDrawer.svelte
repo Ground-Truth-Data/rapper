@@ -76,44 +76,53 @@ const slide = () => ({
 />
 
 <style>
-/* Above the frozen header and its seam cells (z-index 8), below ColumnPicker's
-   menu (41) and JsonPeek (60) — both must still open over this. */
+/* ABOVE `.admin-hd`, which is z-index 50: this panel is `top: 0` and the nav
+   band is in normal flow above it, so at 30 the band painted over the drawer's
+   whole header — title, count and the only visible close control. Escape still
+   worked, which is how it read as "the drawer has no header" rather than as a
+   bug. Below JsonPeek (60), the kit's one modal, which must still open over
+   this. ColumnPicker (40/41) is not a conflict: it mounts on the table viewer
+   and this drawer only on Orgs, so the two never coexist. */
 .addr {
 	position: fixed;
 	top: 0;
 	right: 0;
-	z-index: 30;
+	z-index: 55;
 	width: var(--addr-w);
 	max-width: 100vw;
 	height: 100dvh;
 	display: flex;
 	flex-direction: column;
-	background: var(--admin-panel-bg, #16161a);
+	background: var(--at-panel-2);
 	border-left: 1px solid var(--at-line-strong, #3a3a3a);
 	box-shadow:
 		var(--at-lift-3, 0 24px 48px -12px rgb(0 0 0 / 80%)),
 		var(--at-edge-hi, inset 0 1px 0 rgb(255 255 255 / 6%));
 }
+/* A band, not a caption: it sits still while the body scrolls under it, so it
+   takes the same inset surface and lit top edge the grid's own head band wears. */
 .addr-head {
 	display: flex;
 	align-items: flex-start;
 	gap: 10px;
-	padding: 12px 14px;
-	border-bottom: 1px solid var(--at-line, #2a2a2a);
+	padding: 11px 14px;
+	background: var(--at-inset);
+	border-bottom: 1px solid var(--at-line-strong);
+	box-shadow: var(--at-edge-hi);
 	flex: none;
 }
 .addr-id {
 	min-width: 0;
 	flex: 1;
 }
+/* The panel's own name, so it reads at the weight of a title. It wore
+   `.admin-fieldlbl`'s 11px muted uppercase — the treatment of a minor form
+   caption — which is why a 560px panel looked like it had no header at all. */
 .addr-title {
 	display: block;
-	font-family: var(--rt-font-mono);
-	font-size: 11px;
-	font-weight: 800;
-	letter-spacing: 0.06em;
-	text-transform: uppercase;
-	color: var(--at-muted);
+	font-size: 13.5px;
+	font-weight: 700;
+	color: var(--at-fg);
 }
 .addr-note {
 	display: block;
@@ -122,17 +131,20 @@ const slide = () => ({
 	line-height: 1.45;
 	color: var(--at-muted-2);
 }
+/* The only VISIBLE way out — Escape works but nobody discovers it — so it gets
+   a real hit target rather than the 24px muted glyph it had. */
 .addr-head button {
 	flex: none;
-	width: 24px;
-	height: 24px;
-	border-radius: 5px;
-	border: 1px solid var(--at-line-strong, #3a3a3a);
+	width: 28px;
+	height: 28px;
+	border-radius: var(--at-radius-sm);
+	border: 1px solid var(--at-line-strong);
 	background: none;
-	color: var(--at-muted);
-	font-size: 11px;
+	color: var(--at-fg);
+	font-size: 13px;
 	line-height: 1;
 	cursor: pointer;
+	transition: border-color 120ms ease, color 120ms ease;
 }
 .addr-head button:hover {
 	border-color: var(--at-accent);
