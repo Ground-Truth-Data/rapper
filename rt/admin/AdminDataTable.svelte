@@ -303,6 +303,7 @@ const frozenLeftVar = (index: number) =>
 							class:adt-frozen={i + leadCount < frozenTotal}
 							class:adt-seam={i + leadCount === frozenTotal - 1}
 							style={frozenLeftVar(i + leadCount)}
+							title={i === 0 ? totalLabel : totals[c]}
 						>
 							{#if i === 0}<span class="adt-sig">Σ</span>{totalLabel}
 							{:else if totals[c]}<span class="adt-sig">Σ</span>{totals[c]}{/if}
@@ -571,7 +572,9 @@ const frozenLeftVar = (index: number) =>
 		outline-offset: 1px;
 	}
 
+	/* The Σ label is prose; left to size its column it widened Orgs' first one to 430px. */
 	.adt-sub {
+		max-width: 0;
 		cursor: default;
 		font-family: var(--rt-font-mono, ui-monospace, Menlo, monospace);
 	}
