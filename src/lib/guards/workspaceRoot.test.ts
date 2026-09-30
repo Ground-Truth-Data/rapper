@@ -5,8 +5,8 @@ import { pathToFileURL } from "node:url";
 import { describe, expect, it } from "vitest";
 import { workspaceRoot } from "./workspaceRoot";
 
-// A workspace with one tier in place and the same tier as a card worktree two
-// levels down — the layout gitEr/wt.sh makes.
+// A workspace with one tier in place and the same tier as a worktree two
+// levels down.
 const ROOT = mkdtempSync(join(tmpdir(), "workspace-root-"));
 const TIER = join(ROOT, "Tier");
 const WORKTREE = join(ROOT, ".wt", "12", "Tier");
