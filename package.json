@@ -15,7 +15,7 @@
 		"prebuild": "node scripts/envFromBitwarden.mjs && svelte-kit sync",
 		"build": "vite build",
 		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --config ./svelte.config.js",
 		"test:unit": "vitest"
 	},
 	"dependencies": {
