@@ -418,7 +418,15 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				href: "/app/sqlite/cacheTable",
 				match: "/app/sqlite",
 				title: "This browser's live Get Cache database — every table",
-				tables: deviceTablePills("/app/sqlite"),
+				tables: [
+					{
+						label: "Schema",
+						href: "/app/sqlite/schema",
+						kind: "tool",
+						title: "Every table and column, coloured by how much of it holds a value",
+					},
+					...deviceTablePills("/app/sqlite"),
+				],
 			},
 			{
 				key: "file",
