@@ -8,8 +8,8 @@ describe("expectationOf", () => {
 	});
 
 	it("lets a key attribute be named on an audit column", () => {
-		const keys = new Set(["CropTable.editedBy"]);
-		expect(expectationOf("CropTable", "editedBy", keys)).toBe("key");
+		const keys = new Set(["CropTable.editorKey"]);
+		expect(expectationOf("CropTable", "editorKey", keys)).toBe("key");
 	});
 });
 
