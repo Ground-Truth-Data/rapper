@@ -74,34 +74,35 @@ export type AdminParent = {
 	tools: AdminTool[];
 };
 
-// The table vocabulary is declared THREE times, deliberately: the phone
-// (getCache, schemaV2.ts), superCrud (a Deno function) and this dashboard
-// cannot share a module. A table renamed there is renamed here by hand.
+// Hand copies of getCache's schemaV2.ts and superCrud's MIRRORED_TABLES —
+// rapper cannot import either. getCache's adminTablesMatchTheSchema.test.ts
+// fails the moment these drift.
 
 // Central's getCacheMobile tables — superCrud's MIRRORED_TABLES.
 export const MIRRORED_TABLES = [
+	"contactTable",
 	"mapEntity",
 	"featureEntity",
 	"surveyEntity",
 	"plotEntity",
 	"landEntity",
+	"cropEntity",
 	"cacheEntity",
 	"bagUpEntity",
 	"tallyEntity",
 	"packageEntity",
 	"mapTable",
 	"featureTable",
+	"featureContactTable",
 	"surveyTable",
 	"plotTable",
 	"landTable",
+	"cropTable",
 	"cacheTable",
 	"bagUpTable",
 	"tallyTable",
 	"packageTable",
 	"appStateTable",
-	"contactTable",
-	"cropTable",
-	"offlineCoverageTable",
 	"organizationTable",
 	"userProfileTable",
 ] as const;
@@ -114,15 +115,16 @@ export const DEVICE_TABLES = [
 	"cacheEntity",
 	"cacheTable",
 	"contactTable",
+	"cropEntity",
 	"cropTable",
 	"eventLogTable",
+	"featureContactTable",
 	"featureEntity",
 	"featureTable",
 	"landEntity",
 	"landTable",
 	"mapEntity",
 	"mapTable",
-	"offlineCoverageTable",
 	"organizationTable",
 	"packageEntity",
 	"packageTable",
@@ -144,9 +146,9 @@ export const GC_SCHEMA_SEATS = [
 	"landTable", "landEntity", "surveyTable", "surveyEntity",
 	"plotTable", "plotEntity", "cacheTable", "cacheEntity",
 	"bagUpTable", "bagUpEntity", "tallyTable", "tallyEntity",
-	"packageTable", "packageEntity", "cropTable", "contactTable",
-	"appStateTable", "userProfileTable", "organizationTable", "offlineCoverageTable",
-	"eventLogTable", "touchRegister", "snapshot",
+	"packageTable", "packageEntity", "cropTable", "cropEntity",
+	"featureContactTable", "contactTable", "appStateTable", "userProfileTable",
+	"organizationTable", "eventLogTable", "touchRegister", "snapshot",
 ] as const;
 
 // The pill caption IS the SQL identifier, casing included.
