@@ -106,7 +106,7 @@ export const MIRRORED_TABLES = [
 	"userProfileTable",
 ] as const;
 
-// Every table on the phone — the mirrored ones plus the local-only ones (eventLogTable, selfIdTable, touchRegister).
+// Every table on the phone — the mirrored ones plus the local-only ones (eventLogTable, touchRegister).
 export const DEVICE_TABLES = [
 	"appStateTable",
 	"bagUpEntity",
@@ -128,13 +128,25 @@ export const DEVICE_TABLES = [
 	"packageTable",
 	"plotEntity",
 	"plotTable",
-	"selfIdTable",
 	"surveyEntity",
 	"surveyTable",
 	"tallyEntity",
 	"tallyTable",
 	"touchRegister",
 	"userProfileTable",
+] as const;
+
+// Where each table sits on the Get Cache schema maps, four to a row, each
+// version table beside its entity — so the phone's map and Central's line up.
+// A table left out still draws, after these.
+export const GC_SCHEMA_SEATS = [
+	"mapTable", "mapEntity", "featureTable", "featureEntity",
+	"landTable", "landEntity", "surveyTable", "surveyEntity",
+	"plotTable", "plotEntity", "cacheTable", "cacheEntity",
+	"bagUpTable", "bagUpEntity", "tallyTable", "tallyEntity",
+	"packageTable", "packageEntity", "cropTable", "contactTable",
+	"appStateTable", "userProfileTable", "organizationTable", "offlineCoverageTable",
+	"eventLogTable", "touchRegister", "snapshot",
 ] as const;
 
 // The pill caption IS the SQL identifier, casing included.
@@ -354,6 +366,12 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				tables: [
 					// Cloud-only screens, not tables: head of the CRUD row rather
 					// than four tools out of one.
+					{
+						label: "Supa schema",
+						href: "/getcache_dash/supa_schema",
+						kind: "tool",
+						title: "Every table and column in Central, coloured by how much of it holds a value",
+					},
 					{ label: "Snapshots", href: "/getcache_dash", kind: "tool" },
 					{
 						label: "Users",
@@ -420,8 +438,8 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				title: "This browser's live Get Cache database — every table",
 				tables: [
 					{
-						label: "Schema",
-						href: "/app/sqlite/schema",
+						label: "SQL schema",
+						href: "/app/sqlite/SQL_schema",
 						kind: "tool",
 						title: "Every table and column, coloured by how much of it holds a value",
 					},

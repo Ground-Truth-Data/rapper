@@ -439,19 +439,16 @@
 	color: var(--at-muted);
 }
 
-/* THE WRAPPER IS THE TABLE'S SCROLL BOX, both axes: the shared theme sets
-   `html, body { overflow-x: clip }`, so columns past the window edge need
-   this box to reach them, and header + Σ row must travel with the columns.
-   `max-height` IS LOAD-BEARING: any overflow but `visible` makes this the
-   sticky containing block, so if it grew taller than the viewport its top
-   (and the pinned header) would scroll away — capped at one viewport, the
-   top is on screen whenever the bottom is. Only the immediate table wrapper
-   takes this; a page-level wrapper holding the title/toolbar too would
-   scroll the chrome with the rows. */
+/* THE WRAPPER SCROLLS SIDEWAYS ONLY; the page owns vertical scroll. The theme
+   clips `html, body` on x, so wide columns need this box — but a box that also
+   scrolled vertically was a second scroller: the header pinned to the BOX's
+   top, mid-screen, and every swipe had to drain one scroller before the other.
+   Any overflow here makes this the sticky containing block, so `top: 0` cannot
+   reach the viewport; the head band rides the page's scroll instead (below). */
 .admin-tablewrap {
-	overflow: auto;
-	max-height: 100dvh;
+	overflow: auto hidden;
 	overscroll-behavior-x: contain; /* a sideways swipe stops at the table's edge instead of bubbling into the page's clipped (rubber-banding) x-axis */
+	view-timeline: --admin-head block;
 }
 /* Page-level wrappers stay open — a page-scoped overflow here outranks the shared rule and reads as "sticky is broken". */
 .wrap:has(.admin-table),
@@ -491,11 +488,23 @@ main:has(.admin-table) {
    frozen header cell declares its own box-shadow (an opaque floor and the seam
    its edge casts) and box-shadow is one property with one winner, so the plane
    reaches those cells only by being repeated in that list. */
+/* Scroll-driven, so it moves on the compositor with the page — a script
+   copying scrollY lags a frame and jitters. From the wrapper's top crossing the
+   viewport top to its bottom crossing it, the band slides down exactly as far
+   as the page scrolls; `--adt-vh` is the wrapper's height, set by script. */
 .admin-table thead tr:not(.subtotal) th {
 	position: sticky;
 	top: 0;
 	z-index: 5;
 	box-shadow: var(--at-lift-2), var(--at-edge-hi);
+	animation: admin-head-pin linear both;
+	animation-timeline: --admin-head;
+	animation-range: exit-crossing 0% exit-crossing 100%;
+}
+@keyframes admin-head-pin {
+	to {
+		translate: 0 var(--adt-vh, 0px);
+	}
 }
 /* The head band's look reaches every cell in it, frozen or not. Stated here
    because `.admin-table th` below would otherwise hand the band the same

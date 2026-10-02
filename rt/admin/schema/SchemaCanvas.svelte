@@ -4,7 +4,7 @@
   red then zoom into it.
 
   Layout is columnar and COMPUTED, not stored: cards flow top-to-bottom into
-  four columns, tallest first, with no remembered positions. The colour
+  four columns, tallest first or by `seats`, with no remembered positions. The colour
   answers "what is empty" wherever a card sits, so a stable layout (learn
   where a table lives, it stays there) beats a clever one.
 -->
@@ -25,6 +25,7 @@ let {
 	activeKeys,
 	purposes = {},
 	onPickTable,
+	seats,
 }: {
 	tables: TableFill[];
 	links: SchemaLink[];
@@ -33,6 +34,8 @@ let {
 	/** Model name → the one-line "what is this for", from the data dictionary. */
 	purposes?: Record<string, string>;
 	onPickTable?: (model: string) => void;
+	/** A fixed seating plan by table name, read four to a row. */
+	seats?: readonly string[];
 } = $props();
 
 // Fixed sizes in sheet units; the sheet scales as a whole so rendering never
@@ -56,17 +59,22 @@ const whyHeight = (t: TableFill) => (purposes[t.model] ? WHY_H : 0);
 const cardHeight = (t: TableFill) =>
 	HEAD_H + whyHeight(t) + t.columns.length * ROW_H + 8;
 
-// Tallest first fills columns evenly instead of leaving a ragged last one.
-const ordered = $derived([...tables].sort((a, b) => cardHeight(b) - cardHeight(a)));
-
-// Each card goes to the shortest column so far, keeping the bottom edge
-// roughly level without a second pass.
+// With a seating plan, slot i sits in column i % 4 whatever the heights, so
+// two databases with the same tables draw them in the same places. Unplanned
+// tables follow in name order. Without one: tallest first, shortest column.
 const COLUMNS = 4;
 const placed = $derived.by(() => {
 	const heights = Array<number>(COLUMNS).fill(PAD);
+	const slot = new Map(seats?.map((m, i) => [m, i]));
+	const extra = tables.filter((t) => !slot.has(t.model)).sort((a, b) => a.model.localeCompare(b.model));
+	for (const [i, t] of extra.entries()) slot.set(t.model, (seats?.length ?? 0) + i);
+	const ordered = seats
+		? [...tables].sort((a, b) => (slot.get(a.model) ?? 0) - (slot.get(b.model) ?? 0))
+		: [...tables].sort((a, b) => cardHeight(b) - cardHeight(a));
 	return ordered.map((t) => {
 		let col = 0;
-		for (let i = 1; i < COLUMNS; i++) if (heights[i] < heights[col]) col = i;
+		if (seats) col = (slot.get(t.model) ?? 0) % COLUMNS;
+		else for (let i = 1; i < COLUMNS; i++) if (heights[i] < heights[col]) col = i;
 		const y = heights[col];
 		heights[col] += cardHeight(t) + CARD_GAP_Y;
 		return {
