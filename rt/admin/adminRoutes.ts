@@ -107,13 +107,14 @@ export const MIRRORED_TABLES = [
 	"userProfileTable",
 ] as const;
 
-// Every table on the phone — the mirrored ones plus the local-only ones (eventLogTable, touchRegister).
+// Every table on the phone — the mirrored ones plus the local-only ones (contactIdTable, eventLogTable, touchRegister).
 export const DEVICE_TABLES = [
 	"appStateTable",
 	"bagUpEntity",
 	"bagUpTable",
 	"cacheEntity",
 	"cacheTable",
+	"contactIdTable",
 	"contactTable",
 	"cropEntity",
 	"cropTable",
