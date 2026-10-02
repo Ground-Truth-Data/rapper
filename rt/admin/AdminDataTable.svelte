@@ -165,9 +165,13 @@ function startResize(col: string, e: PointerEvent) {
 		const w = Math.max(48, Math.round(startW + ev.clientX - startX));
 		colPrefs = { ...colPrefs, widths: { ...colPrefs.widths, [col]: w } };
 	};
+	// The click that ends a resize lands on the <th>, whose click sorts.
+	const swallowClick = (ev: MouseEvent) => ev.stopPropagation();
 	const up = () => {
 		window.removeEventListener("pointermove", move);
 		window.removeEventListener("pointerup", up);
+		window.addEventListener("click", swallowClick, { capture: true, once: true });
+		setTimeout(() => window.removeEventListener("click", swallowClick, { capture: true }));
 		resizingCol = null;
 		commitPrefs(colPrefs);
 	};
