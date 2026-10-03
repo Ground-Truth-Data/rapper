@@ -80,7 +80,8 @@ export type AdminParent = {
 
 // Central's getCacheMobile tables — superCrud's MIRRORED_TABLES.
 export const MIRRORED_TABLES = [
-	"contactTable",
+	"authorEntity",
+	"authorTable",
 	"mapEntity",
 	"mapFeatureEntity",
 	"qaSurveyEntity",
@@ -93,7 +94,7 @@ export const MIRRORED_TABLES = [
 	"packageEntity",
 	"mapTable",
 	"mapFeatureTable",
-	"mapFeatureContactTable",
+	"crewTable",
 	"qaSurveyTable",
 	"qaPlotTable",
 	"landTable",
@@ -107,19 +108,19 @@ export const MIRRORED_TABLES = [
 	"userProfileTable",
 ] as const;
 
-// Every table on the phone — the mirrored ones plus the local-only ones (contactIdTable, eventLogTable, touchRegister).
+// Every table on the phone — the mirrored ones plus the local-only ones (authorIdTable, touchTable).
 export const DEVICE_TABLES = [
 	"appStateTable",
+	"authorEntity",
+	"authorIdTable",
+	"authorTable",
 	"bagUpEntity",
 	"bagUpTable",
 	"cacheEntity",
 	"cacheTable",
-	"contactIdTable",
-	"contactTable",
+	"crewTable",
 	"cropEntity",
 	"cropTable",
-	"eventLogTable",
-	"mapFeatureContactTable",
 	"mapFeatureEntity",
 	"mapFeatureTable",
 	"landEntity",
@@ -135,7 +136,7 @@ export const DEVICE_TABLES = [
 	"qaSurveyTable",
 	"tallyEntity",
 	"tallyTable",
-	"touchRegister",
+	"touchTable",
 	"userProfileTable",
 ] as const;
 
@@ -148,8 +149,8 @@ export const GC_SCHEMA_SEATS = [
 	"qaPlotTable", "qaPlotEntity", "cacheTable", "cacheEntity",
 	"bagUpTable", "bagUpEntity", "tallyTable", "tallyEntity",
 	"packageTable", "packageEntity", "cropTable", "cropEntity",
-	"mapFeatureContactTable", "contactTable", "appStateTable", "userProfileTable",
-	"organizationTable", "eventLogTable", "touchRegister", "snapshot",
+	"crewTable", "authorEntity", "authorTable", "authorIdTable",
+	"appStateTable", "userProfileTable", "organizationTable", "touchTable", "snapshot",
 ] as const;
 
 // The pill caption IS the SQL identifier, casing included.
