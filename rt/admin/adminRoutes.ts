@@ -387,6 +387,12 @@ export const ADMIN_PARENTS: AdminParent[] = [
 						href: "/getcache_dash/analytics",
 						kind: "tool",
 					},
+					{
+						label: "Wiki questions",
+						href: "/getcache_dash/wiki",
+						kind: "tool",
+						title: "What people asked the wiki's Ask box, and the answers you write for the docs",
+					},
 					// superCrud load attempts, not "what has each user backed up".
 					{
 						label: "ETL Runs",
