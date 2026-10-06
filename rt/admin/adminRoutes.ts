@@ -535,6 +535,13 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				title:
 					"What each platform has yielded so far, against what its index says is there",
 			},
+			{
+				key: "trace",
+				label: "trace",
+				href: `${FOUNDR_TOOL}/trace`,
+				title:
+					"One stored value followed back to its map line, ledger decision, raw scrape and source",
+			},
 			// The same screen as ReTreever's Platforms pill; the project dropdown
 			// reads this table.
 			{
