@@ -205,6 +205,17 @@ export const ICONS = {
 		sw: 2,
 	},
 
+	// Your edit was replaced by a concurrent one — the clobber mark.
+	hammer: {
+		body: `<path d="m15 12-8.5 8.5a2.12 2.12 0 1 1-3-3L12 9"/><path d="M17.64 15 22 10.64"/><path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91"/>`,
+		sw: 2,
+	},
+	// Make an older version current again.
+	restore: {
+		body: `<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>`,
+		sw: 2.2,
+	},
+
 	"chevron-right": { body: `<polyline points="9 18 15 12 9 6"/>`, sw: 2 },
 	"chevron-left": { body: `<polyline points="15 18 9 12 15 6"/>`, sw: 2.5 },
 	"chevron-down": { body: `<polyline points="6 9 12 15 18 9"/>`, sw: 2.4 },

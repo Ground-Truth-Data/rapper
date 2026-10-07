@@ -5,20 +5,34 @@ export type Identity = { label: string; color: string; self: boolean; picked: bo
 </script>
 
 <script lang="ts">
-let { who }: { who: Identity } = $props();
+import Icon from "./Icon.svelte";
+
+/** `editor`: the last edit was someone else's — the pill grows a second half. */
+let { who, editor = null }: { who: Identity; editor?: Identity | null } = $props();
 </script>
 
 <!-- A ring is the "chosen on purpose" look, the same build as you. Never a
      plain outline: the count chips beside it are outlines. -->
-<span
-    class="id-pill"
-    class:id-pill--ring={who.self || who.picked}
-    class:id-pill--self={who.self}
-    style:--id-c={who.color || null}
-    title={who.label}>{who.label}</span
->
+<span class="id-pill-wrap" class:id-pill-wrap--double={!!editor}>
+    <span
+        class="id-pill"
+        class:id-pill--ring={who.self || who.picked}
+        class:id-pill--self={who.self}
+        style:--id-c={who.color || null}
+        title={who.label}>{who.label}</span
+    >
+    {#if editor}
+        <span class="id-pill id-pill--editor" title={`edited by ${editor.label}`}><Icon name="edit" size={10} stroke={2.6} />{editor.label}</span>
+    {/if}
+</span>
 
 <style>
+    .id-pill-wrap {
+        display: inline-flex;
+        align-items: center;
+        flex: none;
+        min-width: 0;
+    }
     .id-pill {
         --id-ink: var(--id-c, var(--rt-row-sender, #c3c8ac));
         display: inline-flex;
@@ -45,5 +59,17 @@ let { who }: { who: Identity } = $props();
     }
     .id-pill--self {
         font-weight: 800;
+    }
+    .id-pill-wrap--double .id-pill:first-child {
+        border-radius: 999px 0 0 999px;
+        padding-right: 0.4rem;
+    }
+    .id-pill--editor {
+        gap: 3px;
+        max-width: 7rem;
+        border-radius: 0 999px 999px 0;
+        background: #3a2f22;
+        color: #e9c79c;
+        font-size: 0.72rem;
     }
 </style>
