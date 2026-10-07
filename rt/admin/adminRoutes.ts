@@ -166,7 +166,7 @@ export const RETREEVER_HOME = `${RETREEVER_TOOL}/orgs`;
 export const FOUNDR_DASH = "/foundr_dash";
 export const FOUNDR_TOOL = `${FOUNDR_DASH}/tool`;
 export const FOUNDR_TABLE = `${FOUNDR_DASH}/table`;
-export const FOUNDR_HOME = `${FOUNDR_TOOL}/modelpicks`;
+export const FOUNDR_HOME = `${FOUNDR_TOOL}/overview`;
 const FOUNDR_REPORT = `${FOUNDR_DASH}/report`;
 
 /** Get Cache's namespace, and where a login that states no destination lands. */
@@ -488,29 +488,14 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				title:
 					"Corpus-wide: how much of every site's raw scrape has a home in the schema",
 			},
-			{
-				key: "missmap",
-				scopedToSite: true,
-				label: "missMap",
-				href: `${FOUNDR_TOOL}/missmap`,
-				title: "The focused site's missMeta — what is left, and a run button",
-			},
-			// A tool, not a report: the form that writes `{s}3MissMeta.json`.
+			// A tool, not a report: the desk that writes `{s}3MissMeta.json`.
 			{
 				key: "missmeta",
 				scopedToSite: true,
-				label: "missMeta",
+				label: "Mapping desk",
 				href: `${FOUNDR_TOOL}/missmeta`,
 				title:
-					"The focused site's mapping decisions — the form that writes {s}3MissMeta.json",
-			},
-			{
-				key: "modelpicks",
-				scopedToSite: true,
-				label: "Model picks",
-				href: `${FOUNDR_TOOL}/modelpicks`,
-				title:
-					"mlFindr's and Jev's suggestions for the same unmapped paths, side by side",
+					"Decide the focused site's raw paths one card at a time — writes {s}3MissMeta.json and runs missMap",
 			},
 			// Chris's benchmark: a person against mlFindr and Jev on decided paths.
 			{
