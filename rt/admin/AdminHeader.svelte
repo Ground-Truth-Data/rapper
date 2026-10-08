@@ -109,14 +109,14 @@ const who = $derived(email ? email.split("@")[0] : "");
 const tools = $derived(current.tools);
 // Derived once: re-filtering per strip slice would let the halves disagree.
 const visibleTools = $derived(tools.filter((t) => !t.devOnly || dev));
-const rowTools = $derived(visibleTools.filter((t) => !t.ownRow));
+// `ownRow` no longer buys a row of its own: the pill sits with the tools, and only its TABLES differ, riding the flip on every page of the parent.
 const ownRowTools = $derived(visibleTools.filter((t) => t.ownRow));
 // Foundr splits tier 2 by what follows the dropdown: a `scopedToSite` pill means nothing until a site is picked, so it sits in its own group right of the rule.
 const corpusTools = $derived(
-	isFoundr ? rowTools.filter((t) => !t.scopedToSite) : rowTools,
+	isFoundr ? visibleTools.filter((t) => !t.scopedToSite) : visibleTools,
 );
 const projectTools = $derived(
-	isFoundr ? rowTools.filter((t) => t.scopedToSite) : [],
+	isFoundr ? visibleTools.filter((t) => t.scopedToSite) : [],
 );
 // Never a parent-level fallback — that hung ReTreever's twenty tables under all five hand-built screens. An own-row tool's tables are already on its line.
 const tables = $derived(
@@ -348,11 +348,6 @@ $effect(() => {
                     {/each}
                 </span>
             {/if}
-            <!-- Own-row tools: a forced break, then the pill; its tables ride the flip below on every page of the parent. -->
-            {#each ownRowTools as tool (tool.key)}
-                <span class="break" aria-hidden="true"></span>
-                {@render toolPill(tool)}
-            {/each}
             <!-- The active tool's own pages. No caption: not tables, so CRUD would be lying about them. -->
             {#if crudScreens.length}
                 <span class="grp">
@@ -648,12 +643,6 @@ $effect(() => {
         margin: 0 0.35rem;
         background: var(--at-line-strong);
     }
-    /* A forced line break — the one place a row boundary is meant, not incidental. */
-    .break {
-        flex-basis: 100%;
-        height: 0;
-    }
-
     /* Hinged on its top edge, so the one-row front and the many-row back turn about the same line. Two half-turns, not one 180°: the faces differ in height, and the swap lands at 90° where the card is a line and the jump can't be seen. */
     .flip {
         transform-origin: top center;
