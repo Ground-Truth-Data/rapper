@@ -134,7 +134,14 @@ const flipCount = $derived(
 		ownRowTools.reduce((n, t) => n + (t.tables?.length ?? 0), 0),
 );
 
-// The flip is a two-beat animation: the card turns edge-on, the face swaps (and the row's height with it, unseen), then it turns the rest of the way. Never persisted: it starts closed on every load.
+// On a table page the card arrives open, so the lit pill shows where you are.
+const onTable = $derived(
+	[...crudTables, ...crudLookups, ...ownRowTools.flatMap((t) => t.tables ?? [])].some(
+		(l) => l.href === path,
+	),
+);
+
+// The flip is a two-beat animation: the card turns edge-on, the face swaps (and the row's height with it, unseen), then it turns the rest of the way.
 let open = $state(false);
 let turn = $state<"" | "away" | "arrive">("");
 const flip = () => (turn = "away");
@@ -144,10 +151,8 @@ function turned() {
 		turn = "arrive";
 	} else turn = "";
 }
-// A pill click is a navigation, not a toggle; closing on arrival makes the back face behave like a menu.
 $effect(() => {
-	path;
-	open = false;
+	open = onTable;
 });
 
 /**
