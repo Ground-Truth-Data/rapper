@@ -497,6 +497,13 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				title:
 					"Decide the focused site's raw paths one card at a time — writes {s}3MissMeta.json and runs missMap",
 			},
+			{
+				key: "mapsheet",
+				scopedToSite: true,
+				label: "Map sheet",
+				href: `${FOUNDR_TOOL}/mapsheet`,
+				title: "The focused site's ledger by table and column, and what {s}3Map.ts does not read yet",
+			},
 			// Chris's benchmark: a person against mlFindr and Jev on decided paths.
 			{
 				key: "bench",
