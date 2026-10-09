@@ -134,6 +134,7 @@ export const DEVICE_TABLES = [
 	"qaPlotTable",
 	"qaSurveyEntity",
 	"qaSurveyTable",
+	"reviewTable",
 	"tallyEntity",
 	"tallyTable",
 	"touchTable",
