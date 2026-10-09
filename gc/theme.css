@@ -50,6 +50,9 @@
 	--color-link: var(--palette-rust);
 	--palette-terracotta-hint: #d18a5e;
 	--palette-sage: #838963;
+	/* Review mode: amber = held for you, red = an edit or a clock set back. */
+	--palette-amber: #ee9b2f;
+	--palette-red: #e2553f;
 
 	--color-accent-gold: var(--palette-gold);
 	--color-accent-terracotta: var(--palette-terracotta);
