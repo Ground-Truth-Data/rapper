@@ -15,7 +15,7 @@ export function frameFor(
 	if (owned) return owned;
 	// Several frames with no target is ambiguous: bail to <body> rather than guess.
 	const all = document.querySelectorAll<HTMLElement>(HOMES);
-	return all.length === 1 ? all[0] : null;
+	return all.length === 1 ? all[0]! : null;
 }
 
 /** Svelte action: move `node` into the phone frame if one exists, else <body>. Read once at mount. */

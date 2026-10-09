@@ -543,6 +543,11 @@ body.mobile-app-framed {
 	inherits: false;
 	initial-value: 1;
 }
+@property --fit-arm {
+	syntax: "<number>";
+	inherits: false;
+	initial-value: 1;
+}
 
 /* The box is the PHONE; the arm hangs out the bottom and reserves no layout space, or the browser centres phone+arm and rides high. */
 .mobile-preview-wrapper {
@@ -557,7 +562,12 @@ body.mobile-app-framed {
 	--stage-reach: 0.92;
 	--fit-h: calc((100cqh - var(--stage-pad)) / var(--phone-height));
 	--fit-w: calc(100cqw * var(--stage-reach) / var(--phone-width));
-	--fit: min(1, var(--fit-h), var(--fit-w));
+	/* The arm's bottom edge is never on screen: a stage taller than the arm grows the phone until it hangs 1px past the floor. 2303/3000 is the hand image's aspect. */
+	--fit-arm: calc(
+		(100cqh / 2 + 1px) /
+			(var(--hand-top) + var(--hand-width) * 2303 / 3000 - var(--phone-height) / 2)
+	);
+	--fit: min(var(--fit-h), var(--fit-w), max(1, var(--fit-arm)));
 	transform: translate(var(--wrapper-nudge), var(--wrapper-drop))
 		scale(var(--fit));
 	transform-origin: center center;

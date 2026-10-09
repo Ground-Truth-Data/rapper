@@ -586,10 +586,8 @@ export function activeParent(pathname: string): AdminParent {
 	}
 	// The bare dash addresses redirect, but the header renders BEFORE the
 	// redirect lands — without these the pill blinks off for one paint.
-	if (pathname.startsWith(RETREEVER_DASH)) return ADMIN_PARENTS[0];
-	if (pathname.startsWith("/getcache_dash")) return ADMIN_PARENTS[1];
-	if (pathname.startsWith(FOUNDR_DASH)) return ADMIN_PARENTS[2];
-	return NO_PARENT;
+	const dash = [RETREEVER_DASH, "/getcache_dash", FOUNDR_DASH].findIndex((d) => pathname.startsWith(d));
+	return ADMIN_PARENTS[dash] ?? NO_PARENT;
 }
 
 /** The admin tab icon follows the lit pill; Get Cache's is its G¢ app icon, not the pill's dragonfly logo. "" with none lit. */
