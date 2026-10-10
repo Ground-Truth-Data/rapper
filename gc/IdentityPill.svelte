@@ -7,13 +7,21 @@ export type Identity = { label: string; color: string; self: boolean; picked: bo
 <script lang="ts">
 import Icon from "./Icon.svelte";
 
-/** `editor`: the last edit was someone else's — the pill grows a second half. */
-let { who, editor = null }: { who: Identity; editor?: Identity | null } = $props();
+/** The second half is ONE segment, clobber first: `hammer` (your version was
+ *  replaced) shows the hammer and the editor; else `editor` (someone else's
+ *  edit) the pen and their name; else `edited` (saved again) the pen alone. */
+let {
+    who,
+    editor = null,
+    hammer = false,
+    edited = false,
+}: { who: Identity; editor?: Identity | null; hammer?: boolean; edited?: boolean } = $props();
+const second = $derived(hammer || !!editor || edited);
 </script>
 
 <!-- A ring is the "chosen on purpose" look, the same build as you. Never a
      plain outline: the count chips beside it are outlines. -->
-<span class="id-pill-wrap" class:id-pill-wrap--double={!!editor}>
+<span class="id-pill-wrap" class:id-pill-wrap--double={second}>
     <span
         class="id-pill"
         class:id-pill--ring={who.self || who.picked}
@@ -21,8 +29,12 @@ let { who, editor = null }: { who: Identity; editor?: Identity | null } = $props
         style:--id-c={who.color || null}
         title={who.label}>{who.label}</span
     >
-    {#if editor}
+    {#if hammer}
+        <span class="id-pill id-pill--editor id-pill--hammer" title="Your edit was replaced"><Icon name="hammer" size={10} stroke={2.6} />{editor?.label ?? ""}</span>
+    {:else if editor}
         <span class="id-pill id-pill--editor" title={`edited by ${editor.label}`}><Icon name="edit" size={10} stroke={2.6} />{editor.label}</span>
+    {:else if edited}
+        <span class="id-pill id-pill--editor" title="Edited since it was made"><Icon name="edit" size={10} stroke={2.6} /></span>
     {/if}
 </span>
 
@@ -71,5 +83,9 @@ let { who, editor = null }: { who: Identity; editor?: Identity | null } = $props
         background: #3a2f22;
         color: #e9c79c;
         font-size: 0.72rem;
+    }
+    .id-pill--hammer {
+        background: #4a2a1f;
+        color: #ffb39f;
     }
 </style>
