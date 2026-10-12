@@ -535,6 +535,13 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				title:
 					"One stored value followed back to its map line, ledger decision, raw scrape and source",
 			},
+			{
+				key: "endpoints",
+				label: "endpoints",
+				href: `${FOUNDR_TOOL}/endpoints`,
+				title:
+					"Every url Foundr asks each platform, and what this machine has called — local dev only",
+			},
 			// The same screen as ReTreever's Platforms pill; the project dropdown
 			// reads this table.
 			{
