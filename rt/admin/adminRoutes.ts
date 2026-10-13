@@ -82,6 +82,7 @@ export type AdminParent = {
 export const MIRRORED_TABLES = [
 	"personEntity",
 	"personTable",
+	"personIdTable",
 	"mapEntity",
 	"mapFeatureEntity",
 	"qaSurveyEntity",
@@ -109,7 +110,7 @@ export const MIRRORED_TABLES = [
 	"userProfile",
 ] as const;
 
-// Every table on the phone — the mirrored ones plus the local-only ones (personIdTable, touchTable).
+// Every table on the phone — the mirrored ones plus the local-only ones (touchTable, reviewTable).
 export const DEVICE_TABLES = [
 	"appState",
 	"personEntity",
