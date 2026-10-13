@@ -671,43 +671,13 @@ body.rt-snake-grabbing .fake-cursor img:not(.fake-cursor-gold) {
 	opacity: 0;
 }
 
-/* The 1·2 keycap counting a map long-press toward the snake ruler. Shown on touch too: it sits up-left, clear of the thumb. */
-.press-count {
+/* ShovelCursor's HoldRing, centred on its point. */
+.hold-ring-at {
 	position: fixed;
-	width: 26px;
-	height: 26px;
-	margin: -13px 0 0 -13px;
-	display: grid;
-	place-items: center;
-	border: 1.5px solid rgb(255 255 255 / 0.9);
-	border-radius: 6px;
-	background: rgb(0 0 0 / 0.55);
-	box-shadow: 0 2px 0 rgb(255 255 255 / 0.35);
-	color: #fff;
-	font: 700 14px/1 ui-rounded, system-ui, sans-serif;
+	transform: translate(-50%, -50%) scale(0.6);
+	opacity: 0.9;
 	pointer-events: none;
 	z-index: 2147483646;
-	animation: press-count-in 160ms ease-out;
-}
-.press-count.fired {
-	border-color: rgb(255 215 0);
-	color: rgb(255 215 0);
-	animation: press-count-fire 600ms ease-out forwards;
-}
-@keyframes press-count-in {
-	from {
-		opacity: 0;
-		transform: scale(0.6);
-	}
-}
-@keyframes press-count-fire {
-	30% {
-		transform: scale(1.35);
-	}
-	to {
-		opacity: 0;
-		transform: scale(1);
-	}
 }
 
 /* Shows WHEN a tap lands, not just where. Created/self-removed by ShovelCursor.svelte. */
@@ -745,6 +715,10 @@ body.rt-snake-grabbing .fake-cursor img:not(.fake-cursor-gold) {
 	body.shovel-cursor .fake-cursor,
 	.click-splash {
 		display: none;
+	}
+	/* Except under the finger during a map press, so the hold reads on a phone too. */
+	body.shovel-cursor.gc-map-pressing .fake-cursor {
+		display: block;
 	}
 }
 

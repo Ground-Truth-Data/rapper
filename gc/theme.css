@@ -95,6 +95,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('$gc/assets/jetbrainsMono.woff2') format('woff2');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
 	img {
 		-webkit-touch-callout: none;
