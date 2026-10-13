@@ -5,7 +5,8 @@
 
 // On a landscape route the turned screen is the frame's inner surface, and it
 // disagrees with the unturned frame about which way is right.
-const HOMES = ".mobile-preview-screen, .mobile-preview-frame";
+// .mobile-shell is zoomed to the pane; a hand outside it would keep its design size.
+const HOMES = ".mobile-preview-screen, .mobile-preview-frame, .mobile-shell";
 
 /** The box a hand should live in, from its target element. */
 export function frameFor(
