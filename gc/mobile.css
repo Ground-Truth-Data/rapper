@@ -292,6 +292,14 @@ hr {
 .rt-pad .rt-key:nth-child(5n + 1):nth-last-child(-n + 5) {
 	border-bottom-left-radius: 15px;
 }
+/* Side borders are halved into seams, so a lit key drops them and draws one
+   even ring at the pad's own weight; the caller sets --rt-key-ring. */
+.rt-pad .rt-key.rt-key--lit {
+	border-width: 0;
+	box-shadow:
+		inset 0 0 0 1.4px var(--rt-key-ring),
+		0 0 18px -4px color-mix(in srgb, var(--rt-key-ring) 55%, transparent);
+}
 
 .rt-key {
 	min-width: 0;
