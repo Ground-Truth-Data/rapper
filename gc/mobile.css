@@ -183,6 +183,24 @@ hr {
 	margin: 0;
 }
 
+/* Item count on a row's type glyph (its parent is position:relative). Counts never sit on the meta line
+   as text; the ring in the row surface cuts the badge out of the icon stroke. */
+.rt-count-badge {
+	position: absolute;
+	top: 0;
+	right: -3px;
+	min-width: 20px;
+	height: 20px;
+	padding: 0 5px;
+	border-radius: 999px;
+	background: var(--rt-meta);
+	color: var(--rt-gold-ink);
+	border: 2px solid var(--rt-surface);
+	font: 800 12.5px/16px var(--rt-font-body);
+	text-align: center;
+	pointer-events: none;
+}
+
 .rt-text-title {
 	font-family: var(--rt-font-display);
 	font-size: var(--rt-fs-title);

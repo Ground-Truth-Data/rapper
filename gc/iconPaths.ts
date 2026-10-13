@@ -171,7 +171,7 @@ export const ICONS = {
 		body: `<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/>`,
 		sw: 2,
 	},
-	// Section-rail glyphs (the polygon/block card's one-row rail).
+	// Section-rail glyphs (the piece/block card's one-row rail).
 	"rail-note": {
 		body: `<path d="M5 3.5h14v17H5z"/><path d="M8.5 8.5h7M8.5 12.5h7M8.5 16.5h4"/>`,
 		sw: 1.9,
@@ -181,13 +181,13 @@ export const ICONS = {
 		sw: 1.9,
 	},
 	// Never a generic pentagon — the corners and contents are what make it
-	// read as a block rather than "a polygon".
+	// read as a block rather than a bare piece.
 	"rail-block": {
 		body: `<path d="M4.12 6.75 12.38 3l7.5 4.88-2.25 12.38-11.25 1.12z"/><circle cx="4.12" cy="6.75" r="1.27"/><circle cx="12.38" cy="3" r="1.27"/><circle cx="19.88" cy="7.88" r="1.27"/><circle cx="17.62" cy="20.25" r="1.27"/><circle cx="6.38" cy="21.38" r="1.27"/><path d="M14.25 9.75l-2.25 3.75h4.5z"/><path d="M14.25 13.5v2.25"/><ellipse cx="7.88" cy="14.25" rx="2.25" ry="1.12"/><path d="M5.62 14.25v1.88c0 .64 1.01 1.12 2.25 1.12s2.25-.49 2.25-1.12v-1.88"/>`,
 		// Authored at 64×64 with sw 3.4; rescaled to this catalog's 24×24 box.
 		sw: 1.28,
 	},
-	// Deliberately not a polygon-with-handles (collides with rail-block) or
+	// Deliberately not a shape-with-handles (collides with rail-block) or
 	// a pencil (collides with rail-note).
 	"rail-edit": {
 		body: `<rect x="9" y="9" width="6" height="6" rx="1.4"/><path d="M12 2.6v3.6M12 17.8v3.6M2.6 12h3.6M17.8 12h3.6"/><path d="m9.8 4.6 2.2-2 2.2 2M9.8 19.4l2.2 2 2.2-2M4.6 9.8l-2 2.2 2 2.2M19.4 9.8l2 2.2-2 2.2"/>`,
