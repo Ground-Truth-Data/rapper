@@ -340,6 +340,18 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				title: "Parents and unlinked children in one alphabetical list",
 			},
 			{
+				key: "projects",
+				label: "Projects",
+				href: `${RETREEVER_TOOL}/projects`,
+				title: "Every project: what it holds and what needs a fix",
+			},
+			{
+				key: "organisations",
+				label: "Organisations",
+				href: `${RETREEVER_TOOL}/organisations`,
+				title: "Every organisation family: what it holds and what needs a fix",
+			},
+			{
 				key: "platforms",
 				label: "Platforms",
 				href: `${RETREEVER_TOOL}/platforms`,
