@@ -433,6 +433,46 @@ hr {
 	display: none;
 }
 
+/* The 30px header icon button: share, delete, close all share the box. */
+.rt-icon-btn {
+	flex: 0 0 auto;
+	width: 30px;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.28);
+	border: 2px solid var(--rt-border-subtle);
+	border-radius: 10px;
+	color: var(--rt-fg-muted);
+	cursor: pointer;
+	padding: 0;
+	-webkit-tap-highlight-color: transparent;
+}
+.rt-icon-btn:active {
+	background: rgba(255, 255, 255, 0.12);
+}
+.rt-icon-btn--share {
+	color: var(--rt-yellow);
+	border-color: var(--rt-yellow);
+}
+.rt-icon-btn--share:active {
+	background: var(--rt-yellow-soft);
+}
+.rt-icon-btn--delete {
+	color: #c0392b;
+	border-color: #c0392b;
+}
+.rt-icon-btn--delete:active {
+	background: color-mix(in srgb, #c0392b 18%, transparent);
+}
+.rt-icon-btn:disabled {
+	color: var(--rt-fg-muted);
+	border-color: var(--rt-border-subtle);
+	opacity: 0.6;
+	cursor: default;
+}
+
 @keyframes mob-buzz-red {
 	0% { box-shadow: none; background: var(--rt-bg-button); }
 	20% { box-shadow: 0 0 0 2px rgba(220, 60, 60, 0.7); background: #4a2020; }

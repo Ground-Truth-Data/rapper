@@ -105,6 +105,8 @@ export const MIRRORED_TABLES = [
 	"bagUpTable",
 	"tallyTable",
 	"packageTable",
+	"touchTable",
+	"reviewTable",
 	"appState",
 	"organizationTable",
 	"userProfile",
