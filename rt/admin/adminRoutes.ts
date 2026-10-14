@@ -541,6 +541,13 @@ export const ADMIN_PARENTS: AdminParent[] = [
 					"One stored value followed back to its map line, ledger decision, raw scrape and source",
 			},
 			{
+				key: "score",
+				label: "score trace",
+				href: `${FOUNDR_TOOL}/score`,
+				title:
+					"A project's or org's score followed down: rank, ratio, the projects it averaged, each field's points",
+			},
+			{
 				key: "endpoints",
 				label: "endpoints",
 				href: `${FOUNDR_TOOL}/endpoints`,
