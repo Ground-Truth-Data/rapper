@@ -35,6 +35,8 @@ const FRAMES: [Frame, string][] = [
 const LET_GO_MS = 500;
 const RETRACT_MS = 300;
 const DONE_HOLD_MS = 400;
+// A plain click never sees the ring: it shows from two o'clock on.
+const SHOW_AT = 2 / 12;
 // The ring's centre sits up-left of the press so the finger never covers it.
 const RING_DX = 38;
 const RING_DY = 37;
@@ -112,7 +114,9 @@ onMount(() => {
 			dragging = true;
 			frame = "fist";
 		} else if (phase === "end") {
-			if (ring && !ring.done) animateRing(ring.progress, 0, RETRACT_MS, dropRing);
+			if (!ring || ring.done) return;
+			if (ring.progress < SHOW_AT) dropRing();
+			else animateRing(ring.progress, SHOW_AT, RETRACT_MS, dropRing);
 		} else if (ring) {
 			cancelAnimationFrame(raf);
 			ring.progress = 1;
@@ -175,7 +179,7 @@ onMount(() => {
 	{/each}
 </div>
 
-{#if ring}
+{#if ring && ring.progress >= SHOW_AT}
 	<div class="hold-ring-at" style="left:{ring.x}px; top:{ring.y}px">
 		<HoldRing progress={ring.progress} done={ring.done} />
 	</div>
