@@ -167,7 +167,7 @@
 	/* ── Bottom tab bar ─────────────────────────────────────── */
 	/* Anything on the tab bar's top edge offsets by this; 15cqw tracks the phone frame. */
 	--gc-navbar-h: calc(
-		clamp(3.5625rem, 15cqw, 5.7rem) + max(env(safe-area-inset-bottom), 10px)
+		clamp(3.5625rem, 15cqw, 5.7rem) + 2px + max(env(safe-area-inset-bottom), 10px)
 	);
 
 	/* ── Top nav bar ────────────────────────────────────────── */
