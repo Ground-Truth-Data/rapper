@@ -112,7 +112,7 @@ export const MIRRORED_TABLES = [
 	"userProfile",
 ] as const;
 
-// Every table on the phone — the mirrored ones plus the local-only ones (touchTable, reviewTable).
+// Every table on the phone, in the SQLite pills' order; every one is mirrored too.
 export const DEVICE_TABLES = [
 	"appState",
 	"personEntity",
