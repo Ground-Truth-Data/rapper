@@ -164,9 +164,14 @@ const tableLabel = (t: string): string => t;
 
 // Spelled once: pill hrefs, the bare /retreever_dash redirect and sites.ts's host-boundary list must agree.
 const RETREEVER_DASH = "/retreever_dash";
-const RETREEVER_TOOL = `${RETREEVER_DASH}/tool`;
+export const RETREEVER_TOOL = `${RETREEVER_DASH}/tool`;
 export const RETREEVER_TABLE = `${RETREEVER_DASH}/table`;
 export const RETREEVER_HOME = `${RETREEVER_TOOL}/orgs`;
+/** The record lists and their record pages; a record sits under its list so the header lights the tool. */
+export const RETREEVER_PROJECTS = `${RETREEVER_TOOL}/projects`;
+export const RETREEVER_PROJECT_RECORD = `${RETREEVER_PROJECTS}/record`;
+export const RETREEVER_ORGANISATIONS = `${RETREEVER_TOOL}/organisations`;
+export const RETREEVER_ORGANISATION_RECORD = `${RETREEVER_ORGANISATIONS}/record`;
 
 /** Foundr's namespace. Same shape as ReTreever's, for the same reason. */
 export const FOUNDR_DASH = "/foundr_dash";
@@ -342,13 +347,13 @@ export const ADMIN_PARENTS: AdminParent[] = [
 			{
 				key: "projects",
 				label: "Projects",
-				href: `${RETREEVER_TOOL}/projects`,
+				href: RETREEVER_PROJECTS,
 				title: "Every project: what it holds and what needs a fix",
 			},
 			{
 				key: "organisations",
 				label: "Organisations",
-				href: `${RETREEVER_TOOL}/organisations`,
+				href: RETREEVER_ORGANISATIONS,
 				title: "Every organisation family: what it holds and what needs a fix",
 			},
 			{
