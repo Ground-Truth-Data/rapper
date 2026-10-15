@@ -48,7 +48,7 @@ export type AdminTool = {
 	label: string;
 	href: string;
 	/** URL prefix that means "this tool is active". Defaults to `href`. */
-	match?: string;
+	match?: string | string[];
 	title?: string;
 	/** Host the pages live on; omitted = admin. `getcache` is the app's own deployment — the header resolves hrefs against it. */
 	site?: "admin" | "getcache";
@@ -164,9 +164,14 @@ const tableLabel = (t: string): string => t;
 
 // Spelled once: pill hrefs, the bare /retreever_dash redirect and sites.ts's host-boundary list must agree.
 const RETREEVER_DASH = "/retreever_dash";
-const RETREEVER_TOOL = `${RETREEVER_DASH}/tool`;
+export const RETREEVER_TOOL = `${RETREEVER_DASH}/tool`;
 export const RETREEVER_TABLE = `${RETREEVER_DASH}/table`;
 export const RETREEVER_HOME = `${RETREEVER_TOOL}/orgs`;
+/** The record lists and their record pages; a record sits under its list so the header lights the tool. */
+export const RETREEVER_PROJECTS = `${RETREEVER_TOOL}/projects`;
+export const RETREEVER_PROJECT_RECORD = `${RETREEVER_PROJECTS}/record`;
+export const RETREEVER_ORGANISATIONS = `${RETREEVER_TOOL}/organisations`;
+export const RETREEVER_ORGANISATION_RECORD = `${RETREEVER_ORGANISATIONS}/record`;
 
 /** Foundr's namespace. Same shape as ReTreever's, for the same reason. */
 export const FOUNDR_DASH = "/foundr_dash";
@@ -335,9 +340,17 @@ export const ADMIN_PARENTS: AdminParent[] = [
 			},
 			{
 				key: "orgs",
-				label: "Orgs",
+				label: "Org editor",
 				href: `${RETREEVER_TOOL}/orgs`,
-				title: "Parents and unlinked children in one alphabetical list",
+				title: "Change an organisation: its name, its parent, its children",
+			},
+			{
+				// One tool, two lists: the Projects | Organisations tabs sit on the pages, so both paths light it.
+				key: "records",
+				label: "Records",
+				href: RETREEVER_PROJECTS,
+				match: [RETREEVER_PROJECTS, RETREEVER_ORGANISATIONS],
+				title: "Every project and organisation family, read-only: what it holds and what needs a fix",
 			},
 			{
 				key: "platforms",
@@ -593,14 +606,14 @@ const NO_PARENT: AdminParent = {
 	tools: [],
 };
 
-/** The prefix a tool is matched on — `match` when given, else its href. */
-const matchOf = (t: AdminTool): string => t.match ?? t.href;
+/** The prefixes a tool is matched on — `match` when given, else its href. */
+const matchesOf = (t: AdminTool): string[] => (t.match === undefined ? [t.href] : Array.isArray(t.match) ? t.match : [t.match]);
 
 /** Which parent pill lights up. Fall-through is NO_PARENT: the wrong pill lit is worse than none. */
 export function activeParent(pathname: string): AdminParent {
 	for (const parent of ADMIN_PARENTS) {
 		for (const tool of parent.tools) {
-			if (pathname.startsWith(matchOf(tool))) return parent;
+			if (matchesOf(tool).some((m) => pathname.startsWith(m))) return parent;
 		}
 	}
 	// The bare dash addresses redirect, but the header renders BEFORE the
@@ -617,15 +630,16 @@ export function adminTabIcon(pathname: string): string {
 
 /** The longest matching prefix, not the first: `/getcache_dash` is a prefix of every Get Cache page. Null when no tool owns the path. */
 export function activeTool(pathname: string): AdminTool | null {
-	let best: AdminTool | null = null;
+	let best: { tool: AdminTool; m: string } | null = null;
 	for (const parent of ADMIN_PARENTS) {
 		for (const tool of parent.tools) {
-			const m = matchOf(tool);
-			if (!pathname.startsWith(m)) continue;
-			if (!best || m.length > matchOf(best).length) best = tool;
+			for (const m of matchesOf(tool)) {
+				if (!pathname.startsWith(m)) continue;
+				if (!best || m.length > best.m.length) best = { tool, m };
+			}
 		}
 	}
-	return best;
+	return best?.tool ?? null;
 }
 
 /** The active tool's tables; none renders no third row. */
