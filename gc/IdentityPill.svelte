@@ -56,7 +56,8 @@ const second = $derived(hammer || !!editor || edited);
         box-sizing: border-box;
         border: 2px dashed var(--id-ink);
         border-radius: 999px;
-        background: none;
+        /* Dashed ink alone washes out on the steel buttons it sits on. */
+        background: #111;
         color: var(--id-ink);
         font-family: var(--rt-font-body);
         font-size: 0.7rem;
