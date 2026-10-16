@@ -235,28 +235,35 @@ export function playAtvShare(btn: HTMLElement, exit: Exit = "auto"): void {
 	});
 }
 
+// A turn is centred on its corner, so the quad is halfway round as it bounces.
+const TURN_S = 1;
+
 /** `sx` flips both the advancing axis and the turn direction for a left-bound quad. */
 function drive(img: HTMLImageElement, legs: Leg[], scale: number, sx: 1 | -1, cleanup: () => void) {
 	const total = legs.reduce((s, l) => s + l.len, 0);
 	// Divide in sprite px, the space the clip's speed was measured in.
 	const durMs = (total / scale / SPEED_SPRITE_PX_PER_S) * 1000;
+	const leadPx = (TURN_S / 2) * SPEED_SPRITE_PX_PER_S * scale;
+	const deg = (h: number) => `${sx * h}deg`;
+	const moves: Keyframe[] = [{ offset: 0, translate: "0px 0px" }];
+	const turns: Keyframe[] = [{ offset: 0, rotate: deg(legs[0]?.heading ?? 0) }];
 	let acc = 0;
-	const frames = [
-		{ offset: 0, transform: "translate(0px, 0px) rotate(0deg)" },
-		...legs.map((l) => {
-			acc += l.len;
-			return {
-				offset: Math.min(1, acc / total),
-				transform: `translate(${sx * l.x}px, ${l.y}px) rotate(${sx * l.heading}deg)`,
-			};
-		}),
-	];
-
-	const anim = img.animate(frames, {
-		duration: durMs,
-		easing: "linear",
-		fill: "forwards",
+	legs.forEach((l, i) => {
+		const next = legs[i + 1];
+		if (next) {
+			const lead = Math.min(leadPx, l.len / 2, next.len / 2);
+			turns.push({ offset: (acc + l.len - lead) / total, rotate: deg(l.heading), easing: "ease-in-out" });
+			turns.push({ offset: (acc + l.len + lead) / total, rotate: deg(next.heading) });
+		}
+		acc += l.len;
+		moves.push({ offset: Math.min(1, acc / total), translate: `${sx * l.x}px ${l.y}px` });
 	});
+	turns.push({ offset: 1, rotate: deg(legs.at(-1)?.heading ?? 0) });
+
+	// Two animations so the turn can ease without the quad's speed easing with it.
+	const timing = { duration: durMs, easing: "linear", fill: "forwards" } as const;
+	img.animate(turns, timing);
+	const anim = img.animate(moves, timing);
 	anim.addEventListener("finish", () => setTimeout(cleanup, SETTLE_MS));
 	// A backgrounded tab freezes the WAAPI clock and `finish` never lands.
 	setTimeout(cleanup, durMs + SETTLE_MS + 1500);
@@ -266,29 +273,29 @@ const ROAM_H = 48;
 // Steep climbs and dives; any heading under 90° still only gains ground.
 const ROAM_MIN_DEG = 20;
 const ROAM_MAX_DEG = 60;
+const ROAM_TURN_GAP_S = 1.3;
 // A floor plus an exponential wait: never under a minute apart, eight on average.
 const ROAM_FLOOR_MS = 60_000;
 const ROAM_MEAN_EXTRA_MS = 7 * 60_000;
 
-/** Zig-zag that only ever gains ground: each leg climbs or dives, bouncing off the band's edges. */
-function roamRoute(run: number, drift: number): Leg[] {
-	const n = 4 + Math.floor(Math.random() * 4);
+/** Zig-zag that only ever gains ground: legs alternate climb and dive, bouncing off the band's edges. */
+function roamRoute(run: number, drift: number, minLeg: number): Leg[] {
 	const legs: Leg[] = [];
 	let x = 0;
 	let y = 0;
 	let up = Math.random() < 0.5;
-	for (let i = 0; i < n; i++) {
-		const dx = i === n - 1 ? run - x : (run / n) * (0.6 + Math.random() * 0.8);
-		if (dx <= 0) break;
-		const deg = ROAM_MIN_DEG + Math.random() * (ROAM_MAX_DEG - ROAM_MIN_DEG);
-		let dy = dx * Math.tan((deg * Math.PI) / 180) * (up ? -1 : 1);
+	while (x < run) {
+		const rad = ((ROAM_MIN_DEG + Math.random() * (ROAM_MAX_DEG - ROAM_MIN_DEG)) * Math.PI) / 180;
+		// minLeg is along the slope; the entry leg may be shorter because it starts off-screen.
+		let dx = minLeg * Math.cos(rad) * (x === 0 ? 0.3 + Math.random() * 0.5 : 1 + Math.random() * 0.4);
+		if (dx >= run - x) dx = run - x;
+		let dy = dx * Math.tan(rad) * (up ? -1 : 1);
 		if (Math.abs(y + dy) > drift) dy = -dy;
 		dy = Math.max(-drift - y, Math.min(drift - y, dy));
 		x += dx;
 		y += dy;
 		legs.push({ x, y, heading: (Math.atan2(dy, dx) * 180) / Math.PI, len: Math.hypot(dx, dy) });
-		// Mostly turn back, sometimes keep climbing: a run of same-way legs is what reaches the top.
-		up = dy > 0 ? Math.random() < 0.55 : Math.random() < 0.45;
+		up = dy > 0;
 	}
 	return legs;
 }
@@ -326,7 +333,11 @@ export function playAtvRoam(): void {
 	layer.appendChild(img);
 	(origin ?? frameFor(host) ?? document.body).appendChild(layer);
 
-	const legs = roamRoute(width + 2 * spriteW, Math.max(0, height / 2 - ROAM_H));
+	const legs = roamRoute(
+		width + 2 * spriteW,
+		Math.max(0, height / 2 - ROAM_H),
+		ROAM_TURN_GAP_S * SPEED_SPRITE_PX_PER_S * scale,
+	);
 	drive(img, legs, scale, 1, () => layer.remove());
 }
 
