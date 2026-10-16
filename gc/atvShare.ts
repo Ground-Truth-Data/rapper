@@ -3,7 +3,7 @@
 import { localFrom } from "./fixedContainingBlock.js";
 import { frameFor } from "./handPortal";
 import { Z_HANDS } from "./zTiers";
-import { FILE_EXPORTED_EVENT } from "./fileEvents.js";
+import { FILE_EXPORTED_EVENT, FILE_IMPORTED_EVENT } from "./fileEvents.js";
 
 const MIN_H = 36; // px floor so tiny icon buttons still throw a visible ATV
 const MIN_RUNWAY = 48; // one quad-length; less and exiting right reads as a glitch
@@ -35,14 +35,17 @@ export function armAtvShare(btn: HTMLElement, exit: Exit = "auto"): void {
 	armed = { btn, exit, at: Date.now() };
 	if (listenerInstalled || typeof window === "undefined") return;
 	listenerInstalled = true;
-	window.addEventListener(FILE_EXPORTED_EVENT, () => {
+	// The ride is the receipt for a file leaving OR landing: Import arms it like Export does.
+	const ride = () => {
 		const a = armed;
 		armed = null;
 		if (!a || Date.now() - a.at > ARM_TTL_MS) return;
 		setTimeout(() => {
 			if (a.btn.isConnected) playAtvShare(a.btn, a.exit);
 		}, RIDE_DELAY_MS);
-	});
+	};
+	window.addEventListener(FILE_EXPORTED_EVENT, ride);
+	window.addEventListener(FILE_IMPORTED_EVENT, ride);
 }
 
 function resolveExit(btn: HTMLElement, exit: Exit): "left" | "right" {
