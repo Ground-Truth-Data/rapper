@@ -226,12 +226,20 @@ export function playAtvShare(btn: HTMLElement, exit: Exit = "auto"): void {
 	const driftDown = hostBottom - (by + h);
 
 	const legs = buildRoute(run, Math.max(0, Math.min(driftUp, driftDown)));
+	layer.appendChild(img);
+	home.appendChild(layer);
+	drive(img, legs, scale, dir === "left" ? -1 : 1, () => {
+		layer.remove();
+		if ((btn as AtvHost).__atvLayer === layer)
+			(btn as AtvHost).__atvLayer = null;
+	});
+}
+
+/** `sx` flips both the advancing axis and the turn direction for a left-bound quad. */
+function drive(img: HTMLImageElement, legs: Leg[], scale: number, sx: 1 | -1, cleanup: () => void) {
 	const total = legs.reduce((s, l) => s + l.len, 0);
 	// Divide in sprite px, the space the clip's speed was measured in.
 	const durMs = (total / scale / SPEED_SPRITE_PX_PER_S) * 1000;
-
-	// `sx` flips both the advancing axis and the turn direction for a left-bound quad.
-	const sx = dir === "left" ? -1 : 1;
 	let acc = 0;
 	const frames = [
 		{ offset: 0, transform: "translate(0px, 0px) rotate(0deg)" },
@@ -244,23 +252,95 @@ export function playAtvShare(btn: HTMLElement, exit: Exit = "auto"): void {
 		}),
 	];
 
-	layer.appendChild(img);
-	home.appendChild(layer);
-
 	const anim = img.animate(frames, {
 		duration: durMs,
 		easing: "linear",
 		fill: "forwards",
 	});
-
-	const cleanup = () => {
-		layer.remove();
-		if ((btn as AtvHost).__atvLayer === layer)
-			(btn as AtvHost).__atvLayer = null;
-	};
 	anim.addEventListener("finish", () => setTimeout(cleanup, SETTLE_MS));
 	// A backgrounded tab freezes the WAAPI clock and `finish` never lands.
 	setTimeout(cleanup, durMs + SETTLE_MS + 1500);
+}
+
+const ROAM_H = 48;
+// Steep climbs and dives; any heading under 90° still only gains ground.
+const ROAM_MIN_DEG = 20;
+const ROAM_MAX_DEG = 60;
+// A floor plus an exponential wait: never under a minute apart, eight on average.
+const ROAM_FLOOR_MS = 60_000;
+const ROAM_MEAN_EXTRA_MS = 7 * 60_000;
+
+/** Zig-zag that only ever gains ground: each leg climbs or dives, bouncing off the band's edges. */
+function roamRoute(run: number, drift: number): Leg[] {
+	const n = 4 + Math.floor(Math.random() * 4);
+	const legs: Leg[] = [];
+	let x = 0;
+	let y = 0;
+	let up = Math.random() < 0.5;
+	for (let i = 0; i < n; i++) {
+		const dx = i === n - 1 ? run - x : (run / n) * (0.6 + Math.random() * 0.8);
+		if (dx <= 0) break;
+		const deg = ROAM_MIN_DEG + Math.random() * (ROAM_MAX_DEG - ROAM_MIN_DEG);
+		let dy = dx * Math.tan((deg * Math.PI) / 180) * (up ? -1 : 1);
+		if (Math.abs(y + dy) > drift) dy = -dy;
+		dy = Math.max(-drift - y, Math.min(drift - y, dy));
+		x += dx;
+		y += dy;
+		legs.push({ x, y, heading: (Math.atan2(dy, dx) * 180) / Math.PI, len: Math.hypot(dx, dy) });
+		// Mostly turn back, sometimes keep climbing: a run of same-way legs is what reaches the top.
+		up = dy > 0 ? Math.random() < 0.55 : Math.random() < 0.45;
+	}
+	return legs;
+}
+
+/** A quad crosses the phone left to right on a wild route, for no reason at all. */
+export function playAtvRoam(): void {
+	const host = document.querySelector(".mobile-shell") ?? document.documentElement;
+	const { point, origin } = localFrom(host);
+	const r = host.getBoundingClientRect();
+	// Only the band on screen: the inbox scrolls the window, so the shell can run far below it.
+	const a = point(r.left, Math.max(r.top, 0));
+	const b = point(r.right, Math.min(r.bottom, window.innerHeight));
+	const left = Math.min(a.x, b.x);
+	const top = Math.min(a.y, b.y);
+	const width = Math.abs(b.x - a.x);
+	const height = Math.abs(b.y - a.y);
+	if (!width || !height) return;
+	const scale = ROAM_H / SPRITE_H;
+	const spriteW = SPRITE_W * scale;
+
+	const layer = document.createElement("div");
+	layer.setAttribute("aria-hidden", "true");
+	layer.style.cssText = `position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:${Z_HANDS}`;
+	const img = new Image();
+	img.alt = "";
+	img.src = "/mobileAssets/share_atv_tread_right.webp";
+	const st = img.style;
+	st.position = "absolute";
+	st.height = `${ROAM_H}px`;
+	st.width = `${spriteW}px`;
+	st.maxWidth = "none";
+	st.left = `${left - spriteW}px`;
+	st.top = `${top + height / 2 - ROAM_H / 2}px`;
+	st.transformOrigin = `${PIVOT_X * scale}px ${PIVOT_Y * scale}px`;
+	layer.appendChild(img);
+	(origin ?? frameFor(host) ?? document.body).appendChild(layer);
+
+	const legs = roamRoute(width + 2 * spriteW, Math.max(0, height / 2 - ROAM_H));
+	drive(img, legs, scale, 1, () => layer.remove());
+}
+
+/** Starts the random crossings; returns the stop. A hidden tab skips its turn. */
+export function startAtvRoam(): () => void {
+	let timer: ReturnType<typeof setTimeout>;
+	const next = () => {
+		timer = setTimeout(() => {
+			if (!document.hidden) playAtvRoam();
+			next();
+		}, ROAM_FLOOR_MS - Math.log(1 - Math.random()) * ROAM_MEAN_EXTRA_MS);
+	};
+	next();
+	return () => clearTimeout(timer);
 }
 
 /** Svelte action: arms the quad on tap; `{ exit }` overrides auto. */
