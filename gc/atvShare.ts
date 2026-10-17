@@ -135,12 +135,14 @@ export function playAtvShare(btn: HTMLElement, exit: Exit = "auto"): void {
 	const dir = resolveExit(btn, exit);
 
 	// All distances go through point(): a raw rect/offsetWidth divide reads aspect ratio, not scale, once turned.
-	const local = localFrom(btn);
-	const { point } = local;
-	const home = local.origin ?? frameFor(btn) ?? document.body;
+	// Home is the frame, never the button's own containing block: a transformed card clips the ride to itself.
+	const home = frameFor(btn) ?? document.body;
+	const layer = document.createElement("div");
+	home.appendChild(layer);
+	const { point } = localFrom(layer);
 
 	const h = btn.offsetHeight;
-	if (!h) return;
+	if (!h) return layer.remove();
 	const w = btn.offsetWidth;
 	const btnRect = btn.getBoundingClientRect();
 	const { x: bx, y: by } = point(btnRect.left, btnRect.top);
@@ -157,7 +159,6 @@ export function playAtvShare(btn: HTMLElement, exit: Exit = "auto"): void {
 	(btn as AtvHost).__atvLayer?.remove();
 
 	// Full-home layer masks out the button's rect (composited exclude) so the quad starts under it.
-	const layer = document.createElement("div");
 	(btn as AtvHost).__atvLayer = layer;
 	layer.setAttribute("aria-hidden", "true");
 	const maskImg = "linear-gradient(#000 0 0), linear-gradient(#000 0 0)";
@@ -227,7 +228,6 @@ export function playAtvShare(btn: HTMLElement, exit: Exit = "auto"): void {
 
 	const legs = buildRoute(run, Math.max(0, Math.min(driftUp, driftDown)));
 	layer.appendChild(img);
-	home.appendChild(layer);
 	drive(img, legs, scale, dir === "left" ? -1 : 1, () => {
 		layer.remove();
 		if ((btn as AtvHost).__atvLayer === layer)

@@ -493,13 +493,6 @@ hr {
 }
 .mob-bag-flash { animation: mob-bag-flash 400ms ease-in-out infinite alternate; }
 
-.bagout-btn {
-	background: var(--rt-btn-commit-bg);
-	color: var(--rt-btn-commit-text);
-	font-size: 2rem;
-	border: none;
-}
-
 [data-sonner-toaster] {
 	/* Just under Z_HANDS (zTiers.ts) so hands and the share quad ride over a toast. */
 	z-index: 10400 !important;
