@@ -291,11 +291,9 @@
         0 1px 0 var(--fb-press-lo),
         0 -1px 0 var(--fb-press-hi);
 }
+/* Icons stay flat: chained drop-shadows draw a 2px stroke three times and it reads as double vision. */
 .rt-fancy-btn svg {
     flex-shrink: 0;
-    filter:
-        drop-shadow(0 1px 0 var(--fb-press-lo))
-        drop-shadow(0 -1px 0 var(--fb-press-hi));
 }
 @media (hover: hover) and (pointer: fine) {
     .rt-fancy-btn:hover:not(:disabled, .disabled, :active, .pressed) {
@@ -333,11 +331,6 @@
         0 1px 0 var(--rt-press-lo),
         0 -1px 0 var(--rt-press-hi);
 }
-.rt-letterpress svg {
-    filter:
-        drop-shadow(0 1px 0 var(--rt-press-lo))
-        drop-shadow(0 -1px 0 var(--rt-press-hi));
-}
 
 /* Darker grounds (terracotta, olive): the white highlight blows out, so it is dialled back. */
 .rt-letterpress--deep,
@@ -346,17 +339,9 @@
         0 1px 0 rgba(255, 255, 255, 0.3),
         0 -1px 0 rgba(0, 0, 0, 0.3);
 }
-.rt-letterpress--deep svg {
-    filter:
-        drop-shadow(0 1px 0 rgba(255, 255, 255, 0.3))
-        drop-shadow(0 -1px 0 rgba(0, 0, 0, 0.3));
-}
 .rt-letterpress:active:not(:disabled):not(.disabled),
 .rt-letterpress:active:not(:disabled):not(.disabled) * {
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.28);
-}
-.rt-letterpress:active:not(:disabled):not(.disabled) svg {
-    filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.28));
 }
 
 /* Every "add trees" button (cache footer, map cache, block): black, gold outline, gold ink.
@@ -407,14 +392,6 @@
     text-shadow:
         0 1px 0 var(--rt-press-lo),
         0 -1px 0 var(--rt-press-hi);
-}
-.rt-on-gold svg,
-:is(button, a, [role="button"], [role="tab"])[aria-pressed="true"] svg,
-:is(button, a, [role="button"], [role="tab"]):not([role="option"])[aria-selected="true"] svg,
-:is(button, a, [role="button"])[data-on-gold] svg {
-    filter:
-        drop-shadow(0 1px 0 var(--rt-press-lo))
-        drop-shadow(0 -1px 0 var(--rt-press-hi));
 }
 
 @layer utilities {
