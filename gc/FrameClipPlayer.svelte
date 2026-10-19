@@ -12,7 +12,10 @@ let {
 	clip,
 	facts,
 	loop = false,
+	from = 1,
+	to = undefined,
 	onDone = undefined,
+	onFrame = undefined,
 }: {
 	/** where the frame folders are served from, no trailing slash */
 	root: string;
@@ -20,8 +23,13 @@ let {
 	facts: ClipFacts;
 	/** loop forever instead of holding the last frame */
 	loop?: boolean;
+	/** play a 1-based range of the clip; a wipe plays its closing half, waits, then its opening half */
+	from?: number;
+	to?: number;
 	/** called when a non-looping clip reaches its last frame */
 	onDone?: () => void;
+	/** called with each 1-based frame as it shows; the curtains swap the page at their midpoint */
+	onFrame?: (frame: number) => void;
 } = $props();
 
 const urls = $derived(frameUrls(root, clip, facts));
@@ -36,17 +44,20 @@ function stop() {
 
 // Cleanup kills the previous interval, so two clips never step the same <img> at once.
 $effect(() => {
-	const total = urls.length;
+	const first = Math.max(0, from - 1);
+	const last = Math.min(urls.length, to ?? urls.length);
 	const ms = 1000 / facts.fps;
-	i = 0;
+	i = first;
 	stop();
+	onFrame?.(first + 1);
 	timer = setInterval(() => {
-		if (i + 1 < total) {
+		if (i + 1 < last) {
 			i += 1;
+			onFrame?.(i + 1);
 			return;
 		}
 		if (loop) {
-			i = 0;
+			i = first;
 			return;
 		}
 		stop();
