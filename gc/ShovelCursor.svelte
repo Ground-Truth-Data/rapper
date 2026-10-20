@@ -15,7 +15,9 @@ export const HOTSPOT_Y = 5;
  * A map press (doubleTapToPin.ts emits `gc-press`) turns the hand gold and
  * fills a HoldRing up-left of the press; held still it fires the snake
  * ruler. Moving past slop drops the ring and the hand opens, then fists, for
- * the rest of that press. On touch the hand shows only during a map press.
+ * the rest of that press. On touch the hand shows only during a map press,
+ * and a touch hold (`aim`) reaches it away from the finger with the ring and
+ * coordinates on its fingertip.
  */
 import { onMount } from "svelte";
 import HoldRing from "./HoldRing.svelte";
@@ -42,11 +44,14 @@ const SHOW_AT = 3 / 12;
 // The ring's centre sits up-left of the press so the finger never covers it.
 const RING_DX = 38;
 const RING_DY = 37;
+const EXTEND_MS = 160;
 
 let el: HTMLDivElement | undefined = $state();
 let frame: Frame = $state("point");
 let pressing = $state(false);
 let ring: { x: number; y: number; progress: number; done: boolean } | null = $state(null);
+// A touch hold's arm: the hand reaches from the finger and the ring rides its fingertip.
+let aim: { label: string; flipY: boolean } | null = $state(null);
 
 $effect(() => {
 	document.body.classList.toggle("gc-map-pressing", pressing);
@@ -59,9 +64,9 @@ onMount(() => {
 	let raf = 0;
 	let dragging = false;
 
-	const place = (x: number, y: number) => {
+	const place = (x: number, y: number, sx = 1, sy = 1) => {
 		if (!el) return;
-		el.style.transform = `translate3d(${x - HOTSPOT_X}px, ${y - HOTSPOT_Y}px, 0)`;
+		el.style.transform = `translate3d(${x - HOTSPOT_X}px, ${y - HOTSPOT_Y}px, 0) scale(${sx}, ${sy})`;
 		if (el.style.visibility !== "visible") el.style.visibility = "visible";
 	};
 	// Linear from `from` to `to` over `ms`, then `then`.
@@ -98,9 +103,34 @@ onMount(() => {
 		}, LET_GO_OPEN_MS);
 	};
 
+	const stopAim = () => {
+		aim = null;
+		pressing = false;
+		frame = "point";
+		if (el) el.style.transition = "";
+		dropRing();
+	};
+
 	const onPress = (e: Event) => {
-		const { phase, x, y, ms } = (e as CustomEvent<{ phase: "arm" | "drag" | "end" | "fire"; x: number; y: number; ms: number }>).detail;
-		if (phase === "arm") {
+		const { phase, x, y, ms, label = "", flipX = false, flipY = false } = (
+			e as CustomEvent<{ phase: "arm" | "drag" | "end" | "fire" | "aim"; x: number; y: number; ms: number; label?: string; flipX?: boolean; flipY?: boolean }>
+		).detail;
+		if (phase === "aim") {
+			if (!aim && el) {
+				clearTimeout(frameTimer);
+				cancelAnimationFrame(raf);
+				navigator.vibrate?.(10);
+				el.style.transition = `transform ${EXTEND_MS}ms ease-out`;
+				frameTimer = setTimeout(() => el && (el.style.transition = ""), EXTEND_MS);
+			}
+			pressing = true;
+			frame = "point";
+			aim = { label, flipY };
+			ring = { x, y, progress: 1, done: true };
+			place(x, y, flipX ? -1 : 1, flipY ? -1 : 1);
+		} else if (phase === "end" && aim) {
+			stopAim();
+		} else if (phase === "arm") {
 			clearTimeout(frameTimer);
 			dropRing();
 			dragging = false;
@@ -132,7 +162,7 @@ onMount(() => {
 	const onMouseMove = (e: MouseEvent) => place(e.clientX, e.clientY);
 	const onTouchMove = (e: TouchEvent) => {
 		const t = e.touches[0];
-		if (pressing && t) place(t.clientX, t.clientY);
+		if (pressing && t && !aim) place(t.clientX, t.clientY);
 	};
 	const onMouseLeave = () => {
 		if (el) el.style.visibility = "hidden";
@@ -177,7 +207,7 @@ onMount(() => {
 </script>
 
 <!-- Hidden until the first mousemove places it. -->
-<div bind:this={el} class="fake-cursor" data-frame={frame} style="visibility: hidden">
+<div bind:this={el} class="fake-cursor" data-frame={frame} style="visibility: hidden; transform-origin: {HOTSPOT_X}px {HOTSPOT_Y}px">
 	{#each FRAMES as [name, src] (name)}
 		<img class="fake-cursor-{name}" {src} alt="" draggable="false" />
 	{/each}
@@ -187,4 +217,7 @@ onMount(() => {
 	<div class="hold-ring-at" style="left:{ring.x}px; top:{ring.y}px">
 		<HoldRing progress={ring.progress} done={ring.done} />
 	</div>
+	{#if aim}
+		<div class="aim-label rt-line-label rt-line-label-total" class:below={aim.flipY} style="left:{ring.x}px; top:{ring.y}px">{aim.label}</div>
+	{/if}
 {/if}

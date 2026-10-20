@@ -635,8 +635,6 @@ hr {
 			.rt-btn--danger,
 			.rt-card,
 			.combo-option,
-			.rt-group,
-			.rt-group__zone,
 			.rt-ism__tile,
 			.rt-ism__howto,
 			.rt-ism__cancel,
@@ -648,6 +646,7 @@ hr {
 			.rt-popover-opt,
 			.rt-row,
 			.rt-row__cell,
+			.rt-row__half,
 			.na-toggle,
 			.cloud-save,
 			.rw,
@@ -705,6 +704,15 @@ body.shovel-cursor .fake-cursor {
 	opacity: 0.9;
 	pointer-events: none;
 	z-index: 2147483646;
+}
+/* The aiming fingertip's coordinates: above the ring, below it when the arm is flipped down. */
+.aim-label {
+	position: fixed;
+	transform: translate(-50%, calc(-100% - 30px));
+	z-index: 2147483646;
+}
+.aim-label.below {
+	transform: translate(-50%, 30px);
 }
 
 /* Shows WHEN a tap lands, not just where. Created/self-removed by ShovelCursor.svelte. */
