@@ -705,6 +705,15 @@ body.shovel-cursor .fake-cursor {
 	pointer-events: none;
 	z-index: 2147483646;
 }
+/* The aiming fingertip's coordinates: above the ring, below it when the arm is flipped down. */
+.aim-label {
+	position: fixed;
+	transform: translate(-50%, calc(-100% - 30px));
+	z-index: 2147483646;
+}
+.aim-label.below {
+	transform: translate(-50%, 30px);
+}
 
 /* Shows WHEN a tap lands, not just where. Created/self-removed by ShovelCursor.svelte. */
 .click-splash {
