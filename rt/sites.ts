@@ -67,7 +67,7 @@ export const SITES: readonly Site[] = [
 		seo: {
 			origin: RETREEVER_ORIGIN,
 			description:
-				"ReTreever builds tools that record reforestation work where it happens — from the planting block to the invoice. Makers of Get Cache, the offline field app for tree planters.",
+				"ReTreever is a data transparency platform that retrieves the world's reforestation data from governments, NGOs, and public sources into a unified, verifiable database.",
 			ogImage: "/og/retreever-og.png",
 			tagline: "Every tree, accounted for.",
 			schema: {
@@ -78,7 +78,7 @@ export const SITES: readonly Site[] = [
 				url: RETREEVER_ORIGIN,
 				logo: `${RETREEVER_ORIGIN}/og/retreever-og.png`,
 				description:
-					"ReTreever builds software for the reforestation industry: field data capture, planting records and reporting, from the block to the invoice.",
+					"ReTreever is a data transparency platform that retrieves the world's reforestation data from governments, NGOs, and public sources into a unified, verifiable database.",
 				knowsAbout: [
 					"Reforestation",
 					"Tree planting",
