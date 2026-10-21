@@ -1,3 +1,4 @@
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import { sveltekit } from "@sveltejs/kit/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { existsSync } from "node:fs";
@@ -121,6 +122,12 @@ return {
 		noRawCamera(workspaceRoot(import.meta.url)),
 		pdfjsWasm(import.meta.url),
 		tailwindcss(),
+		// The Get Cache children and gc/ read their words from here; the device language picks, there is no picker.
+		paraglideVitePlugin({
+			project: "./project.inlang",
+			outdir: "./src/lib/paraglide",
+			strategy: ["preferredLanguage", "baseLocale"],
+		}),
 		sveltekit(),
 	],
 
