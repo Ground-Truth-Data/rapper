@@ -1,18 +1,14 @@
 // Every length and area the maps print goes through here, so the Metric /
-// Imperial choice in Account → Settings reaches all of them at once.
+// Imperial choice in Account → Settings reaches all of them at once. The host
+// app keeps the choice and sets `distance.value`; until it does, the locale decides.
 import { getLocale } from "$parent/src/lib/paraglide/runtime";
 
 export type Distance = "metric" | "imperial";
 
-const KEY = "gc.distance";
 // The regions whose locale measures in the US system; the phone's language tag carries its region.
 const IMPERIAL = ["US", "LR", "MM"];
 
 function initial(): Distance {
-	try {
-		const v = localStorage.getItem(KEY);
-		if (v === "metric" || v === "imperial") return v;
-	} catch {}
 	if (typeof navigator === "undefined" || !navigator.language) return "metric";
 	return IMPERIAL.includes(new Intl.Locale(navigator.language).maximize().region ?? "") ? "imperial" : "metric";
 }
@@ -25,9 +21,6 @@ export const distance = {
 	},
 	set value(v: Distance) {
 		value = v;
-		try {
-			localStorage.setItem(KEY, v);
-		} catch {}
 	},
 };
 

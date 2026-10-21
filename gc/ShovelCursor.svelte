@@ -8,7 +8,9 @@
  * then fists, riding the pointer. Let go and the hand stays LINGER_MS: grab
  * it by the palm to drag it anywhere, press it and hold to fire the ruler at
  * its fingertip. Mouse and finger behave the same, so the desktop rehearses
- * the phone. A tap that opens a feature (`drop`) takes the hand away. A
+ * the phone. A press the map claims (a feature to open, a popover to close)
+ * arrives `veiled`: the tap is the map's, and the hand shows only if the
+ * press turns into a drag or a hold. A
  * click adds an expanding ring, so a recorded tap shows WHEN as well as where.
  */
 import { onMount } from "svelte";
@@ -69,6 +71,7 @@ onMount(() => {
 	let at = { x: 0, y: 0 };
 	let holdMs = 1200;
 	let releasedAt = 0;
+	let veiled = false;
 	// A press on the lingering hand: pointer-to-fingertip offset, and whether it has become a drag.
 	let grab: { dx: number; dy: number; x0: number; y0: number; moved: boolean; timer: ReturnType<typeof setTimeout> } | null = null;
 
@@ -76,7 +79,11 @@ onMount(() => {
 		if (!el) return;
 		at = { x, y };
 		el.style.transform = `translate3d(${x - TIP_X}px, ${y - TIP_Y}px, 0)`;
-		if (el.style.visibility !== "visible") el.style.visibility = "visible";
+		el.style.visibility = veiled ? "hidden" : "visible";
+	};
+	const reveal = () => {
+		veiled = false;
+		if (el) el.style.visibility = "visible";
 	};
 	// Linear from `from` to `to` over `ms`, then `then`.
 	const animateRing = (from: number, to: number, ms: number, then?: () => void) => {
@@ -86,6 +93,7 @@ onMount(() => {
 			if (!ring) return;
 			const f = Math.min(1, (t - t0) / ms);
 			ring.progress = from + (to - from) * f;
+			if (veiled && ring.progress >= SHOW_AT) reveal();
 			if (f < 1) raf = requestAnimationFrame(step);
 			else then?.();
 		};
@@ -108,6 +116,7 @@ onMount(() => {
 	};
 	const release = () => {
 		if (!pressing) return;
+		if (veiled) return hide();
 		clearTimeout(frameTimer);
 		frame = dragging ? "open" : "point";
 		dragging = false;
@@ -120,8 +129,15 @@ onMount(() => {
 	};
 
 	const onPress = (e: Event) => {
-		const { phase, x, y, ms, label = "" } = (
-			e as CustomEvent<{ phase: "arm" | "drag" | "end" | "aim" | "drop"; x: number; y: number; ms: number; label?: string }>
+		const { phase, x, y, ms, label = "", veiled: onFeature = false } = (
+			e as CustomEvent<{
+				phase: "arm" | "drag" | "end" | "aim" | "drop";
+				x: number;
+				y: number;
+				ms: number;
+				label?: string;
+				veiled?: boolean;
+			}>
 		).detail;
 		if (phase === "aim") {
 			if (!aim) {
@@ -149,6 +165,7 @@ onMount(() => {
 			pressing = true;
 			linger = false;
 			holdMs = ms;
+			veiled = onFeature;
 			frame = "gold";
 			place(x + REACH.dx, y + REACH.dy);
 			ring = { ...at, progress: 0, done: false };
@@ -157,6 +174,7 @@ onMount(() => {
 			// Only a map press pans with the hand; a ruler handle's drag (no arm first) is its own hand.
 			if (!pressing) return;
 			dropRing();
+			reveal();
 			clearTimeout(frameTimer);
 			dragging = true;
 			frame = "open";

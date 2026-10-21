@@ -11,7 +11,7 @@
 	--rt-overlay-deep: rgba(0, 0, 0, 0.7);
 
 	/* --rt-popover-glass/-scrim = the one knob for every popover; backdrop-filter is disabled on dt-web's preview frame, so alpha must read without blur. */
-	--rt-popover-glass: rgba(0, 0, 0, 0.5);
+	--rt-popover-glass: rgba(0, 0, 0, 0.88);
 	--rt-popover-scrim: rgba(0, 0, 0, 0.18);
 	--rt-bg-card: #272727;
 	--rt-bg-button: #3a3a3a;

@@ -113,6 +113,7 @@ export const MIRRORED_TABLES = [
 	"orgKindTable",
 	"orgTagTable",
 	"userProfile",
+	"settingTable",
 ] as const;
 
 // Every table on the phone, in the SQLite pills' order; every one is mirrored too.
@@ -150,6 +151,7 @@ export const DEVICE_TABLES = [
 	"tallyTable",
 	"touchTable",
 	"userProfile",
+	"settingTable",
 ] as const;
 
 // Where each table sits on the Get Cache schema maps, four to a row, each
