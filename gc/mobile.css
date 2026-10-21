@@ -659,11 +659,9 @@ hr {
 	}
 }
 
-/* ONE cursor only: a two-variant version flickered on GPU texture swaps during screen recording. */
-body.mobile-app,
-body.mobile-app *,
-body.shovel-cursor,
-body.shovel-cursor * {
+/* Hovering keeps the OS arrow; during a map press ShovelCursor draws its own, holding the hand. */
+body.shovel-cursor.gc-map-pressing,
+body.shovel-cursor.gc-map-pressing * {
 	cursor: none !important;
 }
 .fake-cursor {
@@ -679,9 +677,11 @@ body.shovel-cursor * {
 	user-select: none;
 	-webkit-user-drag: none;
 }
-body.mobile-app .fake-cursor,
-body.shovel-cursor .fake-cursor {
+body.shovel-cursor.gc-map-pressing .fake-cursor {
 	display: block;
+}
+.fake-cursor-arrow {
+	position: absolute;
 }
 .fake-cursor img {
 	position: absolute;
@@ -738,22 +738,11 @@ body.shovel-cursor .fake-cursor {
 		transform: scale(2.6);
 	}
 }
-/* Touch devices: real cursor and feedback; the fake hand and splash are a desktop-recording aid. */
+/* Touch: no mouse to draw; the splash is a desktop-recording aid. */
 @media (pointer: coarse) {
-	body.mobile-app,
-	body.mobile-app *,
-	body.shovel-cursor,
-	body.shovel-cursor * {
-		cursor: auto !important;
-	}
-	body.mobile-app .fake-cursor,
-	body.shovel-cursor .fake-cursor,
+	.fake-cursor-arrow,
 	.click-splash {
 		display: none;
-	}
-	/* Except under the finger during a map press, so the hold reads on a phone too. */
-	body.shovel-cursor.gc-map-pressing .fake-cursor {
-		display: block;
 	}
 }
 

@@ -6,8 +6,11 @@
  * in mobile.css) and this is the only visible one. A click adds an
  * expanding ring, so a recorded tap shows WHEN as well as where.
  *
+ * Hovering is the plain OS arrow. Only a map press shows the hand, held by
+ * a drawn arrow up its handle: the arrow tip is the real pointer.
+ *
  * A map press (doubleTapToPin.ts emits `gc-press`) turns the hand gold and
- * fills a HoldRing up-left of the press; held still it fires the snake
+ * fills a HoldRing on its fingertip; held still it fires the snake
  * ruler. Moving past slop drops the ring and the hand opens, then fists, for
  * the rest of that press. A hold (`aim`), mouse or finger alike, reaches the
  * hand away from the pointer with the ring and coordinates on its fingertip.
@@ -32,14 +35,13 @@ const FRAMES: [Frame, string][] = [
 const GRAB_OPEN_MS = 100;
 const LET_GO_OPEN_MS = 250;
 const RETRACT_MS = 300;
-// The fingertip, in px from the image's top-left at the rendered 72×100; every frame shares the one box.
-const HOTSPOT_X = 11;
-const HOTSPOT_Y = 5;
+// In px from the image's top-left at the rendered 72×100; every frame shares the one box.
+const TIP_X = 11;
+const TIP_Y = 5;
+const GRIP_X = 50;
+const GRIP_Y = 72;
 // A plain click never sees the ring: it shows from three o'clock on.
 const SHOW_AT = 3 / 12;
-// The ring's centre sits up-left of the press so the finger never covers it.
-const RING_DX = 38;
-const RING_DY = 37;
 const EXTEND_MS = 160;
 
 let el: HTMLDivElement | undefined = $state();
@@ -61,7 +63,9 @@ onMount(() => {
 
 	const place = (x: number, y: number, sx = 1, sy = 1) => {
 		if (!el) return;
-		el.style.transform = `translate3d(${x - HOTSPOT_X}px, ${y - HOTSPOT_Y}px, 0) scale(${sx}, ${sy})`;
+		// A hold's arm puts the fingertip on its target; otherwise the grip rides the pointer.
+		const [hx, hy] = aim ? [TIP_X, TIP_Y] : [GRIP_X, GRIP_Y];
+		el.style.transform = `translate3d(${x - hx}px, ${y - hy}px, 0) scale(${sx}, ${sy})`;
 		if (el.style.visibility !== "visible") el.style.visibility = "visible";
 	};
 	// Linear from `from` to `to` over `ms`, then `then`.
@@ -131,7 +135,7 @@ onMount(() => {
 			pressing = true;
 			frame = "gold";
 			place(x, y);
-			ring = { x: x - RING_DX, y: y - RING_DY, progress: 0, done: false };
+			ring = { x: x - GRIP_X + TIP_X, y: y - GRIP_Y + TIP_Y, progress: 0, done: false };
 			animateRing(0, 1, ms);
 		} else if (phase === "drag") {
 			dropRing();
@@ -198,10 +202,15 @@ onMount(() => {
 </script>
 
 <!-- Hidden until the first mousemove places it. -->
-<div bind:this={el} class="fake-cursor" data-frame={frame} style="visibility: hidden; transform-origin: {HOTSPOT_X}px {HOTSPOT_Y}px">
+<div bind:this={el} class="fake-cursor" data-frame={frame} style="visibility: hidden; transform-origin: {TIP_X}px {TIP_Y}px">
 	{#each FRAMES as [name, src] (name)}
 		<img class="fake-cursor-{name}" {src} alt="" draggable="false" />
 	{/each}
+	{#if !aim}
+		<svg class="fake-cursor-arrow" style="left:{GRIP_X - 1}px; top:{GRIP_Y - 1}px" width="14" height="21" viewBox="0 0 14 21" aria-hidden="true">
+			<path d="M1 1v16l4-4 3 7 3-1-3-7h5z" fill="#000" stroke="#fff" stroke-width="1.2" stroke-linejoin="round" />
+		</svg>
+	{/if}
 </div>
 
 {#if ring && ring.progress >= SHOW_AT}
