@@ -13,8 +13,6 @@ export type ClipFacts = {
 };
 
 export type ClipManifest = {
-	/** inclusive score ranges, by state name */
-	states: Record<string, [number, number]>;
 	clips: Record<string, ClipFacts>;
 };
 
