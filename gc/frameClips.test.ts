@@ -20,7 +20,7 @@ describe("frameClips", () => {
 	});
 
 	it("loads clips.json from the root and refuses a missing one", async () => {
-		const manifest = { states: { opaque: [0, 29] }, clips: { "dog-blink": facts } };
+		const manifest = { clips: { "dog-blink": facts } };
 		const ok = (async () => new Response(JSON.stringify(manifest))) as unknown as typeof fetch;
 		expect(await loadClips("/rt_anime", ok)).toEqual(manifest);
 		const gone = (async () => new Response("", { status: 404 })) as unknown as typeof fetch;
@@ -35,7 +35,7 @@ describe("frameClips", () => {
 		let calls = 0;
 		const counting = (async () => {
 			calls += 1;
-			return new Response(JSON.stringify({ states: {}, clips: {} }));
+			return new Response(JSON.stringify({ clips: {} }));
 		}) as unknown as typeof fetch;
 		await Promise.all([loadClips("/a", counting), loadClips("/a", counting), loadClips("/a", counting)]);
 		expect(calls).toBe(1);
