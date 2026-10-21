@@ -1,9 +1,3 @@
-<script lang="ts" module>
-/** The fingertip, in px from the image's top-left at the rendered 72×100. Every frame shares the one box, so it holds for all of them. */
-export const HOTSPOT_X = 11;
-export const HOTSPOT_Y = 5;
-</script>
-
 <script lang="ts">
 /**
  * The hand-and-shovel pointer, drawn in the DOM in place of the OS cursor.
@@ -15,9 +9,9 @@ export const HOTSPOT_Y = 5;
  * A map press (doubleTapToPin.ts emits `gc-press`) turns the hand gold and
  * fills a HoldRing up-left of the press; held still it fires the snake
  * ruler. Moving past slop drops the ring and the hand opens, then fists, for
- * the rest of that press. On touch the hand shows only during a map press,
- * and a touch hold (`aim`) reaches it away from the finger with the ring and
- * coordinates on its fingertip.
+ * the rest of that press. A hold (`aim`), mouse or finger alike, reaches the
+ * hand away from the pointer with the ring and coordinates on its fingertip.
+ * On touch the hand shows only during a map press.
  */
 import { onMount } from "svelte";
 import HoldRing from "./HoldRing.svelte";
@@ -38,7 +32,9 @@ const FRAMES: [Frame, string][] = [
 const GRAB_OPEN_MS = 100;
 const LET_GO_OPEN_MS = 250;
 const RETRACT_MS = 300;
-const DONE_HOLD_MS = 400;
+// The fingertip, in px from the image's top-left at the rendered 72×100; every frame shares the one box.
+const HOTSPOT_X = 11;
+const HOTSPOT_Y = 5;
 // A plain click never sees the ring: it shows from three o'clock on.
 const SHOW_AT = 3 / 12;
 // The ring's centre sits up-left of the press so the finger never covers it.
@@ -60,7 +56,6 @@ $effect(() => {
 onMount(() => {
 	document.body.classList.add("shovel-cursor");
 	let frameTimer: ReturnType<typeof setTimeout> | undefined;
-	let ringTimer: ReturnType<typeof setTimeout> | undefined;
 	let raf = 0;
 	let dragging = false;
 
@@ -84,7 +79,6 @@ onMount(() => {
 	};
 	const dropRing = () => {
 		cancelAnimationFrame(raf);
-		clearTimeout(ringTimer);
 		ring = null;
 	};
 
@@ -113,7 +107,7 @@ onMount(() => {
 
 	const onPress = (e: Event) => {
 		const { phase, x, y, ms, label = "", flipX = false, flipY = false } = (
-			e as CustomEvent<{ phase: "arm" | "drag" | "end" | "fire" | "aim"; x: number; y: number; ms: number; label?: string; flipX?: boolean; flipY?: boolean }>
+			e as CustomEvent<{ phase: "arm" | "drag" | "end" | "aim"; x: number; y: number; ms: number; label?: string; flipX?: boolean; flipY?: boolean }>
 		).detail;
 		if (phase === "aim") {
 			if (!aim && el) {
@@ -150,16 +144,10 @@ onMount(() => {
 			if (!ring || ring.done) return;
 			if (ring.progress < SHOW_AT) dropRing();
 			else animateRing(ring.progress, SHOW_AT, RETRACT_MS, dropRing);
-		} else if (ring) {
-			cancelAnimationFrame(raf);
-			ring.progress = 1;
-			ring.done = true;
-			navigator.vibrate?.(30);
-			ringTimer = setTimeout(dropRing, DONE_HOLD_MS);
 		}
 	};
 
-	const onMouseMove = (e: MouseEvent) => place(e.clientX, e.clientY);
+	const onMouseMove = (e: MouseEvent) => !aim && place(e.clientX, e.clientY);
 	const onTouchMove = (e: TouchEvent) => {
 		const t = e.touches[0];
 		if (pressing && t && !aim) place(t.clientX, t.clientY);
@@ -176,8 +164,12 @@ onMount(() => {
 		splash.addEventListener("animationend", () => splash.remove());
 		document.body.appendChild(splash);
 	};
-	// pointerup, not mouseup: a ruler handle's preventDefault on pointerdown swallows the mouseup.
-	const onPointerUp = (e: PointerEvent) => e.pointerType === "mouse" && e.button === 0 && release();
+	// pointerup, not mouseup: a ruler handle's preventDefault on pointerdown swallows the mouseup and the moves.
+	const onPointerUp = (e: PointerEvent) => {
+		if (e.pointerType !== "mouse") return;
+		place(e.clientX, e.clientY);
+		if (e.button === 0) release();
+	};
 	const onTouchEnd = (e: TouchEvent) => e.touches.length === 0 && release();
 
 	window.addEventListener("mousemove", onMouseMove, { passive: true });
@@ -191,7 +183,6 @@ onMount(() => {
 
 	return () => {
 		clearTimeout(frameTimer);
-		clearTimeout(ringTimer);
 		cancelAnimationFrame(raf);
 		window.removeEventListener("mousemove", onMouseMove);
 		window.removeEventListener("mousedown", onMouseDown);
