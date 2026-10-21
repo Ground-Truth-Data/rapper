@@ -44,7 +44,8 @@ const site = (s: Omit<Site, "owns">): Site => ({
 	owns: [...s.pages.filter((p) => p !== "/"), ...s.app],
 });
 
-const RETREEVER_ORIGIN = "https://retreever.org";
+// www is Vercel's primary domain (the apex 307s to it), so every canonical signal names www too.
+const RETREEVER_ORIGIN = "https://www.retreever.org";
 const GETCACHE_ORIGIN = "https://getcache.org";
 
 // TO FILL IN — omitted until confirmed:
@@ -56,7 +57,7 @@ export const SITES: readonly Site[] = [
 	site({
 		id: "retreever",
 		label: "ReTreever",
-		hosts: ["retreever.org", "www.retreever.org", "retreever.localhost"],
+		hosts: ["www.retreever.org", "retreever.org", "retreever.localhost"],
 		devHost: "retreever.localhost",
 		icon: rtLogo,
 		home: "/",
