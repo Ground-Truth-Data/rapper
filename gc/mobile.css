@@ -659,11 +659,6 @@ hr {
 	}
 }
 
-/* Hovering keeps the OS arrow; during a map press ShovelCursor draws its own, holding the hand. */
-body.shovel-cursor.gc-map-pressing,
-body.shovel-cursor.gc-map-pressing * {
-	cursor: none !important;
-}
 .fake-cursor {
 	position: fixed;
 	top: 0;
@@ -677,11 +672,18 @@ body.shovel-cursor.gc-map-pressing * {
 	user-select: none;
 	-webkit-user-drag: none;
 }
-body.shovel-cursor.gc-map-pressing .fake-cursor {
+body.gc-map-pressing .fake-cursor {
 	display: block;
 }
-.fake-cursor-arrow {
+/* The lingering hand's grab area: palm and handle, clear of the fingertip so a second click there reaches the map. */
+.fake-cursor-palm {
 	position: absolute;
+	inset: 20px 0 0 18px;
+	touch-action: none;
+}
+.fake-cursor.linger .fake-cursor-palm {
+	pointer-events: auto;
+	cursor: grab;
 }
 .fake-cursor img {
 	position: absolute;
@@ -705,14 +707,11 @@ body.shovel-cursor.gc-map-pressing .fake-cursor {
 	pointer-events: none;
 	z-index: 2147483646;
 }
-/* The aiming fingertip's coordinates: above the ring, below it when the arm is flipped down. */
+/* A completed hold's coordinates, above its ring. */
 .aim-label {
 	position: fixed;
 	transform: translate(-50%, calc(-100% - 30px));
 	z-index: 2147483646;
-}
-.aim-label.below {
-	transform: translate(-50%, 30px);
 }
 
 /* Shows WHEN a tap lands, not just where. Created/self-removed by ShovelCursor.svelte. */
@@ -738,9 +737,8 @@ body.shovel-cursor.gc-map-pressing .fake-cursor {
 		transform: scale(2.6);
 	}
 }
-/* Touch: no mouse to draw; the splash is a desktop-recording aid. */
+/* Touch: the splash is a desktop-recording aid. */
 @media (pointer: coarse) {
-	.fake-cursor-arrow,
 	.click-splash {
 		display: none;
 	}

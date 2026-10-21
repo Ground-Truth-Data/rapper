@@ -1,20 +1,15 @@
 <script lang="ts">
 /**
- * The hand-and-shovel pointer, drawn in the DOM in place of the OS cursor.
- * A CSS `cursor: url(...)` flickers against the OS-reported cursor under
- * screen recorders, so the native pointer is hidden (`body.shovel-cursor`
- * in mobile.css) and this is the only visible one. A click adds an
- * expanding ring, so a recorded tap shows WHEN as well as where.
- *
- * Hovering is the plain OS arrow. Only a map press shows the hand, held by
- * a drawn arrow up its handle: the arrow tip is the real pointer.
- *
- * A map press (doubleTapToPin.ts emits `gc-press`) turns the hand gold and
- * fills a HoldRing on its fingertip; held still it fires the snake
- * ruler. Moving past slop drops the ring and the hand opens, then fists, for
- * the rest of that press. A hold (`aim`), mouse or finger alike, reaches the
- * hand away from the pointer with the ring and coordinates on its fingertip.
- * On touch the hand shows only during a map press.
+ * The hand-and-shovel, drawn in the DOM beside the OS arrow, never instead of
+ * it. The pointer holds the shovel handle and the fingertip, up-left of it,
+ * is what clicks. A map press (doubleTapToPin.ts emits `gc-press`) plants the
+ * hand gold and fills a HoldRing on its fingertip; held still it fires the
+ * snake ruler there. Moving past slop pans the map, and the hand opens,
+ * then fists, riding the pointer. Let go and the hand stays LINGER_MS: grab
+ * it by the palm to drag it anywhere, press it and hold to fire the ruler at
+ * its fingertip. Mouse and finger behave the same, so the desktop rehearses
+ * the phone. A tap that opens a feature (`drop`) takes the hand away. A
+ * click adds an expanding ring, so a recorded tap shows WHEN as well as where.
  */
 import { onMount } from "svelte";
 import HoldRing from "./HoldRing.svelte";
@@ -35,37 +30,52 @@ const FRAMES: [Frame, string][] = [
 const GRAB_OPEN_MS = 100;
 const LET_GO_OPEN_MS = 250;
 const RETRACT_MS = 300;
+// Left on the map after a press, so a missed aim is dragged into place instead of pressed again.
+const LINGER_MS = 2000;
+// = SLOP_PX in doubleTapToPin.ts: past this a press on the hand is a drag, not a hold.
+const SLOP_PX = 14;
 // In px from the image's top-left at the rendered 72×100; every frame shares the one box.
 const TIP_X = 11;
 const TIP_Y = 5;
 const GRIP_X = 50;
 const GRIP_Y = 72;
+// Pointer (on the grip) to fingertip. = TIP_DX/TIP_DY in doubleTapToPin.ts, which commits the hold there.
+const REACH = { dx: TIP_X - GRIP_X, dy: TIP_Y - GRIP_Y };
+// A tap on the hand this soon after the press that planted it is that press's double-click.
+const DBL_MS = 500;
 // A plain click never sees the ring: it shows from three o'clock on.
 const SHOW_AT = 3 / 12;
-const EXTEND_MS = 160;
+// A finished ring stays this long after the lift: the hold landed and the ruler has taken over.
+const FLASH_MS = 1000;
 
 let el: HTMLDivElement | undefined = $state();
+let palm: HTMLDivElement | undefined = $state();
 let frame: Frame = $state("point");
 let pressing = $state(false);
-let ring: { x: number; y: number; progress: number; done: boolean } | null = $state(null);
-// A touch hold's arm: the hand reaches from the finger and the ring rides its fingertip.
-let aim: { label: string; flipY: boolean } | null = $state(null);
+let linger = $state(false);
+let ring: { x: number; y: number; progress: number; done: boolean; flash?: boolean } | null = $state(null);
+// A completed hold: the ring rides the pointer with its coordinates until the lift commits.
+let aim: { label: string } | null = $state(null);
 
 $effect(() => {
 	document.body.classList.toggle("gc-map-pressing", pressing);
 });
 
 onMount(() => {
-	document.body.classList.add("shovel-cursor");
 	let frameTimer: ReturnType<typeof setTimeout> | undefined;
 	let raf = 0;
 	let dragging = false;
+	// Where the fingertip was last put, and the hold length the map last armed with.
+	let at = { x: 0, y: 0 };
+	let holdMs = 1200;
+	let releasedAt = 0;
+	// A press on the lingering hand: pointer-to-fingertip offset, and whether it has become a drag.
+	let grab: { dx: number; dy: number; x0: number; y0: number; moved: boolean; timer: ReturnType<typeof setTimeout> } | null = null;
 
-	const place = (x: number, y: number, sx = 1, sy = 1) => {
+	const place = (x: number, y: number) => {
 		if (!el) return;
-		// A hold's arm puts the fingertip on its target; otherwise the grip rides the pointer.
-		const [hx, hy] = aim ? [TIP_X, TIP_Y] : [GRIP_X, GRIP_Y];
-		el.style.transform = `translate3d(${x - hx}px, ${y - hy}px, 0) scale(${sx}, ${sy})`;
+		at = { x, y };
+		el.style.transform = `translate3d(${x - TIP_X}px, ${y - TIP_Y}px, 0)`;
 		if (el.style.visibility !== "visible") el.style.visibility = "visible";
 	};
 	// Linear from `from` to `to` over `ms`, then `then`.
@@ -85,63 +95,70 @@ onMount(() => {
 		cancelAnimationFrame(raf);
 		ring = null;
 	};
+	const flashRing = () => {
+		cancelAnimationFrame(raf);
+		ring = { ...at, progress: 1, done: true, flash: true };
+		setTimeout(() => ring?.flash && (ring = null), FLASH_MS);
+	};
 
-	const release = () => {
+	const hide = () => {
 		clearTimeout(frameTimer);
-		if (!dragging) {
-			frame = "point";
-			pressing = false;
-			return;
-		}
+		pressing = linger = false;
+		frame = "point";
+	};
+	const release = () => {
+		if (!pressing) return;
+		clearTimeout(frameTimer);
+		frame = dragging ? "open" : "point";
 		dragging = false;
-		frame = "open";
+		releasedAt = performance.now();
 		frameTimer = setTimeout(() => {
 			frame = "point";
-			pressing = false;
+			linger = true;
+			frameTimer = setTimeout(hide, LINGER_MS);
 		}, LET_GO_OPEN_MS);
 	};
 
-	const stopAim = () => {
-		aim = null;
-		pressing = false;
-		frame = "point";
-		if (el) el.style.transition = "";
-		dropRing();
-	};
-
 	const onPress = (e: Event) => {
-		const { phase, x, y, ms, label = "", flipX = false, flipY = false } = (
-			e as CustomEvent<{ phase: "arm" | "drag" | "end" | "aim"; x: number; y: number; ms: number; label?: string; flipX?: boolean; flipY?: boolean }>
+		const { phase, x, y, ms, label = "" } = (
+			e as CustomEvent<{ phase: "arm" | "drag" | "end" | "aim" | "drop"; x: number; y: number; ms: number; label?: string }>
 		).detail;
 		if (phase === "aim") {
-			if (!aim && el) {
+			if (!aim) {
 				clearTimeout(frameTimer);
 				cancelAnimationFrame(raf);
 				navigator.vibrate?.(10);
-				el.style.transition = `transform ${EXTEND_MS}ms ease-out`;
-				frameTimer = setTimeout(() => el && (el.style.transition = ""), EXTEND_MS);
 			}
 			pressing = true;
 			frame = "point";
-			aim = { label, flipY };
+			aim = { label };
 			ring = { x, y, progress: 1, done: true };
-			place(x, y, flipX ? -1 : 1, flipY ? -1 : 1);
+			place(x, y);
+		} else if (phase === "drop") {
+			dropRing();
+			hide();
 		} else if (phase === "end" && aim) {
-			stopAim();
+			// The lift seeds the ruler; its own hand takes over from this one.
+			aim = null;
+			flashRing();
+			hide();
 		} else if (phase === "arm") {
 			clearTimeout(frameTimer);
 			dropRing();
 			dragging = false;
 			pressing = true;
+			linger = false;
+			holdMs = ms;
 			frame = "gold";
-			place(x, y);
-			ring = { x: x - GRIP_X + TIP_X, y: y - GRIP_Y + TIP_Y, progress: 0, done: false };
+			place(x + REACH.dx, y + REACH.dy);
+			ring = { ...at, progress: 0, done: false };
 			animateRing(0, 1, ms);
 		} else if (phase === "drag") {
+			// Only a map press pans with the hand; a ruler handle's drag (no arm first) is its own hand.
+			if (!pressing) return;
 			dropRing();
 			clearTimeout(frameTimer);
 			dragging = true;
-			pressing = true;
 			frame = "open";
 			frameTimer = setTimeout(() => (frame = "fist"), GRAB_OPEN_MS);
 		} else if (phase === "end") {
@@ -151,13 +168,55 @@ onMount(() => {
 		}
 	};
 
-	const onMouseMove = (e: MouseEvent) => !aim && place(e.clientX, e.clientY);
-	const onTouchMove = (e: TouchEvent) => {
-		const t = e.touches[0];
-		if (pressing && t && !aim) place(t.clientX, t.clientY);
+	// Held still, the grabbed hand fires the ruler at its fingertip (doubleTapToPin plants it).
+	const onPalmDown = (e: PointerEvent) => {
+		if (!linger || !palm) return;
+		e.preventDefault();
+		e.stopPropagation();
+		palm.setPointerCapture(e.pointerId);
+		clearTimeout(frameTimer);
+		linger = false;
+		frame = "gold";
+		ring = { ...at, progress: 0, done: false };
+		animateRing(0, 1, holdMs);
+		grab = {
+			dx: at.x - e.clientX,
+			dy: at.y - e.clientY,
+			x0: e.clientX,
+			y0: e.clientY,
+			moved: false,
+			timer: setTimeout(seedAtTip, holdMs),
+		};
 	};
+	const onPalmMove = (e: PointerEvent) => {
+		if (!grab) return;
+		place(e.clientX + grab.dx, e.clientY + grab.dy);
+		if (grab.moved || Math.hypot(e.clientX - grab.x0, e.clientY - grab.y0) <= SLOP_PX) return;
+		grab.moved = true;
+		// Dragging the hand keeps it pointing gold, ring gone; only a map pan closes it into a fist.
+		clearTimeout(grab.timer);
+		dropRing();
+	};
+	const seedAtTip = () => {
+		grab = null;
+		flashRing();
+		hide();
+		window.dispatchEvent(new CustomEvent("gc-hand-seed", { detail: at }));
+	};
+	const onPalmUp = () => {
+		if (!grab) return;
+		clearTimeout(grab.timer);
+		if (!grab.moved && performance.now() - releasedAt < DBL_MS) return seedAtTip();
+		grab = null;
+		dropRing();
+		release();
+	};
+
+	const onMove = (x: number, y: number) => dragging && !grab && place(x + REACH.dx, y + REACH.dy);
+	const onMouseMove = (e: MouseEvent) => onMove(e.clientX, e.clientY);
+	const onTouchMove = (e: TouchEvent) => e.touches[0] && onMove(e.touches[0].clientX, e.touches[0].clientY);
 	const onMouseLeave = () => {
-		if (el) el.style.visibility = "hidden";
+		if (el && !pressing) el.style.visibility = "hidden";
 	};
 	// Appended to <body> and self-removing, so it needs no state and cannot leak.
 	const onMouseDown = (e: MouseEvent) => {
@@ -169,48 +228,46 @@ onMount(() => {
 		document.body.appendChild(splash);
 	};
 	// pointerup, not mouseup: a ruler handle's preventDefault on pointerdown swallows the mouseup and the moves.
-	const onPointerUp = (e: PointerEvent) => {
-		if (e.pointerType !== "mouse") return;
-		place(e.clientX, e.clientY);
-		if (e.button === 0) release();
-	};
-	const onTouchEnd = (e: TouchEvent) => e.touches.length === 0 && release();
+	const onPointerUp = (e: PointerEvent) => !grab && (e.pointerType !== "mouse" || e.button === 0) && release();
 
 	window.addEventListener("mousemove", onMouseMove, { passive: true });
 	window.addEventListener("mousedown", onMouseDown, { passive: true });
 	window.addEventListener("pointerup", onPointerUp, { passive: true });
+	window.addEventListener("pointercancel", onPointerUp, { passive: true });
 	window.addEventListener("touchmove", onTouchMove, { passive: true, capture: true });
-	window.addEventListener("touchend", onTouchEnd, { passive: true });
-	window.addEventListener("touchcancel", onTouchEnd, { passive: true });
 	window.addEventListener("gc-press", onPress);
 	document.addEventListener("mouseleave", onMouseLeave);
+	palm?.addEventListener("pointerdown", onPalmDown);
+	palm?.addEventListener("pointermove", onPalmMove);
+	palm?.addEventListener("pointerup", onPalmUp);
+	palm?.addEventListener("pointercancel", onPalmUp);
 
 	return () => {
 		clearTimeout(frameTimer);
+		clearTimeout(grab?.timer);
 		cancelAnimationFrame(raf);
 		window.removeEventListener("mousemove", onMouseMove);
 		window.removeEventListener("mousedown", onMouseDown);
 		window.removeEventListener("pointerup", onPointerUp);
+		window.removeEventListener("pointercancel", onPointerUp);
 		window.removeEventListener("touchmove", onTouchMove, true);
-		window.removeEventListener("touchend", onTouchEnd);
-		window.removeEventListener("touchcancel", onTouchEnd);
 		window.removeEventListener("gc-press", onPress);
 		document.removeEventListener("mouseleave", onMouseLeave);
-		document.body.classList.remove("shovel-cursor", "gc-map-pressing");
+		palm?.removeEventListener("pointerdown", onPalmDown);
+		palm?.removeEventListener("pointermove", onPalmMove);
+		palm?.removeEventListener("pointerup", onPalmUp);
+		palm?.removeEventListener("pointercancel", onPalmUp);
+		document.body.classList.remove("gc-map-pressing");
 	};
 });
 </script>
 
-<!-- Hidden until the first mousemove places it. -->
-<div bind:this={el} class="fake-cursor" data-frame={frame} style="visibility: hidden; transform-origin: {TIP_X}px {TIP_Y}px">
+<!-- Hidden until a press places it. -->
+<div bind:this={el} class="fake-cursor" class:linger data-frame={frame} style="visibility: hidden">
 	{#each FRAMES as [name, src] (name)}
 		<img class="fake-cursor-{name}" {src} alt="" draggable="false" />
 	{/each}
-	{#if !aim}
-		<svg class="fake-cursor-arrow" style="left:{GRIP_X - 1}px; top:{GRIP_Y - 1}px" width="14" height="21" viewBox="0 0 14 21" aria-hidden="true">
-			<path d="M1 1v16l4-4 3 7 3-1-3-7h5z" fill="#000" stroke="#fff" stroke-width="1.2" stroke-linejoin="round" />
-		</svg>
-	{/if}
+	<div bind:this={palm} class="fake-cursor-palm"></div>
 </div>
 
 {#if ring && ring.progress >= SHOW_AT}
@@ -218,6 +275,6 @@ onMount(() => {
 		<HoldRing progress={ring.progress} done={ring.done} />
 	</div>
 	{#if aim}
-		<div class="aim-label rt-line-label rt-line-label-total" class:below={aim.flipY} style="left:{ring.x}px; top:{ring.y}px">{aim.label}</div>
+		<div class="aim-label rt-line-label rt-line-label-total" style="left:{ring.x}px; top:{ring.y}px">{aim.label}</div>
 	{/if}
 {/if}
