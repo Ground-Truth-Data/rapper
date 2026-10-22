@@ -21,7 +21,7 @@ export function phoneCountry(): string {
 	if (typeof navigator === "undefined") return "";
 	const spoken = navigator.language ? (new Intl.Locale(navigator.language).maximize().region ?? "") : "";
 	const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-	if (zonesOf(spoken)?.includes(tz)) return (country = spoken);
+	if (spoken && zonesOf(spoken)?.includes(tz)) return (country = spoken);
 	const A = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	for (const a of A) for (const b of A) if (zonesOf(a + b)?.includes(tz)) return (country = a + b);
 	return (country = spoken);
