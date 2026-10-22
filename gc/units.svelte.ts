@@ -5,15 +5,29 @@ import { getLocale } from "$parent/src/lib/paraglide/runtime";
 
 export type Distance = "metric" | "imperial";
 
-// The regions whose locale measures in the US system; the phone's language tag carries its region.
 const IMPERIAL = ["US", "LR", "MM"];
 
-function initial(): Distance {
-	if (typeof navigator === "undefined" || !navigator.language) return "metric";
-	return IMPERIAL.includes(new Intl.Locale(navigator.language).maximize().region ?? "") ? "imperial" : "metric";
+const zonesOf = (region: string): string[] | undefined => {
+	const l = new Intl.Locale(`und-${region}`) as Intl.Locale & { getTimeZones?: () => string[]; timeZones?: string[] };
+	return l.getTimeZones?.() ?? l.timeZones;
+};
+
+let country: string | undefined;
+
+/** Where the phone is: its time zone's country. The language tag is a fallback
+ *  only — browsers say en-US to most English speakers, wherever they are. */
+export function phoneCountry(): string {
+	if (country !== undefined) return country;
+	if (typeof navigator === "undefined") return "";
+	const spoken = navigator.language ? (new Intl.Locale(navigator.language).maximize().region ?? "") : "";
+	const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	if (zonesOf(spoken)?.includes(tz)) return (country = spoken);
+	const A = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	for (const a of A) for (const b of A) if (zonesOf(a + b)?.includes(tz)) return (country = a + b);
+	return (country = spoken);
 }
 
-let value = $state<Distance>(initial());
+let value = $state<Distance>(IMPERIAL.includes(phoneCountry()) ? "imperial" : "metric");
 
 export const distance = {
 	get value() {
