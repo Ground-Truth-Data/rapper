@@ -174,7 +174,7 @@ $effect(() => {
 		<div class="x"></div>
 	</div>
 	<svg
-		class="ring"
+		class="ticks"
 		width={RING_W + 2 * M}
 		height={RING_H + 2 * M}
 		viewBox="{-M} {-M} {RING_W + 2 * M} {RING_H + 2 * M}"
@@ -283,7 +283,8 @@ $effect(() => {
 		width: 22px;
 		height: 1px;
 	}
-	.ring {
+	/* Not `.ring`: Tailwind's utility of that name would draw a 1px box round the svg. */
+	.ticks {
 		position: absolute;
 		overflow: visible;
 	}

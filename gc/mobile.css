@@ -697,12 +697,31 @@ body.shovel-cursor .fake-cursor {
 	opacity: 1;
 }
 
-/* ShovelCursor's HoldRing, centred on its point; the scale is inline, shared with the Loupe's copy. */
-.hold-ring-at {
+/* The held finger, under ShovelCursor's Loupe. */
+.touch-halo {
 	position: fixed;
-	opacity: 0.9;
+	width: 46px;
+	height: 46px;
+	margin: -23px 0 0 -23px;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.16);
+	box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
 	pointer-events: none;
-	z-index: 2147483646;
+	z-index: 2147483645;
+}
+/* The hold's coordinates, top-left of the map; ShovelCursor places it. */
+.coord-chip {
+	position: fixed;
+	padding: 3px 8px 2px;
+	border-radius: 7px;
+	background: rgba(18, 19, 16, 0.74);
+	-webkit-backdrop-filter: blur(8px);
+	backdrop-filter: blur(8px);
+	color: #fff;
+	font: 600 12px/1.3 var(--rt-font-display);
+	font-variant-numeric: tabular-nums;
+	pointer-events: none;
+	z-index: 2147483645;
 }
 
 /* Shows WHEN a tap lands, not just where. Created/self-removed by ShovelCursor.svelte. */
