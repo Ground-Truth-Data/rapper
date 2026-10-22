@@ -659,6 +659,13 @@ hr {
 	}
 }
 
+/* ONE cursor only: a two-variant version flickered on GPU texture swaps during screen recording. */
+body.mobile-app,
+body.mobile-app *,
+body.shovel-cursor,
+body.shovel-cursor * {
+	cursor: none !important;
+}
 .fake-cursor {
 	position: fixed;
 	top: 0;
@@ -672,18 +679,9 @@ hr {
 	user-select: none;
 	-webkit-user-drag: none;
 }
-body.gc-map-pressing .fake-cursor {
+body.mobile-app .fake-cursor,
+body.shovel-cursor .fake-cursor {
 	display: block;
-}
-/* The lingering hand's grab area: palm and handle, clear of the fingertip so a second click there reaches the map. */
-.fake-cursor-palm {
-	position: absolute;
-	inset: 20px 0 0 18px;
-	touch-action: none;
-}
-.fake-cursor.linger .fake-cursor-palm {
-	pointer-events: auto;
-	cursor: grab;
 }
 .fake-cursor img {
 	position: absolute;
@@ -699,18 +697,11 @@ body.gc-map-pressing .fake-cursor {
 	opacity: 1;
 }
 
-/* ShovelCursor's HoldRing, centred on its point. */
+/* ShovelCursor's HoldRing, centred on its point; the scale is inline, shared with the Loupe's copy. */
 .hold-ring-at {
 	position: fixed;
-	transform: translate(-50%, -50%) scale(0.6);
 	opacity: 0.9;
 	pointer-events: none;
-	z-index: 2147483646;
-}
-/* A completed hold's coordinates, above its ring. */
-.aim-label {
-	position: fixed;
-	transform: translate(-50%, calc(-100% - 30px));
 	z-index: 2147483646;
 }
 
@@ -737,10 +728,22 @@ body.gc-map-pressing .fake-cursor {
 		transform: scale(2.6);
 	}
 }
-/* Touch: the splash is a desktop-recording aid. */
+/* Touch devices: real cursor and feedback; the fake hand and splash are a desktop-recording aid. */
 @media (pointer: coarse) {
+	body.mobile-app,
+	body.mobile-app *,
+	body.shovel-cursor,
+	body.shovel-cursor * {
+		cursor: auto !important;
+	}
+	body.mobile-app .fake-cursor,
+	body.shovel-cursor .fake-cursor,
 	.click-splash {
 		display: none;
+	}
+	/* Except under the finger during a map press, so the hold reads on a phone too. */
+	body.shovel-cursor.gc-map-pressing .fake-cursor {
+		display: block;
 	}
 }
 
