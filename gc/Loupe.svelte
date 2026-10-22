@@ -103,14 +103,17 @@ let {
 	x,
 	y,
 	since,
+	paused = false,
 	out = false,
-}: { src: HTMLCanvasElement; x: number; y: number; since: number; out?: boolean } = $props();
+}: { src: HTMLCanvasElement; x: number; y: number; since: number; paused?: boolean; out?: boolean } = $props();
 
 let lens: HTMLCanvasElement | undefined = $state();
 let edge: HTMLCanvasElement | undefined = $state();
 let on = $state(false);
 let lit = $state(0);
 let locked = $state(false);
+// The clock stops where the finger left it, so a paused ring holds its count.
+let frozen = 0;
 const at = $derived(loupeAt(x, y, window.innerWidth));
 const left = $derived(at.x - LOUPE_W / 2);
 const top = $derived(at.y - LOUPE_H / 2);
@@ -146,7 +149,8 @@ $effect(() => {
 			ctx?.clearRect(0, 0, canvas.width, canvas.height);
 			ctx?.drawImage(src, f.sx, f.sy, f.sw, f.sh, f.dx, f.dy, f.dw, f.dh);
 		}
-		const p = Math.min(1, (performance.now() - since) / HOLD_MS);
+		const now = paused ? (frozen ||= performance.now()) : performance.now();
+		const p = Math.min(1, (now - since) / HOLD_MS);
 		lit = Math.floor(p * TICKS + 1e-6);
 		if (p >= 1 && !locked) {
 			locked = true;

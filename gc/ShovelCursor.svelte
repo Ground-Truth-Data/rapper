@@ -42,14 +42,23 @@ const GRAB_OPEN_MS = 100;
 const LET_GO_OPEN_MS = 250;
 // The lens shrinks into the finger over 180 ms (Loupe.svelte); gone once that has played.
 const LOUPE_OUT_MS = 200;
+// Lifted before the ring filled, the lens lingers with the ring frozen so the half-lit ticks can be read.
+const LOUPE_PAUSE_MS = 700;
 
 let el: HTMLDivElement | undefined = $state();
 let frame: Frame = $state("point");
 let pressing = $state(false);
 // The hold under the finger: the map canvas the lens reads, and when the finger last came to rest.
-let loupe: { x: number; y: number; src: HTMLCanvasElement; since: number; out: boolean } | null = $state(null);
-// The coordinates, top-left of the map canvas rather than the window, so the desktop's phone frame holds it too.
-let chip: { text: string; x: number; y: number } | null = $state(null);
+// The chip (the coordinates) sits top-left of the map canvas rather than the window, so the desktop's phone frame holds it too.
+let loupe: {
+	x: number;
+	y: number;
+	src: HTMLCanvasElement;
+	since: number;
+	chip: { text: string; x: number; y: number };
+	paused: boolean;
+	out: boolean;
+} | null = $state(null);
 
 $effect(() => {
 	document.body.classList.toggle("gc-map-pressing", pressing);
@@ -99,7 +108,6 @@ onMount(() => {
 			clearTimeout(frameTimer);
 			clearTimeout(outTimer);
 			loupe = null;
-			chip = null;
 			dragging = false;
 			pressing = !veiled;
 			frame = "gold";
@@ -112,20 +120,23 @@ onMount(() => {
 			frameTimer = setTimeout(() => (frame = "fist"), GRAB_OPEN_MS);
 		} else if (phase === "aim" && canvas) {
 			pressing = true;
-			loupe = { x, y, src: canvas, since, out: false };
 			// The canvas runs under the top bar; MapTopControls measures that bar into --top-bar-h.
 			const r = canvas.getBoundingClientRect();
 			const bar = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--top-bar-h")) || 0;
-			chip = { text: label, x: r.left + 14, y: r.top + bar + 8 };
-		} else if (phase === "end") {
-			if (loupe) {
-				loupe.out = true;
+			const chip = { text: label, x: r.left + 14, y: r.top + bar + 8 };
+			loupe = { x, y, src: canvas, since, chip, paused: false, out: false };
+		} else if (phase === "end" && loupe) {
+			const out = () => {
+				if (loupe) loupe.out = true;
 				outTimer = setTimeout(() => (loupe = null), LOUPE_OUT_MS);
+			};
+			if (locked) out();
+			else {
+				loupe.paused = true;
+				outTimer = setTimeout(out, LOUPE_PAUSE_MS);
 			}
-			if (!locked) chip = null;
 		} else {
 			loupe = null;
-			chip = null;
 		}
 	};
 
@@ -174,11 +185,11 @@ onMount(() => {
 </div>
 
 {#if loupe}
-	{#if !loupe.out}
+	{#if !loupe.paused && !loupe.out}
 		<div class="touch-halo" style="left:{loupe.x}px; top:{loupe.y}px"></div>
 	{/if}
-	<Loupe src={loupe.src} x={loupe.x} y={loupe.y} since={loupe.since} out={loupe.out} />
-{/if}
-{#if chip}
-	<div class="coord-chip" style="left:{chip.x}px; top:{chip.y}px">{chip.text}</div>
+	<Loupe src={loupe.src} x={loupe.x} y={loupe.y} since={loupe.since} paused={loupe.paused} out={loupe.out} />
+	{#if !loupe.out}
+		<div class="coord-chip" style="left:{loupe.chip.x}px; top:{loupe.chip.y}px">{loupe.chip.text}</div>
+	{/if}
 {/if}
