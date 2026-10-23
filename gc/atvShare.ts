@@ -219,9 +219,12 @@ export function playAtvShare(btn: HTMLElement, exit: Exit = "auto"): void {
 	const hostRight = Math.max(a.x, b.x);
 	const hostTop = Math.min(a.y, b.y);
 	const hostBottom = Math.max(a.y, b.y);
+	// From the sprite's tucked-in start to fully past the edge; + imgH because a turned quad's corner trails its unturned edge.
 	const run =
 		(dir === "right" ? hostRight - (bx + w) : bx - hostLeft) +
-		SPRITE_W * scale;
+		overlap +
+		SPRITE_W * scale +
+		imgH;
 
 	const driftUp = by - hostTop;
 	const driftDown = hostBottom - (by + h);
@@ -252,7 +255,9 @@ function drive(img: HTMLImageElement, legs: Leg[], scale: number, sx: 1 | -1, cl
 		const next = legs[i + 1];
 		if (next) {
 			const lead = Math.min(leadPx, l.len / 2, next.len / 2);
-			turns.push({ offset: (acc + l.len - lead) / total, rotate: deg(l.heading), easing: "ease-in-out" });
+			// Rounding can land this a hair before the last turn's end, and animate() refuses a list that steps back.
+			const start = Math.max(turns.at(-1)?.offset as number, (acc + l.len - lead) / total);
+			turns.push({ offset: start, rotate: deg(l.heading), easing: "ease-in-out" });
 			turns.push({ offset: (acc + l.len + lead) / total, rotate: deg(next.heading) });
 		}
 		acc += l.len;
@@ -262,11 +267,16 @@ function drive(img: HTMLImageElement, legs: Leg[], scale: number, sx: 1 | -1, cl
 
 	// Two animations so the turn can ease without the quad's speed easing with it.
 	const timing = { duration: durMs, easing: "linear", fill: "forwards" } as const;
-	img.animate(turns, timing);
-	const anim = img.animate(moves, timing);
-	anim.addEventListener("finish", () => setTimeout(cleanup, SETTLE_MS));
 	// A backgrounded tab freezes the WAAPI clock and `finish` never lands.
-	setTimeout(cleanup, durMs + SETTLE_MS + 1500);
+	const fallback = setTimeout(cleanup, durMs + SETTLE_MS + 1500);
+	try {
+		img.animate(turns, timing);
+		img.animate(moves, timing).addEventListener("finish", () => setTimeout(cleanup, SETTLE_MS));
+	} catch (e) {
+		clearTimeout(fallback);
+		cleanup();
+		throw e;
+	}
 }
 
 const ROAM_H = 48;
