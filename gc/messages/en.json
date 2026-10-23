@@ -7,5 +7,20 @@
 	"gc_search_clear": "Clear",
 	"gc_edit_replaced": "Your edit was replaced",
 	"gc_edited_by": "edited by {name}",
-	"gc_edited_since_made": "Edited since it was made"
+	"gc_edited_since_made": "Edited since it was made",
+	"gc_mapbox_attribution_toggle": "Toggle attribution",
+	"gc_mapbox_fullscreen_enter": "Enter fullscreen",
+	"gc_mapbox_fullscreen_exit": "Exit fullscreen",
+	"gc_mapbox_find_my_location": "Find my location",
+	"gc_mapbox_location_not_available": "Location not available",
+	"gc_mapbox_logo_title": "Mapbox homepage",
+	"gc_mapbox_map_title": "Map",
+	"gc_mapbox_reset_bearing": "Reset bearing to north",
+	"gc_mapbox_zoom_in": "Zoom in",
+	"gc_mapbox_zoom_out": "Zoom out",
+	"gc_mapbox_scroll_zoom_cmd": "Use ⌘ + scroll to zoom the map",
+	"gc_mapbox_scroll_zoom_ctrl": "Use ctrl + scroll to zoom the map",
+	"gc_mapbox_touch_pan": "Use two fingers to move the map",
+	"gc_mapbox_marker_title": "Map marker",
+	"gc_mapbox_popup_close": "Close popup"
 }

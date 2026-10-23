@@ -7,5 +7,20 @@
 	"gc_search_clear": "Effacer",
 	"gc_edit_replaced": "Votre modification a été remplacée",
 	"gc_edited_by": "modifié par {name}",
-	"gc_edited_since_made": "Modifié depuis sa création"
+	"gc_edited_since_made": "Modifié depuis sa création",
+	"gc_mapbox_attribution_toggle": "Afficher ou masquer les crédits",
+	"gc_mapbox_fullscreen_enter": "Plein écran",
+	"gc_mapbox_fullscreen_exit": "Quitter le plein écran",
+	"gc_mapbox_find_my_location": "Trouver ma position",
+	"gc_mapbox_location_not_available": "Position non disponible",
+	"gc_mapbox_logo_title": "Page d’accueil de Mapbox",
+	"gc_mapbox_map_title": "Carte",
+	"gc_mapbox_reset_bearing": "Réorienter vers le nord",
+	"gc_mapbox_zoom_in": "Zoom avant",
+	"gc_mapbox_zoom_out": "Zoom arrière",
+	"gc_mapbox_scroll_zoom_cmd": "Utilisez ⌘ + défilement pour zoomer",
+	"gc_mapbox_scroll_zoom_ctrl": "Utilisez ctrl + défilement pour zoomer",
+	"gc_mapbox_touch_pan": "Utilisez deux doigts pour déplacer la carte",
+	"gc_mapbox_marker_title": "Marqueur de carte",
+	"gc_mapbox_popup_close": "Fermer la fenêtre"
 }
