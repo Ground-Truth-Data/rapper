@@ -135,9 +135,19 @@ onMount(() => {
 				loupe.paused = true;
 				outTimer = setTimeout(out, LOUPE_PAUSE_MS);
 			}
+			if (!dragging) release();
 		} else {
 			loupe = null;
+			if (!dragging) release();
 		}
+	};
+	// A second finger is a pinch: no press, no lens, no hand.
+	const onPointerDown = (e: PointerEvent) => {
+		if (e.isPrimary) return;
+		clearTimeout(outTimer);
+		loupe = null;
+		dragging = false;
+		release();
 	};
 
 	// Pointer, not mouse, events: a ruler hand cancels its pointerdown, which silences the mouse events for that drag.
@@ -157,6 +167,7 @@ onMount(() => {
 	const onPointerUp = (e: PointerEvent) => (e.pointerType !== "mouse" || e.button === 0) && release();
 
 	window.addEventListener("pointermove", onPointerMove, { passive: true, capture: true });
+	window.addEventListener("pointerdown", onPointerDown, { passive: true, capture: true });
 	window.addEventListener("mousedown", onMouseDown, { passive: true });
 	window.addEventListener("pointerup", onPointerUp, { passive: true });
 	window.addEventListener("pointercancel", onPointerUp, { passive: true });
@@ -167,6 +178,7 @@ onMount(() => {
 		clearTimeout(frameTimer);
 		clearTimeout(outTimer);
 		window.removeEventListener("pointermove", onPointerMove, true);
+		window.removeEventListener("pointerdown", onPointerDown, true);
 		window.removeEventListener("mousedown", onMouseDown);
 		window.removeEventListener("pointerup", onPointerUp);
 		window.removeEventListener("pointercancel", onPointerUp);

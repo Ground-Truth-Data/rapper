@@ -98,6 +98,9 @@ export function capsuleTicks(n = TICKS) {
 </script>
 
 <script lang="ts">
+import handGold from "./assets/hand_gold.webp";
+import { HOTSPOT_X, HOTSPOT_Y } from "./ShovelCursor.svelte";
+
 let {
 	src,
 	x,
@@ -169,12 +172,13 @@ $effect(() => {
 	class:on={on && !out}
 	class:out
 	class:locked
-	style="left:{left}px; top:{top}px; transform-origin:{x - left}px {y - top}px"
+	style="left:{left}px; top:{top}px; transform-origin:{x - left}px {y - top}px; --hx:{HOTSPOT_X}px; --hy:{HOTSPOT_Y}px"
 >
 	<div class="lens" class:pulse={locked}>
 		<canvas bind:this={lens}></canvas>
 		<canvas class="edge" bind:this={edge}></canvas>
 		<div class="rim"></div>
+		<img class="finger" src={handGold} alt="" draggable="false" />
 		<div class="x"></div>
 	</div>
 	<svg
@@ -259,6 +263,14 @@ $effect(() => {
 			inset -4px 0 5px -2px rgba(60, 170, 255, 0.55),
 			inset 0 4px 5px -2px rgba(255, 230, 120, 0.35);
 		background: radial-gradient(120% 80% at 28% 6%, rgba(255, 255, 255, 0.2), transparent 42%);
+	}
+	/* The finger itself, its tip on the crosshair, so the lens shows what it is touching. */
+	.finger {
+		position: absolute;
+		left: calc(50% - var(--hx));
+		top: calc(50% - var(--hy));
+		width: 72px;
+		opacity: 0.85;
 	}
 	.x {
 		position: absolute;
