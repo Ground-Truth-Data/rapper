@@ -460,6 +460,13 @@ hr {
 .rt-icon-btn--share[aria-expanded="true"] {
 	background: var(--rt-yellow-soft);
 }
+/* A side sheet's header trio: borderless, the icon alone, a soft fill when pressed. */
+.rt-icon-btn--bare {
+	width: 40px;
+	height: 40px;
+	background: none;
+	border: 0;
+}
 /* The bin sits in the gold row a shade quieter: thinner, red, faint. */
 .rt-icon-btn--delete {
 	color: var(--rt-red, #e0533d);
