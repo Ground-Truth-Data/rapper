@@ -3,8 +3,10 @@
 import { page } from "$app/state";
 import { render } from "@testing-library/svelte";
 import { createRawSnippet } from "svelte";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import HostChrome from "./HostChrome.svelte";
+
+vi.mock("$app/state", () => ({ page: { url: new URL("http://x/app/menu") } }));
 
 const body = createRawSnippet(() => ({ render: () => `<p id="c">child</p>` }));
 afterEach(() => void (page.url = new URL("http://x/app/menu")));

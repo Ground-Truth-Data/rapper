@@ -6,6 +6,8 @@ import { createRawSnippet, flushSync } from "svelte";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import Layout from "./Layout.svelte";
 
+vi.mock("$app/state", () => ({ page: { url: new URL("http://x/app/menu") } }));
+
 afterEach(() => {
 	cleanup();
 	vi.unstubAllEnvs();

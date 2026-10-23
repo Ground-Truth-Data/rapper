@@ -6,6 +6,8 @@ import { createRawSnippet, flushSync } from "svelte";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import EphemeralDock from "./EphemeralDock.svelte";
 
+vi.mock("$app/state", () => ({ page: { url: new URL("http://x/app/menu") } }));
+
 const children = createRawSnippet(() => ({ render: () => `<p class="inst">gauges</p>` }));
 afterEach(() => {
 	cleanup();

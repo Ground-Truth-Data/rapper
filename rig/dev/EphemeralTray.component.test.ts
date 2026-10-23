@@ -7,6 +7,8 @@ import { flushSync } from "svelte";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import EphemeralTray from "./EphemeralTray.svelte";
 
+vi.mock("$app/state", () => ({ page: { url: new URL("http://x/app/menu") } }));
+
 beforeEach(() => {
 	sessionStorage.clear();
 	vi.stubGlobal("ResizeObserver", class { observe() {} disconnect() {} });

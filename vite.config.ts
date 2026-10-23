@@ -1,5 +1,6 @@
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import { sveltekit } from "@sveltejs/kit/vite";
+import { svelteTesting } from "@testing-library/svelte/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -129,6 +130,7 @@ return {
 			strategy: ["preferredLanguage", "baseLocale"],
 		}),
 		sveltekit(),
+		svelteTesting(),
 	],
 
 	// Keys MUST be import.meta.env.VITE_*, not bare globals: a bare __X__ throws
