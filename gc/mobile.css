@@ -456,7 +456,8 @@ hr {
 	color: var(--rt-yellow);
 	border-color: var(--rt-yellow);
 }
-.rt-icon-btn--share:active {
+.rt-icon-btn--share:active,
+.rt-icon-btn--share[aria-expanded="true"] {
 	background: var(--rt-yellow-soft);
 }
 /* The bin sits in the gold row a shade quieter: thinner, red, faint. */
