@@ -1,4 +1,4 @@
-<!-- The map under the finger, magnified in a glass capsule floated above it, ringed by 36 ruler ticks that light clockwise while the finger holds still. A view, not an object: the crosshair is the finger's own point. -->
+<!-- The map under the finger, magnified in a glass capsule floated above it, ringed by 36 ruler ticks that light clockwise while the finger holds still. A view, not an object: the finger's own tip is the point. -->
 <script module lang="ts">
 export const LOUPE_W = 150;
 export const LOUPE_H = 96;
@@ -108,12 +108,13 @@ let {
 	since,
 	paused = false,
 	out = false,
-}: { src: HTMLCanvasElement; x: number; y: number; since: number; paused?: boolean; out?: boolean } = $props();
+}: { src: HTMLCanvasElement; x: number; y: number; since?: number; paused?: boolean; out?: boolean } = $props();
 
 let lens: HTMLCanvasElement | undefined = $state();
 let edge: HTMLCanvasElement | undefined = $state();
 let on = $state(false);
-let lit = $state(0);
+let prog = $state(0);
+const lit = $derived(Math.floor(prog * TICKS + 1e-6));
 let locked = $state(false);
 // The clock stops where the finger left it, so a paused ring holds its count.
 let frozen = 0;
@@ -153,8 +154,9 @@ $effect(() => {
 			ctx?.drawImage(src, f.sx, f.sy, f.sw, f.sh, f.dx, f.dy, f.dw, f.dh);
 		}
 		const now = paused ? (frozen ||= performance.now()) : performance.now();
-		const p = Math.min(1, (now - since) / HOLD_MS);
-		lit = Math.floor(p * TICKS + 1e-6);
+		// No clock (a hand drag): the ring stays dark.
+		const p = since === undefined ? 0 : Math.min(1, (now - since) / HOLD_MS);
+		prog = p;
 		if (p >= 1 && !locked) {
 			locked = true;
 			navigator.vibrate?.(12);
@@ -179,7 +181,6 @@ $effect(() => {
 		<canvas class="edge" bind:this={edge}></canvas>
 		<div class="rim"></div>
 		<img class="finger" src={handGold} alt="" draggable="false" />
-		<div class="x"></div>
 	</div>
 	<svg
 		class="ticks"
@@ -190,6 +191,7 @@ $effect(() => {
 		aria-hidden="true"
 	>
 		<path class="band" d={RING_D} />
+		<path class="trace" d={RING_D} pathLength="100" style="stroke-dashoffset:{100 - 100 * prog}" />
 		{#each ticks as t, k}
 			<line class:major={t.major} class:lit={k < lit} x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2} />
 		{/each}
@@ -272,33 +274,6 @@ $effect(() => {
 		width: 72px;
 		opacity: 0.85;
 	}
-	.x {
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		width: 22px;
-		height: 22px;
-		margin: -11px 0 0 -11px;
-	}
-	.x::before,
-	.x::after {
-		content: "";
-		position: absolute;
-		background: #fff;
-		box-shadow: 0 0 1.5px rgba(0, 0, 0, 0.8);
-	}
-	.x::before {
-		left: 10.5px;
-		top: 0;
-		width: 1px;
-		height: 22px;
-	}
-	.x::after {
-		top: 10.5px;
-		left: 0;
-		width: 22px;
-		height: 1px;
-	}
 	/* Not `.ring`: Tailwind's utility of that name would draw a 1px box round the svg. */
 	.ticks {
 		position: absolute;
@@ -309,14 +284,26 @@ $effect(() => {
 		stroke: rgba(22, 23, 20, 0.5);
 		stroke-width: 9;
 	}
+	/* The gold line creeps round under the ticks as the hold fills. */
+	.trace {
+		fill: none;
+		stroke: #f3c61e;
+		stroke-width: 2.5;
+		stroke-linecap: round;
+		stroke-dasharray: 100;
+		filter: drop-shadow(0 0 1.5px rgba(0, 0, 0, 0.55));
+	}
+	.locked .trace {
+		filter: drop-shadow(0 0 4px rgba(243, 198, 30, 0.9));
+	}
 	line {
 		stroke: rgba(255, 255, 255, 0.22);
-		stroke-width: 1.6;
+		stroke-width: 2;
 		stroke-linecap: butt;
 		transition: stroke 0.06s;
 	}
 	line.major {
-		stroke-width: 2.4;
+		stroke-width: 3;
 	}
 	line.lit {
 		stroke: #fff;

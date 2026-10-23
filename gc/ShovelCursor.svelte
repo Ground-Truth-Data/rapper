@@ -54,7 +54,7 @@ let loupe: {
 	x: number;
 	y: number;
 	src: HTMLCanvasElement;
-	since: number;
+	since?: number;
 	chip: { text: string; x: number; y: number };
 	paused: boolean;
 	out: boolean;
@@ -92,7 +92,7 @@ onMount(() => {
 	};
 
 	const onPress = (e: Event) => {
-		const { phase, x, y, canvas, label = "", since = 0, locked = false, veiled = false } = (
+		const { phase, x, y, canvas, label = "", since, locked = false, veiled = false } = (
 			e as CustomEvent<{
 				phase: "arm" | "drag" | "aim" | "end" | "drop";
 				x: number;
