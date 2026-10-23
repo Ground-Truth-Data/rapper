@@ -17,20 +17,11 @@ components (children) live in their own repos:
 
 ## Get started
 
-Clone the child you want. Each published child carries a copy of rapper as
-`_rapper/` (and any companion child it needs as `_siblings/`), so the clone
-is a complete app:
-
-```bash
-git clone https://github.com/Ground-Truth-Data/getCache_OfflineMap
-cd getCache_OfflineMap
-npm install
-npm run dev
-```
-
-`_rapper/` is **generated** (by `dressChild.sh` in the private workspace) and
-rewritten wholesale on every publish. Change rapper in this repo, never in a
-child's copy.
+A child runs with rapper beside it: rapper serves every child from its
+sibling folders. `dressChild.sh` (private workspace) copies rapper into one
+child as `_rapper/`, plus any companion child as `_siblings/`, so it runs
+alone. Both are generated and never committed: change rapper in this repo,
+never in a child's copy.
 
 ### Environment
 
