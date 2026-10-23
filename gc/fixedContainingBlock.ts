@@ -29,16 +29,24 @@ function accumulated(el: HTMLElement): DOMMatrixReadOnly | null {
 	return m;
 }
 
-function scaleOf(el: HTMLElement, r: DOMRect): number {
+// CSS zoom is a uniform scale no transform matrix shows; the app zooms its shell to fit the pane on every platform.
+function zoomOf(el: Element): number {
+	let z = 1;
+	for (let p: Element | null = el; p; p = p.parentElement) z *= Number.parseFloat(getComputedStyle(p).zoom) || 1;
+	return z;
+}
+
+// The rect/offsetWidth fallback already holds the frame's zoom, so only the matrix path multiplies by it.
+function scaleOf(el: HTMLElement, r: DOMRect, zoom: number): number {
 	const m = accumulated(el);
 	if (m) {
 		const k = Math.hypot(m.a, m.b);
-		if (k > 0) return k;
+		if (k > 0) return k * zoom;
 	}
 	return el.offsetWidth > 0 ? r.width / el.offsetWidth : 1;
 }
 
-/** Converts screen px into local CSS px (dt-web scales the phone by `--fit`); identity on native. */
+/** Converts screen px into local CSS px: dt-web scales the phone by `--fit`, and every platform zooms the shell to fit. */
 export function localFrom(host: Element): {
 	x: (screenX: number) => number;
 	y: (screenY: number) => number;
@@ -49,24 +57,25 @@ export function localFrom(host: Element): {
 	height: number;
 } {
 	const cb = fixedContainingBlock(host);
+	const z = typeof window === "undefined" ? 1 : zoomOf(host);
 	if (!cb) {
 		const w = typeof window === "undefined" ? 0 : window.innerWidth;
 		const h = typeof window === "undefined" ? 0 : window.innerHeight;
 		return {
-			x: (v) => v,
-			y: (v) => v,
-			point: (x, y) => ({ x, y }),
-			k: 1,
+			x: (v) => v / z,
+			y: (v) => v / z,
+			point: (x, y) => ({ x: x / z, y: y / z }),
+			k: z,
 			origin: null,
-			width: w,
-			height: h,
+			width: w / z,
+			height: h / z,
 		};
 	}
 	const r = cb.getBoundingClientRect();
 	const cs = getComputedStyle(cb);
 	const bl = Number.parseFloat(cs.borderLeftWidth) || 0;
 	const bt = Number.parseFloat(cs.borderTopWidth) || 0;
-	const k = scaleOf(cb, r);
+	const k = scaleOf(cb, r, z);
 
 	// `x`/`y` are independent scalars and cannot express a turn; use `point` on landscape routes.
 	const inv = accumulated(cb)?.inverse();
@@ -77,7 +86,7 @@ export function localFrom(host: Element): {
 		// The rect's corner only coincides with the untransformed origin when upright.
 		const o = inv.transformPoint(new DOMPoint(r.left, r.top));
 		const p = inv.transformPoint(new DOMPoint(screenX, screenY));
-		return { x: p.x - o.x - bl, y: p.y - o.y - bt };
+		return { x: (p.x - o.x) / z - bl, y: (p.y - o.y) / z - bt };
 	};
 
 	return {

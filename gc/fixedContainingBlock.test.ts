@@ -46,6 +46,16 @@ describe("localFrom", () => {
 		expect(p.y).toBeCloseTo(96, 6);
 	});
 
+	it("divides by CSS zoom too, which no transform matrix shows", () => {
+		const { cb, el } = nest("transform: scale(2); zoom: 1.5");
+		cb.getBoundingClientRect = () => ({ left: 100, top: 50, width: 900, height: 1800, right: 1000, bottom: 1850, x: 100, y: 50, toJSON: () => ({}) });
+		const l = localFrom(el);
+		expect(l.k).toBeCloseTo(3, 6);
+		expect(l.point(400, 350).x).toBeCloseTo(100, 6);
+		expect(l.point(400, 350).y).toBeCloseTo(100, 6);
+		expect(localFrom(nest("zoom: 2").el).point(10, 20)).toEqual({ x: 5, y: 10 });
+	});
+
 	it("without DOMMatrix, reads the scale from rect over offsetWidth", () => {
 		vi.stubGlobal("DOMMatrixReadOnly", undefined);
 		const { cb, el } = nest("filter: blur(1px)");
