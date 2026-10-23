@@ -461,7 +461,6 @@ hr {
 }
 /* The bin sits in the gold row a shade quieter: thinner, red, faint. */
 .rt-icon-btn--delete {
-	width: 38px;
 	color: var(--rt-red, #e0533d);
 	border: 1.5px solid color-mix(in srgb, var(--rt-red, #e0533d) 70%, transparent);
 }
@@ -470,7 +469,7 @@ hr {
 }
 .rt-icon-btn--truck {
 	width: auto;
-	padding: 0 6px;
+	padding: 0 4px;
 	margin-left: auto;
 	border-color: var(--rt-yellow);
 }
