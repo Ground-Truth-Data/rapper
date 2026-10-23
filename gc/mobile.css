@@ -466,6 +466,16 @@ hr {
 .rt-icon-btn--delete:active {
 	background: color-mix(in srgb, #c0392b 18%, transparent);
 }
+.rt-icon-btn--truck {
+	width: auto;
+	padding: 0 6px;
+	margin-left: auto;
+	border-color: var(--rt-yellow);
+}
+.rt-icon-btn--truck img {
+	height: 22px;
+	width: auto;
+}
 .rt-icon-btn:disabled {
 	color: var(--rt-fg-muted);
 	border-color: var(--rt-border-subtle);
