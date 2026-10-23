@@ -12,7 +12,9 @@ export const HOTSPOT_Y = 5;
  * in mobile.css) and this is the only visible one. A click adds an
  * expanding ring, so a recorded tap shows WHEN as well as where.
  *
- * A map press (doubleTapToPin.ts emits `gc-press`) turns the hand gold.
+ * Any mouse press turns the hand gold; moved past the slop it grabs, open
+ * then fist, and lets go on release. A map press (doubleTapToPin.ts emits
+ * `gc-press`) does the same from the map's own gesture.
  * Held a beat, a Loupe floats above the finger showing the map there
  * magnified, with a halo at the finger and a coordinate chip top-left; its
  * ruler ticks fill while the finger holds still, and the lift then seeds the
@@ -40,6 +42,8 @@ const FRAMES: [Frame, string][] = [
 // A drag's open hand: a flick as it grabs, a beat as it lets go.
 const GRAB_OPEN_MS = 100;
 const LET_GO_OPEN_MS = 250;
+// A mouse moved this far while held is a grab, not a click.
+const DRAG_SLOP_PX = 4;
 // The lens shrinks into the finger over 180 ms (Loupe.svelte); gone once that has played.
 const LOUPE_OUT_MS = 200;
 // Lifted before the ring filled, the lens lingers with the ring frozen so the half-lit ticks can be read.
@@ -69,6 +73,14 @@ onMount(() => {
 	let frameTimer: ReturnType<typeof setTimeout> | undefined;
 	let outTimer: ReturnType<typeof setTimeout> | undefined;
 	let dragging = false;
+	let down: { x: number; y: number } | null = null;
+
+	const grab = () => {
+		clearTimeout(frameTimer);
+		dragging = true;
+		frame = "open";
+		frameTimer = setTimeout(() => (frame = "fist"), GRAB_OPEN_MS);
+	};
 
 	const place = (x: number, y: number) => {
 		if (!el) return;
@@ -113,11 +125,8 @@ onMount(() => {
 			frame = "gold";
 			place(x, y);
 		} else if (phase === "drag") {
-			clearTimeout(frameTimer);
-			dragging = true;
 			pressing = true;
-			frame = "open";
-			frameTimer = setTimeout(() => (frame = "fist"), GRAB_OPEN_MS);
+			grab();
 		} else if (phase === "aim" && canvas) {
 			pressing = true;
 			// The canvas runs under the top bar; MapTopControls measures that bar into --top-bar-h.
@@ -151,11 +160,15 @@ onMount(() => {
 	};
 
 	// Pointer, not mouse, events: a ruler hand cancels its pointerdown, which silences the mouse events for that drag.
-	const onPointerMove = (e: PointerEvent) => (e.pointerType === "mouse" || pressing) && place(e.clientX, e.clientY);
+	const onPointerMove = (e: PointerEvent) => {
+		if (e.pointerType !== "mouse" && !pressing) return;
+		place(e.clientX, e.clientY);
+		if (down && !dragging && e.buttons & 1 && Math.hypot(e.clientX - down.x, e.clientY - down.y) > DRAG_SLOP_PX) grab();
+	};
 	const onMouseLeave = () => {
 		if (el) el.style.visibility = "hidden";
 	};
-	// Appended to <body> and self-removing, so it needs no state and cannot leak.
+	// The splash is appended to <body> and self-removing, so it needs no state and cannot leak.
 	const onMouseDown = (e: MouseEvent) => {
 		const splash = document.createElement("span");
 		splash.className = "click-splash";
@@ -163,8 +176,16 @@ onMount(() => {
 		splash.style.top = `${e.clientY}px`;
 		splash.addEventListener("animationend", () => splash.remove());
 		document.body.appendChild(splash);
+		if (e.button !== 0) return;
+		down = { x: e.clientX, y: e.clientY };
+		clearTimeout(frameTimer);
+		frame = "gold";
 	};
-	const onPointerUp = (e: PointerEvent) => (e.pointerType !== "mouse" || e.button === 0) && release();
+	const onPointerUp = (e: PointerEvent) => {
+		if (e.pointerType === "mouse" && e.button !== 0) return;
+		down = null;
+		release();
+	};
 
 	window.addEventListener("pointermove", onPointerMove, { passive: true, capture: true });
 	window.addEventListener("pointerdown", onPointerDown, { passive: true, capture: true });
