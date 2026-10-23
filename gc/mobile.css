@@ -643,6 +643,7 @@ hr {
 			.plaque-trigger,
 			.placard-trigger,
 			.placard,
+			.tds-scrim,
 			.rt-popover-opt,
 			.rt-row,
 			.rt-row__cell,
@@ -1567,4 +1568,10 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
     background: var(--rt-yellow-bright);
     box-shadow: var(--rt-nav-line);
     pointer-events: none;
+}
+
+/* The faded gold rule between a drawer's major sections. */
+.rt-rule {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--rt-yellow) 45%, transparent), transparent);
 }
