@@ -21,11 +21,7 @@ describe("ParentPill", () => {
 		expect(a.hash).toBe("#14/50/-119");
 	});
 
-	it("greys out when unavailable, and draws nothing without a link", () => {
-		const grey = render(ParentPill, { leftLabel: "A", rightLabel: "B", current: "A", unavailable: true }).container;
-		expect(grey.querySelector(".host-pill.unavailable")!.getAttribute("title")).toContain("B is running");
-		expect(grey.querySelector("a")).toBeNull();
-		cleanup();
+	it("draws nothing without a link", () => {
 		const none = render(ParentPill, { leftLabel: "A", rightLabel: "B", current: "A" }).container;
 		expect(none.querySelector(".host-pill")).toBeNull();
 	});

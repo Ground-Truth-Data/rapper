@@ -1,21 +1,19 @@
 // @vitest-environment happy-dom
 // The dev bar names the child serving this page, lights the current view,
-// links both repos, and greys the tier pill only when the other side says no.
+// and links both repos.
 import { cleanup, render } from "@testing-library/svelte";
-import { flushSync } from "svelte";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import SharedNav from "./SharedNav.svelte";
 
-const base = { owner: "ReTreever", name: "solo", logo: "/l.webp", repo: "fallback_repo", ghIcon: "/gh.png", tier: "ReTreever", otherTier: "rapper" };
+const base = { owner: "ReTreever", name: "solo", logo: "/l.webp", repo: "fallback_repo", ghIcon: "/gh.png" };
 afterEach(() => {
 	cleanup();
 	vi.unstubAllEnvs();
-	vi.unstubAllGlobals();
 });
 
 describe("SharedNav", () => {
 	it("names the serving child, lights the current view and carries the query into each view", () => {
-		const { container } = render(SharedNav, { ...base, pathname: "/where/orgs", search: "?q=1", tierSlot: "right" });
+		const { container } = render(SharedNav, { ...base, pathname: "/where/orgs", search: "?q=1" });
 		expect(container.querySelector(".child-name")!.textContent).toBe("where");
 		expect(container.querySelector<HTMLAnchorElement>("a.home")!.getAttribute("href")).toBe("/where");
 		const views = [...container.querySelectorAll<HTMLAnchorElement>("nav.views a")];
@@ -38,17 +36,9 @@ describe("SharedNav", () => {
 		]);
 	});
 
-	it("probes the other side on the left slot and says when a mounted child does not serve the page", async () => {
+	it("says when a mounted child does not serve the page", () => {
 		vi.stubEnv("VITE_MOUNTED_CHILD", "ReTreever_who_what");
-		const fetchFn = vi.fn(async () => ({ status: 404, ok: false }) as Response);
-		vi.stubGlobal("fetch", fetchFn);
-		const routes = [{ path: "/who", otherPath: "/who" }];
-		const probe = render(SharedNav, { ...base, pathname: "/who/acme", tierSlot: "left", otherHost: "http://o", routes });
-		await vi.waitFor(() => expect(fetchFn).toHaveBeenCalledWith("http://o/who", expect.objectContaining({ method: "HEAD" })));
-		probe.unmount();
-		const { container } = render(SharedNav, { ...base, pathname: "/elsewhere", tierSlot: "left", otherHost: "http://o", routes });
-		flushSync();
-		expect(fetchFn).toHaveBeenCalledTimes(1);
+		const { container } = render(SharedNav, { ...base, pathname: "/elsewhere" });
 		expect(container.querySelector(".off-mount")!.textContent!.trim()).toBe("not served here");
 		expect(container.querySelector<HTMLAnchorElement>("a.home")!.getAttribute("href")).toBe("/who");
 	});
