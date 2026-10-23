@@ -4,7 +4,7 @@ import PhoneRig from "$gc/PhoneRig.svelte";
 import ShovelCursor from "$gc/ShovelCursor.svelte";
 import { Toaster } from "svelte-sonner";
 import { isLandscapeRoute } from "$gc/rigOrientation";
-import { configureTilesFromEnv } from "$parent/siblings/getCache_OfflineMap/lib/worker/worker-local-dev/tilesFromEnv";
+import { configureTilesFromEnv } from "$parent/siblings/getCache_OfflineMap/lib/worker/tilesFromEnv";
 
 configureTilesFromEnv();
 
