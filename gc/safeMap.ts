@@ -186,12 +186,14 @@ export function safeFitBounds(
 
     map.stop();
     // Never fitBounds itself: it hands its padding to the camera, which keeps it
-    // and shoves every later flyTo/offset off-centre. cam.center is the bounds'
-    // own centre, so the padding's lopsidedness becomes a one-off offset instead.
+    // and shoves every later flyTo/offset off-centre, so the padding's
+    // lopsidedness becomes a one-off offset instead. Only the zoom comes from
+    // cameraForBounds: MapLibre's centre already includes the padding shift,
+    // and the offset would apply it twice.
     const p = typeof opts.padding === "object" ? opts.padding : {};
     map.flyTo(
         present({
-            center: cam.center,
+            center: [(sw[0] + ne[0]) / 2, (sw[1] + ne[1]) / 2],
             zoom: cam.zoom,
             bearing: cam.bearing,
             pitch: opts.pitch,
