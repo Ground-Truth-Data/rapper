@@ -4,7 +4,8 @@
   🎬 stage-controls link to the Get Cache host, tier-1 because clicking it
   doesn't change which product you're in. Band 2 (THE STRIP): everything inside the
   active parent as ONE wrapping run of captioned groups — TOOLS (the apps
-  inside the parent), screens/views (uncaptioned, not tables) — flowing like
+  inside the parent; Foundr's instead sit under its five numbered pipeline
+  STAGES), screens/views (uncaptioned, not tables) — flowing like
   words in a sentence so a row per group doesn't push the grid under the fold;
   a caption can never separate from its first pill (see .grp). Band 3 (THE
   FLIP): CRUD (rust) and LOOKUP (sage, reference vocabularies) on the back of a
@@ -25,12 +26,14 @@ import { getcacheUrl, urlOnSite } from "../sites";
 import {
 	ADMIN_PARENTS,
 	FOUNDR_REPORTS,
+	FOUNDR_STAGES,
 	SITE_PARAM,
 	STAGE_TOOLS,
 	activeParent,
 	activeTables,
 	activeTool,
 	foundrReportHref,
+	foundrStageOf,
 	withSiteParam,
 	foundrReportPath,
 } from "./adminRoutes";
@@ -39,6 +42,7 @@ import type {
 	AdminParent,
 	AdminTool,
 	FoundrProject,
+	FoundrStage,
 } from "./adminRoutes";
 import tentIcon from "$rt/assets/tentV5_white.webp";
 
@@ -111,13 +115,9 @@ const tools = $derived(current.tools);
 const visibleTools = $derived(tools.filter((t) => !t.devOnly || dev));
 // `ownRow` no longer buys a row of its own: the pill sits with the tools, and only its TABLES differ, riding the flip on every page of the parent.
 const ownRowTools = $derived(visibleTools.filter((t) => t.ownRow));
-// Foundr splits tier 2 by what follows the dropdown: a `scopedToSite` pill means nothing until a site is picked, so it sits in its own group right of the rule.
-const corpusTools = $derived(
-	isFoundr ? visibleTools.filter((t) => !t.scopedToSite) : visibleTools,
-);
-const projectTools = $derived(
-	isFoundr ? visibleTools.filter((t) => t.scopedToSite) : [],
-);
+// Foundr's strip is the pipeline: one captioned group per stage, the lit caption being the stage the page is in.
+const activeStage = $derived(isFoundr ? foundrStageOf(path)?.key ?? null : null);
+const stageTools = (s: FoundrStage): AdminTool[] => visibleTools.filter((t) => t.stage === s.key);
 // Never a parent-level fallback — that hung ReTreever's twenty tables under all five hand-built screens. An own-row tool's tables are already on its line.
 const tables = $derived(
 	currentTool?.ownRow ? [] : activeTables(page.url.pathname),
@@ -226,6 +226,37 @@ $effect(() => {
         {#if n === 0}<span class="empty-dot" aria-hidden="true"></span>{/if}
     </a>
 {/snippet}
+<!-- A `scopedToSite` pill means nothing until a site is picked, so it dims; the reports ride in their stage after its tools. -->
+{#snippet stageGroup(s: FoundrStage)}
+    {@const pills = stageTools(s)}
+    {@const reports = FOUNDR_REPORTS.filter((r) => r.stage === s.key)}
+    {#if pills.length || reports.length}
+        <span class="grp">
+            {#each pills.slice(0, 1) as tool}
+                <span class="lead">
+                    <span class="grp-tag stage-tag" class:lit={activeStage === s.key} title={s.line}
+                        >{s.n} · {s.label.toUpperCase()}</span
+                    >
+                    {@render toolPill(tool, !!tool.scopedToSite && !site)}
+                </span>
+            {/each}
+            {#each pills.slice(1) as tool}
+                {@render toolPill(tool, !!tool.scopedToSite && !site)}
+            {/each}
+            {#each reports as r (r.key)}
+                <a
+                    class="lnk scr-lnk"
+                    class:dim={!site}
+                    class:active={path === foundrReportPath(r.key)}
+                    href={adminHref(foundrReportHref(r.key, site || null))}
+                    title={site ? `${site}${r.suffix}` : `Pick a site to open its ${r.suffix}`}
+                >
+                    {r.label}
+                </a>
+            {/each}
+        </span>
+    {/if}
+{/snippet}
 {#snippet tableGroup(links: AdminLink[], lookup = false)}
     <span class="grp">
         {#each links as link, i (link.href)}
@@ -311,45 +342,21 @@ $effect(() => {
     <!-- Tiers 2-4 are one wrapping strip, not three fixed rows, so captions travel beside their pills. Empty on the stage/unclaimed paths (see activeParent()). -->
     {#if tools.length || tables.length || crudLookups.length}
         <nav class="strip">
-            {#if corpusTools.length}
+            {#if isFoundr}
+                {#each FOUNDR_STAGES as s (s.key)}
+                    {@render stageGroup(s)}
+                {/each}
+            {:else if visibleTools.length}
                 <span class="grp">
                     <!-- Sliced rather than `{#if i === 0}`: Svelte requires balanced tags inside a block. -->
-                    {#each corpusTools.slice(0, 1) as tool}
+                    {#each visibleTools.slice(0, 1) as tool}
                         <span class="lead">
                             <span class="grp-tag gold-tag">TOOLS</span>
                             {@render toolPill(tool)}
                         </span>
                     {/each}
-                    {#each corpusTools.slice(1) as tool}
+                    {#each visibleTools.slice(1) as tool}
                         {@render toolPill(tool)}
-                    {/each}
-                </span>
-            {/if}
-            <!-- Everything right of the rule follows the dropdown, dimmed while nothing is picked. -->
-            {#if isFoundr && (projectTools.length || FOUNDR_REPORTS.length)}
-                <span class="rule" aria-hidden="true"></span>
-                <span class="grp">
-                    {#each projectTools.slice(0, 1) as tool}
-                        <span class="lead">
-                            <span class="grp-tag proj-tag" class:unset={!site}
-                                >{site ? site.toUpperCase() : "SITE"}</span
-                            >
-                            {@render toolPill(tool, !site)}
-                        </span>
-                    {/each}
-                    {#each projectTools.slice(1) as tool}
-                        {@render toolPill(tool, !site)}
-                    {/each}
-                    {#each FOUNDR_REPORTS as r (r.key)}
-                        <a
-                            class="lnk scr-lnk"
-                            class:dim={!site}
-                            class:active={path === foundrReportPath(r.key)}
-                            href={adminHref(foundrReportHref(r.key, site || null))}
-                            title={site ? `${site}${r.suffix}` : `Pick a site to open its ${r.suffix}`}
-                        >
-                            {r.label}
-                        </a>
                     {/each}
                 </span>
             {/if}
@@ -640,14 +647,6 @@ $effect(() => {
         gap: 0.35rem;
         white-space: nowrap;
     }
-    /* The strip's one divider — the two sides differ in KIND and share a caption-less line, unlike the captioned groups which mark their own boundary. */
-    .rule {
-        width: 1px;
-        height: 1.15rem;
-        flex-shrink: 0;
-        margin: 0 0.35rem;
-        background: var(--at-line-strong);
-    }
     /* Hinged on its top edge, so the one-row front and the many-row back turn about the same line. Two half-turns, not one 180°: the faces differ in height, and the swap lands at 90° where the card is a line and the jump can't be seen. */
     .flip {
         transform-origin: top center;
@@ -831,15 +830,13 @@ $effect(() => {
     .sage-tag {
         color: color-mix(in srgb, var(--rt-sage), var(--at-panel) 5%);
     }
-    .gold-tag {
+    .gold-tag,
+    .stage-tag {
         color: color-mix(in srgb, var(--at-gold), var(--at-panel) 35%);
     }
-    /* Full-strength rust matching the dropdown — it IS the picked project. */
-    .proj-tag {
-        color: var(--rt-rust);
-    }
-    .proj-tag.unset {
-        color: color-mix(in srgb, var(--rt-rust), var(--at-panel) 42%);
+    /* Full gold on the stage the page is in: the strip's one "you are here" above pill level, since the lit pill alone can't say which stage it belongs to. */
+    .stage-tag.lit {
+        color: var(--at-gold);
     }
     /* Follows the dropdown with nothing picked: still a link, visibly not yet meaningful. */
     .lnk.dim {

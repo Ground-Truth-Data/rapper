@@ -62,6 +62,8 @@ export type AdminTool = {
 	ownRow?: boolean;
 	/** The pages read `?site=`; the header appends the focused project. */
 	scopedToSite?: boolean;
+	/** Foundr tools only: the pipeline stage the header groups it under (FOUNDR_STAGES). */
+	stage?: FoundrStageKey;
 };
 
 export type AdminParent = {
@@ -185,7 +187,7 @@ export const RETREEVER_ORGANISATION_RECORD = `${RETREEVER_ORGANISATIONS}/record`
 export const FOUNDR_DASH = "/foundr_dash";
 export const FOUNDR_TOOL = `${FOUNDR_DASH}/tool`;
 export const FOUNDR_TABLE = `${FOUNDR_DASH}/table`;
-export const FOUNDR_HOME = `${FOUNDR_TOOL}/overview`;
+export const FOUNDR_HOME = FOUNDR_DASH;
 const FOUNDR_REPORT = `${FOUNDR_DASH}/report`;
 
 /** Get Cache's namespace, and where a login that states no destination lands. */
@@ -237,11 +239,34 @@ export type FoundrProject = {
 	url: string | null;
 };
 
+/**
+ * Foundr's pipeline, as the header, the stepper and the board narrate it:
+ * `1Index → 2Raw → 3Map → 4Merge → 5Upsert → scores`, five stages a demo walks
+ * left to right. Every Foundr tool and report declares one.
+ */
+export type FoundrStageKey = "sources" | "scrape" | "map" | "database" | "prove";
+export interface FoundrStage {
+	key: FoundrStageKey;
+	n: 1 | 2 | 3 | 4 | 5;
+	label: string;
+	/** The one demo sentence for the stage. */
+	line: string;
+}
+// Not "Land" for 4: LandTable is a real table the maps write to, and the word
+// would read as the physical land.
+export const FOUNDR_STAGES: FoundrStage[] = [
+	{ key: "sources", n: 1, label: "Sources", line: "The platforms we scrape and every url we ask them." },
+	{ key: "scrape", n: 2, label: "Scrape", line: "The run, and what each platform has yielded against its index." },
+	{ key: "map", n: 3, label: "Map", line: "Every raw path gets a decision; where the work is and how it is decided." },
+	{ key: "database", n: 4, label: "Database", line: "What reached the database, and how full each column is." },
+	{ key: "prove", n: 5, label: "Prove", line: "Any number on the public site, followed back to its source." },
+];
+
 /** Per-project reports, each a file in `Foundr/scripts/siteSpecificScripts/{s}/{s}{suffix}`. */
-export type FoundrReport = { key: string; label: string; suffix: string };
+export type FoundrReport = { key: string; label: string; suffix: string; stage: FoundrStageKey };
 export const FOUNDR_REPORTS: FoundrReport[] = [
-	{ key: "raw", label: "2Raw.json", suffix: "2Raw.json" },
-	{ key: "jsonpaths", label: "2jsonPaths", suffix: "2JSONPath.ts" },
+	{ key: "raw", label: "2Raw.json", suffix: "2Raw.json", stage: "scrape" },
+	{ key: "jsonpaths", label: "2jsonPaths", suffix: "2JSONPath.ts", stage: "scrape" },
 ];
 
 export const foundrReportPath = (key: string): string =>
@@ -498,49 +523,29 @@ export const ADMIN_PARENTS: AdminParent[] = [
 		label: "Foundr",
 		logo: foundrLogo,
 		home: FOUNDR_HOME,
+		// In stage order: the array IS the strip, and FOUNDR_STAGES names the groups.
 		tools: [
-			// Not `scopedToSite`: draws the whole corpus with no project picked,
-			// narrows if one is.
+			// The same screen as ReTreever's Platforms pill; the project dropdown
+			// reads this table.
 			{
-				key: "schema",
-				label: "schema",
-				href: `${FOUNDR_TOOL}/schema`,
+				key: "platforms",
+				stage: "sources",
+				label: "Platforms",
+				href: `${FOUNDR_TOOL}/platforms`,
 				title:
-					"Every table and column, coloured by how much of it is actually populated",
+					"The platform table — Foundr's scrape targets, one row per platform",
 			},
 			{
-				key: "overview",
-				label: "overview",
-				href: `${FOUNDR_TOOL}/overview`,
+				key: "endpoints",
+				stage: "sources",
+				label: "endpoints",
+				href: `${FOUNDR_TOOL}/endpoints`,
 				title:
-					"Corpus-wide: how much of every site's raw scrape has a home in the schema",
-			},
-			// A tool, not a report: the desk that writes `{s}3MissMeta.json`.
-			{
-				key: "missmeta",
-				scopedToSite: true,
-				label: "Mapping desk",
-				href: `${FOUNDR_TOOL}/missmeta`,
-				title:
-					"Decide the focused site's raw paths one card at a time — writes {s}3MissMeta.json and runs missMap",
-			},
-			{
-				key: "mapsheet",
-				scopedToSite: true,
-				label: "Map sheet",
-				href: `${FOUNDR_TOOL}/mapsheet`,
-				title: "The focused site's ledger by table and column, and what {s}3Map.ts does not read yet",
-			},
-			// Chris's benchmark: a person against mlFindr and Jev on decided paths.
-			{
-				key: "bench",
-				label: "benchmark",
-				href: `${FOUNDR_TOOL}/bench`,
-				title:
-					"Name the column for decided paths, a minute each, then see how you did against mlFindr and Jev",
+					"Every url Foundr asks each platform, and what this machine has called — local dev only",
 			},
 			{
 				key: "orchestrator",
+				stage: "scrape",
 				scopedToSite: true,
 				label: "orchestrator",
 				href: `${FOUNDR_TOOL}/orchestrator`,
@@ -549,13 +554,79 @@ export const ADMIN_PARENTS: AdminParent[] = [
 			},
 			{
 				key: "progress",
+				stage: "scrape",
 				label: "progress",
 				href: `${FOUNDR_TOOL}/progress`,
 				title:
 					"What each platform has yielded so far, against what its index says is there",
 			},
 			{
+				key: "overview",
+				stage: "map",
+				label: "overview",
+				href: `${FOUNDR_TOOL}/overview`,
+				title:
+					"Corpus-wide: how much of every site's raw scrape has a home in the schema",
+			},
+			// A tool, not a report: the desk that writes `{s}3MissMeta.json`.
+			{
+				key: "missmeta",
+				stage: "map",
+				scopedToSite: true,
+				label: "Mapping desk",
+				href: `${FOUNDR_TOOL}/missmeta`,
+				title:
+					"Decide the focused site's raw paths one card at a time — writes {s}3MissMeta.json and runs missMap",
+			},
+			{
+				key: "mapsheet",
+				stage: "map",
+				scopedToSite: true,
+				label: "Map sheet",
+				href: `${FOUNDR_TOOL}/mapsheet`,
+				title: "The focused site's ledger by table and column, and what {s}3Map.ts does not read yet",
+			},
+			// Chris's benchmark: a person against mlFindr and Jev on decided paths.
+			{
+				key: "bench",
+				stage: "map",
+				label: "benchmark",
+				href: `${FOUNDR_TOOL}/bench`,
+				title:
+					"Name the column for decided paths, a minute each, then see how you did against mlFindr and Jev",
+			},
+			// Not `scopedToSite`: draws the whole corpus with no project picked,
+			// narrows if one is.
+			{
+				key: "schema",
+				stage: "database",
+				label: "schema",
+				href: `${FOUNDR_TOOL}/schema`,
+				title:
+					"Every table and column, coloured by how much of it is actually populated",
+			},
+			// The same database from this side; `ownRow` so the tables show on
+			// every Foundr screen.
+			{
+				key: "supabase",
+				stage: "database",
+				label: "Supabase",
+				href: `${FOUNDR_TABLE}/${RETREEVER_ENTITIES[0].toLowerCase()}`,
+				match: FOUNDR_TABLE,
+				title: "The ReTreever (Prisma) database — every table, raw",
+				ownRow: true,
+				tables: retreeverTablePills(FOUNDR_TABLE),
+			},
+			{
+				key: "orgs",
+				stage: "database",
+				label: "Orgs",
+				href: `${FOUNDR_TOOL}/orgs`,
+				title: "Parents and unlinked children in one alphabetical list",
+			},
+			{
 				key: "trace",
+				stage: "prove",
 				label: "trace",
 				href: `${FOUNDR_TOOL}/trace`,
 				title:
@@ -563,43 +634,11 @@ export const ADMIN_PARENTS: AdminParent[] = [
 			},
 			{
 				key: "score",
+				stage: "prove",
 				label: "score trace",
 				href: `${FOUNDR_TOOL}/score`,
 				title:
 					"A project's or org's score followed down: rank, ratio, the projects it averaged, each field's points",
-			},
-			{
-				key: "endpoints",
-				label: "endpoints",
-				href: `${FOUNDR_TOOL}/endpoints`,
-				title:
-					"Every url Foundr asks each platform, and what this machine has called — local dev only",
-			},
-			// The same screen as ReTreever's Platforms pill; the project dropdown
-			// reads this table.
-			{
-				key: "platforms",
-				label: "Platforms",
-				href: `${FOUNDR_TOOL}/platforms`,
-				title:
-					"The platform table — Foundr's scrape targets, one row per platform",
-			},
-			{
-				key: "orgs",
-				label: "Orgs",
-				href: `${FOUNDR_TOOL}/orgs`,
-				title: "Parents and unlinked children in one alphabetical list",
-			},
-			// The same database from this side; `ownRow` so the tables show on
-			// every Foundr screen.
-			{
-				key: "supabase",
-				label: "Supabase",
-				href: `${FOUNDR_TABLE}/${RETREEVER_ENTITIES[0].toLowerCase()}`,
-				match: FOUNDR_TABLE,
-				title: "The ReTreever (Prisma) database — every table, raw",
-				ownRow: true,
-				tables: retreeverTablePills(FOUNDR_TABLE),
 			},
 		],
 	},
@@ -654,3 +693,24 @@ export function activeTool(pathname: string): AdminTool | null {
 export function activeTables(pathname: string): AdminLink[] {
 	return activeTool(pathname)?.tables ?? [];
 }
+
+const foundrTools = (): AdminTool[] =>
+	ADMIN_PARENTS.find((p) => p.key === "foundr")?.tools ?? [];
+
+/** The stage's tools, in strip order. */
+export const foundrStageTools = (key: FoundrStageKey): AdminTool[] =>
+	foundrTools().filter((t) => t.stage === key);
+
+/** The stage the path is in: the active tool's, `scrape` for a report page, null off the pipeline (the bare dash included). */
+export function foundrStageOf(pathname: string): FoundrStage | null {
+	const key = pathname.startsWith(FOUNDR_REPORT)
+		? FOUNDR_REPORTS.find((r) => pathname.startsWith(foundrReportPath(r.key)))?.stage
+		: activeTool(pathname)?.stage;
+	return FOUNDR_STAGES.find((s) => s.key === key) ?? null;
+}
+
+/** Where a stage opens: its first tool, carrying `?site=` only when that tool reads it. */
+export const foundrStageHref = (stage: FoundrStageKey, site: string | null): string => {
+	const first = foundrStageTools(stage)[0];
+	return withSiteParam(first.href, first.scopedToSite ? site : null);
+};
