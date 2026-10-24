@@ -1,21 +1,24 @@
 #!/usr/bin/env node
 // Writes the current repo's .env.schema Bitwarden block from `bws secret list`,
-// regenerates .env from the schema, and fails the build when code reads a name
+// regenerates .env.<mode> from the schema, and fails the build when code reads a name
 // the vault does not have. npm runs it as predev and prebuild, cwd = repo root.
 //
 // Bitwarden's name is the only name. The block between the two markers is
 // written from the vault, so no hand-typed secret name exists to disagree with
 // it; a repo declares every vault secret that its source, or the source of a
 // child it serves, names. Vite inlines PUBLIC_* by scanning .env on disk before
-// any process can inject them, so those keys, and only those, land in .env.
+// any process can inject them, so those keys, and only those, land in ENV.
 
 import { spawnSync } from "node:child_process";
-import { existsSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
 
 const SCHEMA = ".env.schema";
-const ENV = ".env";
+// Vite's mode file, never plain .env: Vite restarts on any change to .env, so a
+// prod build writing it bounced every open dev tab — white — onto prod Supabase.
+// varlock reads .env too, and neither name below.
+const ENV = process.env.APP_ENV === "prod" ? ".env.production" : ".env.development";
 const BROWSER_PREFIX = "PUBLIC_";
 const BEGIN = "# --- Bitwarden block: written from `bws secret list` by rapper/scripts/envFromBitwarden.mjs. Hand edits here are overwritten. ---";
 const END = "# --- end Bitwarden block ---";
@@ -138,10 +141,6 @@ const schemaKeys = [...schemaSrc.matchAll(KEY_LINE)].map((m) => m[1]);
 const bitwardenKeys = [...schemaSrc.matchAll(/^(\w+)=bitwarden\(/gm)].map((m) => m[1]);
 if (schemaKeys.length === 0) fail(`${SCHEMA} declares no keys — this proves nothing.`);
 
-// Resolved as `varlock run` resolves (schema, then the APP_ENV overlay), minus
-// the old .env: a value left in it would beat Bitwarden, so a rotated secret
-// would never arrive and a dev URL would ride into a prod build.
-rmSync(ENV, { force: true });
 const load = varlock(["load", "--format", "json"]);
 if (load.status !== 0) fail(`varlock could not resolve ${SCHEMA}:\n${load.stderr || load.stdout}`);
 const resolved = JSON.parse(load.stdout);
@@ -154,10 +153,10 @@ if (unresolved.length) {
 	);
 }
 
-// Written before the audit: varlock overlays .env on the schema, so a stale
-// generated file would report its old keys as drift.
 const buildTime = schemaKeys.filter((k) => k.startsWith(BROWSER_PREFIX) && resolved[k]);
-writeFileSync(ENV, BANNER + buildTime.map((k) => `${k}=${resolved[k]}`).join("\n") + "\n");
+const envSrc = BANNER + buildTime.map((k) => `${k}=${resolved[k]}`).join("\n") + "\n";
+// An identical rewrite still restarts a running dev server.
+if (!existsSync(ENV) || readFileSync(ENV, "utf8") !== envSrc) writeFileSync(ENV, envSrc);
 
 const audit = varlock(["audit"], { stdio: "inherit", encoding: undefined });
 if (audit.status !== 0) {
