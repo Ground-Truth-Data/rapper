@@ -19,6 +19,7 @@
 		"test:unit": "vitest"
 	},
 	"dependencies": {
+		"@sqlite.org/sqlite-wasm": "^3.53.0-build1",
 		"clsx": "^2.1.1",
 		"mapbox-gl": "^3.24.0",
 		"mapbox-gl-opacity": "^1.2.0",
