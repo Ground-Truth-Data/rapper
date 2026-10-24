@@ -9,7 +9,8 @@ describe("childRegistry", () => {
 		expect(childForPath("/where/orgs")?.repo).toBe("ReTreever_where");
 		expect(childForPath(`${APP_PREFIX}/offlinev10/x`)?.repo).toBe("getCache_OfflineMap");
 		expect(childForPath("/georef")?.repo).toBe("getCache_OnlineMap");
-		expect(childForPath(APP_PREFIX)?.repo).toBe("ReTreever_who_what");
+		expect(childForPath(APP_PREFIX)).toBeUndefined();
+		expect(childForPath("/")).toBeUndefined();
 		expect(childForPath("/nowhere-at-all")).toBeUndefined();
 		expect(CHILDREN.filter((c) => c.tier).every((t) => childForPath(`/${t.name}`)?.repo !== t.repo)).toBe(true);
 	});
