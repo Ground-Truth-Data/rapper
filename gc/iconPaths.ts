@@ -107,11 +107,6 @@ export const ICONS = {
 		body: `<path d="M12 9v5"/><path d="M12 17.5h.01"/><path d="M10.3 3.9 2.6 17.4A1.6 1.6 0 0 0 4 19.8h16a1.6 1.6 0 0 0 1.4-2.4L13.7 3.9a1.6 1.6 0 0 0-2.8 0Z"/>`,
 		sw: 2.2,
 	},
-	// Filled dots — callers pass fill="currentColor".
-	"dots-h": {
-		body: `<circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/>`,
-		sw: 0,
-	},
 	"log-out": {
 		body: `<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/>`,
 		sw: 2.4,
