@@ -505,101 +505,20 @@ hr {
 }
 .mob-bag-flash { animation: mob-bag-flash 400ms ease-in-out infinite alternate; }
 
-[data-sonner-toaster] {
-	/* Just under Z_HANDS (zTiers.ts) so hands and the share quad ride over a toast. */
-	z-index: 10400 !important;
-	--normal-bg: #1a1a1a;
-	--normal-text: var(--rt-fg);
-	--normal-border: var(--rt-yellow);
-	--success-bg: #1a1a1a;
-	--success-text: var(--rt-fg);
-	--success-border: var(--rt-yellow);
-	--error-bg: #1a1a1a;
-	--error-text: var(--rt-fg);
-	--error-border: #c44;
-	--info-bg: #1a1a1a;
-	--info-text: var(--rt-fg);
-	--info-border: var(--rt-yellow);
-	--warning-bg: #1a1a1a;
-	--warning-text: var(--rt-fg);
-	--warning-border: var(--rt-yellow);
-	--gray1: var(--rt-fg);
-	--gray2: var(--rt-fg);
-	--gray12: var(--rt-fg);
-}
-
-/* Sonner's own <600px query pins toasts left/right off-screen; this restores centring, capped so a toast can't leave the viewport. */
-@media (max-width: 600px) {
-	[data-sonner-toaster][data-x-position="center"] {
-		left: 50% !important;
-		right: auto !important;
-		transform: translateX(-50%) !important;
-		width: min(var(--width, 356px), calc(100% - 2rem)) !important;
-	}
-}
-
-[data-sonner-toaster] [data-sonner-toast] {
-	background: #1a1a1a !important;
-	color: var(--rt-fg) !important;
-	border: 1px solid var(--rt-yellow) !important;
-	border-radius: 0.625rem !important;
-	box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55), 0 0 12px rgba(255, 215, 0, 0.18) !important;
-	font-family: var(--rt-font-display, inherit) !important;
-	font-size: 0.95rem !important;
-	padding: 0.75rem 0.9rem !important;
-	/* Guard rail: a long unbroken token (e.g. a filename) collapses the toast into a one-char vertical pill without this width. */
-	width: min(22rem, calc(100vw - 2rem)) !important;
-	margin-inline: auto !important;
-	box-sizing: border-box !important;
-	overflow-wrap: anywhere !important;
-	word-break: normal !important;
-	transition:
-		transform 320ms cubic-bezier(.2, .8, .2, 1),
-		opacity 320ms cubic-bezier(.2, .8, .2, 1),
-		box-shadow 320ms cubic-bezier(.2, .8, .2, 1) !important;
-}
-[data-sonner-toaster] [data-sonner-toast][data-mounted="true"],
-[data-sonner-toaster] [data-sonner-toast][data-removed="true"],
-[data-sonner-toaster] [data-sonner-toast][data-swiping="true"] {
-	animation-duration: 320ms !important;
-	animation-timing-function: cubic-bezier(.2, .8, .2, 1) !important;
-}
-[data-sonner-toaster] [data-sonner-toast][data-type="error"] {
-	border-color: #c44 !important;
-	box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55), 0 0 12px rgba(200, 70, 70, 0.25) !important;
-}
-[data-sonner-toaster] [data-sonner-toast] [data-icon] {
-	color: var(--rt-yellow) !important;
-}
-[data-sonner-toaster] [data-sonner-toast][data-type="error"] [data-icon] {
-	color: #e88 !important;
-}
-[data-sonner-toaster] [data-sonner-toast] [data-title] {
-	color: var(--rt-fg) !important;
-	font-weight: 600;
-	letter-spacing: 0.01em;
-}
-[data-sonner-toaster] [data-sonner-toast] [data-description] {
-	color: var(--rt-fg-dim) !important;
-}
-/* NOTICE toast: a fact, not a failure — body is full white, terracotta reads as an alarm. */
-[data-sonner-toaster] [data-sonner-toast].rt-toast-notice [data-title] {
-	font-size: 1.15rem;
-	line-height: 1.3;
-}
-[data-sonner-toaster] [data-sonner-toast].rt-toast-notice [data-description] {
-	color: var(--rt-fg) !important;
-}
-
-[data-sonner-toaster] [data-sonner-toast] [data-close-button] {
-	background:
-		url('$gc/assets/x_close_gold.webp') center / 58% 58% no-repeat,
-		#1a1a1a !important;
-	border-color: var(--rt-yellow) !important;
-}
-/* Sonner draws its own cross as an inline <svg>; the painted X replaces it. */
-[data-sonner-toaster] [data-sonner-toast] [data-close-button] svg {
-	display: none !important;
+/* A failure on the control it is about: one plain line, tap to dismiss. Never a toast. */
+.rt-note {
+	display: block;
+	margin: 0;
+	padding: 0.25rem 0;
+	background: none;
+	border: none;
+	font: inherit;
+	font-family: var(--rt-font-body);
+	font-size: var(--rt-fs-meta);
+	line-height: 1.35;
+	color: var(--rt-danger);
+	text-align: left;
+	overflow-wrap: anywhere;
 }
 
 .rt-subdrawer-back {
@@ -1078,6 +997,10 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 .maplibregl-popup.grid-plot-popup .maplibregl-popup-tip {
 	border-top-color: #5aa6e6 !important;
 	border-bottom-color: #5aa6e6 !important;
+}
+.grid-plot-note {
+	max-width: 14rem;
+	padding-top: 0.45rem;
 }
 .grid-plot-popup-inner {
 	display: flex;
