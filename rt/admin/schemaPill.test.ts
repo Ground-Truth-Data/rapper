@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { ADMIN_PARENTS, FOUNDR_TOOL } from "./adminRoutes";
+import { ADMIN_PARENTS, FOUNDR_TOOL, foundrStageTools } from "./adminRoutes";
 
 // Findable is not the same as declared: the schema tool was registered
-// correctly and still invisible, marked `scopedToSite` — a pill after the
-// SITE rule, dimmed until a project is picked, off the edge of the window.
-// These assert the two things that decide whether a person finds it: which
-// GROUP it lands in, and where in that group it sits.
+// correctly and still invisible, marked `scopedToSite` — dimmed until a
+// project is picked, off the edge of the window. These assert the two things
+// that decide whether a person finds it: whether it dims, and where in its
+// stage it sits.
 describe("the schema pill", () => {
 	const foundr = ADMIN_PARENTS.find((p) => p.key === "foundr");
 	const tools = foundr?.tools ?? [];
@@ -17,13 +17,12 @@ describe("the schema pill", () => {
 	});
 
 	// The map draws every project when none is picked, so a scoped pill would hide its broadest reading behind a filter.
-	it("rides in the corpus group, not behind the SITE rule", () => {
+	it("is not scoped to a site, so it never dims", () => {
 		expect(schema?.scopedToSite).toBeFalsy();
 	});
 
-	// The Foundr tool row already overflows its window; appended to the end is a pill nobody scrolls to.
-	it("leads the TOOLS run", () => {
-		const corpus = tools.filter((t) => !t.scopedToSite);
-		expect(corpus[0]?.key).toBe("schema");
+	// The Foundr strip already overflows its window; appended to the end of a stage is a pill nobody scrolls to.
+	it("leads the Database stage", () => {
+		expect(foundrStageTools("database")[0]?.key).toBe("schema");
 	});
 });
