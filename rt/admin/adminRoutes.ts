@@ -187,7 +187,7 @@ export const RETREEVER_ORGANISATION_RECORD = `${RETREEVER_ORGANISATIONS}/record`
 export const FOUNDR_DASH = "/foundr_dash";
 export const FOUNDR_TOOL = `${FOUNDR_DASH}/tool`;
 export const FOUNDR_TABLE = `${FOUNDR_DASH}/table`;
-export const FOUNDR_HOME = `${FOUNDR_TOOL}/overview`;
+export const FOUNDR_HOME = FOUNDR_DASH;
 const FOUNDR_REPORT = `${FOUNDR_DASH}/report`;
 
 /** Get Cache's namespace, and where a login that states no destination lands. */
