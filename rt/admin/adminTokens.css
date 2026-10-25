@@ -35,6 +35,8 @@
 	--at-th-arrow: rgba(255, 255, 255, 0.28); /* one per column, 35 of them at rest — an affordance, never a mark the eye has to skip */
 
 	--at-fg: var(--rt-fg);
+	/* The header's grey, mixed onto the panel so a band outside the header (the Foundr stepper) reads the same grey from one formula. */
+	--at-fg-dim: color-mix(in srgb, var(--at-fg) 66%, var(--at-panel));
 	/* Not the phone palette's muted values — those are a short label at arm's length; this is whole columns a metre away, below the legibility floor. --at-muted-2 is an alias so both call sites move together if they ever diverge. */
 	--at-muted: #8f8a76;
 	--at-muted-2: var(--at-muted);
