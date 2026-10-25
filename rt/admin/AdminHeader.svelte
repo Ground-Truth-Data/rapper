@@ -438,10 +438,10 @@ $effect(() => {
            header hardcodes the literal rather than fail silently and look styled.
            Keep it in step with --palette-sage (app.css) / --rt-sage (mobile.css). */
         --rt-sage: var(--palette-sage, #838963);
-        /* Every grey in this band is one of these three, mixed onto the band's
-           OWN floor rather than the sheet's, so moving the floor moves them with
-           it instead of leaving three hand-picked greys behind. */
-        --hd-txt: color-mix(in srgb, var(--at-fg) 66%, var(--at-panel));
+        /* Every grey in this band is one of these three, mixed onto the panel
+           rather than the sheet; the text grey is the kit's token so the stepper
+           below the header reads the same one. */
+        --hd-txt: var(--at-fg-dim);
         --hd-dim: color-mix(in srgb, var(--at-fg) 52%, var(--at-panel));
         --hd-edge: color-mix(in srgb, var(--at-fg) 26%, var(--at-panel));
         display: flex;
