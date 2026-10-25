@@ -1440,6 +1440,32 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 }
 .rt-feature-directions:active { transform: scale(0.96); }
 
+.rt-target-ripple {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 4;
+	pointer-events: none;
+}
+/* Grows width, not scale: a scaled ring thins its line to nothing. */
+.rt-target-ripple i {
+	position: absolute;
+	width: 0;
+	height: 0;
+	transform: translate(-50%, -50%);
+	border-radius: 50%;
+	border: 4px solid rgba(0, 0, 0, 0.8);
+	opacity: 0;
+	animation: rt-ripple 4s cubic-bezier(0.3, 0.2, 0.7, 0.9) forwards;
+}
+/* Delays and weights are rolled per drop in routeLayer.ts. */
+.rt-target-ripple i.faint { border-color: rgba(0, 0, 0, 0.4); }
+@keyframes rt-ripple {
+	0% { width: 0; height: 0; opacity: 1; }
+	70% { opacity: 1; }
+	100% { width: var(--d); height: var(--d); opacity: 0; }
+}
+
 .rt-route-pill {
 	position: absolute;
 	top: calc(var(--top-bar-h, 4rem) + 12px);
