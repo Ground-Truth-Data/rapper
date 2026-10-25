@@ -60,6 +60,8 @@ let loupe: {
 	src: HTMLCanvasElement;
 	since?: number;
 	chip: { text: string; x: number; y: number };
+	ms?: number;
+	pin?: HTMLImageElement;
 	paused: boolean;
 	out: boolean;
 } | null = $state(null);
@@ -104,7 +106,7 @@ onMount(() => {
 	};
 
 	const onPress = (e: Event) => {
-		const { phase, x, y, canvas, label = "", since, locked = false, veiled = false } = (
+		const { phase, x, y, canvas, label = "", since, ms, pin, locked = false, veiled = false } = (
 			e as CustomEvent<{
 				phase: "arm" | "drag" | "aim" | "end" | "drop";
 				x: number;
@@ -112,6 +114,8 @@ onMount(() => {
 				canvas?: HTMLCanvasElement;
 				label?: string;
 				since?: number;
+				ms?: number;
+				pin?: HTMLImageElement;
 				locked?: boolean;
 				veiled?: boolean;
 			}>
@@ -133,7 +137,7 @@ onMount(() => {
 			const r = canvas.getBoundingClientRect();
 			const bar = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--top-bar-h")) || 0;
 			const chip = { text: label, x: r.left + 14, y: r.top + bar + 8 };
-			loupe = { x, y, src: canvas, since, chip, paused: false, out: false };
+			loupe = { x, y, src: canvas, since, chip, ms, pin, paused: false, out: false };
 		} else if (phase === "end" && loupe) {
 			const out = () => {
 				if (loupe) loupe.out = true;
@@ -221,8 +225,8 @@ onMount(() => {
 	{#if !loupe.paused && !loupe.out}
 		<div class="touch-halo" style="left:{loupe.x}px; top:{loupe.y}px"></div>
 	{/if}
-	<Loupe src={loupe.src} x={loupe.x} y={loupe.y} since={loupe.since} paused={loupe.paused} out={loupe.out} />
-	{#if !loupe.out}
+	<Loupe src={loupe.src} x={loupe.x} y={loupe.y} since={loupe.since} ms={loupe.ms} pin={loupe.pin} paused={loupe.paused} out={loupe.out} />
+	{#if !loupe.out && loupe.chip.text}
 		<div class="coord-chip" style="left:{loupe.chip.x}px; top:{loupe.chip.y}px">{loupe.chip.text}</div>
 	{/if}
 {/if}

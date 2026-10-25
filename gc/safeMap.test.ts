@@ -37,8 +37,10 @@ describe("safeFitBounds — zoom pre-flight", () => {
     // Padding handed to the camera stays on it, and every later flyTo offset
     // lands off-centre — a tapped cache flew off the top of the screen. The
     // lopsided padding still frames the shape, as a one-off offset.
+    // MapLibre's cameraForBounds centre already carries the padding shift; the
+    // offset on top drew a fresh snake-ruler piece under the header.
     it("flies to the fitted camera without leaving padding on it", () => {
-        const m = makeMap({ cameraForBounds: vi.fn(() => ({ center: [-121.5, 37.5], zoom: 10, bearing: 0 })) });
+        const m = makeMap({ cameraForBounds: vi.fn(() => ({ center: [-121.5, 37.1], zoom: 10, bearing: 0 })) });
         safeFitBounds(m as unknown as FitArg, SW, NE, { padding: { top: 90, bottom: 500 } });
         expect(m.flyTo).toHaveBeenCalledWith({ center: [-121.5, 37.5], zoom: 10, bearing: 0, offset: [0, -205] });
         expect(m.flyTo.mock.calls[0][0]).not.toHaveProperty("padding");

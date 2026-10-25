@@ -106,7 +106,8 @@ export const CHILDREN: ChildRecord[] = [
 	},
 ];
 
-/** The child serving this pathname, longest-prefix; undefined for a parent's own page. */
+/** The child serving this pathname, longest-prefix; undefined for a parent's own page.
+ *  A solo path ("/") is every child's own preview, so it names none of them here. */
 export function childForPath(pathname: string): ChildRecord | undefined {
 	if (pathname === APP_PREFIX || pathname.startsWith(APP_PREFIX + "/")) {
 		pathname = pathname.slice(APP_PREFIX.length) || "/";
@@ -116,6 +117,7 @@ export function childForPath(pathname: string): ChildRecord | undefined {
 	for (const c of CHILDREN) {
 		if (c.tier) continue;
 		for (const p of c.paths) {
+			if (c.soloPaths?.includes(p)) continue;
 			const hit = pathname === p || pathname.startsWith(p + "/");
 			if (hit && p.length > bestLen) {
 				best = c;

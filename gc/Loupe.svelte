@@ -15,6 +15,9 @@ const EDGE_PX = 14;
 const TOP_PX = 50;
 const BESIDE_PX = 44;
 const EDGE_ZOOM = 1.14;
+// A held pin's head and its dial must fit the lens's 96 px.
+const PIN_ZOOM = 1.25;
+const DIAL_PAD = 6;
 
 /**
  * drawImage(src, s…, d…) arguments. (bx, by) is the point in the source's backing px, `s` its backing px per CSS px,
@@ -39,6 +42,15 @@ export function loupeFrame(bx: number, by: number, s: number, w: number, h: numb
 		dw: (ex - sx) * k,
 		dh: (ey - sy) * k,
 	};
+}
+
+/** Where `object-fit: contain` paints the image inside its box. */
+function painted(img: HTMLImageElement) {
+	const b = img.getBoundingClientRect();
+	const k = Math.min(b.width / img.naturalWidth, b.height / img.naturalHeight) || 0;
+	const w = img.naturalWidth * k;
+	const h = img.naturalHeight * k;
+	return { left: b.left + (b.width - w) / 2, top: b.top + (b.height - h) / 2, width: w, height: h };
 }
 
 /** The lens's centre: above the finger; beside it when that would run into the top; never past the side edges. */
@@ -108,7 +120,19 @@ let {
 	since,
 	paused = false,
 	out = false,
-}: { src: HTMLCanvasElement; x: number; y: number; since?: number; paused?: boolean; out?: boolean } = $props();
+	ms = HOLD_MS,
+	pin,
+}: {
+	src: HTMLCanvasElement;
+	x: number;
+	y: number;
+	since?: number;
+	paused?: boolean;
+	out?: boolean;
+	ms?: number;
+	/** A held pin's image: the view centres on its head and the clock runs as a dial round it. */
+	pin?: HTMLImageElement;
+} = $props();
 
 let lens: HTMLCanvasElement | undefined = $state();
 let edge: HTMLCanvasElement | undefined = $state();
@@ -116,6 +140,10 @@ let on = $state(false);
 let prog = $state(0);
 const lit = $derived(Math.floor(prog * TICKS + 1e-6));
 let locked = $state(false);
+// The finger's offset from the lens centre, and the dial's radius, in lens px.
+let fx = $state(0);
+let fy = $state(0);
+let dial = $state(0);
 // The clock stops where the finger left it, so a paused ring holds its count.
 let frozen = 0;
 const at = $derived(loupeAt(x, y, window.innerWidth));
@@ -140,22 +168,40 @@ $effect(() => {
 		const r = src.getBoundingClientRect();
 		const s = src.width / r.width;
 		const dpr = window.devicePixelRatio;
+		// The head is the circle across the top of the teardrop; read live, so the dial follows the pin's swell.
+		const h = pin && painted(pin);
+		const vx = h ? h.left + h.width / 2 : x;
+		const vy = h ? h.top + h.width / 2 : y;
+		const z = h ? PIN_ZOOM : LOUPE_ZOOM;
+		fx = (x - vx) * z;
+		fy = (y - vy) * z;
+		dial = h ? (h.width / 2) * z + DIAL_PAD : 0;
+		// Pins are DOM over the canvas, so the copy misses them; each is drawn in from its own image.
+		const pins = src.closest(".mapboxgl-map, .maplibregl-map")?.querySelectorAll<HTMLImageElement>(":is(.mapboxgl-marker, .maplibregl-marker) > img") ?? [];
 		for (const [canvas, zoom] of [
-			[c, LOUPE_ZOOM],
-			[e, LOUPE_ZOOM * EDGE_ZOOM],
+			[c, z],
+			[e, z * EDGE_ZOOM],
 		] as const) {
 			if (canvas.width !== LOUPE_W * dpr) {
 				canvas.width = LOUPE_W * dpr;
 				canvas.height = LOUPE_H * dpr;
 			}
-			const f = loupeFrame((x - r.left) * s, (y - r.top) * s, s, src.width, src.height, dpr, zoom);
+			const f = loupeFrame((vx - r.left) * s, (vy - r.top) * s, s, src.width, src.height, dpr, zoom);
 			const ctx = canvas.getContext("2d");
-			ctx?.clearRect(0, 0, canvas.width, canvas.height);
-			ctx?.drawImage(src, f.sx, f.sy, f.sw, f.sh, f.dx, f.dy, f.dw, f.dh);
+			if (!ctx) continue;
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.drawImage(src, f.sx, f.sy, f.sw, f.sh, f.dx, f.dy, f.dw, f.dh);
+			const k = zoom * dpr;
+			for (const img of pins) {
+				const b = painted(img);
+				const dx = ((b.left - vx) * zoom + LOUPE_W / 2) * dpr;
+				const dy = ((b.top - vy) * zoom + LOUPE_H / 2) * dpr;
+				if (dx < canvas.width && dy < canvas.height && dx + b.width * k > 0 && dy + b.height * k > 0) ctx.drawImage(img, dx, dy, b.width * k, b.height * k);
+			}
 		}
 		const now = paused ? (frozen ||= performance.now()) : performance.now();
 		// No clock (a hand drag): the ring stays dark.
-		const p = since === undefined ? 0 : Math.min(1, (now - since) / HOLD_MS);
+		const p = since === undefined ? 0 : Math.min(1, (now - since) / ms);
 		prog = p;
 		if (p >= 1 && !locked) {
 			locked = true;
@@ -174,16 +220,27 @@ $effect(() => {
 	class:on={on && !out}
 	class:out
 	class:locked
-	style="left:{left}px; top:{top}px; transform-origin:{x - left}px {y - top}px; --hx:{HOTSPOT_X}px; --hy:{HOTSPOT_Y}px"
+	style="left:{left}px; top:{top}px; transform-origin:{x - left}px {y - top}px; --hx:{HOTSPOT_X - fx}px; --hy:{HOTSPOT_Y - fy}px"
 >
 	<div class="lens" class:pulse={locked}>
 		<canvas bind:this={lens}></canvas>
 		<canvas class="edge" bind:this={edge}></canvas>
+		{#if dial}
+			<!-- The snake ruler's ticks, round the held pin's head. -->
+			<svg class="dial" viewBox="{-LOUPE_W / 2} {-LOUPE_H / 2} {LOUPE_W} {LOUPE_H}" aria-hidden="true">
+				<circle class="band" r={dial} />
+				<circle class="trace" r={dial} pathLength="100" transform="rotate(-90)" style="stroke-dashoffset:{100 - 100 * prog}" />
+				{#each { length: TICKS }, k}
+					<line class:major={k % 6 === 0} class:lit={k < lit} transform="rotate({(360 * k) / TICKS})" y1={-dial - (k % 6 ? 2.2 : 4)} y2={-dial + (k % 6 ? 2.2 : 4)} />
+				{/each}
+			</svg>
+		{/if}
 		<div class="rim"></div>
 		<img class="finger" src={handGold} alt="" draggable="false" />
 	</div>
 	<svg
 		class="ticks"
+		class:gone={pin}
 		width={RING_W + 2 * M}
 		height={RING_H + 2 * M}
 		viewBox="{-M} {-M} {RING_W + 2 * M} {RING_H + 2 * M}"
@@ -277,6 +334,17 @@ $effect(() => {
 	/* Not `.ring`: Tailwind's utility of that name would draw a 1px box round the svg. */
 	.ticks {
 		position: absolute;
+		overflow: visible;
+	}
+	/* A pin's clock is its dial; one clock at a time. */
+	.ticks.gone {
+		display: none;
+	}
+	.dial {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
 		overflow: visible;
 	}
 	.band {
