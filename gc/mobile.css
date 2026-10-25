@@ -1426,19 +1426,6 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	color: #1a1a1a;
 	border-color: transparent;
 }
-.rt-feature-directions {
-	display: block;
-	width: calc(100% - 1.5rem);
-	margin: 0 0.75rem 0.75rem;
-	padding: 0.45rem 0.6rem;
-	border-radius: 10px;
-	font: inherit;
-	font-size: 0.8rem;
-	font-weight: 700;
-	cursor: pointer;
-	-webkit-tap-highlight-color: transparent;
-}
-.rt-feature-directions:active { transform: scale(0.96); }
 
 /* Above every other marker (block labels, eggs): it's where you're headed. */
 .rt-target-pin {
