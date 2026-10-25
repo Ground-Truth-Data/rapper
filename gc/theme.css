@@ -14,6 +14,10 @@
 @source '../../getCache_OfflineMap/**/*.{html,js,svelte,ts}';
 @source '../../ReTreever_where/**/*.{html,js,svelte,ts}';
 @source '../../ReTreever_who_what/**/*.{html,js,svelte,ts}';
+/* rapper's shared tree sits outside every tier's repo, so no tier's own @source reaches it. */
+@source '../rig/**/*.{html,js,svelte,ts}';
+@source '../gc/**/*.{html,js,svelte,ts}';
+@source '../rt/**/*.{html,js,svelte,ts}';
 
 @plugin 'tailwindcss-animate';
 
