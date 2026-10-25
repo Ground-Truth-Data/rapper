@@ -1440,6 +1440,13 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 }
 .rt-feature-directions:active { transform: scale(0.96); }
 
+/* Above every other marker (block labels, eggs): it's where you're headed. */
+.rt-target-pin {
+	width: 8px;
+	height: 18px;
+	z-index: 10;
+	cursor: pointer;
+}
 .rt-target-ripple {
 	position: absolute;
 	left: 0;
