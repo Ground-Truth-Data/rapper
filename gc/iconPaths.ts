@@ -65,6 +65,10 @@ export const ICONS = {
 		body: `<circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>`,
 		sw: 2,
 	},
+	clock: {
+		body: `<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>`,
+		sw: 2,
+	},
 	upload: {
 		body: `<path d="M12 16V3M7 8l5-5 5 5"/><path d="M4 14v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/>`,
 		sw: 2,
