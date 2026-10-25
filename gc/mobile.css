@@ -1464,46 +1464,122 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	position: absolute;
 	top: calc(var(--top-bar-h, 4rem) + 12px);
 	left: 12px;
-	/* Clear of the eye and layer buttons on the right edge. */
-	right: 88px;
-	z-index: 5;
+	right: 12px;
+	/* Over the eye toggle's row (.below-top-bar, 40): the banner spans the width and its X must take the tap. */
+	z-index: 41;
 	display: flex;
 	align-items: center;
-	gap: 0.6rem;
-	padding: 0.5rem 0.5rem 0.5rem 0.9rem;
-	border-radius: 14px;
-	background: rgba(20, 22, 28, 0.92);
-	color: #ece7da;
-	border: 1.5px solid #1e6cff;
-	font-size: 0.85rem;
-	font-weight: 700;
+	gap: 12px;
+	padding: 10px 10px 10px 12px;
+	border-radius: 20px;
+	background: linear-gradient(180deg, #181912, #0c0d08);
+	border: 2.5px solid #f8d848;
+	box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+	color: #fff;
 }
-.rt-route-pill[hidden] { display: none; }
+.rt-route-pill[hidden],
+.rt-route-hint[hidden] { display: none; }
+.rt-route-icon { flex: none; width: 40px; height: 40px; }
+.rt-route-pill-text {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	line-height: 1.1;
+}
+.rt-route-pill b {
+	font-family: var(--rt-font-display);
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 1;
+	white-space: nowrap;
+}
+.rt-route-pill b .u { color: #b8bba6; font-size: 19px; }
 .rt-route-pill-hint {
-	font-size: 0.72rem;
-	font-weight: 500;
-	opacity: 0.75;
-	margin-top: 0.15rem;
+	font-family: var(--rt-font-body);
+	font-size: 13px;
+	font-weight: 600;
+	color: #9ea28c;
+	margin-top: 2px;
 }
+/* Steel with a gold glow: the one action on the banner, quieter than a gold fill over the map. */
 .rt-route-pill-go {
 	flex: none;
-	padding: 0.4rem 0.8rem;
-	border-radius: 10px;
-	font: inherit;
-	font-size: 0.8rem;
+	height: 44px;
+	padding: 0 14px;
+	border-radius: 13px;
+	border: 2px solid #f8d848;
+	background: linear-gradient(#55585e, #2c2e32);
+	box-shadow: inset 0 1px 0 #6e7177, inset 0 -2px 6px rgba(0, 0, 0, 0.5), 0 0 18px -4px rgba(248, 216, 72, 0.7), 0 4px 10px rgba(0, 0, 0, 0.45);
+	color: #f8d848;
+	font-family: var(--rt-font-display);
+	font-size: 22px;
+	line-height: 1;
 	cursor: pointer;
 }
 .rt-route-pill-x {
 	flex: none;
-	width: 28px;
-	height: 28px;
-	border-radius: 50%;
-	border: 1.5px solid rgba(255, 255, 255, 0.17);
-	background: rgba(0, 0, 0, 0.3);
-	color: inherit;
-	font: inherit;
+	width: 40px;
+	height: 40px;
+	border-radius: 12px;
+	border: 2px solid #fff;
+	background: #111;
+	color: #fff;
+	font-size: 18px;
 	cursor: pointer;
 }
+.rt-route-pill.rt-route-chip {
+	right: auto;
+	height: 52px;
+	gap: 10px;
+	padding: 0 6px 0 12px;
+	border-radius: 999px;
+	background: #0c0d08;
+	box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+}
+.rt-route-chip b { font-size: 24px; }
+.rt-route-chip b .u { font-size: 17px; }
+.rt-route-live {
+	flex: none;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background: #f8d848;
+	box-shadow: 0 0 0 4px rgba(248, 216, 72, 0.25), 0 0 12px #f8d848;
+}
+.rt-route-stop {
+	flex: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	border: 2px solid #fff;
+	background: #111;
+	cursor: pointer;
+}
+.rt-route-stop i { width: 12px; height: 12px; border-radius: 3px; background: #fff; }
+/* Not a toast: it sits until the line is touched, and only for the first few routes. */
+.rt-route-hint {
+	position: absolute;
+	left: 50%;
+	/* The canvas runs under the tab bar. */
+	bottom: calc(var(--gc-navbar-h) + 26px);
+	transform: translateX(-50%);
+	z-index: 5;
+	padding: 8px 14px;
+	border-radius: 999px;
+	background: rgba(10, 10, 10, 0.85);
+	border: 1px solid #333;
+	color: #d8dbc6;
+	font-family: var(--rt-font-body);
+	font-size: 13px;
+	font-weight: 600;
+	white-space: nowrap;
+	pointer-events: none;
+}
+.rt-route-hint b { color: #f8d848; }
 
 /* Native user-location dot — WKWebView cannot render Mapbox's GeolocateControl. */
 .user-location-dot {
