@@ -102,9 +102,8 @@ function pickProject(e: Event) {
 	goto(`${url.pathname}${url.search}`, { keepFocus: true });
 }
 
-// A pill whose page ignores ?site= stays bare, so a URL never claims a scope the screen doesn't honour.
-const withSite = (tool: AdminTool): string =>
-	withSiteParam(tool.href, isFoundr && tool.scopedToSite ? site || null : null);
+// Every Foundr pill carries the picked site so it survives the walk; `scopedToSite` only dims.
+const withSite = (tool: AdminTool): string => withSiteParam(tool.href, isFoundr ? site || null : null);
 
 const email = $derived(page.data.adminEmail as string | undefined);
 // Just the name part — the full address is in the title tooltip.
@@ -218,7 +217,7 @@ $effect(() => {
     <a
         class="lnk {lookup ? 'lookup-lnk' : 'table-lnk'}"
         class:active={path === link.href}
-        href={crudHref(withSiteParam(link.href, link.scopedToSite ? site || null : null))}
+        href={crudHref(withSiteParam(link.href, isFoundr ? site || null : null))}
         title={n === undefined ? link.title : `${link.title} — ${n} rows`}
     >
         {link.label}
