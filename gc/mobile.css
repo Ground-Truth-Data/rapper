@@ -1465,6 +1465,14 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	opacity: 0.75;
 	margin-top: 0.15rem;
 }
+.rt-route-pill-go {
+	flex: none;
+	padding: 0.4rem 0.8rem;
+	border-radius: 10px;
+	font: inherit;
+	font-size: 0.8rem;
+	cursor: pointer;
+}
 .rt-route-pill-x {
 	flex: none;
 	width: 28px;
