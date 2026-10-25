@@ -1421,6 +1421,61 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	border: 1.5px solid rgba(255, 255, 255, 0.17);
 }
 .rt-hospital-loc:active { transform: scale(0.96); }
+.rt-directions {
+	background: var(--rt-yellow, #ffd700);
+	color: #1a1a1a;
+	border-color: transparent;
+}
+.rt-feature-directions {
+	display: block;
+	width: calc(100% - 1.5rem);
+	margin: 0 0.75rem 0.75rem;
+	padding: 0.45rem 0.6rem;
+	border-radius: 10px;
+	font: inherit;
+	font-size: 0.8rem;
+	font-weight: 700;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+}
+.rt-feature-directions:active { transform: scale(0.96); }
+
+.rt-route-pill {
+	position: absolute;
+	top: calc(var(--top-bar-h, 4rem) + 12px);
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 5;
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	max-width: calc(100% - 32px);
+	padding: 0.5rem 0.5rem 0.5rem 0.9rem;
+	border-radius: 14px;
+	background: rgba(20, 22, 28, 0.92);
+	color: #ece7da;
+	border: 1.5px solid #1e6cff;
+	font-size: 0.85rem;
+	font-weight: 700;
+}
+.rt-route-pill[hidden] { display: none; }
+.rt-route-pill-hint {
+	font-size: 0.72rem;
+	font-weight: 500;
+	opacity: 0.75;
+	margin-top: 0.15rem;
+}
+.rt-route-pill-x {
+	flex: none;
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	border: 1.5px solid rgba(255, 255, 255, 0.17);
+	background: rgba(0, 0, 0, 0.3);
+	color: inherit;
+	font: inherit;
+	cursor: pointer;
+}
 
 /* Native user-location dot — WKWebView cannot render Mapbox's GeolocateControl. */
 .user-location-dot {
