@@ -96,10 +96,13 @@ function addColumns(h: Db, schema: string, table: string, create: string): strin
 let sqlite3: Sqlite3 | null = null;
 
 /** sqlite-wasm's own wasm lookup resolves against the built bundle, wrong in production. */
-export const loadApi = async (wasmUrl?: string): Promise<Sqlite3> =>
-	(sqlite3 ??= await (sqlite3InitModule as unknown as (o: { locateFile: (f: string) => string }) => Promise<Sqlite3>)({
+export const loadApi = async (wasmUrl?: string): Promise<Sqlite3> => {
+	// "opfs-wl" installs itself by default and starts a proxy worker this gate never uses.
+	(globalThis as { sqlite3ApiConfig?: unknown }).sqlite3ApiConfig ??= { disable: { vfs: { "opfs-wl": true } } };
+	return (sqlite3 ??= await (sqlite3InitModule as unknown as (o: { locateFile: (f: string) => string }) => Promise<Sqlite3>)({
 		locateFile: (f) => (f.endsWith(".wasm") && wasmUrl ? wasmUrl : f),
 	}));
+};
 
 export type Opened = {
 	db: Db;
