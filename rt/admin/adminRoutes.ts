@@ -709,8 +709,6 @@ export function foundrStageOf(pathname: string): FoundrStage | null {
 	return FOUNDR_STAGES.find((s) => s.key === key) ?? null;
 }
 
-/** Where a stage opens: its first tool, carrying `?site=` only when that tool reads it. */
-export const foundrStageHref = (stage: FoundrStageKey, site: string | null): string => {
-	const first = foundrStageTools(stage)[0];
-	return withSiteParam(first.href, first.scopedToSite ? site : null);
-};
+/** Where a stage opens: its first tool, carrying the picked site so the walk keeps it. */
+export const foundrStageHref = (stage: FoundrStageKey, site: string | null): string =>
+	withSiteParam(foundrStageTools(stage)[0].href, site);
