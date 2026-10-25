@@ -23,8 +23,9 @@ const BROWSER_PREFIX = "PUBLIC_";
 const BEGIN = "# --- Bitwarden block: written from `bws secret list` by rapper/scripts/envFromBitwarden.mjs. Hand edits here are overwritten. ---";
 const END = "# --- end Bitwarden block ---";
 const KEY_LINE = /^([A-Za-z_][A-Za-z0-9_]*)=/gm;
-// .env.<env> overlays (APP_ENV's .env.dev) name the twins they point at.
-const SOURCE = /\.(m?[jt]s|cjs|svelte|prisma|py|sh|json|toml|ya?ml)$|^\.env\.(?!schema$)\w+$/;
+// APP_ENV's overlays (.env.dev) name the twins they point at. Never .env.development/.production:
+// this script writes them from the block, so reading them back keeps every key named forever.
+const SOURCE = /\.(m?[jt]s|cjs|svelte|prisma|py|sh|json|toml|ya?ml)$|^\.env\.(dev|prod)$/;
 const SKIP_DIRS = new Set([
 	".git", "node_modules", ".svelte-kit", ".svelte-kit-cap", ".vercel", "build", "build-cap",
 	"dist", "ios", "android", "_rapper", "_siblings", ".wt", ".test", ".playwright-mcp",
