@@ -1443,13 +1443,13 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 .rt-route-pill {
 	position: absolute;
 	top: calc(var(--top-bar-h, 4rem) + 12px);
-	left: 50%;
-	transform: translateX(-50%);
+	left: 12px;
+	/* Clear of the eye and layer buttons on the right edge. */
+	right: 88px;
 	z-index: 5;
 	display: flex;
 	align-items: center;
 	gap: 0.6rem;
-	max-width: calc(100% - 32px);
 	padding: 0.5rem 0.5rem 0.5rem 0.9rem;
 	border-radius: 14px;
 	background: rgba(20, 22, 28, 0.92);
