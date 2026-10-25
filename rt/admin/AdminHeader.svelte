@@ -77,8 +77,11 @@ $effect(() => {
 	remembered[current.key] = here;
 	rememberTool(current.key, here);
 });
+// Foundr's home is the pipeline board, which reads the site: a page nothing remembers yet (a report, the server render) must not drop it.
+const parentHome = (parent: AdminParent): string =>
+	withSiteParam(parent.home, parent.key === "foundr" ? site || null : null);
 const parentHref = (parent: AdminParent): string =>
-	urlOnSite("admin", remembered[parent.key] ?? parent.home, page.url);
+	urlOnSite("admin", remembered[parent.key] ?? parentHome(parent), page.url);
 
 /** ReTreever's table pages live outside any tool's prefix, so `currentTool` is null there — requiring one here vanished the whole CRUD row on click. */
 const crudHref = (href: string): string => onSite(currentTool?.site, href);
@@ -102,9 +105,8 @@ function pickProject(e: Event) {
 	goto(`${url.pathname}${url.search}`, { keepFocus: true });
 }
 
-// A pill whose page ignores ?site= stays bare, so a URL never claims a scope the screen doesn't honour.
-const withSite = (tool: AdminTool): string =>
-	withSiteParam(tool.href, isFoundr && tool.scopedToSite ? site || null : null);
+// Every Foundr pill carries the picked site so it survives the walk; `scopedToSite` only dims.
+const withSite = (tool: AdminTool): string => withSiteParam(tool.href, isFoundr ? site || null : null);
 
 const email = $derived(page.data.adminEmail as string | undefined);
 // Just the name part — the full address is in the title tooltip.
@@ -218,7 +220,7 @@ $effect(() => {
     <a
         class="lnk {lookup ? 'lookup-lnk' : 'table-lnk'}"
         class:active={path === link.href}
-        href={crudHref(withSiteParam(link.href, link.scopedToSite ? site || null : null))}
+        href={crudHref(withSiteParam(link.href, isFoundr ? site || null : null))}
         title={n === undefined ? link.title : `${link.title} — ${n} rows`}
     >
         {link.label}
