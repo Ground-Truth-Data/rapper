@@ -68,7 +68,10 @@ if (existsSync("svelte.config.js")) {
 		if (existsSync(path.join("..", child))) roots.push(path.join("..", child));
 	}
 }
+// A Cloudflare Worker deploys itself and holds its own secrets (wrangler secret put); the app never reads them.
+const isWorker = (dir) => ["wrangler.toml", "wrangler.jsonc"].some((f) => existsSync(path.join(dir, f)));
 function* sourceFiles(dir) {
+	if (isWorker(dir)) return;
 	for (const e of readdirSync(dir, { withFileTypes: true })) {
 		if (e.isDirectory()) {
 			if (!SKIP_DIRS.has(e.name)) yield* sourceFiles(path.join(dir, e.name));
@@ -114,6 +117,11 @@ if (bws.error?.code === "ENOENT") {
 	const unseen = [...schemaSrc.slice(begin, end).matchAll(/^(\w+)=(?:bitwarden\(|$)/gm)]
 		.map((m) => m[1])
 		.filter((k) => !seen.has(k) && named(k));
+	// A build inlines every PUBLIC_ value; built empty, the site ships broken.
+	const unseenPublic = unseen.filter((k) => k.startsWith(BROWSER_PREFIX));
+	if (process.env.APP_ENV === "prod" && unseenPublic.length) {
+		fail(`your Bitwarden machine account cannot read ${unseenPublic.join(", ")}. Ask Chris to add it to your project.`);
+	}
 	for (const s of vault) {
 		if (named(s.key)) {
 			// The note is the secret's documentation; an at-sign in it would read as a decorator.
