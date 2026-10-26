@@ -18,7 +18,7 @@ components (children) live in their own repos:
 ## Get started
 
 A child runs with rapper beside it: rapper serves every child from its
-sibling folders. `dressChild.sh` (private workspace) copies rapper into one
+sibling folders. `syncRapper.sh` (private workspace) copies rapper into one
 child as `_rapper/`, plus any companion child as `_siblings/`, so it runs
 alone. Both are generated and never committed: change rapper in this repo,
 never in a child's copy.
