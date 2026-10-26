@@ -177,7 +177,22 @@ $effect(() => {
 		fy = (y - vy) * z;
 		dial = h ? (h.width / 2) * z + DIAL_PAD : 0;
 		// Pins are DOM over the canvas, so the copy misses them; each is drawn in from its own image.
-		const pins = src.closest(".mapboxgl-map, .maplibregl-map")?.querySelectorAll<HTMLImageElement>(":is(.mapboxgl-marker, .maplibregl-marker) > img") ?? [];
+		// Every image in a marker, nested ones too (a cluster's skins), each at its wrapper's turn and opacity.
+		const pins = [...(src.closest(".mapboxgl-map, .maplibregl-map")?.querySelectorAll<HTMLImageElement>(":is(.mapboxgl-marker, .maplibregl-marker) img") ?? [])].flatMap((img) => {
+			const b = img.getBoundingClientRect();
+			// No zoom shows more than a lens-width round its centre.
+			if (Math.abs(b.left + b.width / 2 - vx) > LOUPE_W || Math.abs(b.top + b.height / 2 - vy) > LOUPE_W) return [];
+			const wrap = img.parentElement;
+			if (!wrap || wrap.matches(".mapboxgl-marker, .maplibregl-marker")) return [{ img, ...painted(img), turn: 0, alpha: 1 }];
+			const cs = getComputedStyle(wrap);
+			const alpha = Number(cs.opacity);
+			if (!alpha) return [];
+			const m = new DOMMatrix(cs.transform === "none" ? undefined : cs.transform);
+			const s = Math.hypot(m.a, m.b);
+			const k = Math.min((img.offsetWidth * s) / img.naturalWidth, (img.offsetHeight * s) / img.naturalHeight) || 0;
+			const [width, height] = [img.naturalWidth * k, img.naturalHeight * k];
+			return [{ img, left: b.left + (b.width - width) / 2, top: b.top + (b.height - height) / 2, width, height, turn: Math.atan2(m.b, m.a), alpha }];
+		});
 		for (const [canvas, zoom] of [
 			[c, z],
 			[e, z * EDGE_ZOOM],
@@ -192,11 +207,17 @@ $effect(() => {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			ctx.drawImage(src, f.sx, f.sy, f.sw, f.sh, f.dx, f.dy, f.dw, f.dh);
 			const k = zoom * dpr;
-			for (const img of pins) {
-				const b = painted(img);
+			for (const b of pins) {
 				const dx = ((b.left - vx) * zoom + LOUPE_W / 2) * dpr;
 				const dy = ((b.top - vy) * zoom + LOUPE_H / 2) * dpr;
-				if (dx < canvas.width && dy < canvas.height && dx + b.width * k > 0 && dy + b.height * k > 0) ctx.drawImage(img, dx, dy, b.width * k, b.height * k);
+				const [w, h] = [b.width * k, b.height * k];
+				if (dx >= canvas.width || dy >= canvas.height || dx + w <= 0 || dy + h <= 0) continue;
+				ctx.save();
+				ctx.globalAlpha = b.alpha;
+				ctx.translate(dx + w / 2, dy + h / 2);
+				ctx.rotate(b.turn);
+				ctx.drawImage(b.img, -w / 2, -h / 2, w, h);
+				ctx.restore();
 			}
 		}
 		const now = paused ? (frozen ||= performance.now()) : performance.now();
