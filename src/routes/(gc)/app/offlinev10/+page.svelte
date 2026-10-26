@@ -9,10 +9,7 @@
  * would hit. The map itself is whole: pan, zoom, blobs, roads, fires, hospitals.
  */
 import Page from "$parent/siblings/getCache_OfflineMap/routes/offlinev10/+page.svelte";
-import {
-	soloHostPorts,
-	soloMapPorts,
-} from "$parent/siblings/getCache_OfflineMap/lib/shared/soloPorts";
+import { soloMapPorts } from "$parent/siblings/getCache_OfflineMap/lib/shared/soloPorts";
 </script>
 
-<Page mapPorts={soloMapPorts()} places={soloHostPorts()} />
+<Page mapPorts={soloMapPorts()} />
