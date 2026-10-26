@@ -182,9 +182,12 @@ export const urlOnSite = (
 	return `${current.protocol}//${host}${port}${pathname}`;
 };
 
-/** Get Cache is its own deployment (`fetch/getCache`), never served here; admin links across to it. Its dev server holds :5173. */
+/** Get Cache is its own deployment (`fetch/getCache`), never served here; admin links across to it. Its dev server holds :5173,
+ * but a page already on a Get Cache server (a test server's own port) stays on it. */
 export const getcacheUrl = (pathname: string, current: URL): string =>
-	current.hostname.endsWith(".localhost")
+	current.hostname.startsWith("getcache.")
+		? `${current.origin}${pathname}`
+		: current.hostname.endsWith(".localhost")
 		? `http://getcache.localhost:5173${pathname}`
 		: `${GETCACHE_ORIGIN}${pathname}`;
 
