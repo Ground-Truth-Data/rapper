@@ -1430,8 +1430,7 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
 	color: #fff;
 }
-.rt-route-pill[hidden],
-.rt-route-hint[hidden] { display: none; }
+.rt-route-pill[hidden] { display: none; }
 .rt-route-icon { flex: none; width: 40px; height: 40px; }
 .rt-route-pill-text {
 	flex: 1;
@@ -1513,26 +1512,6 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	cursor: pointer;
 }
 .rt-route-stop i { width: 12px; height: 12px; border-radius: 3px; background: #fff; }
-/* Not a toast: it sits until the line is touched, and only for the first few routes. */
-.rt-route-hint {
-	position: absolute;
-	left: 50%;
-	/* The canvas runs under the tab bar. */
-	bottom: calc(var(--gc-navbar-h) + 26px);
-	transform: translateX(-50%);
-	z-index: 5;
-	padding: 8px 14px;
-	border-radius: 999px;
-	background: rgba(10, 10, 10, 0.85);
-	border: 1px solid #333;
-	color: #d8dbc6;
-	font-family: var(--rt-font-body);
-	font-size: 13px;
-	font-weight: 600;
-	white-space: nowrap;
-	pointer-events: none;
-}
-.rt-route-hint b { color: #f8d848; }
 
 /* Native user-location dot — WKWebView cannot render Mapbox's GeolocateControl. */
 .user-location-dot {
