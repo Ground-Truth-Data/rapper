@@ -454,6 +454,45 @@
   border-radius: 0.5rem !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
 }
+/* Credits: a gold ⓘ that opens a dark strip, never the white box the renderers ship. */
+.mapboxgl-ctrl-attrib.mapboxgl-compact,
+.maplibregl-ctrl-attrib.maplibregl-compact {
+  background: rgba(0, 0, 0, 0.6) !important;
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 10px;
+  line-height: 1.4;
+  min-height: 0 !important;
+  width: 22px;
+  height: 22px;
+  padding: 0 !important;
+  border-radius: 11px !important;
+}
+.mapboxgl-ctrl-attrib.mapboxgl-compact-show,
+.maplibregl-ctrl-attrib.maplibregl-compact-show {
+  width: auto;
+  height: auto;
+  max-width: min(18rem, calc(100vw - 2rem));
+  padding: 3px 10px 3px 26px !important;
+}
+.mapboxgl-ctrl-attrib a,
+.maplibregl-ctrl-attrib a {
+  color: rgba(255, 215, 0, 0.85) !important;
+  text-decoration: none;
+}
+.mapboxgl-ctrl-attrib-button,
+.maplibregl-ctrl-attrib-button {
+  left: 0 !important;
+  width: 20px !important;
+  height: 20px !important;
+  background-color: transparent !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23ffd700' fill-rule='evenodd'%3E%3Cpath d='M4 10a6 6 0 1 0 12 0 6 6 0 1 0-12 0m5-3a1 1 0 1 0 2 0 1 1 0 1 0-2 0m0 3a1 1 0 1 1 2 0v3a1 1 0 1 1-2 0'/%3E%3C/svg%3E") !important;
+  box-shadow: none !important;
+}
+.mapboxgl-ctrl-attrib-button:focus-visible,
+.maplibregl-ctrl-attrib-button:focus-visible {
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.8) !important;
+}
 .mapboxgl-ctrl-group button + button,
 .maplibregl-ctrl-group button + button {
   border-top: 1px solid rgba(255, 215, 0, 0.2) !important;
