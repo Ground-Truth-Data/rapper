@@ -13,12 +13,11 @@ beforeEach(() => {
 afterEach(() => vi.useRealTimers());
 
 describe("NiceScaleBarControl", () => {
-	it("mounts under both renderers' class names and draws a bar for the viewport", () => {
+	it("mounts as a MapLibre control and draws a bar for the viewport", () => {
 		const d = mapDouble({ w: -119.3, s: 50.2, e: -119.2, n: 50.3 });
 		const bar = new NiceScaleBarControl();
 		const el = bar.onAdd(d.map as never);
 		expect(bar.getDefaultPosition()).toBe("bottom-left");
-		expect(el.className).toContain("mapboxgl-ctrl");
 		expect(el.className).toContain("maplibregl-ctrl");
 		const labels = [...el.querySelectorAll(".nice-scale-bar__tick")].map((t) => t.textContent);
 		expect(labels[0]).toBe("0");

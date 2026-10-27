@@ -85,7 +85,7 @@ export class NiceScaleBarControl {
         const el = document.createElement("div");
         // BOTH namespaces — carrying only one leaves this bar unpositioned
         // on the other map (each renderer positions controls by its own class).
-        el.className = "mapboxgl-ctrl maplibregl-ctrl nice-scale-bar";
+        el.className = "maplibregl-ctrl nice-scale-bar";
         el.style.pointerEvents = "none";
 
         const blocks = document.createElement("div");

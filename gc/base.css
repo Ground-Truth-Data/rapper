@@ -219,12 +219,12 @@ table a:hover, [role="table"] a:hover, .table-container a:hover, .contact-sectio
 }
 
 /* Strip nested vendor button chrome. */
-button.mapboxgl-ctrl,
-button.mapboxgl-ctrl:hover,
-button.mapboxgl-ctrl:active,
-.mapboxgl-ctrl button,
-.mapboxgl-ctrl button:hover,
-.mapboxgl-ctrl button:active {
+button.maplibregl-ctrl,
+button.maplibregl-ctrl:hover,
+button.maplibregl-ctrl:active,
+.maplibregl-ctrl button,
+.maplibregl-ctrl button:hover,
+.maplibregl-ctrl button:active {
 	background: none !important;
 	border: none !important;
 	box-shadow: none !important;

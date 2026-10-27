@@ -2,10 +2,8 @@
 @import 'tailwindcss';
 @import './mobile.css';
 @import './base.css';
-/* Vendor map CSS is ALWAYS `layer(vendor)`, never bare — unlayered, both vendors' popup fills beat our overrides on source order. */
-@import 'mapbox-gl/dist/mapbox-gl.css' layer(vendor);
+/* Vendor map CSS is ALWAYS `layer(vendor)`, never bare — unlayered, its popup fills beat our overrides on source order. */
 @import 'maplibre-gl/dist/maplibre-gl.css' layer(vendor);
-@import 'mapbox-gl-opacity/dist/mapbox-gl-opacity.css' layer(vendor);
 
 @variant dark (&:where(.dark, .dark *));
 

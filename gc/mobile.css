@@ -397,9 +397,7 @@ hr {
 
 /* The ONE close glyph for every popup: a painted WebP, so `color` no longer reaches it — pick the tone by swapping the image. A caller's <svg> is hidden, not removed, so <Icon name="close-x"/> keeps working. */
 .rt-popover-close,
-.rt-fire-popup .mapboxgl-popup-close-button,
 .rt-fire-popup .maplibregl-popup-close-button,
-.rt-hospital-popup .mapboxgl-popup-close-button,
 .rt-hospital-popup .maplibregl-popup-close-button {
 	border: 2px solid #f2f3ea;
 	background:
@@ -407,9 +405,7 @@ hr {
 		rgba(0, 0, 0, 0.28);
 }
 .rt-popover-close:active,
-.rt-fire-popup .mapboxgl-popup-close-button:active,
 .rt-fire-popup .maplibregl-popup-close-button:active,
-.rt-hospital-popup .mapboxgl-popup-close-button:active,
 .rt-hospital-popup .maplibregl-popup-close-button:active {
 	background:
 		url('$gc/assets/x_close_white.webp') center / 62% 62% no-repeat,
@@ -723,14 +719,12 @@ body.mobile-app [contenteditable] * {
 
 
 /* Right-aligned with the zoom pill: on the left the shovel artwork sits behind the logo. */
-.mobile-map-fill .mapboxgl-ctrl-bottom-left,
 .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	bottom: calc(env(safe-area-inset-bottom) + 1.25rem + 56px + 15px + 6px) !important;
 	left: auto !important;
 	right: 0.75rem !important;
 	padding: 0 !important;
 }
-.mobile-map-fill .mapboxgl-ctrl-logo,
 .mobile-map-fill .maplibregl-ctrl-logo {
 	opacity: 0.5;
 }
@@ -872,11 +866,8 @@ body.demo-map-fullbleed .bottom-nav {
 .mobile-map-fill .shovel-handle,
 .mobile-map-fill .drawer-scrim,
 .mobile-map-fill .draw-strip,
-.mobile-map-fill .mapboxgl-ctrl-top-right,
 .mobile-map-fill .maplibregl-ctrl-top-right,
-.mobile-map-fill .mapboxgl-ctrl-bottom-right,
 .mobile-map-fill .maplibregl-ctrl-bottom-right,
-.mobile-map-fill .mapboxgl-ctrl-bottom-left,
 .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	transition: opacity 220ms ease;
 }
@@ -898,20 +889,15 @@ body.map-only .mobile-map-fill .mob-drawer-scrim,
 body.map-only .mobile-map-fill .shovel-handle,
 body.map-only .mobile-map-fill .drawer-scrim,
 body.map-only .mobile-map-fill .draw-strip,
-body.map-only .mobile-map-fill .mapboxgl-ctrl-top-right,
 body.map-only .mobile-map-fill .maplibregl-ctrl-top-right,
-body.map-only .mobile-map-fill .mapboxgl-ctrl-bottom-right,
 body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-right,
-body.map-only .mobile-map-fill .mapboxgl-ctrl-bottom-left,
 body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	opacity: 0;
 	pointer-events: none;
 }
 
-.mobile-map-fill .mapboxgl-ctrl,
 .mobile-map-fill .maplibregl-ctrl { margin: 0 !important; }
 
-.mobile-map-fill .mapboxgl-ctrl-top-right,
 .mobile-map-fill .maplibregl-ctrl-top-right {
 	top: calc(env(safe-area-inset-top) + 0.75rem) !important;
 	right: 0.75rem !important;
@@ -921,7 +907,6 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	gap: 0.625rem;
 }
 
-.mobile-map-fill .mapboxgl-ctrl-bottom-right,
 .mobile-map-fill .maplibregl-ctrl-bottom-right {
 	bottom: 0.75rem !important;
 	right: 0.75rem !important;
@@ -932,9 +917,7 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	gap: 0.625rem;
 }
 
-.mobile-map-fill .mapboxgl-ctrl-top-right .mapboxgl-ctrl-group,
 .mobile-map-fill .maplibregl-ctrl-top-right .maplibregl-ctrl-group,
-.mobile-map-fill .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-group,
 .mobile-map-fill .maplibregl-ctrl-bottom-right .maplibregl-ctrl-group {
 	background: rgba(0, 0, 0, 0.5) !important;
 	border: 1px solid color-mix(in srgb, var(--color-accent), transparent 50%) !important;
@@ -942,9 +925,7 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
 }
 
-.mobile-map-fill .mapboxgl-ctrl-top-right .mapboxgl-ctrl-group button,
 .mobile-map-fill .maplibregl-ctrl-top-right .maplibregl-ctrl-group button,
-.mobile-map-fill .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-group button,
 .mobile-map-fill .maplibregl-ctrl-bottom-right .maplibregl-ctrl-group button {
 	width: 3rem !important;
 	height: 3rem !important;
@@ -958,22 +939,16 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	border: none !important;
 }
 
-.mobile-map-fill .mapboxgl-ctrl-icon,
 .mobile-map-fill .maplibregl-ctrl-icon {
 	background-color: transparent !important;
 }
 
-/* Hides Mapbox's geolocate button — the LOCATE tile in the draw drawer is the real affordance. GeolocateControl stays added so the blue dot still renders. */
-.mobile-map-fill .mapboxgl-ctrl-geolocate,
+/* Hides the map's geolocate button — the LOCATE tile in the draw drawer is the real affordance. GeolocateControl stays added so the blue dot still renders. */
 .mobile-map-fill .maplibregl-ctrl-geolocate { display: none !important; }
 
-.mobile-map-fill .mapboxgl-ctrl-attrib,
-.mobile-map-fill .maplibregl-ctrl-attrib { display: none !important; }
 
 @container (min-width: 500px) {
-	.mobile-map-fill .mapboxgl-ctrl-top-right .mapboxgl-ctrl-group button,
 	.mobile-map-fill .maplibregl-ctrl-top-right .maplibregl-ctrl-group button,
-	.mobile-map-fill .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-group button,
 	.mobile-map-fill .maplibregl-ctrl-bottom-right .maplibregl-ctrl-group button {
 		width: 3.5rem !important;
 		height: 3.5rem !important;
@@ -983,7 +958,6 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 }
 
 /* Emitted by shared mapGrid code, so it must style on BOTH routes. */
-.mapboxgl-popup.grid-plot-popup .mapboxgl-popup-content,
 .maplibregl-popup.grid-plot-popup .maplibregl-popup-content {
 	background: linear-gradient(165deg, #16263c 0%, #0d1828 100%);
 	border: 2px solid #5aa6e6;
@@ -993,7 +967,6 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	color: #cfe6ff;
 }
 /* Match the navy/blue body so the little arrow blends in. */
-.mapboxgl-popup.grid-plot-popup .mapboxgl-popup-tip,
 .maplibregl-popup.grid-plot-popup .maplibregl-popup-tip {
 	border-top-color: #5aa6e6 !important;
 	border-bottom-color: #5aa6e6 !important;
@@ -1109,7 +1082,6 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 }
 
 /* Terracotta, NEVER red: red means destructive here, and this is information, not a button. */
-.rt-fire-popup .mapboxgl-popup-content,
 .rt-fire-popup .maplibregl-popup-content {
 	/* Near-opaque: thin glass let satellite imagery read straight through in sun. */
 	background: rgba(26, 28, 24, 0.94);
@@ -1126,7 +1098,7 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 }
 
 /* Same-size terracotta dots throughout: a bigger head dot reads as another marker. */
-.rt-fire-popup .mapboxgl-popup-tip,
+.rt-fire-popup .maplibregl-popup-tip,
 .rt-fire-popup .maplibregl-popup-tip { display: none; }
 
 .rt-fire-popup::after {
@@ -1144,19 +1116,15 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	pointer-events: none;
 }
 /* Card above the fire: trail runs down; height matches FIRE_POPUP_OFFSET so the last dot lands on the glyph. */
-.rt-fire-popup.mapboxgl-popup-anchor-bottom::after,
 .rt-fire-popup.maplibregl-popup-anchor-bottom::after {
 	top: 100%;
 	height: 16px;
 }
-.rt-fire-popup.mapboxgl-popup-anchor-top::after,
 .rt-fire-popup.maplibregl-popup-anchor-top::after {
 	bottom: 100%;
 	height: 16px;
 }
-.rt-fire-popup.mapboxgl-popup-anchor-left::after,
 .rt-fire-popup.maplibregl-popup-anchor-left::after,
-.rt-fire-popup.mapboxgl-popup-anchor-right::after,
 .rt-fire-popup.maplibregl-popup-anchor-right::after {
 	top: 50%;
 	left: auto;
@@ -1170,26 +1138,18 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 		transparent 3px 7px
 	);
 }
-.rt-fire-popup.mapboxgl-popup-anchor-left::after,
 .rt-fire-popup.maplibregl-popup-anchor-left::after { right: 100%; }
-.rt-fire-popup.mapboxgl-popup-anchor-right::after,
 .rt-fire-popup.maplibregl-popup-anchor-right::after { left: 100%; }
 /* Diagonal anchors: card corner already sits on the glyph — no gap to bridge, so no trail. */
-.rt-fire-popup.mapboxgl-popup-anchor-top-left::after,
 .rt-fire-popup.maplibregl-popup-anchor-top-left::after,
-.rt-fire-popup.mapboxgl-popup-anchor-top-right::after,
 .rt-fire-popup.maplibregl-popup-anchor-top-right::after,
-.rt-fire-popup.mapboxgl-popup-anchor-bottom-left::after,
 .rt-fire-popup.maplibregl-popup-anchor-bottom-left::after,
-.rt-fire-popup.mapboxgl-popup-anchor-bottom-right::after,
 .rt-fire-popup.maplibregl-popup-anchor-bottom-right::after,
-.rt-fire-popup.mapboxgl-popup-anchor-center::after,
 .rt-fire-popup.maplibregl-popup-anchor-center::after {
 	display: none;
 }
 
 /* 28px, not 36: at 36 it crowded the gauge; ::before below grows the tap area to 44px. */
-.rt-fire-popup .mapboxgl-popup-close-button,
 .rt-fire-popup .maplibregl-popup-close-button {
 	position: absolute;
 	top: 0.55rem;
@@ -1210,22 +1170,18 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	overflow: visible;
 }
 /* Fix a miss by enlarging the inset, never width/height. */
-.rt-fire-popup .mapboxgl-popup-close-button::before,
 .rt-fire-popup .maplibregl-popup-close-button::before {
 	content: "";
 	position: absolute;
 	inset: -8px;
 }
 @media (hover: hover) and (pointer: fine) {
-	.rt-fire-popup .mapboxgl-popup-close-button:hover,
 	.rt-fire-popup .maplibregl-popup-close-button:hover {
 		background-color: rgba(0, 0, 0, 0.28);
 	}
 }
 /* Mapbox auto-focuses this button on open; the ring reads as a bug. */
-.rt-fire-popup .mapboxgl-popup-close-button:focus,
 .rt-fire-popup .maplibregl-popup-close-button:focus,
-.rt-fire-popup .mapboxgl-popup-close-button:focus-visible,
 .rt-fire-popup .maplibregl-popup-close-button:focus-visible {
 	outline: none;
 	box-shadow: none;
@@ -1287,7 +1243,6 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 }
 .rt-fire-trend svg { display: block; }
 
-.rt-hospital-popup .mapboxgl-popup-content,
 .rt-hospital-popup .maplibregl-popup-content {
 	background: rgba(26, 28, 24, 0.94);
 	backdrop-filter: blur(14px);
@@ -1299,12 +1254,10 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	border: 2px solid color-mix(in srgb, var(--palette-terracotta), transparent 25%);
 	box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
 }
-.rt-hospital-popup .mapboxgl-popup-tip,
 .rt-hospital-popup .maplibregl-popup-tip {
 	border-top-color: rgba(26, 28, 24, 0.94);
 	border-bottom-color: rgba(26, 28, 24, 0.94);
 }
-.rt-hospital-popup .mapboxgl-popup-close-button,
 .rt-hospital-popup .maplibregl-popup-close-button {
 	top: 0.45rem;
 	right: 0.45rem;
