@@ -178,12 +178,12 @@ $effect(() => {
 		dial = h ? (h.width / 2) * z + DIAL_PAD : 0;
 		// Pins are DOM over the canvas, so the copy misses them; each is drawn in from its own image.
 		// Every image in a marker, nested ones too (a cluster's skins), each at its wrapper's turn and opacity.
-		const pins = [...(src.closest(".mapboxgl-map, .maplibregl-map")?.querySelectorAll<HTMLImageElement>(":is(.mapboxgl-marker, .maplibregl-marker) img") ?? [])].flatMap((img) => {
+		const pins = [...(src.closest(".maplibregl-map")?.querySelectorAll<HTMLImageElement>(".maplibregl-marker img") ?? [])].flatMap((img) => {
 			const b = img.getBoundingClientRect();
 			// No zoom shows more than a lens-width round its centre.
 			if (Math.abs(b.left + b.width / 2 - vx) > LOUPE_W || Math.abs(b.top + b.height / 2 - vy) > LOUPE_W) return [];
 			const wrap = img.parentElement;
-			if (!wrap || wrap.matches(".mapboxgl-marker, .maplibregl-marker")) return [{ img, ...painted(img), turn: 0, alpha: 1 }];
+			if (!wrap || wrap.matches(".maplibregl-marker")) return [{ img, ...painted(img), turn: 0, alpha: 1 }];
 			const cs = getComputedStyle(wrap);
 			const alpha = Number(cs.opacity);
 			if (!alpha) return [];
