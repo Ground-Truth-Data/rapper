@@ -57,6 +57,10 @@
 	/* Review mode: amber = held for you, red = an edit or a clock set back. */
 	--palette-amber: #ee9b2f;
 	--palette-red: #e2553f;
+	/* Shared: what other people can see. Used nowhere else, so it never reads as private. */
+	--palette-sky: #6fc3e8;
+	--palette-sky-dim: #4a8aa8;
+	--palette-sky-ink: #14202a;
 
 	--color-accent-gold: var(--palette-gold);
 	--color-accent-terracotta: var(--palette-terracotta);

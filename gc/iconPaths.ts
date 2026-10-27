@@ -23,6 +23,10 @@ export const ICONS = {
 		body: `<path d="M16.5 3.5l4 4L8 20l-5 1 1-5z"/><path d="M13.5 6.5l4 4"/>`,
 		sw: 2,
 	},
+	cloud: {
+		body: `<path d="M7 18h10.5a3.6 3.6 0 0 0 .5-7.17A5.6 5.6 0 0 0 6.4 9.6 4.2 4.2 0 0 0 7 18z"/>`,
+		sw: 2.4,
+	},
 	close: { body: `<path d="M5 5l14 14M19 5L5 19"/>`, sw: 2.4 },
 	undo: {
 		body: `<path d="M9 7L4 11l5 4"/><path d="M4 11h9a5 5 0 015 5v2"/>`,
