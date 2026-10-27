@@ -1,6 +1,6 @@
 // A recording Mapbox/MapLibre double; the camera is a flat 400×800 px window over `box`. Needs happy-dom.
 import type { FeatureCollection } from "geojson";
-import type { Map as MapboxMap } from "mapbox-gl";
+import type { Map as MapLibreMap } from "maplibre-gl";
 import { vi } from "vitest";
 export type LngLatBox = { w: number; s: number; e: number; n: number };
 export const PX = { w: 400, h: 800 };
@@ -72,5 +72,5 @@ export function mapDouble(box: LngLatBox = { w: -119.3, s: 50.2, e: -119.2, n: 5
 	const fire = (ev: string, e?: unknown, layer?: string) => {
 		for (const fn of [...(handlers.get(key(ev, layer)) ?? [])]) fn(e);
 	};
-	return { map: map as unknown as MapboxMap, raw: map, sources, layers, paint, layout, filters, featureState, handlers, fire, canvas, container };
+	return { map: map as unknown as MapLibreMap, raw: map, sources, layers, paint, layout, filters, featureState, handlers, fire, canvas, container };
 }

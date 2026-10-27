@@ -27,6 +27,7 @@ export const ICONS = {
 		body: `<path d="M7 18h10.5a3.6 3.6 0 0 0 .5-7.17A5.6 5.6 0 0 0 6.4 9.6 4.2 4.2 0 0 0 7 18z"/>`,
 		sw: 2.4,
 	},
+	lock: { body: `<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>`, sw: 2.4 },
 	close: { body: `<path d="M5 5l14 14M19 5L5 19"/>`, sw: 2.4 },
 	undo: {
 		body: `<path d="M9 7L4 11l5 4"/><path d="M4 11h9a5 5 0 015 5v2"/>`,
