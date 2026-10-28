@@ -2,27 +2,24 @@
 // <Icon> (same folder) wraps these in a 24×24 viewBox. Shared via
 // $parent/siblings so ReTreever and the open map both read ONE catalog.
 // Monochrome lucide-style only; bespoke/multi-colour marks stay inline.
+import penUrl from "./assets/pen_edit_icon_white.webp";
+import noteUrl from "./assets/note_icon_white.webp";
 
-export type IconDef = {
-	/** Inner SVG markup (paths/polylines/circles), drawn in a 24×24 box. */
-	body: string;
-	/** The stroke width the icon was authored at. Overridable per call via
-	 *  the <Icon stroke={…}> prop, but this is the faithful default. */
-	sw: number;
-};
+export type IconDef =
+	| {
+			/** Inner SVG markup (paths/polylines/circles), drawn in a 24×24 box. */
+			body: string;
+			/** The stroke width the icon was authored at. Overridable per call via
+			 *  the <Icon stroke={…}> prop, but this is the faithful default. */
+			sw: number;
+	  }
+	/** Hand-drawn art: its alpha masks a currentColor fill, so any colour works. */
+	| { mask: string };
 
 export const ICONS = {
-	// `edit` and `edit-tilt` are the SAME glyph — every edit affordance
-	// app-wide renders this one path. Keep both names so existing call
-	// sites don't churn; edit them HERE only.
-	edit: {
-		body: `<path d="M16.5 3.5l4 4L8 20l-5 1 1-5z"/><path d="M13.5 6.5l4 4"/>`,
-		sw: 2,
-	},
-	"edit-tilt": {
-		body: `<path d="M16.5 3.5l4 4L8 20l-5 1 1-5z"/><path d="M13.5 6.5l4 4"/>`,
-		sw: 2,
-	},
+	// pen = edit / edited; note = a note or description. Never swap them.
+	pen: { mask: penUrl },
+	note: { mask: noteUrl },
 	cloud: {
 		body: `<path d="M7 18h10.5a3.6 3.6 0 0 0 .5-7.17A5.6 5.6 0 0 0 6.4 9.6 4.2 4.2 0 0 0 7 18z"/>`,
 		sw: 2.4,
@@ -172,10 +169,6 @@ export const ICONS = {
 		sw: 2,
 	},
 	// Section-rail glyphs (the piece/block card's one-row rail).
-	"rail-note": {
-		body: `<path d="M5 3.5h14v17H5z"/><path d="M8.5 8.5h7M8.5 12.5h7M8.5 16.5h4"/>`,
-		sw: 1.9,
-	},
 	// Never a generic pentagon — the corners and contents are what make it
 	// read as a block rather than a bare piece.
 	"rail-block": {
@@ -184,7 +177,7 @@ export const ICONS = {
 		sw: 1.28,
 	},
 	// Deliberately not a shape-with-handles (collides with rail-block) or
-	// a pencil (collides with rail-note).
+	// a pencil (collides with pen).
 	"rail-edit": {
 		body: `<rect x="9" y="9" width="6" height="6" rx="1.4"/><path d="M12 2.6v3.6M12 17.8v3.6M2.6 12h3.6M17.8 12h3.6"/><path d="m9.8 4.6 2.2-2 2.2 2M9.8 19.4l2.2 2 2.2-2M4.6 9.8l-2 2.2 2 2.2M19.4 9.8l2 2.2-2 2.2"/>`,
 		sw: 1.9,

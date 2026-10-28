@@ -33,9 +33,9 @@ const second = $derived(hammer || !!editor || edited);
     {#if hammer}
         <span class="id-pill id-pill--editor id-pill--hammer" title={m.gc_edit_replaced()}><Icon name="hammer" size={10} stroke={2.6} />{editor?.label ?? ""}</span>
     {:else if editor}
-        <span class="id-pill id-pill--editor" title={m.gc_edited_by({ name: editor.label })}><Icon name="edit" size={10} stroke={2.6} />{editor.label}</span>
+        <span class="id-pill id-pill--editor" title={m.gc_edited_by({ name: editor.label })}><Icon name="pen" size={10} />{editor.label}</span>
     {:else if edited}
-        <span class="id-pill id-pill--editor" title={m.gc_edited_since_made()}><Icon name="edit" size={10} stroke={2.6} /></span>
+        <span class="id-pill id-pill--editor" title={m.gc_edited_since_made()}><Icon name="pen" size={10} /></span>
     {/if}
 </span>
 

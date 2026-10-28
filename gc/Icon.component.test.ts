@@ -18,10 +18,21 @@ describe("Icon", () => {
 		expect(labelled.getAttribute("stroke-width")).toBe("3");
 	});
 
-	it("every icon has a body and a stroke width, zero for a filled mark", () => {
+	it("every icon has a body and a stroke width, zero for a filled mark, or a mask image", () => {
 		for (const def of Object.values(ICONS)) {
+			if ("mask" in def) {
+				expect(def.mask.length).toBeGreaterThan(0);
+				continue;
+			}
 			expect(def.body.length).toBeGreaterThan(0);
 			expect(def.sw).toBeGreaterThanOrEqual(0);
 		}
+	});
+
+	it("draws hand-drawn art as a currentColor mask", () => {
+		const span = render(Icon, { name: "pen", size: 14 }).container.querySelector("span")!;
+		expect(span.style.width).toBe("14px");
+		expect(span.style.background.toLowerCase()).toBe("currentcolor");
+		expect(span.getAttribute("style")).toContain("pen_edit_icon_white.webp");
 	});
 });
