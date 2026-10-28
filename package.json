@@ -20,10 +20,8 @@
 	},
 	"dependencies": {
 		"@sqlite.org/sqlite-wasm": "^3.53.0-build1",
-		"clsx": "^2.1.1",
 		"mapbox-gl": "^3.24.0",
-		"maplibre-gl": "^6.11.0",
-		"tailwind-merge": "^3.4.0"
+		"maplibre-gl": "^6.11.0"
 	},
 	"devDependencies": {
 		"@inlang/paraglide-js": "^2.27.0",
@@ -35,7 +33,6 @@
 		"@testing-library/svelte": "^5.4.2",
 		"@types/node": "^24.8.1",
 		"happy-dom": "^21.0.4",
-		"postcss": "^8.5.26",
 		"svelte": "^5.57.0",
 		"svelte-check": "^4.1.4",
 		"tailwindcss": "^4.3.3",
