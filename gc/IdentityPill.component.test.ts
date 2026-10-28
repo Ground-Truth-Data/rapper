@@ -28,7 +28,7 @@ describe("IdentityPill", () => {
 		expect(edit.querySelector(".id-pill--editor")!.textContent).toBe("Pete");
 		expect(edit.querySelector(".id-pill--hammer")).toBeNull();
 		const resaved = render(IdentityPill, { who: me, edited: true }).container;
-		expect(resaved.querySelector(".id-pill-wrap--double .id-pill--editor svg")).not.toBeNull();
+		expect(resaved.querySelector(".id-pill-wrap--double .id-pill--editor [aria-hidden]")).not.toBeNull();
 		expect(resaved.querySelector(".id-pill--editor")!.textContent).toBe("");
 	});
 });
