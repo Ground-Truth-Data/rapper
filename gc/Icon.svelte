@@ -26,6 +26,15 @@ let {
 const def = $derived(ICONS[name]);
 </script>
 
+{#if "mask" in def}
+<span
+    class={cls}
+    style="display:inline-block;flex:none;width:{size}px;height:{size}px;background:currentColor;mask:url({def.mask}) center/contain no-repeat;-webkit-mask:url({def.mask}) center/contain no-repeat;{style}"
+    role={ariaLabel ? "img" : undefined}
+    aria-label={ariaLabel}
+    aria-hidden={ariaLabel ? undefined : "true"}
+></span>
+{:else}
 <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -45,3 +54,4 @@ const def = $derived(ICONS[name]);
     <!-- eslint-disable-next-line svelte/no-at-html-tags — static, in-repo icon markup -->
     {@html def.body}
 </svg>
+{/if}
