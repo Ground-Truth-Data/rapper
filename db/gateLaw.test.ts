@@ -82,6 +82,17 @@ describe("the gate keeps every row", () => {
 		expect(all(db, "SELECT old FROM pin")).toEqual([{ old: "kept" }]);
 	});
 
+	it("a trigger the code no longer names is gone after the next open; the rows stay", () => {
+		const db = fresh();
+		reconcile(db, `${V1}\n--> statement-breakpoint\nCREATE TRIGGER \`pin_locked\` BEFORE UPDATE ON \`pin\` BEGIN SELECT RAISE(ABORT, 'locked'); END;`);
+		db.exec({ sql: "INSERT INTO pin VALUES ('p1', 'North 40')" });
+		expect(() => db.exec({ sql: "UPDATE pin SET name = 'x'" })).toThrow(/locked/);
+		reconcile(db, V1);
+		db.exec({ sql: "UPDATE pin SET name = 'Creek'" });
+		expect(all(db, "SELECT name FROM pin")).toEqual([{ name: "Creek" }]);
+		expect(all(db, "SELECT name FROM sqlite_master WHERE type = 'trigger'")).toEqual([]);
+	});
+
 	it("a file SQLite cannot read is recognised as unreadable — the one case it is set aside", () => {
 		expect(UNREADABLE.test("SQLITE_NOTADB: sqlite3 result code 26: file is not a database")).toBe(true);
 		expect(UNREADABLE.test("SQLITE_BUSY: database is locked")).toBe(false);
