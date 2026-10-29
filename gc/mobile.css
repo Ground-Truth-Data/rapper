@@ -46,6 +46,11 @@
 	--rt-yellow-soft: rgba(255, 215, 0, 0.1);
 	--rt-yellow-tint: rgba(255, 215, 0, 0.06);
 
+	/* The only three table lines. Gold breaks a screen in two; an edge only bounds a table. */
+	--rule-break: 2px solid var(--rt-yellow);
+	--rule-edge: 1px solid rgba(243, 198, 30, 0.28);
+	--rule-row: 1px solid #2c2c29;
+
 	--rt-gold-1: #f5d565;
 	--rt-gold-2: #e8b923;
 	--rt-gold-1-press: #c9a028;
