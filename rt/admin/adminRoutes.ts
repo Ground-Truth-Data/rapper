@@ -99,6 +99,7 @@ export const MIRRORED_TABLES = [
 	"mapFeatureTable",
 	"crewTable",
 	"stockTable",
+	"deliveryTable",
 	"allocationTable",
 	"qaSurveyTable",
 	"qaPlotTable",
@@ -132,6 +133,7 @@ export const DEVICE_TABLES = [
 	"boxEntity",
 	"boxTable",
 	"crewTable",
+	"deliveryTable",
 	"mapFeatureEntity",
 	"mapFeatureTable",
 	"blockEntity",
@@ -165,7 +167,7 @@ export const GC_SCHEMA_SEATS = [
 	"qaPlotTable", "qaPlotEntity", "bagTable", "bagEntity",
 	"bagUpTable", "bagUpEntity", "tallyTable", "tallyEntity",
 	"packageTable", "packageEntity", "boxTable", "boxEntity",
-	"stockTable", "allocationTable", "crewTable", "personEntity", "personTable", "personIdTable",
+	"stockTable", "deliveryTable", "allocationTable", "crewTable", "personEntity", "personTable", "personIdTable",
 	"appState", "userProfile", "orgTable", "orgKindTable", "orgTagTable", "touchTable", "snapshot",
 ] as const;
 
