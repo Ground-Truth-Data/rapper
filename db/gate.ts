@@ -265,10 +265,13 @@ export function withBytes<T>(h: Db, bytes: Uint8Array, ddl: string, fn: () => T)
 		wasm: { allocFromTypedArray: (b: Uint8Array) => number };
 		capi: {
 			sqlite3_deserialize: (...a: unknown[]) => number;
+			sqlite3_get_autocommit: (p: unknown) => number;
 			SQLITE_DESERIALIZE_FREEONCLOSE: number;
 			SQLITE_DESERIALIZE_RESIZEABLE: number;
 		};
 	};
+	// DETACH is refused inside a transaction, so a copy attached there would stay attached and refuse every later one.
+	if (!api.capi.sqlite3_get_autocommit(h.pointer)) throw new Error("a backup copy cannot be attached inside a transaction");
 	h.exec({ sql: "ATTACH ':memory:' AS backup" });
 	try {
 		const rc = api.capi.sqlite3_deserialize(

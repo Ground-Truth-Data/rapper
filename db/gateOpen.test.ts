@@ -161,6 +161,16 @@ describe("withBytes — a backup copy beside the live file", () => {
 		).toThrow("refused row");
 		expect(withBytes(live, exportBytes(older()), TODAY, () => all(live, "SELECT count(*) AS n FROM backup.pin"))).toEqual([{ n: 2 }]);
 	});
+
+	it("a copy asked for mid-transaction is refused before it attaches, so the next one still can", () => {
+		const live = mem();
+		reconcile(live, TODAY);
+		live.exec({ sql: "BEGIN" });
+		expect(() => withBytes(live, exportBytes(older()), TODAY, () => 0)).toThrow(/inside a transaction/);
+		live.exec({ sql: "ROLLBACK" });
+		expect(all(live, "PRAGMA database_list").map((d) => d.name)).toEqual(["main"]);
+		expect(withBytes(live, exportBytes(older()), TODAY, () => all(live, "SELECT count(*) AS n FROM backup.pin"))).toEqual([{ n: 2 }]);
+	});
 });
 
 describe("openBytes — the admin viewer's door", () => {
