@@ -1,5 +1,5 @@
 The user's data is never thrown away and the app never waits.
-1. Old-version local file: open it and add any missing columns/tables in place. Data stays. No new file, no download.
+1. A local file an older build made (it lacks a table or column today's DDL declares) is never migrated. Signed in: delete it, open a fresh file, and the account's cloud copy fills it — rows not yet uploaded are lost until the rescue card lands. Signed out (or a sandbox world): copy its rows into a fresh file and keep the older file aside, never deleted.
 2. Broken local file (corrupt/unreadable): set it aside, never delete it, and download the current file from Supabase.
 3. No account and broken file: start fresh and alarm `sql:setAside`. Nothing on screen — no line, no banner.
 4. Newest tab always takes the database immediately. No waiting on other tabs, locks, or old copies. Never a 'open in another tab' screen.

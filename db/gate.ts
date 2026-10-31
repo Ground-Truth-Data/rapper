@@ -1,9 +1,10 @@
 // THE GATE — the only code that opens SQLite. Read ../DB_LAW.md before touching it.
 // Everything else asks the gate for the database; gateLaw.test.ts fails the build otherwise.
 //
-// A file keeps its name for life and is brought up to today's shape IN PLACE: missing
-// tables and columns are added, rows are never dropped, a file is never swapped for a
-// fresh one. A file SQLite cannot read is set aside under a new name, never deleted.
+// A file keeps its name for life. One an older build made (it lacks a table or column
+// today's DDL declares) is replaced by a fresh file: signed in, it is deleted and the
+// account's cloud copy fills the new one; signed out, its rows are copied across and the
+// older file is kept aside. A file SQLite cannot read is set aside, never deleted.
 // The newest tab steals the database's lock at once; the tab it took it from lets go
 // and takes it back when it is looked at again.
 
@@ -73,6 +74,56 @@ export function reconcile(h: Db, ddl: string, schema = "main"): string[] {
 	return added;
 }
 
+/** The tables and columns `ddl` declares that the file lacks: an older build made it. An
+ *  empty file lacks nothing — it is new, not older. */
+function lacking(h: Db, ddl: string): string[] {
+	const has = new Set(rows(h, "SELECT name FROM main.sqlite_master WHERE type = 'table'").map((r) => String(r.name)));
+	if (!has.size) return [];
+	const out: string[] = [];
+	for (const s of statements(ddl)) {
+		const table = s.match(/^CREATE TABLE `([^`]+)`/)?.[1];
+		if (!table) continue;
+		if (!has.has(table)) {
+			out.push(table);
+			continue;
+		}
+		const cols = new Set(rows(h, `PRAGMA main.table_info(${q(table)})`).map((c) => String(c.name)));
+		for (const [, col] of s.matchAll(/^\t`([^`]+)` /gm)) if (!cols.has(col)) out.push(`${table}.${col}`);
+	}
+	return out;
+}
+
+/** An older file's rows, copied into `h` at today's shape. Triggers are rebuilt after the
+ *  copy, so a rule newer than a row cannot refuse it. A table today's shape still refuses
+ *  keeps its rows in the file set aside, and the console says which. */
+export function carry(h: Db, bytes: Uint8Array, ddl: string): void {
+	withBytes(h, bytes, ddl, () => {
+		for (const r of rows(h, "SELECT name FROM main.sqlite_master WHERE type = 'trigger'"))
+			h.exec({ sql: `DROP TRIGGER main.${q(String(r.name))}` });
+		h.exec({ sql: "PRAGMA foreign_keys = OFF" });
+		h.exec({ sql: "BEGIN IMMEDIATE" });
+		try {
+			for (const s of statements(ddl)) {
+				const table = s.match(/^CREATE TABLE `([^`]+)`/)?.[1];
+				if (!table) continue;
+				const cols = rows(h, `PRAGMA main.table_info(${q(table)})`).map((c) => q(String(c.name))).join(", ");
+				try {
+					h.exec({ sql: `INSERT INTO main.${q(table)} (${cols}) SELECT ${cols} FROM backup.${q(table)}` });
+				} catch (e) {
+					console.error(`[gate] ${table}'s rows were refused by today's shape; they stay in the older file: ${String((e as Error)?.message ?? e)}`);
+				}
+			}
+			h.exec({ sql: "COMMIT" });
+		} catch (e) {
+			h.exec({ sql: "ROLLBACK" });
+			throw e;
+		} finally {
+			h.exec({ sql: "PRAGMA foreign_keys = ON" });
+		}
+	});
+	reconcile(h, ddl);
+}
+
 function addColumns(h: Db, schema: string, table: string, create: string): string[] {
 	const have = new Set(rows(h, `PRAGMA ${schema}.table_info(${q(table)})`).map((c) => String(c.name)));
 	const added: string[] = [];
@@ -108,7 +159,7 @@ export type Opened = {
 	db: Db;
 	/** Why the browser refused its storage, so this tab runs in memory; "" for the real file. */
 	memory: string;
-	/** The name an unreadable file was set aside under; "" when the file opened. */
+	/** The name a file was set aside under — unreadable, or older and copied from; "" when none was. */
 	aside: string;
 	/** Tables and columns this open added to the file. */
 	added: string[];
@@ -120,6 +171,8 @@ export type GateOptions = {
 	version: number;
 	/** The native shells: one webview, the pool VFS, no cross-origin isolation. */
 	native: boolean;
+	/** The account's cloud copy holds this file's rows, so an older file is deleted, not copied. */
+	signedIn: boolean;
 	wasmUrl: string;
 	proxyUrl: string;
 	/** Each step as it starts, so a stuck boot can say where it is stuck. */
@@ -179,8 +232,20 @@ async function openHeld(api: Sqlite3, o: GateOptions): Promise<Opened> {
 		let h: Db | null = null;
 		try {
 			h = o.native ? await openPooled(o) : await openShared(api, o);
+			const older = lacking(h, o.ddl);
+			const rows = older.length && !o.signedIn ? exportBytes(h) : null;
+			if (older.length) {
+				h.close();
+				h = null;
+				o.step(`replacing ${o.file}: an older build made it`);
+				if (rows) aside = await setAside(o, "older");
+				else await erase(o, (n) => n === o.file.replace(/^\//, ""));
+				console.info(`[gate] ${o.file} lacked ${older.join(", ")}: ${rows ? `its rows were copied from ${aside}` : "deleted for the account's copy"}`);
+				h = o.native ? await openPooled(o) : await openShared(api, o);
+			}
 			o.step("adding missing tables and columns");
 			const added = reconcile(h, o.ddl);
+			if (rows) carry(h, rows, o.ddl);
 			h.exec({ sql: `PRAGMA user_version = ${o.version}` });
 			if (added.length) console.info(`[gate] ${o.file}: added ${added.join(", ")}`);
 			return { db: h, memory: "", aside, added };
@@ -207,9 +272,9 @@ function inMemory(api: Sqlite3, o: GateOptions): Db {
 }
 
 /** Moved, never copied-then-deleted: the bytes stay exactly as they were for a rescue. */
-async function setAside(o: GateOptions): Promise<string> {
+async function setAside(o: GateOptions, why = "unreadable"): Promise<string> {
 	const name = o.file.replace(/^\//, "");
-	const aside = name.replace(/\.sqlite3$/, `.unreadable-${Date.now()}.sqlite3`);
+	const aside = name.replace(/\.sqlite3$/, `.${why}-${Date.now()}.sqlite3`);
 	if (o.native) {
 		const p = await loadPool(o);
 		await p.importDb(`/${aside}`, await p.exportFile(o.file));

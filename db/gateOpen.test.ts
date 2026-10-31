@@ -82,6 +82,7 @@ const options = (file: string, over: Partial<GateOptions> = {}): GateOptions => 
 	ddl: TODAY,
 	version: 57,
 	native: false,
+	signedIn: false,
 	wasmUrl: "",
 	proxyUrl: "",
 	step: () => {},
@@ -182,17 +183,42 @@ describe("openBytes — the admin viewer's door", () => {
 });
 
 describe("openGate — the browser", () => {
-	it("an older file opens in place: its rows stay, the missing table and column are added, the version is stamped", async () => {
-		opener = () => older();
-		const steps: string[] = [];
-		const o = await openGate(options("/older.sqlite3", { step: (s) => steps.push(s) }));
-		expect(o).toMatchObject({ memory: "", aside: "", added: ["owner", "pin.note"] });
-		expect(all(o.db, "SELECT pinKey, note FROM pinView ORDER BY pinKey")).toEqual([
-			{ pinKey: "p1", note: "" },
-			{ pinKey: "p2", note: "" },
-		]);
+	it("a file at today's shape opens as it is: its rows stay, the version is stamped", async () => {
+		const today = mem();
+		reconcile(today, TODAY);
+		today.exec({ sql: "INSERT INTO pin (pinKey, name) VALUES ('p1', 'North 40')" });
+		root.files.set("today.sqlite3", new Uint8Array([1]));
+		opener = () => today;
+		const o = await openGate(options("/today.sqlite3"));
+		expect(o).toMatchObject({ db: today, aside: "", added: [] });
 		expect(all(o.db, "PRAGMA user_version")).toEqual([{ user_version: 57 }]);
-		expect(steps).toContain("adding missing tables and columns");
+		expect([...root.files.keys()]).toEqual(["today.sqlite3"]);
+	});
+
+	it("signed in, an older build's file is deleted and a fresh one opens, for the account's copy to fill", async () => {
+		root.files.set("older.sqlite3", new Uint8Array([1]));
+		root.files.set("older.sqlite3-journal", new Uint8Array([2]));
+		let opens = 0;
+		opener = () => (opens++ ? mem() : older());
+		const o = await openGate(options("/older.sqlite3", { signedIn: true }));
+		expect(o).toMatchObject({ memory: "", aside: "" });
+		expect(all(o.db, "SELECT count(*) AS n FROM pinView")).toEqual([{ n: 0 }]);
+		expect([...root.files.keys()]).toEqual([]);
+	});
+
+	it("signed out, an older build's rows are copied into a fresh file, and the older file is kept aside", async () => {
+		const bytes = new Uint8Array([1]);
+		root.files.set("older.sqlite3", bytes);
+		let opens = 0;
+		opener = () => (opens++ ? mem() : older());
+		const o = await openGate(options("/older.sqlite3", { signedIn: false }));
+		expect(o.aside).toMatch(/^older\.older-\d+\.sqlite3$/);
+		expect(root.files.get(o.aside)).toBe(bytes);
+		expect(all(o.db, "SELECT pinKey, name, note FROM pinView ORDER BY pinKey")).toEqual([
+			{ pinKey: "p1", name: "North 40", note: "" },
+			{ pinKey: "p2", name: "Creek", note: "" },
+		]);
+		expect(all(o.db, "SELECT name FROM sqlite_master WHERE name = 'pin_name_idx'")).toEqual([{ name: "pin_name_idx" }]);
 	});
 
 	it("storage the browser refuses runs this tab in memory, at today's shape, saying why", async () => {
