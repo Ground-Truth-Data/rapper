@@ -72,6 +72,8 @@ every child are members of one npm workspace with one `node_modules`.
 `rig/`, `gc/` and `rt/` are the shared tree, and THIS repo is its home —
 ReTreever and Get Cache import them from here through the same
 `$rig`/`$gc`/`$rt` aliases.
+`gc/TeachingHand.svelte` is the teaching hand both products play: the online
+map's ruler lesson and ReTreever's search and rating lessons import it from here.
 Nothing is copied. `src/app.unique.css` is the one per-tier file: it imports
 `$gc/theme.css` and then the tokens the tiers disagree on, which is how a page
 declares its tier.
