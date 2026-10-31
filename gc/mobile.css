@@ -46,10 +46,11 @@
 	--rt-yellow-soft: rgba(255, 215, 0, 0.1);
 	--rt-yellow-tint: rgba(255, 215, 0, 0.06);
 
-	/* The only three table lines. Gold breaks a screen in two; an edge only bounds a table. */
+	/* The only three table lines. Gold breaks a screen in two; an edge only bounds a table.
+	   Solid, never alpha: a see-through line reads half as wide where it crosses the key column's grey. */
 	--rule-break: 2px solid var(--rt-yellow);
-	--rule-edge: 1px solid rgba(243, 198, 30, 0.28);
-	--rule-row: 1px solid #2c2c29;
+	--rule-edge: 1px solid #826c17;
+	--rule-row: 1px solid #45443f;
 
 	--rt-gold-1: #f5d565;
 	--rt-gold-2: #e8b923;
