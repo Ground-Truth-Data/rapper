@@ -225,8 +225,9 @@ describe("openGate — the browser", () => {
 		let opens = 0;
 		opener = () => (opens++ ? mem() : older());
 		const o = await openGate(options("/older.sqlite3", { signedIn: false }));
-		expect(o.aside).toMatch(/^older\.older-\d+\.sqlite3$/);
-		expect(root.files.get(o.aside)).toBe(bytes);
+		expect(o.aside, "nothing was lost, so nothing alarms").toBe("");
+		const kept = [...root.files.keys()].find((n) => /^older\.older-\d+\.sqlite3$/.test(n));
+		expect(root.files.get(kept ?? "")).toBe(bytes);
 		expect(all(o.db, "SELECT pinKey, name, note FROM pinView ORDER BY pinKey")).toEqual([
 			{ pinKey: "p1", name: "North 40", note: "" },
 			{ pinKey: "p2", name: "Creek", note: "" },

@@ -163,7 +163,7 @@ export type Opened = {
 	db: Db;
 	/** Why the browser refused its storage, so this tab runs in memory; "" for the real file. */
 	memory: string;
-	/** The name a file was set aside under — unreadable, or older and copied from; "" when none was. */
+	/** The name an unreadable file was set aside under, which alarms; "" when none was. An older build's file, its rows copied, is not one. */
 	aside: string;
 	/** Tables and columns this open added to the file. */
 	added: string[];
@@ -240,9 +240,9 @@ async function openHeld(api: Sqlite3, o: GateOptions, memory: string): Promise<O
 				h.close();
 				h = null;
 				o.step(`replacing ${o.file}: an older build made it`);
-				if (rows) aside = await setAside(o, "older");
-				else await erase(o, (n) => n === o.file.replace(/^\//, ""));
-				console.info(`[gate] ${o.file} lacked ${older.join(", ")}: ${rows ? `its rows were copied from ${aside}` : "deleted for the account's copy"}`);
+				const kept = rows ? await setAside(o, "older") : "";
+				if (!rows) await erase(o, (n) => n === o.file.replace(/^\//, ""));
+				console.info(`[gate] ${o.file} lacked ${older.join(", ")}: ${rows ? `its rows were copied from ${kept}` : "deleted for the account's copy"}`);
 				h = o.native ? await openPooled(o) : await openShared(api, o);
 			}
 			o.step("adding missing tables and columns");
