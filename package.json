@@ -20,6 +20,7 @@
 	},
 	"dependencies": {
 		"@sqlite.org/sqlite-wasm": "^3.53.0-build1",
+		"gsap": "^3.14.2",
 		"mapbox-gl": "^3.24.0",
 		"maplibre-gl": "^6.11.0"
 	},
