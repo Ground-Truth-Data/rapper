@@ -254,6 +254,21 @@ describe("openGate — the newest tab wins", () => {
 		await tick();
 		expect(lost).toHaveBeenCalledWith(true);
 	});
+
+	it("a tab on memory holds no lock: the next open, its own retake included, leaves it running", async () => {
+		const lost = vi.fn();
+		opener = () => {
+			throw new Error("SQLITE_BUSY: database is locked");
+		};
+		const busy = await openGate(options("/busy.sqlite3", { lost }));
+		expect(busy.memory).toMatch("SQLITE_BUSY");
+		opener = () => mem();
+		const retaken = await openGate(options("/busy.sqlite3"));
+		await tick();
+		expect(retaken.memory).toBe("");
+		expect(lost).not.toHaveBeenCalled();
+		expect(all(busy.db, "SELECT 1 AS one")).toEqual([{ one: 1 }]);
+	});
 });
 
 describe("openGate — the native shells", () => {

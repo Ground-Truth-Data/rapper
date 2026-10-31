@@ -7,3 +7,4 @@ The user's data is never thrown away and the app never waits.
 6. Never an empty screen when data exists, never a silent spinner.
 7. One page, one database worker. A second copy of open.ts reloads the page. Gate stage "tabs" (newestTabWins.spec.ts) proves it; a red there is fixed in the gate, never with a retry or a wait.
 8. The one retry: a transaction a newer tab cuts is rolled back whole, and the older tab redoes it silently once it has the file back (`alone()` in open.ts).
+9. A file something live still holds (SQLITE_BUSY) runs the tab on memory and alarms `sql:memory`; on each later focus the tab tries the file once and moves onto it when free. What it wrote on memory does not come along. A frozen tab never holds the file (`busyHolder.spec.ts`).

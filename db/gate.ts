@@ -143,8 +143,10 @@ export async function openGate(o: GateOptions): Promise<Opened> {
 			.request(`gc-db:${o.file}`, { steal: true }, async () => {
 				try {
 					const opened = await openHeld(api, o);
-					held = opened.db;
 					res(opened);
+					// No file, no lock: a retake from this tab must not steal from itself.
+					if (opened.memory) return;
+					held = opened.db;
 				} catch (e) {
 					rej(e);
 					return;
