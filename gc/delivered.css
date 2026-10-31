@@ -1,0 +1,23 @@
+/* A delivered number wears its status as `data-dlv`: gold delivered, grey
+   swiped back, nothing not yet. Only ever a colour; it never changes a count. */
+[data-dlv="delivered"],
+[data-dlv="undelivered"] {
+	text-decoration: underline 3px #f3c61e;
+	text-underline-offset: 7px;
+	text-decoration-skip-ink: none;
+}
+[data-dlv="undelivered"] {
+	text-decoration-color: #6f7064;
+	color: #9a9b8c !important;
+}
+
+/* The rose diamond, for history: counted standing there. Sized by font-size. */
+.gps-dia {
+	display: inline-block;
+	flex: none;
+	width: 1em;
+	height: 0.78em;
+	mask: url("$gc/assets/diamond.webp") center / contain no-repeat;
+	background: linear-gradient(170deg, #ffd6e1 15%, #f0a3bb 55%, #d9809d);
+	filter: drop-shadow(0 0 3px rgba(240, 163, 187, 0.45));
+}
