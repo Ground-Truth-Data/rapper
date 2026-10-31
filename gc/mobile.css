@@ -201,8 +201,11 @@ hr {
 	background: var(--rt-meta);
 	color: var(--rt-gold-ink);
 	border: 2px solid var(--rt-surface);
-	font: 800 11px/14px var(--rt-font-body);
-	text-align: center;
+	display: grid;
+	place-items: center;
+	font: 800 11px/1 var(--rt-font-body);
+	/* Digits have no descenders: trim the line box to the digit's ink so it centres, not the font's em box. */
+	text-box: trim-both cap alphabetic;
 	pointer-events: none;
 }
 
