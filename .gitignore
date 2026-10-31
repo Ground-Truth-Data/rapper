@@ -152,3 +152,6 @@ static/mobileAssets
 
 # Written by the installer into a scaffold only; absent here = serve every child.
 mounted.json
+
+# Claude scratch renders; everything tracked here ships to the public children.
+Claude outputs/
