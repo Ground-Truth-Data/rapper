@@ -151,6 +151,20 @@ describe("withBytes — a backup copy beside the live file", () => {
 		expect(all(live, "PRAGMA database_list").map((d) => d.name)).toEqual(["main"]);
 	});
 
+	it("a copy whose rows lack a key today requires is refused at the door, naming it; no NULL key is born", () => {
+		const keyless = mem();
+		keyless.exec({ sql: "CREATE TABLE `pin` (`name` text NOT NULL); INSERT INTO pin VALUES ('North 40');" });
+		const live = mem();
+		reconcile(live, TODAY);
+		const merged = vi.fn();
+		expect(() => withBytes(live, exportBytes(keyless), TODAY, merged)).toThrow(/backup\.pin has rows with no pinKey/);
+		expect(merged).not.toHaveBeenCalled();
+		expect(all(live, "PRAGMA database_list").map((d) => d.name)).toEqual(["main"]);
+		const empty = mem();
+		empty.exec({ sql: "CREATE TABLE `pin` (`name` text NOT NULL);" });
+		expect(withBytes(live, exportBytes(empty), TODAY, () => all(live, "SELECT count(*) AS n FROM backup.pin"))).toEqual([{ n: 0 }]);
+	});
+
 	it("a restore that throws still lets go of the copy, so the next restore can attach", () => {
 		const live = mem();
 		reconcile(live, TODAY);

@@ -136,6 +136,9 @@ function addColumns(h: Db, schema: string, table: string, create: string): strin
 			alter(def);
 		} catch {
 			alter(def.replace(/\b(PRIMARY KEY|NOT NULL|UNIQUE)\b/g, ""));
+			// Rows an older build made without a key or a required value would land with NULL in it.
+			if (/\b(PRIMARY KEY|NOT NULL)\b/.test(def) && h.selectValue(`SELECT 1 FROM ${schema}.${q(table)} WHERE ${q(col)} IS NULL LIMIT 1`))
+				throw new Error(`${schema}.${table} has rows with no ${col}: an older build made them, and today's shape cannot hold them`);
 		}
 		added.push(`${table}.${col}`);
 	}

@@ -47,7 +47,7 @@ const all = (db: Db, sql: string) => db.exec({ sql, rowMode: "object", returnVal
 const V1 = "CREATE TABLE `pin` (\n\t`pinKey` text PRIMARY KEY NOT NULL,\n\t`name` text NOT NULL\n);";
 const V2 = [
 	"CREATE TABLE `owner` (\n\t`ownerKey` text PRIMARY KEY NOT NULL\n);",
-	"CREATE TABLE `pin` (\n\t`pinKey` text PRIMARY KEY NOT NULL,\n\t`name` text NOT NULL,\n\t`note` text DEFAULT '' NOT NULL,\n\t`ownerKey` text NOT NULL,\n\t`at` text UNIQUE,\n\tFOREIGN KEY (`ownerKey`) REFERENCES `owner`(`ownerKey`) ON UPDATE no action ON DELETE cascade\n);",
+	"CREATE TABLE `pin` (\n\t`pinKey` text PRIMARY KEY NOT NULL,\n\t`name` text NOT NULL,\n\t`note` text DEFAULT '' NOT NULL,\n\t`ownerKey` text,\n\t`at` text UNIQUE,\n\tFOREIGN KEY (`ownerKey`) REFERENCES `owner`(`ownerKey`) ON UPDATE no action ON DELETE cascade\n);",
 	"CREATE INDEX `pin_name_idx` ON `pin` (`name`);",
 	"CREATE VIEW `pinView` AS SELECT pinKey, name, note FROM pin;",
 ].join("\n--> statement-breakpoint\n");
@@ -66,6 +66,15 @@ describe("the gate keeps every row", () => {
 		expect(all(db, "SELECT name FROM sqlite_master WHERE name = 'pin_name_idx'")).toHaveLength(1);
 	});
 
+	it("rows that would hold NULL in a column today requires are refused, and the file stays as it was", () => {
+		const db = fresh();
+		reconcile(db, V1);
+		db.exec({ sql: "INSERT INTO pin VALUES ('p1', 'North 40')" });
+		expect(() => reconcile(db, V2.replace("`ownerKey` text,", "`ownerKey` text NOT NULL,"))).toThrow(/main\.pin has rows with no ownerKey/);
+		expect(all(db, "SELECT * FROM pin")).toEqual([{ pinKey: "p1", name: "North 40" }]);
+		expect(all(db, "SELECT name FROM sqlite_master WHERE name = 'owner'")).toEqual([]);
+	});
+
 	it("an up-to-date file is left as it is, and reconciling twice adds nothing", () => {
 		const db = fresh();
 		reconcile(db, V2);
@@ -78,7 +87,7 @@ describe("the gate keeps every row", () => {
 		const db = fresh();
 		reconcile(db, "CREATE TABLE `pin` (\n\t`pinKey` text PRIMARY KEY NOT NULL,\n\t`old` text\n);");
 		db.exec({ sql: "INSERT INTO pin VALUES ('p1', 'kept')" });
-		reconcile(db, V1);
+		reconcile(db, "CREATE TABLE `pin` (\n\t`pinKey` text PRIMARY KEY NOT NULL\n);");
 		expect(all(db, "SELECT old FROM pin")).toEqual([{ old: "kept" }]);
 	});
 
