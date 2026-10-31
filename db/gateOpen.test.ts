@@ -84,7 +84,6 @@ const options = (file: string, over: Partial<GateOptions> = {}): GateOptions => 
 	native: false,
 	signedIn: false,
 	wasmUrl: "",
-	proxyUrl: "",
 	step: () => {},
 	lost: () => {},
 	...over,
@@ -223,7 +222,10 @@ describe("openGate — the browser", () => {
 
 	it("storage the browser refuses runs this tab in memory, at today's shape, saying why", async () => {
 		storage = () => Promise.reject(new Error("SecurityError: storage denied"));
-		const o = await openGate(options("/refused.sqlite3"));
+		const steps: string[] = [];
+		const o = await openGate(options("/refused.sqlite3", { step: (s) => steps.push(s) }));
+		// SQLite's own OPFS install waits 4 s on a helper a refusing browser never starts: ask first.
+		expect(steps[0]).toBe("asking the browser for storage");
 		expect(o).toMatchObject({ memory: "SecurityError: storage denied", aside: "" });
 		expect(all(o.db, "SELECT count(*) AS n FROM pinView")).toEqual([{ n: 0 }]);
 		expect(all(o.db, "PRAGMA user_version")).toEqual([{ user_version: 57 }]);

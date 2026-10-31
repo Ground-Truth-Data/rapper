@@ -147,9 +147,10 @@ function addColumns(h: Db, schema: string, table: string, create: string): strin
 let sqlite3: Sqlite3 | null = null;
 
 /** sqlite-wasm's own wasm lookup resolves against the built bundle, wrong in production. */
-export const loadApi = async (wasmUrl?: string): Promise<Sqlite3> => {
-	// "opfs-wl" installs itself by default and starts a proxy worker this gate never uses.
-	(globalThis as { sqlite3ApiConfig?: unknown }).sqlite3ApiConfig ??= { disable: { vfs: { "opfs-wl": true } } };
+export const loadApi = async (wasmUrl?: string, opfs = true): Promise<Sqlite3> => {
+	// "opfs-wl" installs itself by default and starts a proxy worker this gate never uses. "opfs"
+	// waits 4 s for its proxy when the browser refuses OPFS, so it is off once refused.
+	(globalThis as { sqlite3ApiConfig?: unknown }).sqlite3ApiConfig ??= { disable: { vfs: { "opfs-wl": true, opfs: !opfs } } };
 	return (sqlite3 ??= await (sqlite3InitModule as unknown as (o: { locateFile: (f: string) => string }) => Promise<Sqlite3>)({
 		locateFile: (f) => (f.endsWith(".wasm") && wasmUrl ? wasmUrl : f),
 	}));
@@ -174,7 +175,6 @@ export type GateOptions = {
 	/** The account's cloud copy holds this file's rows, so an older file is deleted, not copied. */
 	signedIn: boolean;
 	wasmUrl: string;
-	proxyUrl: string;
 	/** Each step as it starts, so a stuck boot can say where it is stuck. */
 	step: (s: string) => void;
 	/** A newer tab took the database; this connection is already closed. `cut`: it closed
@@ -187,15 +187,23 @@ const loadPool = async (o: GateOptions) => (pool ??= await (await loadApi(o.wasm
 
 /** Opens `o.file`, takes it from any other tab, and brings it to today's shape in place. */
 export async function openGate(o: GateOptions): Promise<Opened> {
+	let memory = "";
+	if (!o.native) {
+		o.step("asking the browser for storage");
+		memory = await navigator.storage.getDirectory().then(
+			() => "",
+			(e: unknown) => String((e as Error)?.message ?? e),
+		);
+	}
 	o.step("loading SQLite");
-	const api = await loadApi(o.wasmUrl);
+	const api = await loadApi(o.wasmUrl, !memory);
 	o.step("taking the database from other tabs");
 	return new Promise((res, rej) => {
 		let held: Db | null = null;
 		navigator.locks
 			.request(`gc-db:${o.file}`, { steal: true }, async () => {
 				try {
-					const opened = await openHeld(api, o);
+					const opened = await openHeld(api, o, memory);
 					res(opened);
 					// No file, no lock: a retake from this tab must not steal from itself.
 					if (opened.memory) return;
@@ -215,16 +223,7 @@ export async function openGate(o: GateOptions): Promise<Opened> {
 	});
 }
 
-async function openHeld(api: Sqlite3, o: GateOptions): Promise<Opened> {
-	let memory = "";
-	if (!o.native) {
-		o.step("asking the browser for storage");
-		// The VFS install hangs, never fails, when the browser refuses OPFS: ask first.
-		memory = await navigator.storage.getDirectory().then(
-			() => "",
-			(e: unknown) => String((e as Error)?.message ?? e),
-		);
-	}
+async function openHeld(api: Sqlite3, o: GateOptions, memory: string): Promise<Opened> {
 	if (memory) return { db: inMemory(api, o), memory, aside: "", added: [] };
 	let aside = "";
 	for (;;) {
@@ -301,12 +300,7 @@ async function openPooled(o: GateOptions): Promise<Db> {
 // second tab would be refused. "opfs" needs cross-origin isolation (COOP/COEP in
 // hooks.server.ts and vercel.json). "opfs-wl" left files unreadable under open tabs on
 // 6 Oct 2026, so it is out.
-let installed = false;
 async function openShared(api: Sqlite3, o: GateOptions): Promise<Db> {
-	// Installed EXPLICITLY so its rejection surfaces — the auto-install swallows the reason.
-	const install = (api as unknown as { installOpfsVfs?: (x: { proxyUri: string }) => Promise<unknown> }).installOpfsVfs;
-	if (install && !installed) await install({ proxyUri: o.proxyUrl });
-	installed = true;
 	const oo1 = api.oo1 as unknown as { OpfsDb?: new (f: string) => Db };
 	if (!oo1.OpfsDb)
 		throw new Error(
