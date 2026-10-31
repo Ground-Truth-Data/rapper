@@ -2,6 +2,8 @@
 /** The fingertip, in px from the image's top-left at the rendered 72×100. Every frame shares the one box, so it holds for all of them. */
 export const HOTSPOT_X = 11;
 export const HOTSPOT_Y = 5;
+/** A press moved this far is a drag for the rest of it: the hand fists, and no hold can start (doubleTapToPin.ts reads it). */
+export const DRAG_SLOP_PX = 4;
 </script>
 
 <script lang="ts">
@@ -42,8 +44,6 @@ const FRAMES: [Frame, string][] = [
 // A drag's open hand: a flick as it grabs, a beat as it lets go.
 const GRAB_OPEN_MS = 100;
 const LET_GO_OPEN_MS = 250;
-// A mouse moved this far while held is a grab, not a click.
-const DRAG_SLOP_PX = 4;
 // The lens shrinks into the finger over 180 ms (Loupe.svelte); gone once that has played.
 const LOUPE_OUT_MS = 200;
 // Lifted before the ring filled, the lens lingers with the ring frozen so the half-lit ticks can be read.
@@ -167,7 +167,8 @@ onMount(() => {
 	const onPointerMove = (e: PointerEvent) => {
 		if (e.pointerType !== "mouse" && !pressing) return;
 		place(e.clientX, e.clientY);
-		if (down && !dragging && e.buttons & 1 && Math.hypot(e.clientX - down.x, e.clientY - down.y) > DRAG_SLOP_PX) grab();
+		// Under a loupe a move aims it; the hand never fists over a lens.
+		if (down && !dragging && !loupe && e.buttons & 1 && Math.hypot(e.clientX - down.x, e.clientY - down.y) > DRAG_SLOP_PX) grab();
 	};
 	const onMouseLeave = () => {
 		if (el) el.style.visibility = "hidden";
