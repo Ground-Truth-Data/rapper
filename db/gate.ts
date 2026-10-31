@@ -2,9 +2,10 @@
 // Everything else asks the gate for the database; gateLaw.test.ts fails the build otherwise.
 //
 // A file keeps its name for life. One an older build made (it lacks a table or column
-// today's DDL declares) is replaced by a fresh file: signed in, it is deleted and the
-// account's cloud copy fills the new one; signed out, its rows are copied across and the
-// older file is kept aside. A file SQLite cannot read is set aside, never deleted.
+// today's DDL declares) is replaced by a fresh file: signed in, the account's cloud copy
+// fills the new one and the older file waits aside until its unsent rows are uploaded;
+// signed out, its rows are copied across and the older file is kept aside. A file SQLite
+// cannot read is set aside, never deleted.
 // The newest tab steals the database's lock at once; the tab it took it from lets go
 // and takes it back when it is looked at again.
 
@@ -240,9 +241,9 @@ async function openHeld(api: Sqlite3, o: GateOptions, memory: string): Promise<O
 				h.close();
 				h = null;
 				o.step(`replacing ${o.file}: an older build made it`);
-				const kept = rows ? await setAside(o, "older") : "";
-				if (!rows) await erase(o, (n) => n === o.file.replace(/^\//, ""));
-				console.info(`[gate] ${o.file} lacked ${older.join(", ")}: ${rows ? `its rows were copied from ${kept}` : "deleted for the account's copy"}`);
+				// Signed in, the account's copy fills the fresh file; rows written since the last upload wait in the kept one.
+				const kept = await setAside(o, rows ? "older" : "unsent");
+				console.info(`[gate] ${o.file} lacked ${older.join(", ")}: ${rows ? `its rows were copied from ${kept}` : `kept as ${kept} until its rows reach the cloud`}`);
 				h = o.native ? await openPooled(o) : await openShared(api, o);
 			}
 			o.step("adding missing tables and columns");
@@ -376,6 +377,45 @@ export async function openBytes(bytes: Uint8Array, wasmUrl?: string): Promise<Db
 		throw new Error(`not a SQLite file this tool can open (rc=${rc})`);
 	}
 	return h;
+}
+
+type Files = Pick<GateOptions, "file" | "native" | "wasmUrl">;
+const unsentName = (o: Files) => {
+	const base = o.file.replace(/^\//, "").replace(/\.sqlite3$/, "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+	return new RegExp(`^${base}\\.unsent-\\d+\\.sqlite3$`);
+};
+
+/** The files a signed-in open kept for rows the account's copy may lack, oldest first. */
+export async function unsentFiles(o: Files): Promise<{ name: string; bytes: Uint8Array }[]> {
+	const is = unsentName(o);
+	if (o.native) {
+		const p = await loadPool(o as GateOptions);
+		const names = p.getFileNames().map((n) => n.replace(/^\//, "")).filter((n) => is.test(n)).sort();
+		return Promise.all(names.map(async (name) => ({ name, bytes: await p.exportFile(`/${name}`) })));
+	}
+	const root = (await navigator.storage.getDirectory()) as FileSystemDirectoryHandle & { keys(): AsyncIterable<string> };
+	const names: string[] = [];
+	for await (const n of root.keys()) if (is.test(n)) names.push(n);
+	return Promise.all(
+		names.sort().map(async (name) => ({ name, bytes: new Uint8Array(await (await (await root.getFileHandle(name)).getFile()).arrayBuffer()) })),
+	);
+}
+
+/** An unsent file goes only once its rows are in a copy the cloud holds. */
+export async function dropUnsent(o: Files, names: string[]): Promise<void> {
+	const is = unsentName(o);
+	for (const name of names) {
+		if (!is.test(name)) throw new Error(`${name} is not an unsent file of ${o.file}`);
+		if (o.native) {
+			(await loadPool(o as GateOptions)).unlink(`/${name}`);
+			continue;
+		}
+		const root = await navigator.storage.getDirectory();
+		await root.removeEntry(name);
+		await root.removeEntry(`${name}-journal`).catch((e: unknown) => {
+			if ((e as Error)?.name !== "NotFoundError") throw e;
+		});
+	}
 }
 
 /** Sign-out: the live files of every world go. A set-aside file is never touched. */

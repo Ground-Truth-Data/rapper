@@ -1,5 +1,5 @@
 The user's data is never thrown away and the app never waits.
-1. A local file an older build made (it lacks a table or column today's DDL declares) is never migrated. Signed in: delete it, open a fresh file, and the account's cloud copy fills it — rows not yet uploaded are lost until the rescue card lands. Signed out (or a sandbox world): copy its rows into a fresh file and keep the older file aside, never deleted.
+1. A local file an older build made (it lacks a table or column today's DDL declares) is never migrated. Signed in: keep it aside as `*.unsent-*`, open a fresh file, and the account's cloud copy fills it; after every pull the kept file's rows the copy lacks merge in, and it is deleted only once an upload holds them. A kept file the merge refuses stays and alarms `pullAccount:unsentRefused`. Signed out (or a sandbox world): copy its rows into a fresh file and keep the older file aside, never deleted.
 2. Broken local file (corrupt/unreadable): set it aside, never delete it, and download the current file from Supabase.
 3. No account and broken file: start fresh and alarm `sql:setAside`. Nothing on screen — no line, no banner.
 4. Newest tab always takes the database immediately. No waiting on other tabs, locks, or old copies. Never a 'open in another tab' screen.
