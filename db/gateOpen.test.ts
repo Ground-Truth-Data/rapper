@@ -208,7 +208,7 @@ describe("openGate — the browser", () => {
 		expect([...root.files.keys()]).toEqual(["today.sqlite3"]);
 	});
 
-	it("signed in, an older build's file is deleted and a fresh one opens, for the account's copy to fill", async () => {
+	it("signed in, an older build's file is kept aside, journal and all, and a fresh one opens for the account's copy to fill", async () => {
 		root.files.set("older.sqlite3", new Uint8Array([1]));
 		root.files.set("older.sqlite3-journal", new Uint8Array([2]));
 		let opens = 0;
@@ -216,7 +216,10 @@ describe("openGate — the browser", () => {
 		const o = await openGate(options("/older.sqlite3", { signedIn: true }));
 		expect(o).toMatchObject({ memory: "", aside: "" });
 		expect(all(o.db, "SELECT count(*) AS n FROM pinView")).toEqual([{ n: 0 }]);
-		expect([...root.files.keys()]).toEqual([]);
+		const kept = [...root.files.keys()];
+		expect(kept).toHaveLength(2);
+		expect(kept[0]).toMatch(/^older\.unsent-\d+\.sqlite3$/);
+		expect(kept[1]).toBe(`${kept[0]}-journal`);
 	});
 
 	it("signed out, an older build's rows are copied into a fresh file, and the older file is kept aside", async () => {
