@@ -194,6 +194,8 @@ export async function boom(): Promise<void> {
 // A beat of surprise: the hand rears up and settles.
 export async function lift(): Promise<void> {
 	const g = await G();
+	// Lifting the finger ends a press: the ring would otherwise ride along to the next target.
+	fx = null;
 	const r0 = rot;
 	const p = { s: scale, r: rot };
 	const apply = () => {
