@@ -923,10 +923,13 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 		justify-content: flex-end;
 	}
 
+	/* Out over .adt-wrap's right padding: columns scroll through that gutter
+	   too, and a fade stopping short of it lets them reappear past the fade. */
 	.adt-edges {
 		position: sticky;
 		top: 0;
 		left: 0;
+		margin-right: -24px;
 		height: 0;
 		z-index: 7;
 		pointer-events: none;
