@@ -37,7 +37,7 @@ describe("ShovelCursor with a mouse", () => {
 		expect(document.body.classList.contains("shovel-cursor")).toBe(false);
 	});
 
-	it("a click goes gold with a splash and back; a drag past the slop grabs open then fist, and lets go", async () => {
+	it("a click goes gold with a splash and back; a drag grabs open then fist, and the fist lingers after release", async () => {
 		const { container } = render(ShovelCursor);
 		window.dispatchEvent(new MouseEvent("mousedown", { clientX: 10, clientY: 10, button: 0 }));
 		flushSync();
@@ -60,7 +60,7 @@ describe("ShovelCursor with a mouse", () => {
 		ptr("pointerup", { button: 2 });
 		ptr("pointerup", {});
 		flushSync();
-		expect(hand(container).dataset.frame).toBe("open");
+		expect(hand(container).dataset.frame).toBe("fist");
 		vi.advanceTimersByTime(250);
 		flushSync();
 		expect(hand(container).dataset.frame).toBe("point");
@@ -76,6 +76,17 @@ describe("ShovelCursor on a map press", () => {
 		c.getBoundingClientRect = () => ({ left: 20, top: 30, width: 390, height: 844, right: 410, bottom: 874, x: 20, y: 30, toJSON: () => ({}) });
 		return c;
 	}
+
+	it("a mouse moved under an open loupe aims it; the hand never fists over a lens", async () => {
+		const { container } = render(ShovelCursor);
+		window.dispatchEvent(new MouseEvent("mousedown", { clientX: 50, clientY: 60, button: 0 }));
+		press({ phase: "arm", x: 50, y: 60 });
+		press({ phase: "aim", x: 50, y: 60, canvas: canvas(), label: "", since: 0 });
+		ptr("pointermove", { clientX: 80, clientY: 60, buttons: 1 });
+		vi.advanceTimersByTime(200);
+		flushSync();
+		expect(hand(container).dataset.frame).not.toBe("fist");
+	});
 
 	it("arms gold, floats the loupe and chip under the top bar on aim, and lingers paused when lifted early", async () => {
 		document.documentElement.style.setProperty("--top-bar-h", "44");

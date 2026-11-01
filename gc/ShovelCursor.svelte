@@ -15,7 +15,7 @@ export const DRAG_SLOP_PX = 4;
  * expanding ring, so a recorded tap shows WHEN as well as where.
  *
  * Any mouse press turns the hand gold; moved past the slop it grabs, open
- * then fist, and lets go on release. A map press (doubleTapToPin.ts emits
+ * then fist, and the fist lingers a beat after release. A map press (doubleTapToPin.ts emits
  * `gc-press`) does the same from the map's own gesture.
  * Held a beat, a Loupe floats above the finger showing the map there
  * magnified, with a halo at the finger and a coordinate chip top-left; its
@@ -41,9 +41,9 @@ const FRAMES: [Frame, string][] = [
 	["fist", handFist],
 	["gold", handGold],
 ];
-// A drag's open hand: a flick as it grabs, a beat as it lets go.
+// A drag's open hand flicks as it grabs; on release the fist lingers a beat, never reopening.
 const GRAB_OPEN_MS = 100;
-const LET_GO_OPEN_MS = 250;
+const LET_GO_MS = 250;
 // The lens shrinks into the finger over 180 ms (Loupe.svelte); gone once that has played.
 const LOUPE_OUT_MS = 200;
 // Lifted before the ring filled, the lens lingers with the ring frozen so the half-lit ticks can be read.
@@ -98,11 +98,10 @@ onMount(() => {
 			return;
 		}
 		dragging = false;
-		frame = "open";
 		frameTimer = setTimeout(() => {
 			frame = "point";
 			pressing = false;
-		}, LET_GO_OPEN_MS);
+		}, LET_GO_MS);
 	};
 
 	const onPress = (e: Event) => {
