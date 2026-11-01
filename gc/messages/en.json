@@ -22,5 +22,7 @@
 	"gc_mapbox_scroll_zoom_ctrl": "Use ctrl + scroll to zoom the map",
 	"gc_mapbox_touch_pan": "Use two fingers to move the map",
 	"gc_mapbox_marker_title": "Map marker",
-	"gc_mapbox_popup_close": "Close popup"
+	"gc_mapbox_popup_close": "Close popup",
+	"gc_location_confirmed": "Location confirmed",
+	"gc_delivery_done": "Delivered, now planted or removed"
 }
