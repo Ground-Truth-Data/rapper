@@ -1411,12 +1411,12 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	height: 0;
 	transform: translate(-50%, -50%);
 	border-radius: 50%;
-	border: 4px solid rgba(0, 0, 0, 0.8);
+	border: 4px solid color-mix(in srgb, var(--rt-yellow) 60%, transparent);
 	opacity: 0;
 	animation: rt-ripple 4s cubic-bezier(0.3, 0.2, 0.7, 0.9) forwards;
 }
 /* Delays and weights are rolled per drop in routeLayer.ts. */
-.rt-target-ripple i.faint { border-color: rgba(0, 0, 0, 0.4); }
+.rt-target-ripple i.faint { border-color: color-mix(in srgb, var(--rt-yellow) 30%, transparent); }
 @keyframes rt-ripple {
 	0% { width: 0; height: 0; opacity: 1; }
 	70% { opacity: 1; }
