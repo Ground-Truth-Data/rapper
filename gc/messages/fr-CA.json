@@ -22,5 +22,7 @@
 	"gc_mapbox_scroll_zoom_ctrl": "Utilisez ctrl + défilement pour zoomer",
 	"gc_mapbox_touch_pan": "Utilisez deux doigts pour déplacer la carte",
 	"gc_mapbox_marker_title": "Marqueur de carte",
-	"gc_mapbox_popup_close": "Fermer la fenêtre"
+	"gc_mapbox_popup_close": "Fermer la fenêtre",
+	"gc_location_confirmed": "Position confirmée",
+	"gc_delivery_done": "Livré, maintenant planté ou retiré"
 }
