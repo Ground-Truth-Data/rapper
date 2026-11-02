@@ -69,6 +69,8 @@
 
 	/* The rose of ConfirmedDiamond's art, for text that names it. */
 	--rt-rose: #f0a3bb;
+	/* A table cell's corner diamond: one gap from the bottom and the right. */
+	--gc-dia-inset: 6px;
 
 	/* Sage = third accent: gold=commit, terracotta/rust=context, sage=nature. */
 	--rt-sage: #838963;
