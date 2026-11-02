@@ -85,7 +85,7 @@ let {
 	onSort,
 	frozen = 0,
 	lead,
-	leadWidth = "2.2rem",
+	leadWidth: leadWidthProp = undefined,
 	onPeek,
 	totals = {},
 	rowNumberOffset = undefined,
@@ -278,7 +278,6 @@ const ELLIPSIS = 0.76;
 const FIT_WINDOW = 112;
 // The two tracks the component owns rather than the caller: their rem widths are
 // declared in the style block, and Fit needs them as weights like any column.
-const LEAD_WEIGHT = 2.2;
 const TRAIL_WEIGHT = 5.5;
 // Both of these are properties of the whole column set, never of one name:
 // "short enough" and "tells itself apart" are only answerable against the
@@ -307,7 +306,7 @@ const tellApart = $derived.by(() => {
 });
 const fitShares = $derived.by(() => {
 	const floors = [
-		...(hasLead ? [LEAD_WEIGHT] : []),
+		...(hasLead ? [leadRem] : []),
 		...allCols.map((c) => tellApart[c]),
 		...(trail ? [TRAIL_WEIGHT] : []),
 	];
@@ -332,6 +331,9 @@ const isPeek = (c: string) => peekColumns.includes(c);
 // Row numbers ride the lead track but don't depend on the `lead` snippet: a
 // page wanting a gutter of numbers and no checkboxes gets one.
 const hasLead = $derived(Boolean(lead) || rowNumberOffset !== undefined);
+// The row number sits BESIDE the checkbox, never under it: stacked, it doubled every row's height.
+const leadRem = $derived(rowNumberOffset !== undefined && lead ? 4.6 : 2.2);
+const leadWidth = $derived(leadWidthProp ?? `${leadRem}rem`);
 const leadCount = $derived(hasLead ? 1 : 0);
 const span = $derived(leadCount + allCols.length + (trail ? 1 : 0));
 // Clamped: a `frozen` past the last column would freeze the whole table.
@@ -350,7 +352,8 @@ const frozenTotal = $derived(
 function clickSort(col: string) {
 	onSort(nextSort(sort, col));
 }
-const arrow = (c: string) => (sort.col === c ? (sort.asc ? "↑" : "↓") : "↕");
+// U+FE0E asks for the text glyph: in a mono header font without ↕, macOS otherwise draws the boxed emoji.
+const arrow = (c: string) => (sort.col === c ? (sort.asc ? "↑" : "↓") : "↕") + "\uFE0E";
 
 // "—" is the server's rendering of null, and a popup saying "—" answers no
 // question anyone asked.
@@ -876,8 +879,8 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 	}
 
 	.adt-lead {
-		width: 2.2rem;
-		text-align: center;
+		white-space: nowrap;
+		text-align: left;
 	}
 
 	.adt-cell-btn {
