@@ -55,34 +55,6 @@ export function rowsToMarkdown(columns: string[], rows: Row[]): string {
 	return body ? `${head}\n${rule}\n${body}` : `${head}\n${rule}`;
 }
 
-// Numbers/booleans render bare, null renders NULL, everything else single-quoted with quotes doubled.
-function sqlLiteral(v: unknown): string {
-	if (v === null || v === undefined) return "NULL";
-	if (typeof v === "number" && Number.isFinite(v)) return String(v);
-	if (typeof v === "boolean") return v ? "true" : "false";
-	const s = typeof v === "object" ? JSON.stringify(v) : String(v);
-	return `'${s.replace(/'/g, "''")}'`;
-}
-
-export function rowsToSql(
-	table: string,
-	columns: string[],
-	rows: Row[],
-): string {
-	const safeTable = /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(table)
-		? `"${table}"`
-		: `"${table.replace(/"/g, "")}"`;
-	const colList = columns.map((c) => `"${c}"`).join(", ");
-	return rows
-		.map(
-			(r) =>
-				`INSERT INTO ${safeTable} (${colList}) VALUES (${columns
-					.map((c) => sqlLiteral(r[c]))
-					.join(", ")});`,
-		)
-		.join("\n");
-}
-
 /** Resolves true only when the text actually landed, so a "copied ✓" flash never lies. */
 export async function copyText(text: string): Promise<boolean> {
 	try {

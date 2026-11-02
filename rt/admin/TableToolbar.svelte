@@ -11,7 +11,6 @@ import {
     rowsToCsv,
     rowsToJson,
     rowsToMarkdown,
-    rowsToSql,
     type Row,
 } from "./exportRows";
 
@@ -61,15 +60,10 @@ async function doCopy(fmt: "json" | "csv" | "md") {
     closeMenu();
 }
 
-function doExport(fmt: "csv" | "json" | "sql") {
+function doExport(fmt: "csv" | "json") {
     const base = `${tableName || "table"}-${targetRows.length}rows`;
-    if (fmt === "csv") {
-        downloadText(`${base}.csv`, rowsToCsv(columns, targetRows), "text/csv");
-    } else if (fmt === "json") {
-        downloadText(`${base}.json`, rowsToJson(columns, targetRows), "application/json");
-    } else {
-        downloadText(`${base}.sql`, rowsToSql(tableName, columns, targetRows), "application/sql");
-    }
+    if (fmt === "csv") downloadText(`${base}.csv`, rowsToCsv(columns, targetRows), "text/csv");
+    else downloadText(`${base}.json`, rowsToJson(columns, targetRows), "application/json");
     flashLabel(`⬇ ${targetRows.length} rows`);
     closeMenu();
 }
@@ -120,7 +114,6 @@ const hinge = (_node: Element) => ({
             <div class="tt-menu" role="menu" transition:hinge>
                 <button type="button" role="menuitem" onclick={(e) => { e.stopPropagation(); doExport("csv"); }}>Export CSV</button>
                 <button type="button" role="menuitem" onclick={(e) => { e.stopPropagation(); doExport("json"); }}>Export JSON</button>
-                <button type="button" role="menuitem" onclick={(e) => { e.stopPropagation(); doExport("sql"); }}>Export SQL (INSERTs)</button>
             </div>
         {/if}
     </div>

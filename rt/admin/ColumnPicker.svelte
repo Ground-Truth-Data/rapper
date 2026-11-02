@@ -40,7 +40,9 @@ function toggle(col: string) {
 	onchange(toggleColumn(hidden, col));
 }
 
-const showAll = () => onchange([]);
+// One button, two ways: everything showing → Show none (all but the first, which keeps the header reachable).
+const allShown = $derived(hidden.length === 0);
+const flipAll = () => onchange(allShown ? columns.slice(1) : []);
 /** Everything off but this one — the fastest way to start a narrow report. */
 const only = (col: string) => onchange(columns.filter((c) => c !== col));
 
@@ -93,8 +95,8 @@ const hinge = (_node: Element) => ({
 		></div>
 		<div class="colpick-menu" transition:hinge>
 			<div class="colpick-head">
-				<button type="button" onclick={showAll} disabled={hidden.length === 0}>
-					Show all
+				<button type="button" onclick={flipAll}>
+					{allShown ? "Show none" : "Show all"}
 				</button>
 				<!-- The choice is in the address bar, so this is what turns a
 				     view into something you can send. -->
