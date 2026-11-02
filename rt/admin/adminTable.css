@@ -401,19 +401,31 @@ main:has(.admin-table) {
 	background: var(--at-inset);
 	transition: color 120ms ease;
 }
-/* THE HEAD BAND FREEZES: the header and Σ rows, one opaque surface the data
-   slides under; its last row casts the band's shadow.
+/* THE HEADER FREEZES; the Σ row scrolls away unless the table opts in with
+   `.pin-sum` (below). The `:not()` is NOT decoration: the Σ row lives inside
+   <thead> so it stays with the head band on re-sort. The band is a SURFACE,
+   not a rule: a cast shadow (`--at-cast`) puts the rows underneath it. A frozen
+   header cell declares its own box-shadow and box-shadow is one property with
+   one winner, so it repeats `--at-cast` in that list.
    Scroll-driven, so it moves on the compositor with the page — a script
    copying scrollY lags a frame and jitters. From the wrapper's top crossing the
    viewport top to its bottom crossing it, the band slides down exactly as far
-   as the page scrolls; `--adt-vh` is the wrapper's height, set by script.
-   The WHOLE thead moves, one block, so no seam can open between its rows; it
-   is black underneath, so a subpixel gap shows black, never a row. Not
-   `position: sticky`: the wrapper's sideways overflow captures sticky, so it
-   could never reach the page. No band cell wears a border: a collapsed border
-   is painted where the row WAS, not where the band is. Rules and floors are
-   inset shadows, which move with the cell. */
-.admin-table thead {
+   as the page scrolls; `--adt-vh` is the wrapper's height, set by script. */
+.admin-table thead tr:not(.subtotal) th {
+	position: sticky;
+	top: 0;
+	z-index: 5;
+	--at-cast: var(--at-lift-2);
+	box-shadow: var(--at-cast), var(--at-edge-hi);
+	animation: admin-head-pin linear both;
+	animation-timeline: --admin-head;
+	animation-range: exit-crossing 0% exit-crossing 100%;
+}
+/* PINNED Σ: the header and Σ rows are one band, and the WHOLE thead moves as
+   one block so no seam can open between its rows; it is black underneath, so
+   a subpixel gap shows black, never a row. The Σ row, the band's bottom, casts
+   its shadow, and its rules become inset shadows that move with it. */
+.admin-table.pin-sum thead {
 	position: relative;
 	z-index: 5;
 	background: #000;
@@ -421,12 +433,11 @@ main:has(.admin-table) {
 	animation-timeline: --admin-head;
 	animation-range: exit-crossing 0% exit-crossing 100%;
 }
-.admin-table thead th {
-	--at-cast: 0 0 #0000;
-	box-shadow: var(--at-cast), var(--at-edge-hi), inset 0 0 0 100vmax var(--at-inset);
+.admin-table.pin-sum thead th {
+	animation: none;
 }
-.admin-table thead tr:last-child th {
-	--at-cast: var(--at-lift-2);
+.admin-table.pin-sum thead tr:not(.subtotal) th {
+	--at-cast: 0 0 #0000;
 }
 @keyframes admin-head-pin {
 	to {
@@ -532,13 +543,22 @@ main:has(.admin-table) {
 	font-family: var(--rt-font-mono);
 }
 
-/* Part of the head band. Raised a whole step instead of --at-panel's one hex off the floor — it is the page's only per-column summary and it was invisible. */
+/* Not pinned unless `.pin-sum`: a second frozen row costs permanent vertical space. Raised a whole step instead of --at-panel's one hex off the floor — it is the page's only per-column summary and it was invisible. */
 .admin-table tr.subtotal th {
 	background: var(--at-panel-2);
 	color: var(--at-accent);
 	font-family: var(--rt-font-mono);
 	font-weight: 700;
-	box-shadow: var(--at-cast), var(--at-sum-rules), inset 0 0 0 100vmax var(--at-panel-2);
+	border-top: 1px solid var(--at-line-strong);
+	border-bottom: 1px solid var(--at-line-strong);
+	--at-cast: 0 0 #0000;
+	--at-sum-edge: 0 0 #0000;
+}
+.admin-table.pin-sum tr.subtotal th {
+	border-block: 0;
+	--at-cast: var(--at-lift-2);
+	--at-sum-edge: var(--at-sum-rules);
+	box-shadow: var(--at-cast), var(--at-sum-edge);
 }
 
 /* Same token the frozen cells lay their floor with — the scrolling and frozen halves of one ticked row must be the same colour. */

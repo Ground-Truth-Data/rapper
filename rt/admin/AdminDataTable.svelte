@@ -56,6 +56,8 @@ type Props = {
 	totals?: Record<string, string>;
 	/** The Σ row's first cell — the matched total, not this page's row count. */
 	totalLabel?: string;
+	/** The Σ row freezes with the header instead of scrolling away. */
+	pinSum?: boolean;
 	/** Cell display text. Defaults to the raw value. */
 	render?: (col: string, row: Record<string, unknown>) => string;
 	/** Full control of a cell's contents for what `render` can't express as text; the cell box, freezing and truncation stay the table's. */
@@ -90,6 +92,7 @@ let {
 	totals = {},
 	rowNumberOffset = undefined,
 	totalLabel,
+	pinSum = false,
 	render,
 	cellTitle,
 	cell,
@@ -484,6 +487,7 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 		class="admin-table adt"
 		class:adt-fit={mode === "fit"}
 		class:adt-full={mode === "full"}
+		class:pin-sum={pinSum}
 		bind:this={tableEl}
 		use:frozenLeft={frozenTotal}
 	>
@@ -782,9 +786,9 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 	   the scrolling columns pass UNDERNEATH, so a plain `background` per state
 	   would leave a hole for any state nobody enumerated; every rule below
 	   repeats the shadow rather than replacing it. Z is the PLANE: every body
-	   cell 4, the head band 5 — header beats body, frozen or not. The one
-	   exception is a single step, frozen band cells 6, because sliding band
-	   cells pass sideways under them and a tie goes to the later column. */
+	   cell (Σ included) 4, the head band 5 — header beats body, frozen or not.
+	   The one exception is a single step, frozen header 6, because sliding
+	   header cells pass sideways under it and a tie goes to the later column. */
 	.adt :global(td.adt-frozen),
 	.adt :global(th.adt-frozen) {
 		position: sticky;
@@ -808,9 +812,8 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 	/* --at-panel-2, matching the shared sheet's `tr.subtotal th`: the frozen and
 	   scrolling halves of one band have to be one colour. */
 	.adt :global(tr.subtotal th.adt-frozen) {
-		z-index: 6;
 		background: var(--at-panel-2);
-		box-shadow: var(--at-cast), var(--at-sum-rules),
+		box-shadow: var(--at-cast), var(--at-sum-edge),
 			inset 0 0 0 100vmax var(--at-panel-2);
 	}
 	.adt :global(tbody tr:hover td.adt-frozen) {
@@ -841,7 +844,7 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 			inset 0 0 0 100vmax var(--at-inset);
 	}
 	.adt :global(tr.subtotal th.adt-seam) {
-		box-shadow: var(--at-cast), var(--at-sum-rules), var(--at-lift-1),
+		box-shadow: var(--at-cast), var(--at-sum-edge), var(--at-lift-1),
 			inset 0 0 0 100vmax var(--at-panel-2);
 	}
 	.adt :global(tbody tr:hover td.adt-seam) {
