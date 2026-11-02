@@ -445,8 +445,9 @@ main:has(.admin-table) {
 .admin-table th .arrow,
 .admin-table th .sort-ind {
 	color: var(--at-th-arrow);
-	font-size: 11px;
-	margin-left: 4px;
+	font-size: 1em;
+	font-weight: 700;
+	margin-left: 0.3em;
 }
 .admin-table th[aria-sort] .arr,
 .admin-table th.sorted .arrow,

@@ -32,7 +32,7 @@
 	/* Headers: white at rest (serious, plain), gold on hover (a control — clicking sorts). NOT rust, which belongs on meta/counts. */
 	--at-th: var(--rt-fg);
 	--at-th-hover: var(--rt-gold-1);
-	--at-th-arrow: rgba(255, 255, 255, 0.28); /* one per column, 35 of them at rest — an affordance, never a mark the eye has to skip */
+	--at-th-arrow: rgba(255, 255, 255, 0.85); /* Chris, 2 Nov 2026: the sort arrow should pop, not hide */
 
 	--at-fg: var(--rt-fg);
 	/* The header's grey, mixed onto the panel so a band outside the header (the Foundr stepper) reads the same grey from one formula. */
