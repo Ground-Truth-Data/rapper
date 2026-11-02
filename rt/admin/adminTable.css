@@ -441,34 +441,46 @@ main:has(.admin-table) {
 	border-bottom: none;
 	background: var(--at-inset);
 }
-.admin-table th[aria-sort]:hover {
-	color: var(--at-th-hover);
-}
+/* The whole header is the button; the chip only says so. It stays smaller than the label at any header size.
+   `.sort-head` gives a sort button outside a table the same chip. */
 .admin-table th[aria-sort],
-.admin-table th.sorted {
-	color: var(--at-th-hover);
+.sort-head {
+	cursor: pointer;
+	user-select: none;
 }
-/* The sort arrow sits in its own small bordered button, one size on every table. */
-.admin-table th .arr {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
+.admin-table th[aria-sort]:hover,
+.sort-head:hover {
+	color: var(--at-th-lit);
+}
+:is(.admin-table th[aria-sort], .sort-head).sorted,
+:is(.admin-table th[aria-sort], .sort-head).sorted:hover {
+	color: var(--at-th-sorted);
+}
+:is(.admin-table th, .sort-head) .arr {
+	display: inline-grid;
+	place-items: center;
 	vertical-align: middle;
-	box-sizing: border-box;
-	width: 20px;
-	height: 20px;
-	margin-left: 0.6ch;
-	border: 1px solid currentColor;
-	border-radius: 6px;
-	color: var(--at-th-arrow);
+	width: 18px;
+	height: 18px;
+	margin-left: 8px;
+	border-radius: 5px;
+	background: var(--at-th-chip);
+	color: var(--at-th-chip-glyph);
 	/* One arrow on every table, whatever the header's font: a mono face without ↕ fell back to the emoji. */
 	font-family: system-ui, sans-serif;
-	font-size: 12px;
+	font-size: 11px;
 	font-weight: 700;
 	line-height: 1;
+	transition: background 0.12s, color 0.12s;
 }
-.admin-table th[aria-sort] .arr {
-	color: var(--at-th-hover);
+:is(.admin-table th[aria-sort], .sort-head):hover .arr {
+	background: var(--at-th-chip-hover);
+	color: var(--at-th-lit);
+}
+:is(.admin-table th[aria-sort], .sort-head).sorted .arr,
+:is(.admin-table th[aria-sort], .sort-head).sorted:hover .arr {
+	background: var(--at-th-chip-sorted);
+	color: var(--at-th-sorted);
 }
 
 /* The hairline between rows is the ONLY separator — a card or per-row background reads as noise; the point of the grid is that the eye travels down a column. */

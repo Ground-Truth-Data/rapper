@@ -524,7 +524,7 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 								? sort.asc
 									? "ascending"
 									: "descending"
-								: undefined}
+								: "none"}
 							style="{headWidth(c, i)}; {frozenLeftVar(i + leadCount) ?? ''}"
 							title={headHint(c)}
 							aria-label={mode === "fit" ? label(c) : undefined}
