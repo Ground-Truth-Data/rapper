@@ -11,13 +11,10 @@ export interface SortState {
 	asc: boolean;
 }
 
-/**
- * Toggle rule: clicking the ACTIVE column flips direction; clicking a new
- * column selects it ascending. Matches the table viewer exactly.
- */
+/** A new column sorts descending; clicking it again goes ascending, then off. */
 export function nextSort(current: SortState, col: string): SortState {
-	if (current.col === col) return { col, asc: !current.asc };
-	return { col, asc: true };
+	if (current.col !== col) return { col, asc: false };
+	return current.asc ? { col: "", asc: false } : { col, asc: true };
 }
 
 /**

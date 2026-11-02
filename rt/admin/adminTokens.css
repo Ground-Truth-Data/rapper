@@ -29,10 +29,15 @@
 	--at-accent: var(--rt-rust);
 	--at-accent-bright: var(--rt-meta);
 
-	/* Headers: white at rest (serious, plain), gold on hover (a control — clicking sorts). NOT rust, which belongs on meta/counts. */
-	--at-th: var(--rt-fg);
+	/* Headers (sort-header handoff, 2 Nov 2026): grey at rest, bright on hover, gold when sorted. NOT rust, which belongs on meta/counts. */
+	--at-th: #8f8b80;
 	--at-th-hover: var(--rt-gold-1);
-	--at-th-arrow: rgba(255, 255, 255, 0.85); /* Chris, 2 Nov 2026: the sort arrow should pop, not hide */
+	--at-th-lit: #f3f1e9;
+	--at-th-chip: rgba(255, 255, 255, 0.1);
+	--at-th-chip-hover: rgba(255, 255, 255, 0.18);
+	--at-th-chip-glyph: #b9b5aa;
+	--at-th-sorted: #eab627;
+	--at-th-chip-sorted: rgba(234, 182, 39, 0.18);
 
 	--at-fg: var(--rt-fg);
 	/* The header's grey, mixed onto the panel so a band outside the header (the Foundr stepper) reads the same grey from one formula. */
