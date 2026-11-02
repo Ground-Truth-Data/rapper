@@ -111,7 +111,8 @@
 .admin-textbox {
 	/* A CELL, not a card: a border on every cell would mesh with the row hairline, so it shows edges only on hover/focus — at rest, just the value like a <td>. */
 	background: transparent;
-	border: 1px solid transparent;
+	/* Outside a table it is a form field, and a form field shows its edges. */
+	border: 1px solid var(--at-line-strong);
 	border-radius: 4px;
 	/* The row-height FLOOR: a row is as tall as its tallest thing, which on these pages is this input — above the ~24px a text field needs to stay clickable. */
 	height: 26px;
@@ -123,6 +124,9 @@
 	font-family: var(--rt-font-mono);
 	overflow: hidden;
 	transition: border-color 120ms ease;
+}
+.admin-table .admin-textbox {
+	border-color: transparent;
 }
 .admin-table tbody tr:hover .admin-textbox,
 .admin-table tbody tr:hover .admin-select {
