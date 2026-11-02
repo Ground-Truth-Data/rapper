@@ -1,28 +1,43 @@
 <script lang="ts">
 import { m } from "$parent/src/lib/paraglide/messages";
+import darkTilt from "./assets/diamond_darkRose_tilt.webp";
+import darkVert from "./assets/diamond_darkRose_vert.webp";
+import lightTilt from "./assets/diamond_lightRose_tilt.webp";
+import lightVert from "./assets/diamond_lightRose_vert.webp";
 
-/** The one "location confirmed" mark, always last on its line. `muted`: a
- *  delivery no longer out there — planted or removed. `size` in px, else the text's. */
-let { muted = false, size }: { muted?: boolean; size?: number } = $props();
+const ART = { light: { tilt: lightTilt, vert: lightVert }, dark: { tilt: darkTilt, vert: darkVert } };
+
+/** The one "location confirmed" mark. `muted`: a delivery no longer out
+ *  there — planted or removed. `size` in px, else three-quarters of the text. */
+let {
+	muted = false,
+	size,
+	art = "tilt",
+	tone = "light",
+}: { muted?: boolean; size?: number; art?: "tilt" | "vert"; tone?: "light" | "dark" } = $props();
 </script>
 
-<i class="gc-dia" class:muted style:font-size={size ? `${size}px` : null} role="img" aria-label={muted ? m.gc_delivery_done() : m.gc_location_confirmed()}></i>
+<img
+	class="gc-dia"
+	class:muted
+	src={ART[tone][art]}
+	style:width={size ? `${size}px` : null}
+	style:height={size ? `${size}px` : null}
+	alt={muted ? m.gc_delivery_done() : m.gc_location_confirmed()}
+/>
 
 <style>
 .gc-dia {
 	display: inline-block;
 	flex: none;
-	width: 1em;
-	height: 0.78em;
-	margin-left: 0.25em;
+	width: 0.75em;
+	height: 0.75em;
+	margin-left: 3px;
 	vertical-align: middle;
 	align-self: center;
-	mask: url("$gc/assets/diamond.webp") center / contain no-repeat;
-	background: linear-gradient(170deg, #ffd6e1 15%, var(--rt-rose) 55%, #d9809d);
-	filter: drop-shadow(0 0 3px color-mix(in srgb, var(--rt-rose) 45%, transparent));
 }
 .muted {
-	background: #6f7064;
-	filter: none;
+	filter: grayscale(1);
+	opacity: 0.6;
 }
 </style>
