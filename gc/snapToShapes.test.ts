@@ -2,7 +2,7 @@ import area from "@turf/area";
 import type { Feature, Polygon } from "geojson";
 import { describe, expect, it } from "vitest";
 import { BORDER_REACH_PX as R } from "./drawDials";
-import { type Lnglat, snapLngLat, snapRings } from "./snapToShapes";
+import { type Lnglat, sideAt, snapLngLat, snapRings } from "./snapToShapes";
 
 // Identity projection: lng/lat ARE screen px, so thresholds read directly.
 const flat = {
@@ -88,5 +88,20 @@ describe("snapLngLat", () => {
 		expect(cutW[0]).toBeCloseTo(-119.9, 12);
 		expect(cutE[0]).toBeCloseTo(-119.89, 12);
 		expect(Math.abs(area(south) + area(north) - area(block)) / area(block)).toBeLessThan(1e-9);
+	});
+});
+
+describe("sideAt", () => {
+	const sq: Lnglat[] = [[0, 0], [100, 0], [100, 100], [0, 100]];
+	it("finds the point on a side and the corner it follows", () => {
+		expect(sideAt(flat, sq, true, { x: 50, y: 5 }, 18, 16)).toEqual({ i: 0, ll: [50, 0] });
+	});
+	it("reaches the closing side only on a closed path", () => {
+		expect(sideAt(flat, sq, true, { x: 3, y: 50 }, 18, 16)).toEqual({ i: 3, ll: [0, 50] });
+		expect(sideAt(flat, sq, false, { x: 3, y: 50 }, 18, 16)).toBeNull();
+	});
+	it("leaves a press near a corner to the corner, and one far from every side alone", () => {
+		expect(sideAt(flat, sq, true, { x: 10, y: 2 }, 18, 16)).toBeNull();
+		expect(sideAt(flat, sq, true, { x: 50, y: 50 }, 18, 16)).toBeNull();
 	});
 });
