@@ -433,10 +433,8 @@ main:has(.admin-table) {
 	animation-timeline: --admin-head;
 	animation-range: exit-crossing 0% exit-crossing 100%;
 }
-.admin-table.pin-sum thead th {
-	animation: none;
-}
 .admin-table.pin-sum thead tr:not(.subtotal) th {
+	animation: none;
 	--at-cast: 0 0 #0000;
 }
 @keyframes admin-head-pin {
