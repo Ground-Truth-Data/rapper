@@ -782,9 +782,9 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 	   the scrolling columns pass UNDERNEATH, so a plain `background` per state
 	   would leave a hole for any state nobody enumerated; every rule below
 	   repeats the shadow rather than replacing it. Z is the PLANE: every body
-	   cell (Σ included) 4, the head band 5 — header beats body, frozen or not.
-	   The one exception is a single step, frozen header 6, because sliding
-	   header cells pass sideways under it and a tie goes to the later column. */
+	   cell 4, the head band 5 — header beats body, frozen or not. The one
+	   exception is a single step, frozen band cells 6, because sliding band
+	   cells pass sideways under them and a tie goes to the later column. */
 	.adt :global(td.adt-frozen),
 	.adt :global(th.adt-frozen) {
 		position: sticky;
@@ -794,25 +794,24 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 		box-shadow: inset 0 0 0 100vmax var(--at-bg);
 	}
 	/* THE HEAD BAND IS ONE PLANE, and a frozen header cell has to carry it too.
-	   The shared sheet gives the band `--at-lift-2` + `--at-edge-hi`, but a frozen
+	   The shared sheet gives each band row `--at-cast` + its edge, but a frozen
 	   cell declares its own `box-shadow` and that is ONE property with one winner
 	   — so without restating them the band's shadow visibly breaks over the frozen
 	   columns. The floor stays LAST: earlier layers paint on top, so the lit top
-	   edge has to sit above the opaque backing to be seen at all. The Σ row is
-	   excluded because it is not part of the band. */
+	   edge has to sit above the opaque backing to be seen at all. */
 	.adt :global(thead tr:not(.subtotal) th.adt-frozen) {
 		z-index: 6;
 		background: var(--at-inset);
-		box-shadow: var(--at-lift-2), var(--at-edge-hi),
+		box-shadow: var(--at-cast), var(--at-edge-hi),
 			inset 0 0 0 100vmax var(--at-inset);
 	}
 	/* --at-panel-2, matching the shared sheet's `tr.subtotal th`: the frozen and
-	   scrolling halves of one band have to be one colour. They were a step apart
-	   and it went unseen only because the whole stack was within two hex of the
-	   sheet. */
+	   scrolling halves of one band have to be one colour. */
 	.adt :global(tr.subtotal th.adt-frozen) {
+		z-index: 6;
 		background: var(--at-panel-2);
-		box-shadow: inset 0 0 0 100vmax var(--at-panel-2);
+		box-shadow: var(--at-cast), var(--at-sum-rules),
+			inset 0 0 0 100vmax var(--at-panel-2);
 	}
 	.adt :global(tbody tr:hover td.adt-frozen) {
 		background: var(--at-hover);
@@ -838,11 +837,12 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 	/* Carries the band's plane as well as the seam — see the frozen header rule.
 	   Scoped past `.subtotal` so it still outranks it on an equal-specificity tie. */
 	.adt :global(thead tr:not(.subtotal) th.adt-seam) {
-		box-shadow: var(--at-lift-2), var(--at-edge-hi), var(--at-lift-1),
+		box-shadow: var(--at-cast), var(--at-edge-hi), var(--at-lift-1),
 			inset 0 0 0 100vmax var(--at-inset);
 	}
 	.adt :global(tr.subtotal th.adt-seam) {
-		box-shadow: var(--at-lift-1), inset 0 0 0 100vmax var(--at-panel-2);
+		box-shadow: var(--at-cast), var(--at-sum-rules), var(--at-lift-1),
+			inset 0 0 0 100vmax var(--at-panel-2);
 	}
 	.adt :global(tbody tr:hover td.adt-seam) {
 		box-shadow: var(--at-lift-1), inset 0 0 0 100vmax var(--at-hover);
