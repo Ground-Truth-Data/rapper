@@ -2,6 +2,7 @@
 @import 'tailwindcss';
 @import './mobile.css';
 @import './base.css';
+@import './fancyButton.css';
 /* Vendor map CSS is ALWAYS `layer(vendor)`, never bare — unlayered, its popup fills beat our overrides on source order. */
 @import 'maplibre-gl/dist/maplibre-gl.css' layer(vendor);
 
@@ -229,105 +230,6 @@
 		filter: brightness(0.88);
 	}
 
-}
-
-/* THE FANCY BUTTON — Chris's name for it. Every gold or rust action button wears this one class,
-   usually through $gc/FancyButton.svelte; never hand-roll a gradient in a scoped <style>.
-   Sheen (lit top half) + bottom lip + letterpress ink. `--rust` swaps only the tokens. */
-.rt-fancy-btn {
-    --fb-hi: color-mix(in srgb, var(--rt-yellow) 85%, #fff);
-    --fb-mid: var(--rt-yellow);
-    --fb-lo: color-mix(in srgb, var(--rt-yellow) 80%, #000);
-    --fb-lip: var(--rt-gold-bevel);
-    --fb-glow: color-mix(in srgb, var(--rt-yellow) 30%, transparent);
-    --fb-press-lo: var(--rt-press-lo);
-    --fb-press-hi: var(--rt-press-hi);
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--fb-lo);
-    background: linear-gradient(180deg, var(--fb-hi) 0%, var(--fb-mid) 46%, var(--fb-lo) 100%);
-    cursor: pointer;
-    text-decoration: none;
-    -webkit-tap-highlight-color: transparent;
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.6),
-        0 2px 0 var(--fb-lip),
-        0 6px 14px var(--fb-glow);
-    transition:
-        transform 80ms ease,
-        box-shadow 80ms ease,
-        filter 80ms ease;
-}
-/* Zero specificity: any caller's own size/layout class wins. */
-:where(.rt-fancy-btn) {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    box-sizing: border-box;
-    border-radius: var(--rt-radius-md, 0.75rem);
-    padding: 0.7rem 1rem;
-    font-family: "Retreever", sans-serif;
-    font-weight: 600;
-    line-height: 1.15;
-}
-.rt-fancy-btn--rust {
-    --fb-hi: #f0947a;
-    --fb-mid: #e87958;
-    --fb-lo: #b8552f;
-    --fb-lip: #8a3d1f;
-    --fb-glow: rgba(232, 121, 88, 0.25);
-    --fb-press-lo: rgba(255, 255, 255, 0.3);
-    --fb-press-hi: rgba(0, 0, 0, 0.3);
-}
-.rt-fancy-btn::before {
-    content: "";
-    position: absolute;
-    inset: 1px 1px auto 1px;
-    height: 45%;
-    border-radius: inherit;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent);
-    pointer-events: none;
-}
-/* The `body.mobile-app span/a` rules force white onto descendants, so the ink is pinned on children too. */
-.rt-fancy-btn,
-.rt-fancy-btn * {
-    color: var(--rt-gold-ink);
-    text-shadow:
-        0 1px 0 var(--fb-press-lo),
-        0 -1px 0 var(--fb-press-hi);
-}
-/* Icons stay flat: chained drop-shadows draw a 2px stroke three times and it reads as double vision. */
-.rt-fancy-btn svg {
-    flex-shrink: 0;
-}
-@media (hover: hover) and (pointer: fine) {
-    .rt-fancy-btn:hover:not(:disabled, .disabled, :active, .pressed) {
-        box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.6),
-            0 2px 0 var(--fb-lip),
-            0 6px 14px var(--fb-glow),
-            0 0 22px 4px var(--fb-glow);
-    }
-}
-/* :active for plain buttons; `.pressed` for FancyButton, which tracks the pointer. The lip collapses
-   and the top rim goes dark, so it reads as pushed in. */
-.rt-fancy-btn:is(:active, .pressed):not(:disabled, .disabled) {
-    transform: translateY(2px);
-    filter: brightness(0.94);
-    box-shadow:
-        inset 0 2px 3px color-mix(in srgb, var(--rt-gold-ink) 40%, transparent),
-        0 0 0 var(--fb-lip),
-        0 2px 6px var(--fb-glow);
-}
-/* Pressed, the emboss shallows out rather than inverting, which would read as a different button. */
-.rt-fancy-btn:is(:active, .pressed):not(:disabled, .disabled),
-.rt-fancy-btn:is(:active, .pressed):not(:disabled, .disabled) * {
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.28);
-}
-.rt-fancy-btn:is(:disabled, .disabled) {
-    opacity: 0.55;
-    cursor: not-allowed;
 }
 
 /* A table's column-title row: gold above, grey below — never gold below. */

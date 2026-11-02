@@ -63,6 +63,8 @@
 	   the width of every header cell on the page, and at that length a
 	   highlight people notice is a highlight they read as a border. */
 	--at-edge-hi: inset 0 1px 0 rgb(255 255 255 / 6%);
+	/* The Σ band's rules above and below, as shadows so they move with it. */
+	--at-sum-rules: inset 0 1px var(--at-line-strong), inset 0 -1px var(--at-line-strong);
 
 	/* DENSITY: these are DATA screens — an admin scanning a thousand rows
 	   compares them to each other, so row count matters more than size. At

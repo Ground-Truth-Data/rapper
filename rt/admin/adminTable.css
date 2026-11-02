@@ -369,6 +369,8 @@
 	overflow: auto hidden;
 	overscroll-behavior-x: contain; /* a sideways swipe stops at the table's edge instead of bubbling into the page's clipped (rubber-banding) x-axis */
 	view-timeline: --admin-head block;
+	/* The band pins under a page's own sticky header, if it has one. */
+	view-timeline-inset: var(--site-head, 0px) 0px;
 }
 /* Page-level wrappers stay open — a page-scoped overflow here outranks the shared rule and reads as "sticky is broken". */
 .wrap:has(.admin-table),
@@ -399,27 +401,32 @@ main:has(.admin-table) {
 	background: var(--at-inset);
 	transition: color 120ms ease;
 }
-/* THE HEADER FREEZES — exactly ONE frozen thing on the page. The `:not()` is
-   NOT decoration: the Σ row lives inside <thead> (so
-   it stays with the head band on re-sort), so a bare `thead th` would freeze
-   it too — permanently, since the pin was never in the Σ's own block to delete.
-   The band is a SURFACE, not a rule: a hairline can only clip the rows against
-   it, where a cast shadow puts them underneath it, which is what they do. A
-   frozen header cell declares its own box-shadow (an opaque floor and the seam
-   its edge casts) and box-shadow is one property with one winner, so the plane
-   reaches those cells only by being repeated in that list. */
-/* Scroll-driven, so it moves on the compositor with the page — a script
+/* THE HEAD BAND FREEZES: the header and Σ rows, one opaque surface the data
+   slides under; its last row casts the band's shadow.
+   Scroll-driven, so it moves on the compositor with the page — a script
    copying scrollY lags a frame and jitters. From the wrapper's top crossing the
    viewport top to its bottom crossing it, the band slides down exactly as far
-   as the page scrolls; `--adt-vh` is the wrapper's height, set by script. */
-.admin-table thead tr:not(.subtotal) th {
-	position: sticky;
-	top: 0;
+   as the page scrolls; `--adt-vh` is the wrapper's height, set by script.
+   The WHOLE thead moves, one block, so no seam can open between its rows; it
+   is black underneath, so a subpixel gap shows black, never a row. Not
+   `position: sticky`: the wrapper's sideways overflow captures sticky, so it
+   could never reach the page. No band cell wears a border: a collapsed border
+   is painted where the row WAS, not where the band is. Rules and floors are
+   inset shadows, which move with the cell. */
+.admin-table thead {
+	position: relative;
 	z-index: 5;
-	box-shadow: var(--at-lift-2), var(--at-edge-hi);
+	background: #000;
 	animation: admin-head-pin linear both;
 	animation-timeline: --admin-head;
 	animation-range: exit-crossing 0% exit-crossing 100%;
+}
+.admin-table thead th {
+	--at-cast: 0 0 #0000;
+	box-shadow: var(--at-cast), var(--at-edge-hi), inset 0 0 0 100vmax var(--at-inset);
+}
+.admin-table thead tr:last-child th {
+	--at-cast: var(--at-lift-2);
 }
 @keyframes admin-head-pin {
 	to {
@@ -513,14 +520,13 @@ main:has(.admin-table) {
 	font-family: var(--rt-font-mono);
 }
 
-/* DELIBERATELY NOT STICKY, though it sits in <thead>: a second frozen band costs permanent vertical space and needs a hand-measured `top` that breaks the moment a density token changes. Raised a whole step instead of --at-panel's one hex off the floor — it is the page's only per-column summary and it was invisible. */
+/* Part of the head band. Raised a whole step instead of --at-panel's one hex off the floor — it is the page's only per-column summary and it was invisible. */
 .admin-table tr.subtotal th {
 	background: var(--at-panel-2);
 	color: var(--at-accent);
 	font-family: var(--rt-font-mono);
 	font-weight: 700;
-	border-top: 1px solid var(--at-line-strong);
-	border-bottom: 1px solid var(--at-line-strong);
+	box-shadow: var(--at-cast), var(--at-sum-rules), inset 0 0 0 100vmax var(--at-panel-2);
 }
 
 /* Same token the frozen cells lay their floor with — the scrolling and frozen halves of one ticked row must be the same colour. */

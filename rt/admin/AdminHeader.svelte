@@ -19,6 +19,7 @@ import { goto } from "$app/navigation";
 import { onMount } from "svelte";
 import { lastTool, rememberTool } from "./lastTool";
 import "./adminTokens.css";
+import Pill from "./Pill.svelte";
 import { tableCount } from "./tableCounts.svelte";
 import { page } from "$app/state";
 import Icon from "$gc/Icon.svelte";
@@ -203,30 +204,29 @@ $effect(() => {
 
 <!-- Each group renders its FIRST pill inside `.lead` (with the caption) and the rest outside it, or every pill's markup would appear twice per group. -->
 {#snippet toolPill(tool: AdminTool, dim = false)}
-    <a
-        class="lnk tool-lnk"
-        class:dim
-        class:active={tool.key === currentTool?.key}
+    <Pill
+        {dim}
+        active={tool.key === currentTool?.key}
         href={toolHref(tool, withSite(tool))}
         title={tool.title}
         target={tool.external ? "_blank" : null}
         rel={tool.external ? "noreferrer" : null}
     >
         {tool.label}{tool.external ? " ↗" : ""}
-    </a>
+    </Pill>
 {/snippet}
 {#snippet tablePill(link: AdminLink, lookup = false)}
     {@const n = tableCount(link.label)}
-    <a
-        class="lnk {lookup ? 'lookup-lnk' : 'table-lnk'}"
-        class:active={path === link.href}
+    <Pill
+        kind={lookup ? "lookup" : "table"}
+        active={path === link.href}
         href={crudHref(withSiteParam(link.href, isFoundr ? site || null : null))}
         title={n === undefined ? link.title : `${link.title} — ${n} rows`}
     >
         {link.label}
         <!-- Only the EMPTY table is marked, to pick out the exception. `=== 0`, not falsy: undefined means the sweep hasn't run and must not claim empty. -->
         {#if n === 0}<span class="empty-dot" aria-hidden="true"></span>{/if}
-    </a>
+    </Pill>
 {/snippet}
 <!-- A `scopedToSite` pill means nothing until a site is picked, so it dims; the reports ride in their stage after its tools. -->
 {#snippet stageGroup(s: FoundrStage)}
@@ -246,15 +246,15 @@ $effect(() => {
                 {@render toolPill(tool, !!tool.scopedToSite && !site)}
             {/each}
             {#each reports as r (r.key)}
-                <a
-                    class="lnk scr-lnk"
-                    class:dim={!site}
-                    class:active={path === foundrReportPath(r.key)}
+                <Pill
+                    kind="scr"
+                    dim={!site}
+                    active={path === foundrReportPath(r.key)}
                     href={adminHref(foundrReportHref(r.key, site || null))}
                     title={site ? `${site}${r.suffix}` : `Pick a site to open its ${r.suffix}`}
                 >
                     {r.label}
-                </a>
+                </Pill>
             {/each}
         </span>
     {/if}
@@ -366,14 +366,9 @@ $effect(() => {
             {#if crudScreens.length}
                 <span class="grp">
                     {#each crudScreens as link}
-                        <a
-                            class="lnk scr-lnk"
-                            class:active={path === link.href}
-                            href={crudHref(link.href)}
-                            title={link.title}
-                        >
+                        <Pill kind="scr" active={path === link.href} href={crudHref(link.href)} title={link.title}>
                             {link.label}
-                        </a>
+                        </Pill>
                     {/each}
                 </span>
             {/if}
@@ -381,15 +376,10 @@ $effect(() => {
             {#if crudViews.length}
                 <span class="grp">
                     {#each crudViews as link}
-                        <a
-                            class="lnk view-lnk"
-                            class:active={viewIsActive(link.href)}
-                            href={crudHref(link.href)}
-                            title={link.title}
-                        >
+                        <Pill kind="view" active={viewIsActive(link.href)} href={crudHref(link.href)} title={link.title}>
                             {#if link.icon}<Icon name={link.icon} size={12} />{/if}
                             {link.label}
-                        </a>
+                        </Pill>
                     {/each}
                 </span>
             {/if}
@@ -480,7 +470,7 @@ $effect(() => {
         flex-shrink: 0;
         white-space: nowrap;
         letter-spacing: 0.12em;
-        color: var(--rt-rust); /* same rust as the CRUD group it introduces — see .table-lnk */
+        color: var(--rt-rust); /* same rust as the CRUD group it introduces — see Pill.svelte */
         border: 1px solid color-mix(in srgb, var(--rt-rust), var(--at-panel) 68%);
         border-radius: 4px;
         padding: 0.1rem 0.35rem;
@@ -700,99 +690,6 @@ $effect(() => {
     .back {
         outline: none;
     }
-    /* inline-flex + line-height:1, not padding: with `display:inline` the mono font's line box sits the baseline high, so symmetric padding looks bottom-heavy. */
-    .lnk {
-        display: inline-flex;
-        align-items: center;
-        line-height: 1;
-        font-size: 0.78rem;
-        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-        color: var(--hd-txt);
-        text-decoration: none;
-        padding: 0.32rem 0.75rem;
-        /* A step darker than the hops (subordinate to tier 1), never as dark as --at-line (reads as no border). */
-        border: 1px solid var(--at-line-strong);
-        border-radius: 999px;
-        background: var(--at-inset);
-        transition: color 0.12s ease, border-color 0.12s ease, background 0.12s ease;
-    }
-    .tool-lnk:hover {
-        color: var(--at-gold);
-        border-color: var(--hd-dim);
-    }
-    /* Where you are, in every row of this header: the kit's selected plane, gold
-       on it. OPAQUE, not rgba — the band would otherwise show through the one
-       pill that has to stand off it. */
-    .tool-lnk.active {
-        color: var(--at-gold);
-        background: var(--at-selected);
-        border-color: var(--at-gold);
-        font-weight: 600;
-    }
-
-    /* RUST like everything at rank 3 — gold would read as a tier-2 tool that wrapped onto the wrong line. Full strength: the busiest pills in the row. */
-    .scr-lnk {
-        font-size: 0.72rem;
-        padding: 0.27rem 0.66rem;
-        color: var(--rt-rust);
-        border-color: color-mix(in srgb, var(--rt-rust), var(--at-panel) 55%);
-    }
-    .scr-lnk:hover {
-        color: var(--rt-rust);
-        border-color: var(--rt-rust);
-    }
-    /* Active is GOLD — see .tool-lnk.active. */
-    .scr-lnk.active {
-        color: var(--at-gold);
-        background: var(--at-selected);
-        border-color: var(--at-gold);
-        font-weight: 600;
-    }
-
-    /* Identical to .scr-lnk (same rank); the only addition is `gap` for the glyph. */
-    .view-lnk {
-        gap: 0.34rem;
-        font-size: 0.72rem;
-        padding: 0.27rem 0.66rem;
-        color: var(--rt-rust);
-        border-color: color-mix(in srgb, var(--rt-rust), var(--at-panel) 55%);
-    }
-    .view-lnk:hover {
-        color: var(--rt-rust);
-        background: color-mix(in srgb, var(--rt-rust) 10%, var(--at-panel));
-    }
-    .view-lnk.active {
-        color: var(--at-gold);
-        background: var(--at-selected);
-        border-color: var(--at-gold);
-        font-weight: 600;
-    }
-    /* Drawn with `currentColor` so it tracks the label. */
-    .view-lnk :global(svg) {
-        flex-shrink: 0;
-    }
-
-    /* RUST, smaller — subordinate to the tools. Every shade derives from the ONE --rt-rust token, so a fifth hand-rolled orange can't creep in. */
-    .table-lnk {
-        font-size: 0.7rem;
-        padding: 0.26rem 0.62rem;
-        color: color-mix(in srgb, var(--rt-rust), var(--at-panel) 12%);
-        border-color: color-mix(in srgb, var(--rt-rust), var(--at-panel) 68%);
-    }
-    .table-lnk:hover {
-        color: var(--rt-rust);
-        border-color: color-mix(in srgb, var(--rt-rust), var(--at-panel) 45%);
-    }
-    /* SAGE, the third accent (gold = commit, rust = context, sage = nature): the fixed vocabularies the rust tables point AT. Flat sage: any mix toward the floor drops it under 4.5:1. */
-    .lookup-lnk {
-        font-size: 0.7rem;
-        padding: 0.26rem 0.62rem;
-        color: var(--rt-sage);
-        border-color: color-mix(in srgb, var(--rt-sage), var(--at-panel) 68%);
-    }
-    .lookup-lnk:hover {
-        border-color: color-mix(in srgb, var(--rt-sage), var(--at-panel) 45%);
-    }
     .empty-dot {
         display: inline-block;
         width: 5px;
@@ -802,14 +699,6 @@ $effect(() => {
         background: #b3423a;
         /* Nudged off the text baseline, or it reads as a full stop ending the table name. */
         vertical-align: 0.12em;
-    }
-    /* Active is GOLD in every row: accent marks the group at rest, gold marks where you are. */
-    .table-lnk.active,
-    .lookup-lnk.active {
-        color: var(--at-gold);
-        background: var(--at-selected);
-        border-color: var(--at-gold);
-        font-weight: 600;
     }
 
     /* Not a pill: pill-shaped here reads as clickable, and a caption isn't. */
@@ -839,10 +728,6 @@ $effect(() => {
     /* Full gold on the stage the page is in: the strip's one "you are here" above pill level, since the lit pill alone can't say which stage it belongs to. */
     .stage-tag.lit {
         color: var(--at-gold);
-    }
-    /* Follows the dropdown with nothing picked: still a link, visibly not yet meaningful. */
-    .lnk.dim {
-        opacity: 0.45;
     }
 
     /* PINNED top-right, never part of the wrap: `margin-left: auto` would be the first item pushed onto a new line, dropping below the hops mid-header.
