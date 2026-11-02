@@ -32,6 +32,28 @@ export function snapRings(map: Projector, features: Feature[], skipIdx = -1): Sn
     return out;
 }
 
+/** The point on `path`'s sides nearest `at`, within `reach` px and at least `clear` px from every corner (a press there grabs
+ *  the corner instead). `i` is the side's first corner, so a new node goes in at i + 1. `closed` adds the side back to corner 0. */
+export function sideAt(map: Projector, path: Lnglat[], closed: boolean, at: Px, reach: number, clear: number): { i: number; ll: Lnglat } | null {
+    const px = path.map(([lng, lat]) => map.project({ lng, lat }));
+    if (px.some((c) => (c.x - at.x) ** 2 + (c.y - at.y) ** 2 < clear ** 2)) return null;
+    let best: { d2: number; i: number; x: number; y: number } | null = null;
+    const sides = closed && px.length >= 3 ? px.length : px.length - 1;
+    for (let i = 0; i < sides; i++) {
+        const a = px[i]!, b = px[(i + 1) % px.length]!;
+        const dx = b.x - a.x, dy = b.y - a.y;
+        const len2 = dx * dx + dy * dy;
+        if (len2 === 0) continue;
+        const t = Math.max(0, Math.min(1, ((at.x - a.x) * dx + (at.y - a.y) * dy) / len2));
+        const x = a.x + t * dx, y = a.y + t * dy;
+        const d2 = (x - at.x) ** 2 + (y - at.y) ** 2;
+        if (d2 <= reach ** 2 && (!best || d2 < best.d2)) best = { d2, i, x, y };
+    }
+    if (!best) return null;
+    const u = map.unproject([best.x, best.y]);
+    return { i: best.i, ll: [u.lng, u.lat] };
+}
+
 /** Nearest corner within BORDER_REACH_PX wins; else the nearest point on an edge within it; else the input unchanged.
  *  `held` is the last call's kind: that kind lets go only past twice the reach, so a wobbling finger doesn't flicker on and off.
  *  `reach` replaces both radii: a finger landing, not a drag. */
