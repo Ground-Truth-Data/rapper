@@ -454,7 +454,13 @@
   border-radius: 0.5rem !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
 }
-/* Credits: a gold ⓘ that opens a dark strip, never the white box the renderers ship. */
+/* Credits: a gold ⓘ that opens a dark strip, never the white box the renderers ship — open-for-good too (MapTiler's photos). */
+.mapboxgl-ctrl.mapboxgl-ctrl-attrib,
+.maplibregl-ctrl.maplibregl-ctrl-attrib {
+  background: rgba(0, 0, 0, 0.6) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  border-radius: 11px;
+}
 .mapboxgl-ctrl-attrib.mapboxgl-compact,
 .maplibregl-ctrl-attrib.maplibregl-compact {
   background: rgba(0, 0, 0, 0.6) !important;
@@ -478,8 +484,10 @@
 }
 .mapboxgl-ctrl-attrib a,
 .maplibregl-ctrl-attrib a {
-  color: rgba(255, 215, 0, 0.85) !important;
+  /* Credit text, not links: a thumb on the map kept opening them by accident. */
+  color: inherit !important;
   text-decoration: none;
+  pointer-events: none;
 }
 .mapboxgl-ctrl-attrib-button,
 .maplibregl-ctrl-attrib-button {
