@@ -441,17 +441,15 @@ main:has(.admin-table) {
 .admin-table th.sorted {
 	color: var(--at-th-hover);
 }
-.admin-table th .arr,
-.admin-table th .arrow,
-.admin-table th .sort-ind {
+.admin-table th .arr {
 	color: var(--at-th-arrow);
+	/* One arrow on every table, whatever the header's font: a mono face without ↕ fell back to the emoji. */
+	font-family: system-ui, sans-serif;
 	font-size: 1em;
 	font-weight: 700;
-	margin-left: 0.3em;
+	margin-left: 1ch;
 }
-.admin-table th[aria-sort] .arr,
-.admin-table th.sorted .arrow,
-.admin-table th.sorted .sort-ind {
+.admin-table th[aria-sort] .arr {
 	color: var(--at-th-hover);
 }
 
