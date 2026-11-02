@@ -3,7 +3,10 @@
 	"baseLocale": "en",
 	"locales": [
 		"en",
-		"fr-CA"
+		"fr-CA",
+		"es",
+		"pt-BR",
+		"fr"
 	],
 	"modules": [
 		"https://cdn.jsdelivr.net/npm/@inlang/plugin-message-format@4/dist/index.js"
@@ -12,7 +15,10 @@
 		"pathPattern": [
 			"./gc/messages/{locale}.json",
 			"../getCache_OnlineMap/messages/{locale}.json",
-			"../getCache_OfflineMap/messages/{locale}.json"
+			"../getCache_OfflineMap/messages/{locale}.json",
+			"../ReTreever_who_what/messages/search/{locale}.json",
+			"../ReTreever_who_what/messages/rating/{locale}.json",
+			"../ReTreever_where/messages/{locale}.json"
 		]
 	}
 }

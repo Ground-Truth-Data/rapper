@@ -2,7 +2,7 @@ import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import { sveltekit } from "@sveltejs/kit/vite";
 import { svelteTesting } from "@testing-library/svelte/vite";
 import tailwindcss from "@tailwindcss/vite";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
 import { noEscapeHatch } from "./src/lib/guards/noEscapePlugin.ts";
@@ -13,6 +13,10 @@ import { CHILDREN, childByRepo, mountPath } from "./rig/childRegistry.ts";
 import { mountedChild } from "./scripts/mounted.mjs";
 
 // No PWA plugin on purpose: Get Cache is a Capacitor native app, no service worker.
+
+const LOCALES: string[] = JSON.parse(
+	readFileSync(new URL("./project.inlang/settings.json", import.meta.url), "utf8"),
+).locales;
 
 const mountedChildRepo = (): string | undefined => mountedChild();
 
@@ -123,11 +127,13 @@ return {
 		noRawCamera(workspaceRoot(import.meta.url)),
 		pdfjsWasm(import.meta.url),
 		tailwindcss(),
-		// The Get Cache children and gc/ read their words from here; the device language picks, there is no picker.
+		// The children and gc/ read their words from here; the device language picks, there is no picker.
 		paraglideVitePlugin({
 			project: "./project.inlang",
 			outdir: "./src/lib/paraglide",
 			strategy: ["preferredLanguage", "baseLocale"],
+			// No locale in the URL here: an RT child's localizeHref() must leave /who as /who, not /fr-CA/who.
+			urlPatterns: [{ pattern: "/:path(.*)?", localized: LOCALES.map((l) => [l, "/:path(.*)?"]) }],
 		}),
 		sveltekit(),
 		svelteTesting(),
