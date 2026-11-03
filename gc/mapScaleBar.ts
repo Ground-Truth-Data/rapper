@@ -54,13 +54,18 @@ export class NiceScaleBarControl {
     private blocksEl: HTMLDivElement | null = null;
     private labelsEl: HTMLDivElement | null = null;
     private hideTimeout: ReturnType<typeof setTimeout> | null = null;
-    private onMove = () => this.update();
+    private sig = "";
+    // Hidden outside a zoom, so a pan never measures it.
+    private onMove = () => {
+        if (this.container?.classList.contains("is-active")) this.update();
+    };
     private onZoomStart = () => {
         if (this.hideTimeout) {
             clearTimeout(this.hideTimeout);
             this.hideTimeout = null;
         }
         this.container?.classList.add("is-active");
+        this.update();
     };
     private onZoomEnd = () => {
         if (this.hideTimeout) clearTimeout(this.hideTimeout);
@@ -148,6 +153,7 @@ export class NiceScaleBarControl {
         if (total <= 0) {
             blocksEl.innerHTML = "";
             labelsEl.innerHTML = "";
+            this.sig = "";
             return;
         }
         const label = (v: number) =>
@@ -161,46 +167,45 @@ export class NiceScaleBarControl {
         const quarterPx = totalPx / 4;
 
         const showQuarters = quarterPx >= minStepWidth;
+        const quarterLabel = showQuarters && quarterPx > minStepWidth * 1.5;
 
+        // `move` fires every gesture frame: rebuilding the children each frame cost a style recalc and a layout.
         blocksEl.style.width = `${totalPx}px`;
-        blocksEl.innerHTML = "";
+        labelsEl.style.width = `${totalPx}px`;
+        const sig = `${total}${big ? u.big : u.small}${showQuarters ? "q" : ""}${quarterLabel ? "l" : ""}`;
+        if (sig === this.sig) return;
+        this.sig = sig;
 
-        const addBlock = (widthPx: number, dark: boolean) => {
+        blocksEl.innerHTML = "";
+        const addBlock = (pct: number, dark: boolean) => {
             const b = document.createElement("div");
             b.className = `nice-scale-bar__block ${dark ? "is-dark" : "is-light"}`;
             b.style.flex = "none";
-            b.style.width = `${widthPx}px`;
+            b.style.width = `${pct}%`;
             blocksEl.appendChild(b);
         };
 
         if (showQuarters) {
-            addBlock(quarterPx, true);
-            addBlock(quarterPx, false);
-            addBlock(halfPx, true);
+            addBlock(25, true);
+            addBlock(25, false);
+            addBlock(50, true);
         } else {
-            addBlock(halfPx, true);
-            addBlock(halfPx, false);
+            addBlock(50, true);
+            addBlock(50, false);
         }
 
-        labelsEl.style.width = `${totalPx}px`;
         labelsEl.innerHTML = "";
-
-        const addTick = (cssClass: string, text: string, leftPx?: number) => {
+        const addTick = (cssClass: string, text: string, leftPct?: number) => {
             const span = document.createElement("span");
             span.className = `nice-scale-bar__tick ${cssClass}`;
-            if (leftPx !== undefined) span.style.left = `${leftPx}px`;
+            if (leftPct !== undefined) span.style.left = `${leftPct}%`;
             span.textContent = text;
             labelsEl.appendChild(span);
         };
 
         addTick("nice-scale-bar__tick--start", "0");
-
-        if (showQuarters && quarterPx > minStepWidth * 1.5) {
-            addTick("nice-scale-bar__tick--mid", label(total / 4), quarterPx);
-        }
-
-        addTick("nice-scale-bar__tick--mid", label(total / 2), halfPx);
-
+        if (quarterLabel) addTick("nice-scale-bar__tick--mid", label(total / 4), 25);
+        addTick("nice-scale-bar__tick--mid", label(total / 2), 50);
         addTick("nice-scale-bar__tick--end", label(total));
     }
 }

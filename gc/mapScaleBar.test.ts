@@ -29,13 +29,31 @@ describe("NiceScaleBarControl", () => {
 		expect(widthPx).toBeLessThanOrEqual(200);
 	});
 
-	it("prints miles for an imperial planter and redraws on every move", () => {
+	it("prints miles for an imperial planter and redraws when a zoom starts", () => {
 		const d = mapDouble({ w: -120, s: 50, e: -119, n: 51 });
 		const el = new NiceScaleBarControl({ width: 300 }).onAdd(d.map as never);
 		distance.value = "imperial";
-		d.fire("move");
+		d.fire("zoomstart");
 		const labels = [...el.querySelectorAll(".nice-scale-bar__tick")].map((t) => t.textContent);
 		expect(labels.at(-1)).toMatch(/mi$/);
+	});
+
+	it("keeps its children through a move that leaves the steps alone", () => {
+		const d = mapDouble({ w: -120, s: 50, e: -119, n: 51 });
+		const el = new NiceScaleBarControl().onAdd(d.map as never);
+		const tick = el.querySelector(".nice-scale-bar__tick");
+		d.fire("zoomstart");
+		d.fire("move");
+		expect(el.querySelector(".nice-scale-bar__tick")).toBe(tick);
+	});
+
+	it("skips a pan's moves while hidden", () => {
+		const d = mapDouble({ w: -120, s: 50, e: -119, n: 51 });
+		const el = new NiceScaleBarControl().onAdd(d.map as never);
+		const blocks = el.querySelector(".nice-scale-bar__blocks") as HTMLElement;
+		blocks.style.width = "1px";
+		d.fire("move");
+		expect(blocks.style.width).toBe("1px");
 	});
 
 	it("goes active on zoomstart and fades half a second after zoomend; onRemove detaches", () => {
