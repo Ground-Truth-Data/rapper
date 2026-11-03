@@ -5,7 +5,7 @@
 // today's DDL declares) is replaced by a fresh file: signed in, the account's cloud copy
 // fills the new one and the older file waits aside until its unsent rows are uploaded;
 // signed out, its rows are copied across and the older file is kept aside. A file SQLite
-// cannot read is set aside, never deleted.
+// cannot read is set aside; only sign-out deletes it.
 // The newest tab steals the database's lock at once; the tab it took it from lets go
 // and takes it back when it is looked at again.
 
@@ -418,7 +418,7 @@ export async function dropUnsent(o: Files, names: string[]): Promise<void> {
 	}
 }
 
-/** Sign-out: the live files of every world go. A set-aside file is never touched. */
+/** Sign-out: every file `live` names goes, journals with them. */
 export async function erase(o: Pick<GateOptions, "native" | "wasmUrl">, live: (name: string) => boolean): Promise<string[]> {
 	const gone: string[] = [];
 	if (o.native) {
