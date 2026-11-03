@@ -449,6 +449,17 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 	if (n === null || n <= 0) return undefined;
 	return `--adt-bar: ${Math.min(100, (n / max) * 100).toFixed(2)}%`;
 };
+// Right-aligned so digits stack by place. A rate column (no Σ) still holds raw numbers.
+const numCols = $derived(
+	new Set(
+		allCols.filter(
+			(c) =>
+				c in totals ||
+				(rows.some((r) => typeof r[c] === "number") &&
+					rows.every((r) => r[c] == null || typeof r[c] === "number")),
+		),
+	),
+);
 </script>
 
 <!--
@@ -522,6 +533,7 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 							class:adt-frozen={i + leadCount < frozenTotal}
 							class:adt-seam={i + leadCount === frozenTotal - 1}
 							class:sorted={sort.col === c}
+							class:adt-num={numCols.has(c)}
 							class:adt-dragover={dragOverCol === c}
 							class:adt-colhover={hoverCol === c}
 							aria-sort={sort.col === c
@@ -584,6 +596,7 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 					{#each allCols as c, i (c)}
 						<th
 							class="sub adt-sub"
+							class:adt-num={i > 0 && numCols.has(c)}
 							class:adt-frozen={i + leadCount < frozenTotal}
 							class:adt-seam={i + leadCount === frozenTotal - 1}
 							style={frozenLeftVar(i + leadCount)}
@@ -643,6 +656,7 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 							class:adt-frozen={i + leadCount < frozenTotal}
 							class:adt-seam={i + leadCount === frozenTotal - 1}
 							class:adt-bar={bar !== undefined}
+							class:adt-num={numCols.has(c)}
 							data-col={c}
 							style={cellStyle(i + leadCount, bar)}
 							title={cellTitle?.(c, row)}
@@ -899,6 +913,10 @@ const barShare = (c: string, row: Record<string, unknown>) => {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+	}
+	.adt-num,
+	.adt-num .adt-cell-btn {
+		text-align: right;
 	}
 	.adt-cell-btn:hover {
 		color: var(--at-th-hover, #eab627);
