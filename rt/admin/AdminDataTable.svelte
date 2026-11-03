@@ -730,12 +730,13 @@ const numCols = $derived(
 	/* Overrides the shared sheet's `width: 100%`, which would leave nothing to scroll sideways. */
 	.adt {
 		width: auto;
-		/* Chris's numbers: 250, 200 on a small screen. Wider hides the next column; a click shows the rest. */
+		/* Chris's numbers: 250, 200 under 1280, and on a phone about a quarter of the screen, so a name column
+		   leaves room for the numbers beside it. Wider hides the next column; a click shows the rest. */
 		--adt-colmax: 250px;
 	}
 	@media (max-width: 1280px) {
 		.adt {
-			--adt-colmax: 200px;
+			--adt-colmax: clamp(110px, 28vw, 200px);
 		}
 	}
 	/* FULL: the cap stops being what hides a value and becomes only a stop against
