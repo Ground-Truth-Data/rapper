@@ -163,7 +163,6 @@ export class NiceScaleBarControl {
 
         // Powers-of-two layout only: the bar always splits in half, and the
         // left half may split again into quarters. Never thirds.
-        const halfPx = totalPx / 2;
         const quarterPx = totalPx / 4;
 
         const showQuarters = quarterPx >= minStepWidth;
