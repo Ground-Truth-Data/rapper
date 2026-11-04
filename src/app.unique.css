@@ -9,6 +9,10 @@
 	/* every "white" a child paints on its own dark chrome — magnifier/tree glyphs, dropdown caret, result-card text, headline */
 	--rtvr-on-dark: #b491c8;
 
+	/* the designer's ink and the ridge's blue lip — violet washes, so the search bars and hills show the tier too */
+	--rtvr-ink: rgba(180, 145, 200, 0.18);
+	--rtvr-ridge: rgba(180, 145, 200, 0.35);
+
 	/* app's primary text colour, read by hundreds of rules — so the wrong parent is unmissable here */
 	--rt-fg: #b491c8;
 
