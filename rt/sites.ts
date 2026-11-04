@@ -116,6 +116,7 @@ export const SITES: readonly Site[] = [
 			"/getcache_dash",
 			"/foundr_dash",
 			"/docs", // lowercase so it stays off urlCase's exemption list
+			"/decisions",
 		],
 
 		seo: {
