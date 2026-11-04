@@ -49,4 +49,18 @@ describe("FrameClipPlayer", () => {
 		unmount();
 		expect(vi.getTimerCount()).toBe(0);
 	});
+
+	it("a counted loop plays that many times, then holds its last frame and says done", () => {
+		const onDone = vi.fn();
+		const { container } = render(FrameClipPlayer, { root: "/f", clip: "pant", facts, loop: 3, onDone });
+		vi.advanceTimersByTime(1400);
+		flushSync();
+		expect(src(container)).toBe("/f/hands/pant/pant_005.webp");
+		expect(onDone).not.toHaveBeenCalled();
+		vi.advanceTimersByTime(100);
+		flushSync();
+		expect(src(container)).toBe("/f/hands/pant/pant_005.webp");
+		expect(onDone).toHaveBeenCalledOnce();
+		expect(vi.getTimerCount()).toBe(0);
+	});
 });

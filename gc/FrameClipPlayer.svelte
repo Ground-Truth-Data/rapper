@@ -21,8 +21,8 @@ let {
 	root: string;
 	clip: string;
 	facts: ClipFacts;
-	/** loop forever instead of holding the last frame */
-	loop?: boolean;
+	/** loop forever instead of holding the last frame; a number plays it that many times, then holds and says done */
+	loop?: boolean | number;
 	/** play a 1-based range of the clip; a wipe plays its closing half, waits, then its opening half */
 	from?: number;
 	to?: number;
@@ -47,6 +47,7 @@ $effect(() => {
 	const first = Math.max(0, from - 1);
 	const last = Math.min(urls.length, to ?? urls.length);
 	const ms = 1000 / facts.fps;
+	let plays = 1;
 	i = first;
 	stop();
 	onFrame?.(first + 1);
@@ -56,7 +57,8 @@ $effect(() => {
 			onFrame?.(i + 1);
 			return;
 		}
-		if (loop) {
+		if (loop === true || (typeof loop === "number" && plays < loop)) {
+			plays += 1;
 			i = first;
 			return;
 		}
