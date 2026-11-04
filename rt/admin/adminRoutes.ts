@@ -295,6 +295,8 @@ const RETREEVER_ENTITIES = [
 	"MiscTable",
 	"ProjectScoreByFieldTable",
 	"LinkCandidateTable",
+	"RawSnapshotTable",
+	"ObservationTable",
 	"UserProfile",
 ] as const;
 
@@ -314,6 +316,7 @@ export const PLATFORM_SCOPED: ReadonlySet<string> = new Set([
 	"SourceTable",
 	"MiscTable",
 	"ProjectScoreByFieldTable",
+	"RawSnapshotTable",
 ]);
 
 export const RETREEVER_LOOKUPS = [
