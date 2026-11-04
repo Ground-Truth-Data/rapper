@@ -194,6 +194,9 @@ export const FOUNDR_TABLE = `${FOUNDR_DASH}/table`;
 export const FOUNDR_HOME = FOUNDR_DASH;
 const FOUNDR_REPORT = `${FOUNDR_DASH}/report`;
 
+/** The decision logs, `/decisions/<log>`: each log is a tool of its own parent. */
+export const DECISIONS = "/decisions";
+
 /** Get Cache's namespace, and where a login that states no destination lands. */
 export const GETCACHE_DASH = "/getcache_dash";
 
@@ -409,6 +412,12 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				href: `${RETREEVER_TOOL}/users`,
 				title:
 					"The admin allowlist — who can sign in, and where it is declared",
+			},
+			{
+				key: "decisions",
+				label: "Decisions",
+				href: `${DECISIONS}/retreever`,
+				title: "ReTreever's architectural decisions, and the proposed ones waiting for a call",
 			},
 		],
 	},
@@ -639,6 +648,14 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				href: `${FOUNDR_TOOL}/score`,
 				title:
 					"A project's or org's score followed down: rank, ratio, the projects it averaged, each field's points",
+			},
+			// Not a pipeline stage: the strip has no other place, and last reads as "outside the walk".
+			{
+				key: "decisions",
+				stage: "prove",
+				label: "Decisions",
+				href: `${DECISIONS}/foundr`,
+				title: "Foundr's architectural decisions, and the proposed ones waiting for a call",
 			},
 		],
 	},
