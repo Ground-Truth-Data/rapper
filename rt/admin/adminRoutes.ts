@@ -485,13 +485,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 						icon: "cards",
 						title: "One card per pin — drill into a single area",
 					},
-					{
-						label: "Gallery",
-						href: "/app/debug/blobs?view=gallery",
-						kind: "view",
-						icon: "image",
-						title: "See the baked satellite photos themselves",
-					},
 				],
 			},
 			{
