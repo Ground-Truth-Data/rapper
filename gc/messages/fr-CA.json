@@ -24,12 +24,5 @@
 	"gc_mapbox_marker_title": "Marqueur de carte",
 	"gc_mapbox_popup_close": "Fermer la fenêtre",
 	"gc_location_confirmed": "Position confirmée",
-	"gc_delivery_done": "Livré, maintenant planté ou retiré",
-	"gc_row_close": "Fermer",
-	"gc_row_open": "Ouvrir",
-	"gc_row_edit": "MODIFIER",
-	"gc_row_trees": "arbres",
-	"gc_row_last_touched": "dernière modification {when}",
-	"gc_row_shared_count": "partagé · {n}",
-	"gc_row_shared_via": "Partagé avec {name}"
+	"gc_delivery_done": "Livré, maintenant planté ou retiré"
 }
