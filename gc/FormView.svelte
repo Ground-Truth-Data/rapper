@@ -52,7 +52,10 @@
 	const page = $derived(pages[Math.min(at, pages.length - 1)]);
 	let top = $state<HTMLElement>();
 	// A new page starts at its top, not where the last one was left.
-	$effect(() => void (at, top?.scrollIntoView({ block: 'nearest' })));
+	$effect(() => {
+		void at;
+		top?.scrollIntoView({ block: 'nearest' });
+	});
 	const last = $derived(at >= pages.length - 1);
 
 	const set = (q: Question, v: unknown) => (q.value = v === '' ? undefined : v);
