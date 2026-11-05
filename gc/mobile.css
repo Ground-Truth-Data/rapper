@@ -1115,11 +1115,6 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	background: var(--rt-yellow, #ffd700);
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
 }
-/* Red, unlike the fire popup below: a piece over the 100 ha cap is refused. */
-.rt-line-label-total.rt-over-cap {
-	color: #ffffff;
-	background: #d32f2f;
-}
 
 /* Terracotta, NEVER red: red means destructive here, and this is information, not a button. */
 .rt-fire-popup .maplibregl-popup-content {
