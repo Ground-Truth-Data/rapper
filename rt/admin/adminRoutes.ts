@@ -562,6 +562,14 @@ export const ADMIN_PARENTS: AdminParent[] = [
 					"Launch Foundr's ETL pipeline and watch its output — local dev only",
 			},
 			{
+				key: "tiles",
+				stage: "scrape",
+				label: "tiles",
+				href: `${FOUNDR_TOOL}/tiles`,
+				title:
+					"The live /where tile build and whether the database has moved past it — check and publish are local dev only",
+			},
+			{
 				key: "progress",
 				stage: "scrape",
 				label: "progress",
