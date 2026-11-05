@@ -38,9 +38,15 @@
 
 	const set = (q: Question, v: unknown) => (q.value = v === '' ? undefined : v);
 	const toggle = (v: View, c: unknown, on: boolean) => set(v.q, on ? [...((v.value as unknown[]) ?? []), c] : ((v.value as unknown[]) ?? []).filter((x) => x !== c));
+	// The picture itself stays on the device; the thumbnail is this page's own copy of it.
+	let thumbs = $state<Record<string, string>>({});
 	async function photo(q: Question, file?: File) {
-		if (file) set(q, [{ name: file.name, type: file.type, content: await keep(file) }]);
+		if (!file) return;
+		set(q, [{ name: file.name, type: file.type, content: await keep(file) }]);
+		if (thumbs[q.id]) URL.revokeObjectURL(thumbs[q.id]);
+		thumbs[q.id] = URL.createObjectURL(file);
 	}
+	const addText = (q: Question) => `+ ${(q.toJSON() as { panelAddText?: string }).panelAddText ?? 'Add'}`;
 	function locate(q: Question) {
 		navigator.geolocation.getCurrentPosition(
 			({ coords }) => set(q, { lat: coords.latitude, lng: coords.longitude, accuracy: coords.accuracy }),
@@ -81,7 +87,16 @@
 					{/each}
 				</div>
 			{:else if v.type === 'file'}
-				<input type="file" accept="image/*" capture="environment" aria-label={v.title} onchange={(e) => photo(v.q, e.currentTarget.files?.[0])} />
+				<label class="big camera" data-camera>
+					<input type="file" accept="image/*" capture="environment" aria-label={v.title} onchange={(e) => photo(v.q, e.currentTarget.files?.[0])} />
+					{#if thumbs[v.q.id] && v.value}
+						<img src={thumbs[v.q.id]} alt="" data-thumb />
+					{:else}
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+							><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" /><circle cx="12" cy="13" r="3.5" /></svg
+						>
+					{/if}
+				</label>
 			{:else if v.type === 'gps'}
 				<div class="choices">
 					<button type="button" class="link" onclick={() => locate(v.q)}>Use where I am</button>
@@ -91,10 +106,14 @@
 				{#each v.panels as panel, i (panel.p.id)}
 					<fieldset class="entry" data-entry={i + 1}>
 						{#each panel.items as item (item.q.id)}{@render field(item)}{/each}
-						<button type="button" class="link muted" onclick={() => v.q.removePanel(panel.p)}>Remove</button>
+						<button type="button" class="trash" aria-label="Remove" onclick={() => v.q.removePanel(panel.p)} data-remove
+							><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+								><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-12M9 7V4h6v3" /></svg
+							></button
+						>
 					</fieldset>
 				{/each}
-				<button type="button" class="link" onclick={() => v.q.addPanel()} data-add>Add another</button>
+				<button type="button" class="big add font-display" onclick={() => v.q.addPanel()} data-add>{addText(v.q)}</button>
 			{/if}
 			{#each v.errors as e (e)}<span class="error" data-error>{e}</span>{/each}
 		</div>
@@ -125,6 +144,17 @@
 		border: var(--rule-row); border-radius: 0.25rem; background: var(--rt-panel); color: inherit; padding: 0.25rem 0.5rem;
 	}
 	.link { align-self: flex-start; text-decoration: underline; }
+	.big {
+		display: flex; align-items: center; justify-content: center; min-height: 4.5rem; border: 2px solid var(--rt-yellow);
+		border-radius: 0.75rem; color: var(--rt-yellow); cursor: pointer;
+	}
+	.camera { width: 7rem; height: 7rem; overflow: hidden; }
+	.camera input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+	.camera svg { width: 3.5rem; height: 3.5rem; }
+	.camera img { width: 100%; height: 100%; object-fit: cover; }
+	.add { font-size: 1.5rem; }
+	.trash { align-self: flex-end; width: 2.5rem; height: 2.5rem; padding: 0.5rem; color: var(--rt-fg-muted); border-radius: 0.5rem; }
+	.trash:hover { color: var(--rt-yellow); }
 	.muted { color: var(--rt-fg-muted); font-size: 0.875rem; }
 	.error { color: var(--rt-yellow); font-size: 0.875rem; }
 	.save { align-self: flex-start; border-radius: 0.5rem; padding: 0.25rem 1rem; }
