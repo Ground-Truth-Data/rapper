@@ -1,7 +1,7 @@
 <!-- The inbox's top: pill rows, search and buttons; RowCard draws the rows below it. Get Cache's inbox and Ops' plugins both draw through it. -->
 <script lang="ts" module>
 export type ChromePill = { key: string; label: string; icon?: string | null; sep?: "chev" | "div" | null; on?: boolean; chain?: boolean };
-export type ChromeButton = { label: string; aria?: string; icon: Snippet; gold?: boolean; onclick?: () => void; href?: string; /** Its share of the row; 1 each by default. */ grow?: number };
+export type ChromeButton = { label: string; aria?: string; icon: Snippet; gold?: boolean; onclick?: () => void; href?: string; /** As wide as its label, not an even share of the row. */ hug?: boolean };
 </script>
 
 <script lang="ts">
@@ -81,7 +81,7 @@ $effect(() => {
         {#if buttons.length}
             <div class="inbox2-actions">
                 {#each buttons as b (b.label)}
-                    <div class="inbox2-slot" style:flex-grow={b.grow}>
+                    <div class="inbox2-slot" class:inbox2-slot--hug={b.hug}>
                         {#if b.gold}
                             <FancyButton size="md" href={b.href} onclick={b.onclick} ariaLabel={b.aria} icon={b.icon}>{b.label}</FancyButton>
                         {:else}
@@ -204,6 +204,9 @@ $effect(() => {
     flex: 1 1 0;
     min-width: 0;
     display: flex;
+}
+.inbox2-slot--hug {
+    flex: none;
 }
 
 /* Geometry: keep in sync with FancyButton's .fb + .size-md. */
