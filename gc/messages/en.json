@@ -24,5 +24,12 @@
 	"gc_mapbox_marker_title": "Map marker",
 	"gc_mapbox_popup_close": "Close popup",
 	"gc_location_confirmed": "Location confirmed",
-	"gc_delivery_done": "Delivered, now planted or removed"
+	"gc_delivery_done": "Delivered, now planted or removed",
+	"gc_row_close": "Close",
+	"gc_row_open": "Open",
+	"gc_row_edit": "EDIT",
+	"gc_row_trees": "trees",
+	"gc_row_last_touched": "last touched {when}",
+	"gc_row_shared_count": "shared · {n}",
+	"gc_row_shared_via": "Shared with {name}"
 }
