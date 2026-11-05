@@ -175,6 +175,10 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
     .rt-row__glyph--cache { margin-right: 8px; }
     /* The box's saplings fill the top of its art: the badge sits on the box's corner, below them. */
     .rt-row__glyph[data-glyph="box"] .rt-count-badge { top: 8px; right: -8px; }
+    /* A row that holds rows: chevron down while open, right while folded. Two classes, as mobile.css loads later. */
+    .rt-count-badge.rt-row__toggle-badge { display: inline-flex; align-items: center; gap: 1px; padding: 0 4px 0 7px; }
+    .rt-row__toggle-badge svg { transition: transform 180ms ease; }
+    .rt-row__toggle-badge--shut svg { transform: rotate(-90deg); }
 
     .rt-row__body {
         flex: 1; min-width: 0;
