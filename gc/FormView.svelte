@@ -25,17 +25,25 @@
 		}, (e) => (failed = e.message));
 	});
 
-	type View = { q: Question; type: string; input: string; title: string; description: string; section?: PanelModel; required: boolean; visible: boolean; value: unknown; errors: string[];
+	type View = { q: Question; type: string; input: string; title: string; description: string; required: boolean; visible: boolean; value: unknown; errors: string[];
 		choices: { value: unknown; text: string }[]; panels: { p: PanelModel; items: View[] }[] };
 	const view = (q: Question): View => ({
 		q, type: q.getType(), input: q.inputType, title: q.title, description: q.description,
-		section: (q.parent as PanelModel | undefined)?.isPanel ? (q.parent as PanelModel) : undefined, required: q.isRequired, visible: q.isVisible, value: q.value,
+		required: q.isRequired, visible: q.isVisible, value: q.value,
 		errors: q.errors.map((e) => e.getText()),
 		choices: (q.visibleChoices ?? []).map((c: { value: unknown; text: string }) => ({ value: c.value, text: c.text })),
 		panels: (q.panels ?? []).map((p: PanelModel) => ({ p, items: p.questions.map(view) })),
 	});
 	// A fresh view each change: survey-core's objects are not reactive.
-	const top = $derived(tick && model ? model.getAllQuestions(false).filter((q) => !q.parentQuestion).map(view) : []);
+	// The form's own order: a section heads its fields, and shows even before it holds any.
+	type Row = { section: PanelModel } | { v: View };
+	const top = $derived<Row[]>(
+		tick && model
+			? model.pages[0].elements.flatMap((e): Row[] =>
+					e.isPanel ? [{ section: e as PanelModel }, ...(e as PanelModel).questions.map((q) => ({ v: view(q) }))] : [{ v: view(e as Question) }],
+				)
+			: [],
+	);
 
 	const set = (q: Question, v: unknown) => (q.value = v === '' ? undefined : v);
 	const toggle = (v: View, c: unknown, on: boolean) => set(v.q, on ? [...((v.value as unknown[]) ?? []), c] : ((v.value as unknown[]) ?? []).filter((x) => x !== c));
@@ -130,14 +138,15 @@
 {:else}
 	<form class="form" onsubmit={submit} novalidate data-form>
 		{#if definition.title}<h2 class="font-display">{definition.title}</h2>{/if}
-		{#each top as v, i (v.q.id)}
-			{#if v.section && v.section !== top[i - 1]?.section}
-				<div class="section" data-section={v.section.name}>
-					<h3 class="font-display">{v.section.title}</h3>
-					{#if v.section.description}<span class="muted">{v.section.description}</span>{/if}
+		{#each top as row ('section' in row ? row.section.id : row.v.q.id)}
+			{#if 'section' in row}
+				<div class="section" data-section={row.section.name}>
+					<h3 class="font-display">{row.section.title}</h3>
+					{#if row.section.description}<span class="muted">{row.section.description}</span>{/if}
 				</div>
+			{:else}
+				{@render field(row.v)}
 			{/if}
-			{@render field(v)}
 		{/each}
 		<button class="rt-fancy-btn save font-display">Save</button>
 	</form>
