@@ -2,7 +2,7 @@
 // FormView.svelte, and Central keeps its answers as header data plus one row per repeating entry.
 
 export type El = Record<string, unknown> & { type: string; name: string; title?: string };
-export type Definition = { title?: string; elements: El[] };
+export type Definition = { title?: string; description?: string; elements: El[] };
 
 /** Every field: its key, its kind (type, plus inputType for text) and its repeating group. Central's ops.fields twin. */
 export function fields(d: Definition): { key: string; kind: string; group?: string }[] {

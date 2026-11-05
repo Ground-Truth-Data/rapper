@@ -138,6 +138,7 @@
 {:else}
 	<form class="form" onsubmit={submit} novalidate data-form>
 		{#if definition.title}<h2 class="font-display">{definition.title}</h2>{/if}
+		{#if definition.description}<span class="muted">{definition.description}</span>{/if}
 		{#each top as row ('section' in row ? row.section.id : row.v.q.id)}
 			{#if 'section' in row}
 				<div class="section" data-section={row.section.name}>
