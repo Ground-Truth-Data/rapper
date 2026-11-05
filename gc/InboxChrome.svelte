@@ -242,6 +242,10 @@ $effect(() => {
     background: #000;
     border: 2px solid var(--rt-yellow);
 }
+.inbox2-newmap--ring .inbox2-newmap-badge {
+    width: auto;
+    height: auto;
+}
 .inbox2-newmap--ring .inbox2-newmap-label {
     color: var(--rt-yellow);
 }
