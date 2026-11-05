@@ -376,10 +376,13 @@
 }
 .mapboxgl-ctrl-attrib a,
 .maplibregl-ctrl-attrib a {
-  /* Credit text, not links: a thumb on the map kept opening them by accident. */
   color: inherit !important;
   text-decoration: none;
-  pointer-events: none;
+}
+.mapboxgl-ctrl-attrib a:hover,
+.maplibregl-ctrl-attrib a:hover {
+  color: #ffd700 !important;
+  text-decoration: underline;
 }
 .mapboxgl-ctrl-attrib-button,
 .maplibregl-ctrl-attrib-button {
