@@ -37,7 +37,7 @@ export function refused(d: Definition, data: Record<string, unknown>, group?: st
 
 /** SurveyJS answers split the way they are kept: header data, and one row per repeating entry. */
 export function split(d: Definition, data: Record<string, unknown>) {
-	const groups = new Set(d.elements.filter((e) => e.type === "paneldynamic").map((e) => e.name));
+	const groups = new Set(fields(d).filter((f) => f.kind === "paneldynamic").map((f) => f.key));
 	const header = Object.fromEntries(Object.entries(data).filter(([k]) => !groups.has(k)));
 	// An entry added and left empty holds no tree.
 	const rows = [...groups].flatMap((g) =>
