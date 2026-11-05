@@ -25,10 +25,11 @@
 		}, (e) => (failed = e.message));
 	});
 
-	type View = { q: Question; type: string; input: string; title: string; required: boolean; visible: boolean; value: unknown; errors: string[];
+	type View = { q: Question; type: string; input: string; title: string; description: string; section?: PanelModel; required: boolean; visible: boolean; value: unknown; errors: string[];
 		choices: { value: unknown; text: string }[]; panels: { p: PanelModel; items: View[] }[] };
 	const view = (q: Question): View => ({
-		q, type: q.getType(), input: q.inputType, title: q.title, required: q.isRequired, visible: q.isVisible, value: q.value,
+		q, type: q.getType(), input: q.inputType, title: q.title, description: q.description,
+		section: (q.parent as PanelModel | undefined)?.isPanel ? (q.parent as PanelModel) : undefined, required: q.isRequired, visible: q.isVisible, value: q.value,
 		errors: q.errors.map((e) => e.getText()),
 		choices: (q.visibleChoices ?? []).map((c: { value: unknown; text: string }) => ({ value: c.value, text: c.text })),
 		panels: (q.panels ?? []).map((p: PanelModel) => ({ p, items: p.questions.map(view) })),
@@ -65,7 +66,8 @@
 {#snippet field(v: View)}
 	{#if v.visible}
 		<div class="field" data-field={v.q.name}>
-			<span class="font-display">{v.title}{#if v.required}<span class="req"> *</span>{/if}</span>
+			<span class="font-display">{v.title}{#if v.required}<span class="req">*</span>{/if}</span>
+			{#if v.description}<span class="muted">{v.description}</span>{/if}
 			{#if v.type === 'text'}
 				<input aria-label={v.title} type={v.input === 'number' || v.input === 'date' ? v.input : 'text'} value={v.value ?? ''}
 					onchange={(e) => set(v.q, v.input === 'number' && e.currentTarget.value !== '' ? Number(e.currentTarget.value) : e.currentTarget.value)} />
@@ -128,7 +130,15 @@
 {:else}
 	<form class="form" onsubmit={submit} novalidate data-form>
 		{#if definition.title}<h2 class="font-display">{definition.title}</h2>{/if}
-		{#each top as v (v.q.id)}{@render field(v)}{/each}
+		{#each top as v, i (v.q.id)}
+			{#if v.section && v.section !== top[i - 1]?.section}
+				<div class="section" data-section={v.section.name}>
+					<h3 class="font-display">{v.section.title}</h3>
+					{#if v.section.description}<span class="muted">{v.section.description}</span>{/if}
+				</div>
+			{/if}
+			{@render field(v)}
+		{/each}
 		<button class="rt-fancy-btn save font-display">Save</button>
 	</form>
 {/if}
@@ -157,7 +167,9 @@
 	.trash { align-self: flex-end; width: 2.5rem; height: 2.5rem; padding: 0.5rem; color: var(--rt-fg-muted); border-radius: 0.5rem; }
 	.trash:hover { color: var(--rt-yellow); }
 	.muted { color: var(--rt-fg-muted); font-size: 0.875rem; }
-	.req { color: #ff4d55; font-size: 1.4em; font-weight: 800; line-height: 0; vertical-align: -0.2em; }
+	.req { margin-left: 0.3em; color: #ff4d55; font-size: 1.2em; font-weight: 800; line-height: 0; vertical-align: -0.15em; }
+	.section { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 2px solid var(--rt-rust); }
+	.section h3 { font-size: 1.3rem; color: var(--rt-rust); }
 	.error { color: var(--rt-yellow); font-size: 0.875rem; }
 	.save { align-self: flex-start; border-radius: 0.5rem; padding: 0.25rem 1rem; }
 </style>
