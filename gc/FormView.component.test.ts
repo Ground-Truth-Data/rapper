@@ -13,7 +13,7 @@ const form: Definition = {
 	elements: [
 		{ type: "text", inputType: "date", name: "date", title: "Date", isRequired: true },
 		{ type: "gps", name: "where", title: "Where" },
-		{ type: "paneldynamic", name: "trees", title: "Trees", panelCount: 1, templateElements: [{ type: "text", inputType: "number", name: "dbh", title: "DBH", max: 100 }] },
+		{ type: "paneldynamic", name: "trees", title: "Trees", panelCount: 1, panelAddText: "+ Tree", templateElements: [{ type: "text", inputType: "number", name: "dbh", title: "DBH", max: 100 }] },
 	],
 };
 
@@ -28,7 +28,7 @@ it("refuses a missing required field and an out-of-range number, then saves", as
 	expect(onsubmit).not.toHaveBeenCalled();
 	await fireEvent.change(getByLabelText("Date"), { target: { value: "2026-11-05" } });
 	await fireEvent.change(getByLabelText("DBH"), { target: { value: "12.5" } });
-	await fireEvent.click(getByText("Add another"));
+	await fireEvent.click(getByText("+ Tree"));
 	await waitFor(() => expect(container.querySelectorAll("[data-entry]")).toHaveLength(2));
 	await fireEvent.click(getByText("Save"));
 	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
