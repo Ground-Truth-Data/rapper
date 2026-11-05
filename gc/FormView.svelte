@@ -65,7 +65,7 @@
 {#snippet field(v: View)}
 	{#if v.visible}
 		<div class="field" data-field={v.q.name}>
-			<span class="font-display">{v.title}{v.required ? ' *' : ''}</span>
+			<span class="font-display">{v.title}{#if v.required}<span class="req"> *</span>{/if}</span>
 			{#if v.type === 'text'}
 				<input aria-label={v.title} type={v.input === 'number' || v.input === 'date' ? v.input : 'text'} value={v.value ?? ''}
 					onchange={(e) => set(v.q, v.input === 'number' && e.currentTarget.value !== '' ? Number(e.currentTarget.value) : e.currentTarget.value)} />
@@ -157,6 +157,7 @@
 	.trash { align-self: flex-end; width: 2.5rem; height: 2.5rem; padding: 0.5rem; color: var(--rt-fg-muted); border-radius: 0.5rem; }
 	.trash:hover { color: var(--rt-yellow); }
 	.muted { color: var(--rt-fg-muted); font-size: 0.875rem; }
+	.req { color: #e5484d; }
 	.error { color: var(--rt-yellow); font-size: 0.875rem; }
 	.save { align-self: flex-start; border-radius: 0.5rem; padding: 0.25rem 1rem; }
 </style>
