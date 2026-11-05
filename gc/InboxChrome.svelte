@@ -1,7 +1,7 @@
 <!-- The inbox's top: pill rows, search and buttons; RowCard draws the rows below it. Get Cache's inbox and Ops' plugins both draw through it. -->
 <script lang="ts" module>
 export type ChromePill = { key: string; label: string; icon?: string | null; sep?: "chev" | "div" | null; on?: boolean; chain?: boolean };
-export type ChromeButton = { label: string; aria?: string; icon: Snippet; gold?: boolean; onclick?: () => void; href?: string };
+export type ChromeButton = { label: string; aria?: string; icon: Snippet; gold?: boolean; onclick?: () => void; href?: string; /** Its share of the row; 1 each by default. */ grow?: number };
 </script>
 
 <script lang="ts">
@@ -54,6 +54,7 @@ $effect(() => {
                             class="inbox2-pill"
                             class:inbox2-pill--on={p.on}
                             class:inbox2-pill--chain={p.chain}
+                            class:inbox2-pill--bare={!p.icon}
                             aria-pressed={!!p.on}
                             onclick={() => onpill?.(p.key, ri)}
                         >
@@ -80,7 +81,7 @@ $effect(() => {
         {#if buttons.length}
             <div class="inbox2-actions">
                 {#each buttons as b (b.label)}
-                    <div class="inbox2-slot">
+                    <div class="inbox2-slot" style:flex-grow={b.grow}>
                         {#if b.gold}
                             <FancyButton size="md" href={b.href} onclick={b.onclick} ariaLabel={b.aria} icon={b.icon}>{b.label}</FancyButton>
                         {:else}
@@ -152,6 +153,10 @@ $effect(() => {
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     transition: background 150ms ease;
+}
+/* With no icon the label sits in the middle. */
+.inbox2-pill--bare {
+    padding: 0 16px;
 }
 .inbox2-pill--chain {
     color: var(--rt-cream);
