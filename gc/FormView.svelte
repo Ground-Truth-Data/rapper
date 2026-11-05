@@ -157,7 +157,7 @@
 	.trash { align-self: flex-end; width: 2.5rem; height: 2.5rem; padding: 0.5rem; color: var(--rt-fg-muted); border-radius: 0.5rem; }
 	.trash:hover { color: var(--rt-yellow); }
 	.muted { color: var(--rt-fg-muted); font-size: 0.875rem; }
-	.req { color: #e5484d; }
+	.req { color: #ff4d55; font-size: 1.4em; font-weight: 800; line-height: 0; vertical-align: -0.2em; }
 	.error { color: var(--rt-yellow); font-size: 0.875rem; }
 	.save { align-self: flex-start; border-radius: 0.5rem; padding: 0.25rem 1rem; }
 </style>
