@@ -179,7 +179,7 @@
 	.muted { color: var(--rt-fg-muted); font-size: 0.875rem; }
 	.req { margin-left: 0.3em; color: #ff4d55; font-size: 1.2em; font-weight: 800; line-height: 0; vertical-align: -0.15em; }
 	.section { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 2px solid var(--rt-yellow); }
-	.section h3 { font-size: 1.3rem; color: var(--rt-yellow); }
+	.section h3 { font-size: 1.5rem; color: var(--rt-yellow); }
 	/* As in the inbox: the form and its sections head in gold, every field is rust, a nested entry's are sage. */
 	.field > .font-display { color: var(--rt-rust); }
 	.entry .field > .font-display { color: var(--rt-sage); }
