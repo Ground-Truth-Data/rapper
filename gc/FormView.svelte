@@ -65,7 +65,7 @@
 
 {#snippet field(v: View)}
 	{#if v.visible}
-		<div class="field" data-field={v.q.name}>
+		<div class="field" class:nested={!!v.section} data-field={v.q.name}>
 			<span class="font-display">{v.title}{#if v.required}<span class="req">*</span>{/if}</span>
 			{#if v.description}<span class="muted">{v.description}</span>{/if}
 			{#if v.type === 'text'}
@@ -168,8 +168,10 @@
 	.trash:hover { color: var(--rt-yellow); }
 	.muted { color: var(--rt-fg-muted); font-size: 0.875rem; }
 	.req { margin-left: 0.3em; color: #ff4d55; font-size: 1.2em; font-weight: 800; line-height: 0; vertical-align: -0.15em; }
-	.section { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 2px solid var(--rt-rust); }
-	.section h3 { font-size: 1.3rem; color: var(--rt-rust); }
+	.section { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 2px solid var(--rt-yellow); }
+	.section h3 { font-size: 1.3rem; color: var(--rt-yellow); }
+	/* As in the inbox: a section heads in gold, the fields it holds are rust. */
+	.nested > .font-display { color: var(--rt-rust); }
 	.error { color: var(--rt-yellow); font-size: 0.875rem; }
 	.save { align-self: flex-start; border-radius: 0.5rem; padding: 0.25rem 1rem; }
 </style>
