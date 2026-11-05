@@ -40,12 +40,23 @@
 	// panel stays on that panel's page, so the builder's order holds. A fresh view each change: survey-core's
 	// objects are not reactive.
 	type Page = { title?: string; description?: string; items: View[] };
+	// GPS is never asked: it is the form's stamp, taken as the planter saves.
+	const asked = (q: Question) => q.getType() !== 'gps';
+	const gps = $derived(tick && model ? model.getAllQuestions().find((q) => !asked(q)) : undefined);
+	const stamp = (q: Question) =>
+		new Promise<void>((done) =>
+			navigator.geolocation.getCurrentPosition(
+				({ coords }) => (set(q, { lat: coords.latitude, lng: coords.longitude, accuracy: coords.accuracy }), done()),
+				(e) => (console.warn('[forms] gps', e.message), done()),
+				{ enableHighAccuracy: true, timeout: 20_000 },
+			),
+		);
 	const pages = $derived.by<Page[]>(() => {
 		if (!tick || !model) return [];
 		const out: Page[] = [{ title: definition.title, description: definition.description, items: [] }];
 		for (const e of model.pages[0].elements) {
-			if (e.isPanel) out.push({ title: (e as PanelModel).title, description: (e as PanelModel).description, items: (e as PanelModel).questions.map(view) });
-			else out.at(-1)!.items.push(view(e as Question));
+			if (e.isPanel) out.push({ title: (e as PanelModel).title, description: (e as PanelModel).description, items: (e as PanelModel).questions.filter(asked).map(view) });
+			else if (asked(e as Question)) out.at(-1)!.items.push(view(e as Question));
 		}
 		return out.length > 1 && !out[0].items.length ? out.slice(1) : out;
 	});
@@ -70,13 +81,6 @@
 	}
 	// survey-core files a definition's panelAddText under its current name, addPanelText.
 	const addText = (q: Question) => (q.toJSON() as { addPanelText?: string }).addPanelText ?? '+ Add another';
-	function locate(q: Question) {
-		navigator.geolocation.getCurrentPosition(
-			({ coords }) => set(q, { lat: coords.latitude, lng: coords.longitude, accuracy: coords.accuracy }),
-			(e) => console.warn('[forms] gps', e.message),
-			{ enableHighAccuracy: true, timeout: 20_000 },
-		);
-	}
 
 	// Folded by default except the newest entry; an entry holding an error always opens.
 	let open = $state<Record<string, boolean>>({});
@@ -89,8 +93,9 @@
 		items.filter((v) => v.value != null && typeof v.value !== 'object').map((v) => (typeof v.value === 'number' ? `${v.title} ${v.value}` : String(v.value))).join(' · ') || 'empty';
 
 	const valid = (p: Page) => p.items.filter((v) => v.visible).map((v) => v.q.validate(true)).every(Boolean);
-	function go(e: SubmitEvent) {
+	async function go(e: SubmitEvent) {
 		e.preventDefault();
+		if (last && gps) await stamp(gps);
 		if (!last) {
 			if (valid(page)) at++;
 		} else if (model?.validate(true)) onsubmit(model.data);
@@ -138,11 +143,6 @@
 						>
 					{/if}
 				</label>
-			{:else if v.type === 'gps'}
-				<div class="choices">
-					<button type="button" class="link" onclick={() => locate(v.q)}>Use where I am</button>
-					{#if v.value}{@const g = v.value as { lat: number; lng: number }}<span class="muted" data-gps>{g.lat.toFixed(5)}, {g.lng.toFixed(5)}</span>{/if}
-				</div>
 			{:else if v.type === 'paneldynamic'}
 				{#each v.panels as entry, i (entry.p.id)}
 					{@const shown = isOpen(entry, i, v.panels.length)}
@@ -189,9 +189,10 @@
 			{#if page.description}<span class="desc">{page.description}</span>{/if}
 		</div>
 		{#each page.items as v (v.q.id)}{@render field(v)}{/each}
+		{#if gps}<span class="muted stamped" data-gps-stamp>Your location is stamped when you save</span>{/if}
 		<div class="nav">
 			{#if at > 0}<button type="button" class="back font-display" onclick={() => at--} data-back>Back</button>{/if}
-			<button class="next font-display" data-next>{last ? 'Save' : 'Next'}</button>
+			<button class="rt-fancy-btn next" data-next>{last ? 'Save' : 'Next'}</button>
 		</div>
 	</form>
 {/if}
@@ -225,7 +226,6 @@
 	.field :is(input:not([type="radio"], [type="checkbox"], [type="file"]), select) {
 		min-height: 3rem; border: var(--rule-row); border-radius: 0.75rem; background: var(--rt-panel); color: inherit; padding: 0 0.875rem; font-size: 1.05rem;
 	}
-	.link { align-self: flex-start; text-decoration: underline; }
 	.big {
 		display: flex; align-items: center; justify-content: center; border: 2px solid var(--rt-yellow);
 		border-radius: 0.75rem; color: var(--rt-yellow); cursor: pointer;
@@ -258,5 +258,6 @@
 	.nav { display: flex; gap: 0.6rem; padding-top: 0.5rem; }
 	.nav button { min-height: 3.4rem; border-radius: 1rem; font-size: 1.1rem; }
 	.back { padding: 0 1.4rem; border: 2px solid var(--rt-fg-muted); }
-	.next { flex: 1; background: var(--rt-yellow); color: #1c1a12; }
+	.next { flex: 1; }
+	.stamped { align-self: center; padding-top: 0.5rem; }
 </style>
