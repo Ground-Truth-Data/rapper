@@ -1,7 +1,7 @@
 <!-- The inbox's top: pill rows, search and buttons; RowCard draws the rows below it. Get Cache's inbox and Ops' plugins both draw through it. -->
 <script lang="ts" module>
 export type ChromePill = { key: string; label: string; icon?: string | null; sep?: "chev" | "div" | null; on?: boolean; chain?: boolean };
-export type ChromeButton = { label: string; aria?: string; icon: Snippet; gold?: boolean; onclick?: () => void; href?: string; /** As wide as its label, not an even share of the row. */ hug?: boolean };
+export type ChromeButton = { label: string; aria?: string; icon: Snippet; gold?: boolean; /** Gold border on black: the lead button without the fancy fill. */ ring?: boolean; onclick?: () => void; href?: string; /** As wide as its label, not an even share of the row. */ hug?: boolean };
 </script>
 
 <script lang="ts">
@@ -85,7 +85,7 @@ $effect(() => {
                         {#if b.gold}
                             <FancyButton size="md" href={b.href} onclick={b.onclick} ariaLabel={b.aria} icon={b.icon}>{b.label}</FancyButton>
                         {:else}
-                            <svelte:element this={b.href ? "a" : "button"} type={b.href ? undefined : "button"} href={b.href} class="inbox2-newmap" aria-label={b.aria} onclick={b.onclick} role={b.href ? "link" : "button"}>
+                            <svelte:element this={b.href ? "a" : "button"} type={b.href ? undefined : "button"} href={b.href} class="inbox2-newmap" class:inbox2-newmap--ring={b.ring} aria-label={b.aria} onclick={b.onclick} role={b.href ? "link" : "button"}>
                                 <span class="inbox2-newmap-badge">{@render b.icon()}</span>
                                 <span class="inbox2-newmap-label">{b.label}</span>
                             </svelte:element>
@@ -237,6 +237,13 @@ $effect(() => {
 .inbox2-newmap .inbox2-newmap-label,
 .inbox2-newmap .inbox2-newmap-badge {
     color: var(--rt-cream);
+}
+.inbox2-newmap--ring {
+    background: #000;
+    border: 2px solid var(--rt-yellow);
+}
+.inbox2-newmap--ring .inbox2-newmap-label {
+    color: var(--rt-yellow);
 }
 .inbox2-newmap:active {
     background: rgba(255, 255, 255, 0.1);
