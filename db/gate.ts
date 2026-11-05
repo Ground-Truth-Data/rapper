@@ -37,33 +37,34 @@ export const UNREADABLE = /SQLITE_CORRUPT|SQLITE_NOTADB|malformed|not a database
 /** Brings `schema` up to `ddl`, add-only: a missing table is created, a missing column is
  *  added (its NOT NULL / UNIQUE dropped when SQLite refuses them on a table with rows),
  *  views and triggers — which hold no rows — are rebuilt. Nothing is renamed or dropped.
- *  An attached copy (`schema` other than main) gets tables and columns only. Returns what
- *  was added, as `table` or `table.column`. */
-export function reconcile(h: Db, ddl: string, schema = "main"): string[] {
-	const main = schema === "main";
+ *  A copy attached for a moment gets tables and columns only; `full` (main, or a file
+ *  attached for good) gets the whole shape. Returns what was added, as `table` or `table.column`. */
+export function reconcile(h: Db, ddl: string, schema = "main", full = schema === "main"): string[] {
+	// An attached schema's index, trigger or view is named in it; its table, unqualified, is its own.
+	const inSchema = (s: string) => (schema === "main" ? s : s.replace(/^CREATE (UNIQUE INDEX|INDEX|TRIGGER|VIEW) (IF NOT EXISTS )?/, `$&${schema}.`));
 	const added: string[] = [];
 	const has = new Set(rows(h, `SELECT name FROM ${schema}.sqlite_master WHERE type = 'table'`).map((r) => String(r.name)));
 	h.exec({ sql: "PRAGMA foreign_keys = OFF" });
 	h.exec({ sql: "BEGIN IMMEDIATE" });
 	try {
-		if (main)
-			for (const r of rows(h, "SELECT type, name FROM main.sqlite_master WHERE type IN ('view', 'trigger')"))
-				h.exec({ sql: `DROP ${String(r.type).toUpperCase()} IF EXISTS main.${q(String(r.name))}` });
+		if (full)
+			for (const r of rows(h, `SELECT type, name FROM ${schema}.sqlite_master WHERE type IN ('view', 'trigger')`))
+				h.exec({ sql: `DROP ${String(r.type).toUpperCase()} IF EXISTS ${schema}.${q(String(r.name))}` });
 		for (const s of statements(ddl)) {
 			const table = s.match(/^CREATE TABLE `([^`]+)`/)?.[1];
 			if (table && has.has(table)) added.push(...addColumns(h, schema, table, s));
 			else if (table) {
 				h.exec({ sql: s.replace("CREATE TABLE ", `CREATE TABLE ${schema}.`) });
 				added.push(table);
-			} else if (!main) continue;
+			} else if (!full) continue;
 			else if (/^CREATE (UNIQUE )?INDEX /.test(s)) {
 				// Rows that break a new unique index keep their place; the index waits for them.
 				try {
-					h.exec({ sql: s.replace(/^CREATE (UNIQUE )?INDEX /, "CREATE $1INDEX IF NOT EXISTS ") });
+					h.exec({ sql: inSchema(s.replace(/^CREATE (UNIQUE )?INDEX /, "CREATE $1INDEX IF NOT EXISTS ")) });
 				} catch (e) {
 					console.error(`[gate] index not built, rows kept: ${String((e as Error)?.message ?? e)}`);
 				}
-			} else h.exec({ sql: s });
+			} else h.exec({ sql: inSchema(s) });
 		}
 		h.exec({ sql: "COMMIT" });
 	} catch (e) {
@@ -77,8 +78,8 @@ export function reconcile(h: Db, ddl: string, schema = "main"): string[] {
 
 /** The tables and columns `ddl` declares that the file lacks: an older build made it. An
  *  empty file lacks nothing — it is new, not older. */
-function lacking(h: Db, ddl: string): string[] {
-	const has = new Set(rows(h, "SELECT name FROM main.sqlite_master WHERE type = 'table'").map((r) => String(r.name)));
+function lacking(h: Db, ddl: string, schema = "main"): string[] {
+	const has = new Set(rows(h, `SELECT name FROM ${schema}.sqlite_master WHERE type = 'table'`).map((r) => String(r.name)));
 	if (!has.size) return [];
 	const out: string[] = [];
 	for (const s of statements(ddl)) {
@@ -88,7 +89,7 @@ function lacking(h: Db, ddl: string): string[] {
 			out.push(table);
 			continue;
 		}
-		const cols = new Set(rows(h, `PRAGMA main.table_info(${q(table)})`).map((c) => String(c.name)));
+		const cols = new Set(rows(h, `PRAGMA ${schema}.table_info(${q(table)})`).map((c) => String(c.name)));
 		for (const [, col] of s.matchAll(/^\t`([^`]+)` /gm)) if (!cols.has(col)) out.push(`${table}.${col}`);
 	}
 	return out;
@@ -97,19 +98,19 @@ function lacking(h: Db, ddl: string): string[] {
 /** An older file's rows, copied into `h` at today's shape. Triggers are rebuilt after the
  *  copy, so a rule newer than a row cannot refuse it. A table today's shape still refuses
  *  keeps its rows in the file set aside, and the console says which. */
-export function carry(h: Db, bytes: Uint8Array, ddl: string): void {
+export function carry(h: Db, bytes: Uint8Array, ddl: string, schema = "main"): void {
 	withBytes(h, bytes, ddl, () => {
-		for (const r of rows(h, "SELECT name FROM main.sqlite_master WHERE type = 'trigger'"))
-			h.exec({ sql: `DROP TRIGGER main.${q(String(r.name))}` });
+		for (const r of rows(h, `SELECT name FROM ${schema}.sqlite_master WHERE type = 'trigger'`))
+			h.exec({ sql: `DROP TRIGGER ${schema}.${q(String(r.name))}` });
 		h.exec({ sql: "PRAGMA foreign_keys = OFF" });
 		h.exec({ sql: "BEGIN IMMEDIATE" });
 		try {
 			for (const s of statements(ddl)) {
 				const table = s.match(/^CREATE TABLE `([^`]+)`/)?.[1];
 				if (!table) continue;
-				const cols = rows(h, `PRAGMA main.table_info(${q(table)})`).map((c) => q(String(c.name))).join(", ");
+				const cols = rows(h, `PRAGMA ${schema}.table_info(${q(table)})`).map((c) => q(String(c.name))).join(", ");
 				try {
-					h.exec({ sql: `INSERT INTO main.${q(table)} (${cols}) SELECT ${cols} FROM backup.${q(table)}` });
+					h.exec({ sql: `INSERT INTO ${schema}.${q(table)} (${cols}) SELECT ${cols} FROM backup.${q(table)}` });
 				} catch (e) {
 					console.error(`[gate] ${table}'s rows were refused by today's shape; they stay in the older file: ${String((e as Error)?.message ?? e)}`);
 				}
@@ -122,7 +123,7 @@ export function carry(h: Db, bytes: Uint8Array, ddl: string): void {
 			h.exec({ sql: "PRAGMA foreign_keys = ON" });
 		}
 	});
-	reconcile(h, ddl);
+	reconcile(h, ddl, schema, true);
 }
 
 function addColumns(h: Db, schema: string, table: string, create: string): string[] {
@@ -300,6 +301,48 @@ async function openPooled(o: GateOptions): Promise<Db> {
 	return new p.OpfsSAHPoolDb(o.file) as unknown as Db;
 }
 
+/** `o.file` attached beside the open file as `schema`, in this one connection under its one lock (law 7),
+ *  brought to `ddl`'s whole shape and made when new. An older build's file waits aside, its rows carried
+ *  into a fresh one (law 1); one SQLite cannot read is set aside (law 2). Refused inside a transaction. */
+export async function attach(h: Db, o: Files, schema: string, ddl: string): Promise<string[]> {
+	if (o.native) {
+		const p = await loadPool(o as GateOptions);
+		await p.reserveMinimumCapacity(Number(p.getFileCount()) + 2);
+	}
+	const on = () => h.exec({ sql: `ATTACH ? AS ${q(schema)}`, bind: [`file:${o.file}?vfs=${o.native ? "opfs-sahpool" : "opfs"}`] });
+	on();
+	let older: string[];
+	try {
+		older = lacking(h, ddl, schema);
+	} catch (e) {
+		detach(h, schema);
+		if (!UNREADABLE.test(String((e as Error)?.message ?? e))) throw e;
+		console.error(`[gate] ${o.file} could not be read and was set aside as ${await setAside(o as GateOptions)}`);
+		on();
+		return reconcile(h, ddl, schema, true);
+	}
+	if (!older.length) return reconcile(h, ddl, schema, true);
+	const bytes = exportBytes(h, schema);
+	detach(h, schema);
+	const kept = await setAside(o as GateOptions, "older");
+	on();
+	const added = reconcile(h, ddl, schema, true);
+	carry(h, bytes, ddl, schema);
+	console.info(`[gate] ${o.file} lacked ${older.join(", ")}: its rows were copied from ${kept}`);
+	return added;
+}
+
+export const detach = (h: Db, schema: string): void => void h.exec({ sql: `DETACH ${q(schema)}` });
+
+/** The names, without a leading slash, of the files `is` matches. */
+export async function names(o: Pick<GateOptions, "native" | "wasmUrl">, is: RegExp): Promise<string[]> {
+	if (o.native) return (await loadPool(o as GateOptions)).getFileNames().map((n) => n.replace(/^\//, "")).filter((n) => is.test(n)).sort();
+	const root = (await navigator.storage.getDirectory()) as FileSystemDirectoryHandle & { keys(): AsyncIterable<string> };
+	const out: string[] = [];
+	for await (const n of root.keys()) if (is.test(n)) out.push(n);
+	return out.sort();
+}
+
 // "opfs" VFS, not "opfs-sahpool" — sahpool takes an EXCLUSIVE sync access handle, so a
 // second tab would be refused. "opfs" needs cross-origin isolation (COOP/COEP in
 // hooks.server.ts and vercel.json). "opfs-wl" left files unreadable under open tabs on
@@ -387,18 +430,13 @@ const unsentName = (o: Files) => {
 
 /** The files a signed-in open kept for rows the account's copy may lack, oldest first. */
 export async function unsentFiles(o: Files): Promise<{ name: string; bytes: Uint8Array }[]> {
-	const is = unsentName(o);
+	const found = await names(o, unsentName(o));
 	if (o.native) {
 		const p = await loadPool(o as GateOptions);
-		const names = p.getFileNames().map((n) => n.replace(/^\//, "")).filter((n) => is.test(n)).sort();
-		return Promise.all(names.map(async (name) => ({ name, bytes: await p.exportFile(`/${name}`) })));
+		return Promise.all(found.map(async (name) => ({ name, bytes: await p.exportFile(`/${name}`) })));
 	}
-	const root = (await navigator.storage.getDirectory()) as FileSystemDirectoryHandle & { keys(): AsyncIterable<string> };
-	const names: string[] = [];
-	for await (const n of root.keys()) if (is.test(n)) names.push(n);
-	return Promise.all(
-		names.sort().map(async (name) => ({ name, bytes: new Uint8Array(await (await (await root.getFileHandle(name)).getFile()).arrayBuffer()) })),
-	);
+	const root = await navigator.storage.getDirectory();
+	return Promise.all(found.map(async (name) => ({ name, bytes: new Uint8Array(await (await (await root.getFileHandle(name)).getFile()).arrayBuffer()) })));
 }
 
 /** An unsent file goes only once its rows are in a copy the cloud holds. */
