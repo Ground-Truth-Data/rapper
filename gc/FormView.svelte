@@ -46,7 +46,8 @@
 		if (thumbs[q.id]) URL.revokeObjectURL(thumbs[q.id]);
 		thumbs[q.id] = URL.createObjectURL(file);
 	}
-	const addText = (q: Question) => `+ ${(q.toJSON() as { panelAddText?: string }).panelAddText ?? 'Add'}`;
+	// survey-core files a definition's panelAddText under its current name, addPanelText.
+	const addText = (q: Question) => (q.toJSON() as { addPanelText?: string }).addPanelText ?? '+ Add';
 	function locate(q: Question) {
 		navigator.geolocation.getCurrentPosition(
 			({ coords }) => set(q, { lat: coords.latitude, lng: coords.longitude, accuracy: coords.accuracy }),
