@@ -242,10 +242,6 @@ $effect(() => {
     background: #000;
     border: 2px solid var(--rt-yellow);
 }
-.inbox2-newmap--ring .inbox2-newmap-badge {
-    width: auto;
-    height: auto;
-}
 .inbox2-newmap--ring .inbox2-newmap-label {
     color: var(--rt-yellow);
 }
@@ -256,12 +252,13 @@ $effect(() => {
 .inbox2-newmap-label {
     display: inline-block;
 }
+/* Sized by its icon: a fixed box squashed any wider mark. */
 .inbox2-newmap-badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
     flex-shrink: 0;
 }
 </style>
