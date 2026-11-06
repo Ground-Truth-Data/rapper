@@ -11,10 +11,8 @@ export const DRAW_LIMIT_NOTE = `${DRAWN_SHAPE_MAX_POINTS} points is the limit fo
 
 export const mayAddVertex = (held: number): boolean => held < DRAWN_SHAPE_MAX_POINTS;
 
-/** The most a single piece may cover: drawing refuses past it, and an import past it gets no photos. */
+/** A piece past this gets no photos, quietly. It limits the download only, never the planter's drawing. */
 export const PIECE_MAX_HA = 100;
-export const OVER_CAP_DRAW_NOTE = `over ${PIECE_MAX_HA} ha, split it into pieces`;
-export const OVER_CAP_PHOTO_NOTE = `No photos: over ${PIECE_MAX_HA} ha`;
 
 /** True when any one part's outer ring (holes ignored, as the photo cover reads it) is over PIECE_MAX_HA. */
 export function overPhotoCap(geom: Geometry | null | undefined): boolean {

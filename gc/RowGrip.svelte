@@ -14,7 +14,7 @@ let { attach, label, dragging = false }: { attach: Attachment<HTMLElement>; labe
 :global(.rt-row-track) {
     position: relative;
     border-radius: var(--rt-radius-lg);
-    padding-right: 1.5rem;
+    padding-right: var(--rt-row-grip-w, 1.5rem);
     --rt-row-handle-reserve: 0;
 }
 /* A strip with no dots reads as a broken handle, so only a draggable row has one. */
@@ -26,17 +26,18 @@ let { attach, label, dragging = false }: { attach: Attachment<HTMLElement>; labe
     box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.5);
 }
 .inbox2-handle {
+    /* Exactly the strip, so the dots sit centred in it however wide a host makes it. */
     position: absolute;
-    right: 2px;
+    right: 0;
     top: 0;
     bottom: 0;
+    width: var(--rt-row-grip-w, 1.5rem);
     z-index: 4;
     display: grid;
     grid-template-columns: 5px 5px;
     gap: 5px 4px;
     align-content: center;
     justify-content: center;
-    padding: 0 0.25rem;
     cursor: grab;
     touch-action: none;
     -webkit-tap-highlight-color: transparent;
