@@ -9,7 +9,7 @@ import { m } from "$parent/src/lib/paraglide/messages";
 import Icon from "./Icon.svelte";
 
 /** The second half is ONE segment, clobber first: `hammer` (your version was
- *  replaced) shows the hammer and the editor; else `editor` (someone else's
+ *  replaced) shows the hammer and who won — the owner when no other editor has; else `editor` (someone else's
  *  edit) the pen and their name; else `edited` (saved again) the pen alone. */
 let {
     who,
@@ -31,7 +31,7 @@ const second = $derived(hammer || !!editor || edited);
         title={who.label}>{who.label}</span
     >
     {#if hammer}
-        <span class="id-pill id-pill--editor id-pill--hammer" title={m.gc_edit_replaced()}><Icon name="hammer" size={10} stroke={2.6} />{editor?.label ?? ""}</span>
+        <span class="id-pill id-pill--editor id-pill--hammer" title={m.gc_edit_replaced()}><Icon name="hammer" size={10} stroke={2.6} />{(editor ?? who).label}</span>
     {:else if editor}
         <span class="id-pill id-pill--editor" title={m.gc_edited_by({ name: editor.label })}><Icon name="pen" size={10} />{editor.label}</span>
     {:else if edited}
