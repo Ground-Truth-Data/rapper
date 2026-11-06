@@ -20,7 +20,6 @@ const fits: Record<string, (v: unknown) => boolean> = {
 	"text:number": (v) => typeof v === "number",
 	checkbox: Array.isArray,
 	file: Array.isArray,
-	gps: (v) => typeof (v as { lat?: unknown })?.lat === "number" && typeof (v as { lng?: unknown })?.lng === "number",
 	dropdown: (v) => typeof v === "string" || typeof v === "number",
 	radiogroup: (v) => typeof v === "string" || typeof v === "number",
 };
@@ -37,11 +36,11 @@ export function refused(d: Definition, data: Record<string, unknown>, group?: st
 	return null;
 }
 
-/** SurveyJS answers split the way they are kept: header data, and one row per repeating entry. */
 /** Where the answer was saved, or an entry added: kept in the form's data under this key, never a field's. */
 export const FIX = "_fix";
 export type Fix = { lat: number; lng: number; accuracyM: number | null };
 
+/** SurveyJS answers split the way they are kept: header data, and one row per repeating entry. */
 export function split(d: Definition, data: Record<string, unknown>) {
 	const groups = new Set(fields(d).filter((f) => f.kind === "paneldynamic").map((f) => f.key));
 	const lift = (r: Record<string, unknown>) => {
