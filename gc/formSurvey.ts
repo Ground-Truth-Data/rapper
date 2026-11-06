@@ -3,15 +3,5 @@
 type Survey = typeof import('survey-core');
 let loading: Promise<Survey> | undefined;
 
-export const loadSurvey = () =>
-	(loading ??= import('survey-core').then((S) => {
-		// GPS is our own field type: {lat, lng} from the phone.
-		class QuestionGps extends S.Question {
-			getType() {
-				return 'gps';
-			}
-		}
-		S.Serializer.addClass('gps', [], () => new QuestionGps(''), 'question');
-		S.ElementFactory.Instance.registerElement('gps', (name) => new QuestionGps(name));
-		return S;
-	}));
+// An old version's hidden gps field is an unknown type to survey-core, so it is dropped: location is the answer's columns.
+export const loadSurvey = () => (loading ??= import('survey-core'));
