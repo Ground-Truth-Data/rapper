@@ -30,7 +30,7 @@
 		background: color-mix(in srgb, var(--rt-yellow) 12%, transparent);
 	}
 	.header-link img {
-		height: 1.3em;
+		height: 1.2em;
 		width: auto;
 	}
 	.label {
