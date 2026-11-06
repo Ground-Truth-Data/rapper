@@ -2,7 +2,9 @@
 // FormView.svelte, and Central keeps its answers as header data plus one row per repeating entry.
 
 export type El = Record<string, unknown> & { type: string; name: string; title?: string };
-export type Definition = { title?: string; elements: El[] };
+/** SurveyJS's own branching: a skip goes to the section panel named gotoName, a complete ends the form there. */
+export type Trigger = { type: "skip" | "complete"; expression: string; gotoName?: string };
+export type Definition = { title?: string; description?: string; elements: El[]; triggers?: Trigger[] };
 
 /** Every field: its key, its kind (type, plus inputType for text) and its repeating group. Central's ops.fields twin. */
 export function fields(d: Definition): { key: string; kind: string; group?: string }[] {
@@ -18,7 +20,6 @@ const fits: Record<string, (v: unknown) => boolean> = {
 	"text:number": (v) => typeof v === "number",
 	checkbox: Array.isArray,
 	file: Array.isArray,
-	gps: (v) => typeof (v as { lat?: unknown })?.lat === "number" && typeof (v as { lng?: unknown })?.lng === "number",
 	dropdown: (v) => typeof v === "string" || typeof v === "number",
 	radiogroup: (v) => typeof v === "string" || typeof v === "number",
 };
@@ -35,13 +36,21 @@ export function refused(d: Definition, data: Record<string, unknown>, group?: st
 	return null;
 }
 
+/** Where the answer was saved, or an entry added: kept in the form's data under this key, never a field's. */
+export const FIX = "_fix";
+export type Fix = { lat: number; lng: number; accuracyM: number | null };
+
 /** SurveyJS answers split the way they are kept: header data, and one row per repeating entry. */
 export function split(d: Definition, data: Record<string, unknown>) {
-	const groups = new Set(d.elements.filter((e) => e.type === "paneldynamic").map((e) => e.name));
-	const header = Object.fromEntries(Object.entries(data).filter(([k]) => !groups.has(k)));
-	// An entry added and left empty holds no tree.
+	const groups = new Set(fields(d).filter((f) => f.kind === "paneldynamic").map((f) => f.key));
+	const lift = (r: Record<string, unknown>) => {
+		const { [FIX]: fix, ...rest } = r;
+		return { data: rest, fix: (fix as Fix | undefined) ?? null };
+	};
+	const head = lift(Object.fromEntries(Object.entries(data).filter(([k]) => !groups.has(k))));
+	// An entry added and left empty holds no tree, however sure its fix.
 	const rows = [...groups].flatMap((g) =>
-		((data[g] as Record<string, unknown>[]) ?? []).filter((r) => Object.keys(r).length).map((r, n) => ({ groupKey: g, n: n + 1, data: r })),
+		((data[g] as Record<string, unknown>[]) ?? []).map(lift).filter((r) => Object.keys(r.data).length).map((r, n) => ({ groupKey: g, n: n + 1, ...r })),
 	);
-	return { data: header, rows };
+	return { ...head, rows };
 }

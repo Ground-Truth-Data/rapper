@@ -25,7 +25,7 @@
 	--color-background: var(--rt-bg);
 	--color-foreground: var(--rt-fg);
 
-	--color-muted-foreground: #d18a5e;
+	--color-muted-foreground: #c97a4a;
 
 	--color-popover: var(--rt-bg);
 	--color-popover-foreground: var(--rt-fg);
@@ -349,6 +349,9 @@
   background: rgba(0, 0, 0, 0.6) !important;
   color: rgba(255, 255, 255, 0.85) !important;
   border-radius: 11px;
+  font-size: 10px;
+  line-height: 1.4;
+  padding: 2px 8px !important;
 }
 .mapboxgl-ctrl-attrib.mapboxgl-compact,
 .maplibregl-ctrl-attrib.maplibregl-compact {
@@ -373,10 +376,13 @@
 }
 .mapboxgl-ctrl-attrib a,
 .maplibregl-ctrl-attrib a {
-  /* Credit text, not links: a thumb on the map kept opening them by accident. */
   color: inherit !important;
   text-decoration: none;
-  pointer-events: none;
+}
+.mapboxgl-ctrl-attrib a:hover,
+.maplibregl-ctrl-attrib a:hover {
+  color: #ffd700 !important;
+  text-decoration: underline;
 }
 .mapboxgl-ctrl-attrib-button,
 .maplibregl-ctrl-attrib-button {

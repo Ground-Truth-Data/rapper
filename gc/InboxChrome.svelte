@@ -142,8 +142,8 @@ $effect(() => {
     border: 0;
     border-radius: 20px;
     background: transparent;
-    box-shadow: inset 0 0 0 1.6px color-mix(in srgb, var(--palette-terracotta-hint) 60%, transparent);
-    color: var(--palette-terracotta-hint);
+    box-shadow: inset 0 0 0 1.6px var(--rt-rust);
+    color: var(--rt-rust);
     font-family: var(--rt-font-body);
     font-size: 13.5px;
     font-weight: 700;

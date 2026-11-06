@@ -5,9 +5,9 @@
 :root {
 	/* Three accents: gold = commit, terracotta = context, sage = nature. */
 	--palette-gold: var(--rt-yellow);
-	--palette-terracotta: #b36940;
-	--palette-rust: #c97a4a;
-	--palette-terracotta-hint: #d18a5e;
+	--palette-terracotta: var(--rt-rust);
+	--palette-rust: var(--rt-rust);
+	--palette-terracotta-hint: var(--rt-rust);
 	--palette-sage: #838963;
 	/* Review mode: amber = held for you, red = an edit or a clock set back. */
 	--palette-amber: #ee9b2f;
@@ -41,13 +41,13 @@
 
 	/* HARD RULE: no gray-on-black — greys vanish in outdoor sunlight; use an accent. */
 	/* --rt-fg lives in app.unique.css — the token the two parents disagree on. */
-	--rt-fg-dim: #d18a5e;
+	--rt-fg-dim: var(--rt-rust);
 	--rt-fg-muted: #838963;
 
-	/* Archive rows: gold = FOCUS only. Rest: cream (top-level) / dim cream (nested); meta (sender/date/count) = bright terracotta. */
+	/* Archive rows: gold = FOCUS only. Rest: cream (top-level) / dim cream (nested); meta (sender/date/count) = the one rust. */
 	--rt-cream: #f4e8d0;
 	--rt-cream-dim: rgba(244, 232, 208, 0.65);
-	--rt-meta: #e88a5a;
+	--rt-meta: var(--rt-rust);
 
 	--rt-row-sender: #c3c8ac; /* a contact pill with no colour */
 	--rt-row-sep: #5c6046; /* " • " separator — divides without being read */
@@ -78,7 +78,7 @@
 	--rt-press-hi: rgba(0, 0, 0, 0.18); /* shaded edge, above */
 
 	--rt-rust: #c97a4a;
-	--rt-rust-soft: rgba(200, 127, 88, 0.14);
+	--rt-rust-soft: color-mix(in srgb, var(--rt-rust) 14%, transparent);
 	--rt-rust-label: var(--rt-rust);
 
 	/* The rose of ConfirmedDiamond's art, for text that names it. */
@@ -1115,11 +1115,6 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	background: var(--rt-yellow, #ffd700);
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
 }
-/* Red, unlike the fire popup below: a piece over the 100 ha cap is refused. */
-.rt-line-label-total.rt-over-cap {
-	color: #ffffff;
-	background: #d32f2f;
-}
 
 /* Terracotta, NEVER red: red means destructive here, and this is information, not a button. */
 .rt-fire-popup .maplibregl-popup-content {
@@ -1150,7 +1145,7 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	/* Literal colour: color-mix() inside a gradient stop paints transparent here. */
 	background-image: repeating-linear-gradient(
 		to bottom,
-		#d18a5e 0 3px,
+		#c97a4a 0 3px,
 		transparent 3px 7px
 	);
 	pointer-events: none;
@@ -1174,7 +1169,7 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	margin-top: -1.5px;
 	background-image: repeating-linear-gradient(
 		to right,
-		#d18a5e 0 3px,
+		#c97a4a 0 3px,
 		transparent 3px 7px
 	);
 }
