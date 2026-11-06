@@ -2,7 +2,9 @@
 // FormView.svelte, and Central keeps its answers as header data plus one row per repeating entry.
 
 export type El = Record<string, unknown> & { type: string; name: string; title?: string };
-export type Definition = { title?: string; description?: string; elements: El[] };
+/** SurveyJS's own branching: a skip goes to the section panel named gotoName, a complete ends the form there. */
+export type Trigger = { type: "skip" | "complete"; expression: string; gotoName?: string };
+export type Definition = { title?: string; description?: string; elements: El[]; triggers?: Trigger[] };
 
 /** Every field: its key, its kind (type, plus inputType for text) and its repeating group. Central's ops.fields twin. */
 export function fields(d: Definition): { key: string; kind: string; group?: string }[] {
