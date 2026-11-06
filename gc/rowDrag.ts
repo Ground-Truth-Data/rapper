@@ -1,4 +1,5 @@
-// Drag a row up or down its list by its grip: the inbox's maps and features, Ops' plugins.
+// Drag a row up or down its list by its grip (the inbox's maps and features, Ops' plugins), or left to dismiss it
+// or uncover what sits behind it.
 import { DragGesture } from "@use-gesture/vanilla";
 
 export type RowDrag = { rowId: string; fromIndex: number; targetIndex: number; rowHeight: number; deltaY: number };
@@ -48,4 +49,54 @@ export function rowShift(d: RowDrag | null, rowId: string, index: number): numbe
     if (from < to && index > from && index <= to) return -h;
     if (from > to && index >= to && index < from) return h;
     return 0;
+}
+
+const SWIPE_PX = 96;
+
+/** `use:` action: drag a row left. Past SWIPE_PX `swiped` runs and the row springs back; with `hold` it rests open
+ *  that many px instead, uncovering what sits behind it, until it is tapped or dragged back. Null: it stays put. */
+export function rowSwipe(el: HTMLElement, opts: { swiped?: () => void; hold?: number } | null) {
+    let o = opts;
+    if (!o) return;
+    let open = 0;
+    let swallowUntil = 0;
+    const rest = (x: number) => {
+        open = x;
+        el.style.transform = x ? `translateX(${x}px)` : "";
+    };
+    const swallow = (e: Event) => {
+        if (Date.now() < swallowUntil || open) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (Date.now() >= swallowUntil) rest(0);
+        }
+    };
+    el.addEventListener("click", swallow, true);
+    const gesture = new DragGesture(
+        el,
+        ({ last, movement: [mx], tap }) => {
+            if (tap || !o) return;
+            const dx = Math.min(0, open + mx);
+            if (!last) {
+                el.style.transform = `translateX(${dx}px)`;
+                return;
+            }
+            swallowUntil = Date.now() + 250;
+            if (o.hold) return rest(dx <= -o.hold / 2 ? -o.hold : 0);
+            rest(0);
+            if (dx <= -SWIPE_PX) o.swiped?.();
+        },
+        // No axis latch: a slightly vertical start would drop the whole swipe.
+        { threshold: 10, filterTaps: true, pointer: { keys: false, capture: false } },
+    );
+    return {
+        update: (next: typeof opts) => {
+            o = next;
+            if (!o) rest(0);
+        },
+        destroy: () => {
+            el.removeEventListener("click", swallow, true);
+            gesture.destroy();
+        },
+    };
 }

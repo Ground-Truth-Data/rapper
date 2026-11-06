@@ -40,6 +40,22 @@ export function refused(d: Definition, data: Record<string, unknown>, group?: st
 export const FIX = "_fix";
 export type Fix = { lat: number; lng: number; accuracyM: number | null };
 
+/** Answers carried onto a form edited since: a question's key is its identity, so a renamed one keeps its answer,
+ *  a new one is blank and a deleted one's answer is dropped. */
+export function follow(d: Definition, data: Record<string, unknown>): Record<string, unknown> {
+	const all = fields(d);
+	const keep = (r: Record<string, unknown>, group?: string): Record<string, unknown> =>
+		Object.fromEntries(
+			Object.entries(r).flatMap(([k, v]): [string, unknown][] => {
+				if (k === FIX) return [[k, v]];
+				const f = all.find((x) => x.key === k && x.group === group);
+				if (!f || f.kind === "panel") return [];
+				return [[k, f.kind === "paneldynamic" ? ((v as Record<string, unknown>[]) ?? []).map((e) => keep(e, k)) : v]];
+			}),
+		);
+	return keep(data);
+}
+
 /** SurveyJS answers split the way they are kept: header data, and one row per repeating entry. */
 export function split(d: Definition, data: Record<string, unknown>) {
 	const groups = new Set(fields(d).filter((f) => f.kind === "paneldynamic").map((f) => f.key));
