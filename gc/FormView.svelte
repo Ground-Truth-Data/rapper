@@ -330,7 +330,7 @@
 	.plus { width: 1.5rem; height: 1.5rem; border-radius: 999px; background: var(--rt-sage); color: #161a10; line-height: 1.5rem; text-align: center; }
 	.muted { color: var(--rt-fg-muted); font-size: 0.875rem; }
 	.req { margin-left: 0.3em; color: #ff4d55; font-size: 1.2em; font-weight: 800; line-height: 0; vertical-align: -0.15em; }
-	.error { color: var(--rt-yellow); font-size: 0.875rem; }
+	.error { color: #ff4d55; font-size: 0.875rem; }
 	.nav { display: flex; gap: 0.6rem; padding-top: 0.5rem; }
 	.nav button { min-height: 3.4rem; border-radius: 1rem; font-size: 1.1rem; }
 	.back { padding: 0 1.4rem; border: 2px solid var(--rt-fg-muted); }
