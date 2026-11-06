@@ -38,12 +38,20 @@ export function refused(d: Definition, data: Record<string, unknown>, group?: st
 }
 
 /** SurveyJS answers split the way they are kept: header data, and one row per repeating entry. */
+/** Where the answer was saved, or an entry added: kept in the form's data under this key, never a field's. */
+export const FIX = "_fix";
+export type Fix = { lat: number; lng: number; accuracyM: number | null };
+
 export function split(d: Definition, data: Record<string, unknown>) {
 	const groups = new Set(fields(d).filter((f) => f.kind === "paneldynamic").map((f) => f.key));
-	const header = Object.fromEntries(Object.entries(data).filter(([k]) => !groups.has(k)));
-	// An entry added and left empty holds no tree.
+	const lift = (r: Record<string, unknown>) => {
+		const { [FIX]: fix, ...rest } = r;
+		return { data: rest, fix: (fix as Fix | undefined) ?? null };
+	};
+	const head = lift(Object.fromEntries(Object.entries(data).filter(([k]) => !groups.has(k))));
+	// An entry added and left empty holds no tree, however sure its fix.
 	const rows = [...groups].flatMap((g) =>
-		((data[g] as Record<string, unknown>[]) ?? []).filter((r) => Object.keys(r).length).map((r, n) => ({ groupKey: g, n: n + 1, data: r })),
+		((data[g] as Record<string, unknown>[]) ?? []).map(lift).filter((r) => Object.keys(r.data).length).map((r, n) => ({ groupKey: g, n: n + 1, ...r })),
 	);
-	return { data: header, rows };
+	return { ...head, rows };
 }

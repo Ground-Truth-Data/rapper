@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import type { Model, PanelModel, Question } from 'survey-core';
-	import type { Definition, Trigger } from './form';
+	import { type Definition, FIX, type Fix, type Trigger } from './form';
 	import { loadSurvey } from './formSurvey';
 	import arrow from '$rig/assets/arrowIconGold.webp';
 
@@ -32,8 +32,7 @@
 			const m = new Model(def);
 			m.onValueChanged.add(() => tick++);
 			m.onDynamicPanelAdded.add((_, { panel }) => {
-				const q = panel.questions.find((q: Question) => !asked(q));
-				if (q) void locate().then((s) => s && set(q, s));
+				void fixEntry(panel);
 				tick++;
 			});
 			m.onDynamicPanelRemoved.add(() => tick++);
@@ -84,11 +83,22 @@
 				{ enableHighAccuracy: true, timeout: 20_000 },
 			);
 		});
-	async function stamp() {
-		const empty = [gps, ...pages.flatMap((p) => p.items).flatMap((v) => v.panels.map((e) => e.p.questions.find((q) => !asked(q))))].filter((q) => q && !q.value);
-		if (!empty.length) return;
+	const toFix = (s: { lat: number; lng: number; accuracy: number }): Fix => ({ lat: s.lat, lng: s.lng, accuracyM: s.accuracy });
+	// An entry is located once, as it is added: its own fix, and its GPS field if the form has one.
+	async function fixEntry(panel: PanelModel) {
 		const s = await locate();
-		if (s) for (const q of empty) set(q!, s);
+		if (!s) return;
+		const q = panel.questions.find((q: Question) => !asked(q));
+		if (q) set(q, s);
+		(panel.data as unknown as { setValue: (k: string, v: unknown) => void }).setValue(FIX, toFix(s));
+		tick++;
+	}
+	// The answer is located as it is saved.
+	async function stamp() {
+		const s = await locate();
+		if (!s) return;
+		if (gps && !gps.value) set(gps, s);
+		model!.setValue(FIX, toFix(s));
 	}
 	const pages = $derived.by<Page[]>(() => {
 		if (!tick || !model) return [];
@@ -121,6 +131,8 @@
 	const toggle = (v: View, c: unknown, on: boolean) => set(v.q, on ? [...((v.value as unknown[]) ?? []), c] : ((v.value as unknown[]) ?? []).filter((x) => x !== c));
 	// The picture itself stays on the device; the thumbnail is this page's own copy of it.
 	let thumbs = $state<Record<string, string>>({});
+	// The photo's ⓘ: said only when asked.
+	let told = $state<Record<string, boolean>>({});
 	async function photo(q: Question, file?: File) {
 		if (!file) return;
 		set(q, [{ name: file.name, type: file.type, content: await keep(file) }]);
@@ -187,6 +199,7 @@
 					{/each}
 				</div>
 			{:else if v.type === 'file'}
+				<div class="shot">
 				<label class="big camera" data-camera>
 					<input type="file" accept="image/*" capture="environment" aria-label={v.title} onchange={(e) => photo(v.q, e.currentTarget.files?.[0])} />
 					{#if thumbs[v.q.id] && v.value}
@@ -197,6 +210,9 @@
 						>
 					{/if}
 				</label>
+				<button type="button" class="info" aria-label="Where this photo is kept" aria-expanded={!!told[v.q.id]} onclick={() => (told[v.q.id] = !told[v.q.id])} data-photo-info>i</button>
+				</div>
+				{#if told[v.q.id]}<span class="muted" data-photo-note>Only on this phone until you send it.</span>{/if}
 			{:else if v.type === 'paneldynamic'}
 				{#each v.panels as entry, i (entry.p.id)}
 					{@const shown = isOpen(entry, i, v.panels.length)}
@@ -290,6 +306,8 @@
 		border-radius: 0.75rem; color: var(--rt-yellow); cursor: pointer;
 	}
 	.camera { width: 7rem; height: 7rem; overflow: hidden; }
+	.shot { display: flex; align-items: flex-end; gap: 0.6rem; }
+	.info { width: 1.25rem; height: 1.25rem; border: 1.5px solid var(--rt-yellow); border-radius: 999px; color: var(--rt-yellow); font: 700 0.75rem/1 serif; font-style: italic; }
 	.camera input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 	.camera svg { width: 3.5rem; height: 3.5rem; }
 	.camera img { width: 100%; height: 100%; object-fit: cover; }

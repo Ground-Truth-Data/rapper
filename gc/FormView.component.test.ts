@@ -3,7 +3,7 @@
 // row per repeating entry.
 import { cleanup, fireEvent, render, waitFor } from "@testing-library/svelte";
 import { afterEach, expect, it, vi } from "vitest";
-import { type Definition, refused, split } from "./form";
+import { type Definition, FIX, refused, split } from "./form";
 import FormView from "./FormView.svelte";
 
 afterEach(cleanup);
@@ -32,7 +32,7 @@ it("refuses a missing required field and an out-of-range number, then saves", as
 	await waitFor(() => expect(container.querySelectorAll("[data-entry]")).toHaveLength(2));
 	await fireEvent.click(getByText("Save"));
 	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
-	expect(split(form, onsubmit.mock.calls[0][0])).toEqual({ data: { date: "2026-11-05" }, rows: [{ groupKey: "trees", n: 1, data: { dbh: 12.5 } }] });
+	expect(split(form, onsubmit.mock.calls[0][0])).toEqual({ data: { date: "2026-11-05" }, fix: null, rows: [{ groupKey: "trees", n: 1, data: { dbh: 12.5 }, fix: null }] });
 });
 
 it("refuses what Central would: a key from elsewhere, a group in the header, a wrong shape", () => {
@@ -147,6 +147,40 @@ it("a complete trigger turns Next into Save and ends there", async () => {
 	expect(queryByText("Why not")).toBeNull();
 });
 
+it("every answer and every entry carries where it was taken, with no GPS field in the form", async () => {
+	const trees: Definition = {
+		title: "Trees",
+		elements: [{ type: "paneldynamic", name: "tree", title: "Tree", panelCount: 0, templateElements: [{ type: "text", name: "species", title: "Species" }] }],
+	};
+	const spots = [
+		{ latitude: 55.1, longitude: -120.1, accuracy: 4 },
+		{ latitude: 55.2, longitude: -120.2, accuracy: 9 },
+		{ latitude: 55.3, longitude: -120.3, accuracy: 5 },
+	];
+	const getCurrentPosition = vi.fn((ok: PositionCallback) => ok({ coords: spots[getCurrentPosition.mock.calls.length - 1] } as GeolocationPosition));
+	vi.stubGlobal("navigator", { ...navigator, geolocation: { getCurrentPosition } });
+	const onsubmit = vi.fn();
+	const { container, findByText, getByText, getAllByLabelText } = render(FormView, { definition: trees, onsubmit });
+	await findByText("Trees");
+	await fireEvent.click(getByText("Add another"));
+	await waitFor(() => expect(getCurrentPosition).toHaveBeenCalledTimes(1));
+	await fireEvent.change(getAllByLabelText("Species")[0], { target: { value: "cedar" } });
+	await fireEvent.click(getByText("Add another"));
+	await waitFor(() => expect(getCurrentPosition).toHaveBeenCalledTimes(2));
+	await waitFor(() => expect(container.querySelectorAll("[data-entry]")).toHaveLength(2));
+	const second = getAllByLabelText("Species").at(-1)!;
+	await fireEvent.change(second, { target: { value: "pine" } });
+	await fireEvent.click(getByText("Save"));
+	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
+	const { fix, rows } = split(trees, onsubmit.mock.calls[0][0]);
+	expect(fix).toEqual({ lat: 55.3, lng: -120.3, accuracyM: 5 });
+	expect(rows).toEqual([
+		{ groupKey: "tree", n: 1, data: { species: "cedar" }, fix: { lat: 55.1, lng: -120.1, accuracyM: 4 } },
+		{ groupKey: "tree", n: 2, data: { species: "pine" }, fix: { lat: 55.2, lng: -120.2, accuracyM: 9 } },
+	]);
+	vi.unstubAllGlobals();
+});
+
 it("stamps an added entry with where it was added, and marks it once folded", async () => {
 	const nested: Definition = {
 		title: "Trees",
@@ -169,8 +203,20 @@ it("stamps an added entry with where it was added, and marks it once folded", as
 	await fireEvent.click(getByText("Save"));
 	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
 	const spot = { lat: -19.41, lng: 146.81, accuracy: 6 };
-	expect(onsubmit.mock.calls[0][0]).toEqual({ tree: [{ species: "cedar", tree_gps: spot }, { tree_gps: spot }] });
-	expect(split(nested, onsubmit.mock.calls[0][0]).rows[0]).toEqual({ groupKey: "tree", n: 1, data: { species: "cedar", tree_gps: spot } });
+	const fix = { lat: -19.41, lng: 146.81, accuracyM: 6 };
+	expect(onsubmit.mock.calls[0][0]).toEqual({ [FIX]: fix, tree: [{ species: "cedar", tree_gps: spot, [FIX]: fix }, { tree_gps: spot, [FIX]: fix }] });
+	expect(split(nested, onsubmit.mock.calls[0][0]).rows[0]).toEqual({ groupKey: "tree", n: 1, data: { species: "cedar", tree_gps: spot }, fix });
 	expect(refused(nested, { species: "cedar", tree_gps: spot }, "tree")).toBeNull();
 	vi.unstubAllGlobals();
+});
+
+it("says where a photo is kept only when its ⓘ is tapped", async () => {
+	const shot: Definition = { title: "Shot", elements: [{ type: "file", name: "pic", title: "Photo" }] };
+	const { container, findByText, queryByText } = render(FormView, { definition: shot, onsubmit: vi.fn() });
+	await findByText("Photo");
+	expect(queryByText("Only on this phone until you send it.")).toBeNull();
+	await fireEvent.click(container.querySelector("[data-photo-info]")!);
+	await findByText("Only on this phone until you send it.");
+	await fireEvent.click(container.querySelector("[data-photo-info]")!);
+	expect(queryByText("Only on this phone until you send it.")).toBeNull();
 });
