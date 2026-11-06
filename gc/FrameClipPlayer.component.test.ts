@@ -101,6 +101,8 @@ function watchSrc(c: HTMLElement) {
 	};
 }
 
+// rerender is never awaited: it applies props in flushSync, then awaits Svelte's tick(), which in
+// async mode waits on rAF/setTimeout — faked here, so it never settles.
 describe("FrameClipPlayer switching clips in place", () => {
 	it("never removes src or shows the old frame index in the new clip", async () => {
 		const { container, rerender } = render(FrameClipPlayer, { root: "/f", clip: "turn", facts: clipFacts(71) });
@@ -108,7 +110,7 @@ describe("FrameClipPlayer switching clips in place", () => {
 		flushSync();
 		expect(src(container)).toBe("/f/dog/turn/turn_071.webp");
 		const writes = watchSrc(container);
-		await rerender({ clip: "pant", facts: clipFacts(8), from: 1 });
+		rerender({ clip: "pant", facts: clipFacts(8), from: 1 });
 		flushSync();
 		await Promise.resolve();
 		expect(writes()).toEqual(["/f/dog/pant/pant_001.webp"]);
@@ -117,7 +119,7 @@ describe("FrameClipPlayer switching clips in place", () => {
 	it("starts a longer clip at its first frame, never at the old clip's index", async () => {
 		const { container, rerender } = render(FrameClipPlayer, { root: "/f", clip: "entrance", facts: clipFacts(49), from: 49 });
 		const writes = watchSrc(container);
-		await rerender({ clip: "turn", facts: clipFacts(71), from: 1 });
+		rerender({ clip: "turn", facts: clipFacts(71), from: 1 });
 		flushSync();
 		await Promise.resolve();
 		expect(writes()).toEqual(["/f/dog/turn/turn_001.webp"]);
@@ -129,7 +131,7 @@ describe("FrameClipPlayer switching clips in place", () => {
 		flushSync();
 		expect(src(container)).toBe("/f/dog/turn/turn_008.webp");
 		const writes = watchSrc(container);
-		await rerender({ from: 8 });
+		rerender({ from: 8 });
 		flushSync();
 		await Promise.resolve();
 		expect(writes()).toEqual([]);
@@ -145,7 +147,7 @@ describe("FrameClipPlayer switching clips in place", () => {
 		await vi.advanceTimersByTimeAsync(0);
 		flushSync();
 		expect(src(container)).toBe("/f/dog/a/a_004.webp");
-		await rerender({ clip: "b", facts: clipFacts(4), from: 1 });
+		rerender({ clip: "b", facts: clipFacts(4), from: 1 });
 		flushSync();
 		expect(src(container)).toBe("/f/dog/a/a_004.webp");
 		decoded();
