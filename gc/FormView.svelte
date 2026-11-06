@@ -1,12 +1,18 @@
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import type { Model, PanelModel, Question } from 'survey-core';
 	import type { Definition, Trigger } from './form';
 	import { loadSurvey } from './formSurvey';
 	import arrow from '$rig/assets/arrowIconGold.webp';
 
-	let { definition, onsubmit, keep = async (f: File) => f.name }: {
+	type Draft = { data: Record<string, unknown>; path: number[] };
+	let { definition, onsubmit, keep = async (f: File) => f.name, draft, onchange }: {
 		definition: Definition;
 		onsubmit: (data: Record<string, unknown>) => void;
+		/** Where the planter left off: the form opens on it. */
+		draft?: Draft;
+		/** Every answer or page turn, so the host can keep the form across a closed app. */
+		onchange?: (d: Draft) => void;
 		/** Saves a photo and returns its blob key: answers never hold the picture itself. */
 		keep?: (file: File) => Promise<string>;
 	} = $props();
@@ -35,10 +41,20 @@
 				const run = new ExpressionRunner(t.expression);
 				return { ...t, holds: (data) => run.runValues(data) === true, on: run.getVariables() };
 			});
+			const from = untrack(() => draft);
+			if (from) m.data = from.data;
 			model = m;
-			path = [0];
+			path = from?.path.length ? from.path : [0];
+			opened = JSON.stringify({ data: m.data, path });
 			tick++;
 		}, (e) => (failed = e.message));
+	});
+	// A form as it opened is not a change: an untouched one never becomes a draft.
+	let opened = '';
+	$effect(() => {
+		if (!tick || !model) return;
+		const d = { data: model.data, path: [...path] };
+		if (JSON.stringify(d) !== opened) untrack(() => onchange?.(d));
 	});
 
 	type View = { q: Question; type: string; input: string; title: string; description: string; required: boolean; visible: boolean; value: unknown; errors: string[];

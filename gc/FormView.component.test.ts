@@ -84,6 +84,23 @@ it("pages by section: Next refuses an empty required field, Save on the last pag
 	await findByText("Section 1 of 2");
 });
 
+it("reports each change as a draft, and a draft reopens the form where it was left", async () => {
+	const onchange = vi.fn();
+	const first = render(FormView, { definition: paged, onsubmit: vi.fn(), onchange });
+	await first.findByText("Section 1 of 2");
+	expect(onchange).not.toHaveBeenCalled();
+	await fireEvent.change(first.getByLabelText("Species"), { target: { value: "cedar" } });
+	await fireEvent.click(first.getByText("Next"));
+	await first.findByText("Section 2 of 2");
+	await waitFor(() => expect(onchange.mock.lastCall?.[0]).toMatchObject({ data: { species: "cedar" }, path: [0, 1] }));
+	cleanup();
+
+	const again = render(FormView, { definition: paged, onsubmit: vi.fn(), draft: onchange.mock.lastCall![0] });
+	await again.findByText("Section 2 of 2");
+	await fireEvent.click(again.getByText("Back"));
+	await waitFor(() => expect((again.getByLabelText("Species") as HTMLInputElement).value).toBe("cedar"));
+});
+
 const branching: Definition = {
 	title: "Planting check",
 	elements: [
