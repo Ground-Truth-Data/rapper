@@ -42,6 +42,8 @@
 			});
 			const from = untrack(() => draft);
 			if (from) m.data = from.data;
+			// An entry the form opens with is never "added", so it is located here; a draft's keep their fix.
+			for (const q of m.getAllQuestions()) for (const p of (q.panels ?? []) as PanelModel[]) if (!fixOf(p)) void fixEntry(p);
 			model = m;
 			path = from?.path.length ? from.path : [0];
 			opened = JSON.stringify({ data: m.data, path });
@@ -63,7 +65,7 @@
 		required: q.isRequired, visible: q.isVisible, value: q.value,
 		errors: q.errors.map((e) => e.getText()),
 		choices: (q.visibleChoices ?? []).map((c: { value: unknown; text: string }) => ({ value: c.value, text: c.text })),
-		panels: (q.panels ?? []).map((p: PanelModel) => ({ p, items: p.questions.map(view), stamped: !!(p.data as unknown as { getValue: (k: string) => unknown }).getValue(FIX) })),
+		panels: (q.panels ?? []).map((p: PanelModel) => ({ p, items: p.questions.map(view), stamped: !!fixOf(p) })),
 	});
 	// One page per section: the form's head and its loose fields first, then each panel; a loose field after a
 	// panel stays on that panel's page, so the builder's order holds. A fresh view each change: survey-core's
@@ -80,6 +82,7 @@
 				{ enableHighAccuracy: true, timeout: 20_000 },
 			);
 		});
+	const fixOf = (p: PanelModel) => (p.data as unknown as { getValue: (k: string) => unknown }).getValue(FIX);
 	const toFix = (s: { lat: number; lng: number; accuracy: number }): Fix => ({ lat: s.lat, lng: s.lng, accuracyM: s.accuracy });
 	// An entry is located once, as it is added.
 	async function fixEntry(panel: PanelModel) {
