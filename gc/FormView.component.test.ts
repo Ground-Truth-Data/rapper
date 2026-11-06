@@ -21,7 +21,7 @@ it("refuses a missing required field and an out-of-range number, then saves", as
 	const onsubmit = vi.fn();
 	const { container, findByText, getByText, getByLabelText } = render(FormView, { definition: form, onsubmit });
 	await findByText("Tree survey");
-	expect(container.querySelector("[data-field=where]")).not.toBeNull();
+	expect(container.querySelector("[data-field=where]")).toBeNull();
 	await fireEvent.change(getByLabelText("DBH"), { target: { value: "140" } });
 	await fireEvent.click(getByText("Save"));
 	await waitFor(() => expect([...container.querySelectorAll("[data-error]")].map((e) => e.textContent)).toEqual(["Response required.", "The value should not be greater than 100"]));
@@ -82,4 +82,78 @@ it("pages by section: Next refuses an empty required field, Save on the last pag
 	expect(onsubmit.mock.calls[0][0]).toEqual({ species: "cedar", tree: [{ dbh: 34, cute: "very" }, {}] });
 	await fireEvent.click(getByText("Back"));
 	await findByText("Section 1 of 2");
+});
+
+const branching: Definition = {
+	title: "Planting check",
+	elements: [
+		{ type: "radiogroup", name: "planted", title: "Planted?", choices: ["yes", "no", "burnt"] },
+		{ type: "panel", name: "why", title: "Why not", elements: [{ type: "text", name: "reason", title: "Reason", isRequired: true }] },
+		{ type: "panel", name: "count", title: "Count", elements: [{ type: "text", inputType: "number", name: "trees", title: "Trees" }] },
+		{ type: "panel", name: "close", title: "Close", elements: [{ type: "text", name: "note", title: "Note" }] },
+	],
+	triggers: [
+		{ type: "skip", expression: "{planted} = 'yes'", gotoName: "count" },
+		{ type: "complete", expression: "{planted} = 'burnt'" },
+	],
+};
+
+it("follows a skip past a section, Back retraces the path, and the skipped section is never required", async () => {
+	const onsubmit = vi.fn();
+	const { container, findByText, getByText, getByLabelText } = render(FormView, { definition: branching, onsubmit });
+	await findByText("Section 1 of 4");
+	await fireEvent.click(getByLabelText("yes"));
+	await fireEvent.click(getByText("Next"));
+	await findByText("Section 3 of 4");
+	expect(container.querySelector("[data-step]")?.textContent).toBe("2 / 3");
+	await fireEvent.click(getByText("Back"));
+	await findByText("Section 1 of 4");
+	await fireEvent.click(getByText("Next"));
+	await findByText("Section 3 of 4");
+	await fireEvent.click(getByText("Next"));
+	await findByText("Section 4 of 4");
+	await fireEvent.click(getByText("Back"));
+	await findByText("Section 3 of 4");
+	await fireEvent.click(getByText("Next"));
+	await fireEvent.click(getByText("Save"));
+	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
+	expect(onsubmit.mock.calls[0][0]).toEqual({ planted: "yes" });
+});
+
+it("a complete trigger turns Next into Save and ends there", async () => {
+	const onsubmit = vi.fn();
+	const { findByText, getByText, getByLabelText, queryByText } = render(FormView, { definition: branching, onsubmit });
+	await findByText("Section 1 of 4");
+	await fireEvent.click(getByLabelText("burnt"));
+	await fireEvent.click(getByText("Save"));
+	await waitFor(() => expect(onsubmit).toHaveBeenCalledWith({ planted: "burnt" }));
+	expect(queryByText("Why not")).toBeNull();
+});
+
+it("stamps an added entry with where it was added, and marks it once folded", async () => {
+	const nested: Definition = {
+		title: "Trees",
+		elements: [{ type: "paneldynamic", name: "tree", title: "Tree", panelCount: 0, templateElements: [
+			{ type: "text", name: "species", title: "Species" },
+			{ type: "gps", name: "tree_gps" },
+		] }],
+	};
+	const getCurrentPosition = vi.fn((ok: PositionCallback) => ok({ coords: { latitude: -19.41, longitude: 146.81, accuracy: 6 } } as GeolocationPosition));
+	vi.stubGlobal("navigator", { ...navigator, geolocation: { getCurrentPosition } });
+	const onsubmit = vi.fn();
+	const { container, findByText, getByText, getByLabelText } = render(FormView, { definition: nested, onsubmit });
+	await findByText("Trees");
+	await fireEvent.click(getByText("Add another"));
+	await waitFor(() => expect(getCurrentPosition).toHaveBeenCalledOnce());
+	expect(container.querySelector("[data-field=tree_gps]")).toBeNull();
+	await fireEvent.change(getByLabelText("Species"), { target: { value: "cedar" } });
+	await fireEvent.click(getByText("Add another"));
+	await waitFor(() => expect(container.querySelector("[data-entry='1'] [data-gps-mark]")).not.toBeNull());
+	await fireEvent.click(getByText("Save"));
+	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
+	const spot = { lat: -19.41, lng: 146.81, accuracy: 6 };
+	expect(onsubmit.mock.calls[0][0]).toEqual({ tree: [{ species: "cedar", tree_gps: spot }, { tree_gps: spot }] });
+	expect(split(nested, onsubmit.mock.calls[0][0]).rows[0]).toEqual({ groupKey: "tree", n: 1, data: { species: "cedar", tree_gps: spot } });
+	expect(refused(nested, { species: "cedar", tree_gps: spot }, "tree")).toBeNull();
+	vi.unstubAllGlobals();
 });

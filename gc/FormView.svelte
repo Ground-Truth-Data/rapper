@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Model, PanelModel, Question } from 'survey-core';
-	import type { Definition } from './form';
+	import type { Definition, Trigger } from './form';
 	import { loadSurvey } from './formSurvey';
 
 	let { definition, onsubmit, keep = async (f: File) => f.name }: {
@@ -13,61 +13,92 @@
 	let model = $state.raw<Model>();
 	let tick = $state(0);
 	let failed = $state('');
-	let at = $state(0);
+	// The sections actually visited, so Back retraces a branch instead of stepping to the page before.
+	let path = $state([0]);
+	const at = $derived(path.at(-1)!);
+	type Rule = Trigger & { holds: (data: Record<string, unknown>) => boolean; on: string[] };
+	let rules = $state.raw<Rule[]>([]);
 	$effect(() => {
-		const def = $state.snapshot(definition);
-		loadSurvey().then(({ Model }) => {
+		// Our pages follow the triggers; survey-core's own would act on its single page instead.
+		const { triggers = [], ...def } = $state.snapshot(definition);
+		loadSurvey().then(({ Model, ExpressionRunner }) => {
 			const m = new Model(def);
 			m.onValueChanged.add(() => tick++);
-			m.onDynamicPanelAdded.add(() => tick++);
+			m.onDynamicPanelAdded.add((_, { panel }) => {
+				const q = panel.questions.find((q: Question) => !asked(q));
+				if (q) void locate().then((s) => s && set(q, s));
+				tick++;
+			});
 			m.onDynamicPanelRemoved.add(() => tick++);
+			rules = triggers.map((t) => {
+				const run = new ExpressionRunner(t.expression);
+				return { ...t, holds: (data) => run.runValues(data) === true, on: run.getVariables() };
+			});
 			model = m;
-			at = 0;
+			path = [0];
 			tick++;
 		}, (e) => (failed = e.message));
 	});
 
 	type View = { q: Question; type: string; input: string; title: string; description: string; required: boolean; visible: boolean; value: unknown; errors: string[];
-		choices: { value: unknown; text: string }[]; panels: { p: PanelModel; items: View[] }[] };
+		choices: { value: unknown; text: string }[]; panels: { p: PanelModel; items: View[]; stamped: boolean }[] };
 	const view = (q: Question): View => ({
 		q, type: q.getType(), input: q.inputType, title: q.title, description: q.description,
 		required: q.isRequired, visible: q.isVisible, value: q.value,
 		errors: q.errors.map((e) => e.getText()),
 		choices: (q.visibleChoices ?? []).map((c: { value: unknown; text: string }) => ({ value: c.value, text: c.text })),
-		panels: (q.panels ?? []).map((p: PanelModel) => ({ p, items: p.questions.map(view) })),
+		panels: (q.panels ?? []).map((p: PanelModel) => ({ p, items: p.questions.filter(asked).map(view), stamped: p.questions.some((x) => !asked(x) && x.value) })),
 	});
 	// One page per section: the form's head and its loose fields first, then each panel; a loose field after a
 	// panel stays on that panel's page, so the builder's order holds. A fresh view each change: survey-core's
 	// objects are not reactive.
-	type Page = { title?: string; description?: string; items: View[] };
-	// GPS is never asked: it is the form's stamp, taken as the planter saves.
+	type Page = { name?: string; title?: string; description?: string; items: View[] };
+	// GPS is never asked: the form's is stamped as the planter saves, an entry's as it is added.
 	const asked = (q: Question) => q.getType() !== 'gps';
 	const gps = $derived(tick && model ? model.getAllQuestions().find((q) => !asked(q)) : undefined);
-	const stamp = (q: Question) =>
-		new Promise<void>((done) =>
+	// A refused or missing fix leaves the answer unstamped; it never stops the form.
+	const locate = () =>
+		new Promise<{ lat: number; lng: number; accuracy: number } | undefined>((done) => {
+			const no = (why: string) => (console.warn('[forms] gps', why), done(undefined));
+			if (!navigator.geolocation) return no('no geolocation here');
 			navigator.geolocation.getCurrentPosition(
-				({ coords }) => (set(q, { lat: coords.latitude, lng: coords.longitude, accuracy: coords.accuracy }), done()),
-				(e) => (console.warn('[forms] gps', e.message), done()),
+				({ coords }) => done({ lat: coords.latitude, lng: coords.longitude, accuracy: coords.accuracy }),
+				(e) => no(e.message),
 				{ enableHighAccuracy: true, timeout: 20_000 },
-			),
-		);
+			);
+		});
+	async function stamp() {
+		const empty = [gps, ...pages.flatMap((p) => p.items).flatMap((v) => v.panels.map((e) => e.p.questions.find((q) => !asked(q))))].filter((q) => q && !q.value);
+		if (!empty.length) return;
+		const s = await locate();
+		if (s) for (const q of empty) set(q!, s);
+	}
 	const pages = $derived.by<Page[]>(() => {
 		if (!tick || !model) return [];
 		const out: Page[] = [{ title: definition.title, description: definition.description, items: [] }];
 		for (const e of model.pages[0].elements) {
-			if (e.isPanel) out.push({ title: (e as PanelModel).title, description: (e as PanelModel).description, items: (e as PanelModel).questions.filter(asked).map(view) });
+			if (e.isPanel) out.push({ name: e.name, title: (e as PanelModel).title, description: (e as PanelModel).description, items: (e as PanelModel).questions.filter(asked).map(view) });
 			else if (asked(e as Question)) out.at(-1)!.items.push(view(e as Question));
 		}
 		return out.length > 1 && !out[0].items.length ? out.slice(1) : out;
 	});
 	const page = $derived(pages[Math.min(at, pages.length - 1)]);
+	// Only a trigger asked on this page acts as it is left, so a skip taken earlier never fires again.
+	const fired = $derived(tick && page && model ? rules.filter((r) => r.on.some((k) => page.items.some((v) => v.q.name === k)) && r.holds(model!.data)) : []);
+	const ends = $derived(fired.some((r) => r.type === 'complete'));
+	const next = $derived.by(() => {
+		const to = pages.findIndex((p) => p.name && p.name === fired.find((r) => r.type === 'skip')?.gotoName);
+		return to > at ? to : at + 1;
+	});
 	let top = $state<HTMLElement>();
 	// A new page starts at its top, not where the last one was left.
 	$effect(() => {
 		void at;
 		top?.scrollIntoView({ block: 'nearest' });
 	});
-	const last = $derived(at >= pages.length - 1);
+	const last = $derived(ends || at >= pages.length - 1);
+	// Steps taken, plus the sections left if none is skipped.
+	const steps = $derived(path.length + (last ? 0 : pages.length - 1 - at));
 
 	const set = (q: Question, v: unknown) => (q.value = v === '' ? undefined : v);
 	const toggle = (v: View, c: unknown, on: boolean) => set(v.q, on ? [...((v.value as unknown[]) ?? []), c] : ((v.value as unknown[]) ?? []).filter((x) => x !== c));
@@ -95,11 +126,17 @@
 	const valid = (p: Page) => p.items.filter((v) => v.visible).map((v) => v.q.validate(true)).every(Boolean);
 	async function go(e: SubmitEvent) {
 		e.preventDefault();
-		if (last && gps) await stamp(gps);
 		if (!last) {
-			if (valid(page)) at++;
-		} else if (model?.validate(true)) onsubmit(model.data);
-		else at = Math.max(0, pages.findIndex((p) => p.items.some((v) => v.q.errors.length)));
+			if (valid(page)) path = [...path, next];
+		} else {
+			await stamp();
+			// Only the sections on the path count: a skipped one is neither checked nor sent.
+			const bad = path.find((i) => !valid(pages[i]));
+			if (bad == null) {
+				const off = new Set(pages.filter((_, i) => !path.includes(i)).flatMap((p) => p.items.map((v) => v.q.name)));
+				onsubmit(Object.fromEntries(Object.entries(model!.data).filter(([k]) => !off.has(k))));
+			} else path = path.slice(0, path.indexOf(bad) + 1);
+		}
 		tick++;
 	}
 </script>
@@ -152,6 +189,11 @@
 							<svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
 							<span class="name font-display">{name}</span>
 							{#if !shown}<span class="summary" data-summary>{summary(entry.items)}</span>{/if}
+							{#if entry.stamped}
+								<svg class="gem" viewBox="0 0 24 24" role="img" aria-label="GPS stamped" data-gps-mark
+									><path d="M6 4h12l4 5-10 11L2 9z M2 9h20 M9 4l-2 5 5 11 5-11-2-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" /></svg
+								>
+							{/if}
 						</button>
 						{#if shown}
 							<div class="inside">
@@ -178,9 +220,9 @@
 			<div class="top" bind:this={top}>
 				<div class="topline">
 					<span class="font-display">{definition.title ?? ''}</span>
-					<span class="muted" data-step>{at + 1} / {pages.length}</span>
+					<span class="muted" data-step>{path.length} / {steps}</span>
 				</div>
-				<div class="steps" style:--n={pages.length}>{#each pages as _, i (i)}<span class:done={i <= at}></span>{/each}</div>
+				<div class="steps" style:--n={steps}>{#each { length: steps }, i (i)}<span class:done={i < path.length}></span>{/each}</div>
 			</div>
 		{/if}
 		<div class="head" data-section={at + 1}>
@@ -191,7 +233,7 @@
 		{#each page.items as v (v.q.id)}{@render field(v)}{/each}
 		{#if gps}<span class="muted stamped" data-gps-stamp>Your location is stamped when you save</span>{/if}
 		<div class="nav">
-			{#if at > 0}<button type="button" class="back font-display" onclick={() => at--} data-back>Back</button>{/if}
+			{#if at > 0}<button type="button" class="back font-display" onclick={() => (path = path.slice(0, -1))} data-back>Back</button>{/if}
 			<button class="rt-fancy-btn next" data-next>{last ? 'Save' : 'Next'}</button>
 		</div>
 	</form>
@@ -245,6 +287,8 @@
 	[aria-expanded="true"] > .chev { transform: rotate(90deg); }
 	.name { color: var(--rt-sage); font-size: 1.05rem; }
 	.summary { flex: 1; min-width: 0; text-align: right; color: var(--rt-fg-muted); font-size: 0.875rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+	.gem { flex: none; width: 1.125rem; height: 1.125rem; margin-left: auto; color: #ede7da; }
+	.summary + .gem { margin-left: 0; }
 	.inside { display: flex; flex-direction: column; gap: 0.75rem; padding: 0 0.875rem 0.875rem; }
 	.remove { align-self: flex-end; min-height: 2.75rem; padding: 0 0.75rem; color: var(--rt-fg-muted); }
 	.add {
