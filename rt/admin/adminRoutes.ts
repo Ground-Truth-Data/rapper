@@ -657,6 +657,13 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				title:
 					"A project's or org's score followed down: rank, ratio, the projects it averaged, each field's points",
 			},
+			{
+				key: "upkeep",
+				stage: "prove",
+				label: "upkeep",
+				href: `${FOUNDR_TOOL}/upkeep`,
+				title: "Routine Foundr jobs and their state — runs are local dev only",
+			},
 			// Not a pipeline stage: the strip has no other place, and last reads as "outside the walk".
 			{
 				key: "decisions",
