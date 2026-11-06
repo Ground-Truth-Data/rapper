@@ -2,6 +2,7 @@
 	import type { Model, PanelModel, Question } from 'survey-core';
 	import type { Definition, Trigger } from './form';
 	import { loadSurvey } from './formSurvey';
+	import arrow from '$rig/assets/arrowIconGold.webp';
 
 	let { definition, onsubmit, keep = async (f: File) => f.name }: {
 		definition: Definition;
@@ -234,7 +235,7 @@
 		{#if gps}<span class="muted stamped" data-gps-stamp>Your location is stamped when you save</span>{/if}
 		<div class="nav">
 			{#if at > 0}<button type="button" class="back font-display" onclick={() => (path = path.slice(0, -1))} data-back>Back</button>{/if}
-			<button class="rt-fancy-btn next" data-next>{last ? 'Save' : 'Next'}</button>
+			<button class="rt-fancy-btn next" data-next>{last ? 'Save' : 'Next'}{#if !last}<span class="go" style="--src: url({arrow})"></span>{/if}</button>
 		</div>
 	</form>
 {/if}
@@ -302,6 +303,8 @@
 	.nav { display: flex; gap: 0.6rem; padding-top: 0.5rem; }
 	.nav button { min-height: 3.4rem; border-radius: 1rem; font-size: 1.1rem; }
 	.back { padding: 0 1.4rem; border: 2px solid var(--rt-fg-muted); }
-	.next { flex: 1; }
+	.nav .next { flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.6rem; font-size: 1.45rem; }
+	/* The back button's drawn arrow, mirrored: a mask so it takes the label's colour. */
+	.go { width: 2rem; height: 1.5rem; background: currentColor; mask: var(--src) center / contain no-repeat; transform: scaleX(-1); }
 	.stamped { align-self: center; padding-top: 0.5rem; }
 </style>
