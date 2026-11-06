@@ -121,6 +121,13 @@ const ownRowTools = $derived(visibleTools.filter((t) => t.ownRow));
 // Foundr's strip is the pipeline: one captioned group per stage, the lit caption being the stage the page is in.
 const activeStage = $derived(isFoundr ? foundrStageOf(path)?.key ?? null : null);
 const stageTools = (s: FoundrStage): AdminTool[] => visibleTools.filter((t) => t.stage === s.key);
+// Every other stage folds to its caption, which opens it in place: the stepper below already navigates between stages.
+let peek = $state<FoundrStage["key"] | null>(null);
+$effect(() => {
+	path;
+	peek = null;
+});
+const togglePeek = (key: FoundrStage["key"]) => (peek = peek === key ? null : key);
 // Never a parent-level fallback — that hung ReTreever's twenty tables under all five hand-built screens. An own-row tool's tables are already on its line.
 const tables = $derived(
 	currentTool?.ownRow ? [] : activeTables(page.url.pathname),
@@ -197,6 +204,8 @@ $effect(() => {
 });
 </script>
 
+<svelte:window onkeydown={(e) => { if (e.key === "Escape") peek = null; }} />
+
 <!-- Floor, not policy: several admin pages declare no <title>, and a page's own <svelte:head><title> still wins (layout head renders first). -->
 <svelte:head>
     <title>{current.label ? `${current.label} — Admin` : "Admin"}</title>
@@ -232,13 +241,25 @@ $effect(() => {
 {#snippet stageGroup(s: FoundrStage)}
     {@const pills = stageTools(s)}
     {@const reports = FOUNDR_REPORTS.filter((r) => r.stage === s.key)}
-    {#if pills.length || reports.length}
+    {@const here = activeStage === s.key}
+    {@const caption = `${s.n} · ${s.label.toUpperCase()}`}
+    {#if !here && peek !== s.key && (pills.length || reports.length)}
+        <span class="grp">
+            <button class="grp-tag stage-tag fold" type="button" title={s.line} aria-expanded="false"
+                onclick={() => togglePeek(s.key)}>{caption}<span class="chev" aria-hidden="true">›</span></button
+            >
+        </span>
+    {:else if pills.length || reports.length}
         <span class="grp">
             {#each pills.slice(0, 1) as tool}
                 <span class="lead">
-                    <span class="grp-tag stage-tag" class:lit={activeStage === s.key} title={s.line}
-                        >{s.n} · {s.label.toUpperCase()}</span
-                    >
+                    {#if here}
+                        <span class="grp-tag stage-tag lit" title={s.line}>{caption}</span>
+                    {:else}
+                        <button class="grp-tag stage-tag fold" type="button" title={s.line} aria-expanded="true"
+                            onclick={() => togglePeek(s.key)}>{caption}<span class="chev" aria-hidden="true">›</span></button
+                        >
+                    {/if}
                     {@render toolPill(tool, !!tool.scopedToSite && !site)}
                 </span>
             {/each}
@@ -728,6 +749,39 @@ $effect(() => {
     /* Full gold on the stage the page is in: the strip's one "you are here" above pill level, since the lit pill alone can't say which stage it belongs to. */
     .stage-tag.lit {
         color: var(--at-gold);
+    }
+    /* A caption, not a pill: a pill reads as a page to go to, and this opens in place. */
+    .fold {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0.3rem 0.1rem;
+        background: none;
+        border: 0;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: color 0.12s ease;
+    }
+    /* Wider than a caption's usual lead-in, so a run of folded stages reads as stops, not one sentence. */
+    .grp + .grp > .fold {
+        margin-left: 0.55rem;
+    }
+    .fold:hover,
+    .fold[aria-expanded="true"] {
+        color: var(--at-gold);
+    }
+    .fold:focus-visible {
+        outline: 1px solid var(--at-gold);
+        outline-offset: 2px;
+    }
+    .chev {
+        font-size: 0.7rem;
+        letter-spacing: 0;
+        opacity: 0.8;
+        transition: transform 0.14s ease;
+    }
+    .fold[aria-expanded="true"] .chev {
+        transform: rotate(90deg);
     }
 
     /* PINNED top-right, never part of the wrap: `margin-left: auto` would be the first item pushed onto a new line, dropping below the hops mid-header.
