@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { DRAWN_SHAPE_MAX_POINTS, mayAddVertex, overPhotoCap } from "./drawLimit";
+import { DRAWN_SHAPE_MAX_POINTS, mayAddVertex, overPhotoCap, photoRings } from "./drawLimit";
 
 describe("mayAddVertex", () => {
 	it("allows a vertex under the cap and refuses one at it", () => {
@@ -29,5 +29,22 @@ describe("overPhotoCap", () => {
 	it("is false for a point or nothing", () => {
 		expect(overPhotoCap({ type: "Point", coordinates: [0, 0] })).toBe(false);
 		expect(overPhotoCap(null)).toBe(false);
+	});
+});
+
+describe("photoRings", () => {
+	const square = (m: number, x0 = 0): number[][] => {
+		const d = m / 111_320;
+		return [[x0, 0], [x0 + d, 0], [x0 + d, d], [x0, d], [x0, 0]];
+	};
+	const small = square(707), big = square(3200, 1), absurd = square(40_000, 2);
+	it("gives a small piece close-ups and leaves a big neighbour out of that photo", () => {
+		expect(photoRings([small, big])).toEqual({ rings: [small], wide: false });
+	});
+	it("gives pieces over 100 ha Sentinel on their own", () => {
+		expect(photoRings([big])).toEqual({ rings: [big], wide: true });
+	});
+	it("gives nothing to a piece too big for Sentinel's tile cap", () => {
+		expect(photoRings([absurd])).toEqual({ rings: [], wide: true });
 	});
 });
