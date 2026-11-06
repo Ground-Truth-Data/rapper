@@ -44,10 +44,10 @@
 	--rt-fg-dim: var(--rt-rust);
 	--rt-fg-muted: #838963;
 
-	/* Archive rows: gold = FOCUS only. Rest: cream (top-level) / dim cream (nested); meta (sender/date/count) = bright terracotta. */
+	/* Archive rows: gold = FOCUS only. Rest: cream (top-level) / dim cream (nested); meta (sender/date/count) = the one rust. */
 	--rt-cream: #f4e8d0;
 	--rt-cream-dim: rgba(244, 232, 208, 0.65);
-	--rt-meta: #e88a5a;
+	--rt-meta: var(--rt-rust);
 
 	--rt-row-sender: #c3c8ac; /* a contact pill with no colour */
 	--rt-row-sep: #5c6046; /* " • " separator — divides without being read */
