@@ -1,6 +1,7 @@
 <!-- The inbox's top: pill rows, search and buttons; RowCard draws the rows below it. Get Cache's inbox and Ops' plugins both draw through it. -->
 <script lang="ts" module>
-export type ChromePill = { key: string; label: string; icon?: string | null; sep?: "chev" | "div" | null; on?: boolean; chain?: boolean };
+/** `tone`: the pill's own colour, lit or not, instead of rust that turns gold when lit. */
+export type ChromePill = { key: string; label: string; icon?: string | null; sep?: "chev" | "div" | null; on?: boolean; chain?: boolean; tone?: string };
 export type ChromeButton = { label: string; aria?: string; icon: Snippet; gold?: boolean; /** Gold border on black: the lead button without the fancy fill. */ ring?: boolean; onclick?: () => void; href?: string; /** As wide as its label, not an even share of the row. */ hug?: boolean };
 </script>
 
@@ -55,6 +56,8 @@ $effect(() => {
                             class:inbox2-pill--on={p.on}
                             class:inbox2-pill--chain={p.chain}
                             class:inbox2-pill--bare={!p.icon}
+                            class:inbox2-pill--tone={p.tone}
+                            style:--pill-tone={p.tone}
                             aria-pressed={!!p.on}
                             onclick={() => onpill?.(p.key, ri)}
                         >
@@ -175,6 +178,35 @@ $effect(() => {
 .inbox2-pill--on {
     background: color-mix(in srgb, var(--rt-yellow) 14%, transparent);
     box-shadow: inset 0 0 0 2px var(--rt-yellow);
+}
+/* Set after the lit rule, so a toned pill keeps its colour lit: only its fill and ring thicken. */
+.inbox2-pill.inbox2-pill--tone,
+.inbox2-pill.inbox2-pill--tone * {
+    color: var(--pill-tone) !important;
+}
+.inbox2-pill--tone {
+    box-shadow: inset 0 0 0 1.6px var(--pill-tone);
+}
+.inbox2-pill--tone.inbox2-pill--on {
+    background: color-mix(in srgb, var(--pill-tone) 14%, transparent);
+    box-shadow: inset 0 0 0 2px var(--pill-tone);
+}
+@media (hover: hover) {
+    .inbox2-pill:hover {
+        background: color-mix(in srgb, currentColor 12%, transparent);
+    }
+    .inbox2-pill.inbox2-pill--on:hover {
+        background: color-mix(in srgb, currentColor 24%, transparent);
+    }
+    .inbox2-newmap:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+    .inbox2-newmap--ring:hover {
+        background: color-mix(in srgb, var(--rt-yellow) 12%, #000);
+    }
+    .inbox2-search :global(.rt-search:hover:not(:focus-within)) {
+        border-color: color-mix(in srgb, var(--rt-cream) 45%, transparent);
+    }
 }
 .inbox2-pill-div {
     flex: none;
