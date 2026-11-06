@@ -178,10 +178,10 @@ it("every answer and every entry carries where it was taken, with no GPS field i
 	vi.unstubAllGlobals();
 });
 
-it("stamps an added entry with where it was added, and marks it once folded", async () => {
+it("stamps each entry with where it was added, the one the form opens with too, and marks it once folded", async () => {
 	const nested: Definition = {
 		title: "Trees",
-		elements: [{ type: "paneldynamic", name: "tree", title: "Tree", panelCount: 0, templateElements: [{ type: "text", name: "species", title: "Species" }] }],
+		elements: [{ type: "paneldynamic", name: "tree", title: "Tree", panelCount: 1, templateElements: [{ type: "text", name: "species", title: "Species" }] }],
 	};
 	const getCurrentPosition = vi.fn((ok: PositionCallback) => ok({ coords: { latitude: -19.41, longitude: 146.81, accuracy: 6 } } as GeolocationPosition));
 	vi.stubGlobal("navigator", { ...navigator, geolocation: { getCurrentPosition } });
@@ -189,7 +189,6 @@ it("stamps an added entry with where it was added, and marks it once folded", as
 	const { container, findByText, getByText, getByLabelText } = render(FormView, { definition: nested, onsubmit });
 	await findByText("Trees");
 	expect(container.querySelector("[data-gps-stamp]")).not.toBeNull();
-	await fireEvent.click(getByText("Add another"));
 	await waitFor(() => expect(getCurrentPosition).toHaveBeenCalledOnce());
 	await fireEvent.change(getByLabelText("Species"), { target: { value: "cedar" } });
 	await fireEvent.click(getByText("Add another"));
