@@ -201,6 +201,28 @@ it("stamps each entry with where it was added, the one the form opens with too, 
 	vi.unstubAllGlobals();
 });
 
+it("a version published with a hidden gps field keeps location only in the columns, never in data", async () => {
+	const old: Definition = {
+		title: "Old trees",
+		elements: [
+			{ type: "gps", name: "where", title: "Where" },
+			{ type: "paneldynamic", name: "tree", title: "Tree", panelCount: 1, templateElements: [{ type: "text", name: "species", title: "Species" }, { type: "gps", name: "tree_gps", title: "Tree GPS" }] },
+		],
+	};
+	const getCurrentPosition = vi.fn((ok: PositionCallback) => ok({ coords: { latitude: 55.1, longitude: -120.1, accuracy: 4 } } as GeolocationPosition));
+	vi.stubGlobal("navigator", { ...navigator, geolocation: { getCurrentPosition } });
+	const onsubmit = vi.fn();
+	const { container, findByText, getByText, getByLabelText } = render(FormView, { definition: old, onsubmit });
+	await findByText("Old trees");
+	expect(container.querySelector("[data-field=where], [data-field=tree_gps]")).toBeNull();
+	await fireEvent.change(getByLabelText("Species"), { target: { value: "cedar" } });
+	await fireEvent.click(getByText("Save"));
+	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
+	const fix = { lat: 55.1, lng: -120.1, accuracyM: 4 };
+	expect(split(old, onsubmit.mock.calls[0][0])).toEqual({ data: {}, fix, rows: [{ groupKey: "tree", n: 1, data: { species: "cedar" }, fix }] });
+	vi.unstubAllGlobals();
+});
+
 it("says where a photo is kept only when its ⓘ is tapped", async () => {
 	const shot: Definition = { title: "Shot", elements: [{ type: "file", name: "pic", title: "Photo" }] };
 	const { container, findByText, queryByText } = render(FormView, { definition: shot, onsubmit: vi.fn() });
