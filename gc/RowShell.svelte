@@ -371,11 +371,7 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         transition: background 140ms ease;
     }
     /* Folding is the common tap on a row that holds rows; the chevron's 30% opens its details. */
-    .rt-row__half--toggle {
-        left: 0;
-        width: 70%;
-        background: color-mix(in srgb, var(--palette-terracotta) 7%, transparent);
-    }
+    .rt-row__half--toggle { left: 0; width: 70%; }
     .rt-row__half--open { right: 0; width: 30%; }
     .rt-row .rt-row__half:hover { background: color-mix(in srgb, var(--rt-yellow) 10%, transparent); }
     .rt-row .rt-row__half:active { background: color-mix(in srgb, var(--palette-terracotta) 28%, transparent); }
