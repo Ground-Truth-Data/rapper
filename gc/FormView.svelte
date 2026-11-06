@@ -63,15 +63,12 @@
 		required: q.isRequired, visible: q.isVisible, value: q.value,
 		errors: q.errors.map((e) => e.getText()),
 		choices: (q.visibleChoices ?? []).map((c: { value: unknown; text: string }) => ({ value: c.value, text: c.text })),
-		panels: (q.panels ?? []).map((p: PanelModel) => ({ p, items: p.questions.filter(asked).map(view), stamped: p.questions.some((x) => !asked(x) && x.value) })),
+		panels: (q.panels ?? []).map((p: PanelModel) => ({ p, items: p.questions.map(view), stamped: !!(p.data as unknown as { getValue: (k: string) => unknown }).getValue(FIX) })),
 	});
 	// One page per section: the form's head and its loose fields first, then each panel; a loose field after a
 	// panel stays on that panel's page, so the builder's order holds. A fresh view each change: survey-core's
 	// objects are not reactive.
 	type Page = { name?: string; title?: string; description?: string; items: View[] };
-	// GPS is never asked: the form's is stamped as the planter saves, an entry's as it is added.
-	const asked = (q: Question) => q.getType() !== 'gps';
-	const gps = $derived(tick && model ? model.getAllQuestions().find((q) => !asked(q)) : undefined);
 	// A refused or missing fix leaves the answer unstamped; it never stops the form.
 	const locate = () =>
 		new Promise<{ lat: number; lng: number; accuracy: number } | undefined>((done) => {
@@ -84,12 +81,10 @@
 			);
 		});
 	const toFix = (s: { lat: number; lng: number; accuracy: number }): Fix => ({ lat: s.lat, lng: s.lng, accuracyM: s.accuracy });
-	// An entry is located once, as it is added: its own fix, and its GPS field if the form has one.
+	// An entry is located once, as it is added.
 	async function fixEntry(panel: PanelModel) {
 		const s = await locate();
 		if (!s) return;
-		const q = panel.questions.find((q: Question) => !asked(q));
-		if (q) set(q, s);
 		(panel.data as unknown as { setValue: (k: string, v: unknown) => void }).setValue(FIX, toFix(s));
 		tick++;
 	}
@@ -97,15 +92,14 @@
 	async function stamp() {
 		const s = await locate();
 		if (!s) return;
-		if (gps && !gps.value) set(gps, s);
 		model!.setValue(FIX, toFix(s));
 	}
 	const pages = $derived.by<Page[]>(() => {
 		if (!tick || !model) return [];
 		const out: Page[] = [{ title: definition.title, description: definition.description, items: [] }];
 		for (const e of model.pages[0].elements) {
-			if (e.isPanel) out.push({ name: e.name, title: (e as PanelModel).title, description: (e as PanelModel).description, items: (e as PanelModel).questions.filter(asked).map(view) });
-			else if (asked(e as Question)) out.at(-1)!.items.push(view(e as Question));
+			if (e.isPanel) out.push({ name: e.name, title: (e as PanelModel).title, description: (e as PanelModel).description, items: (e as PanelModel).questions.map(view) });
+			else out.at(-1)!.items.push(view(e as Question));
 		}
 		return out.length > 1 && !out[0].items.length ? out.slice(1) : out;
 	});
@@ -264,7 +258,7 @@
 			{#if page.description}<span class="desc">{page.description}</span>{/if}
 		</div>
 		{#each page.items as v (v.q.id)}{@render field(v)}{/each}
-		{#if gps}<span class="muted stamped" data-gps-stamp>Your location is stamped when you save</span>{/if}
+		{#if tick && !model.getValue(FIX)}<span class="muted stamped" data-gps-stamp>Your location is stamped when you save</span>{/if}
 		<div class="nav">
 			{#if at > 0}<button type="button" class="back font-display" onclick={() => (path = path.slice(0, -1))} data-back>Back</button>{/if}
 			<button class="rt-fancy-btn next" data-next>{last ? 'Save' : 'Next'}{#if !last}<span class="go" style="--src: url({arrow})"></span>{/if}</button>

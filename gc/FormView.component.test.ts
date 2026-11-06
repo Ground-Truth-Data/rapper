@@ -12,7 +12,6 @@ const form: Definition = {
 	title: "Tree survey",
 	elements: [
 		{ type: "text", inputType: "date", name: "date", title: "Date", isRequired: true },
-		{ type: "gps", name: "where", title: "Where" },
 		{ type: "paneldynamic", name: "trees", title: "Trees", panelCount: 1, panelAddText: "+ Tree", templateElements: [{ type: "text", inputType: "number", name: "dbh", title: "DBH", max: 100 }] },
 	],
 };
@@ -21,7 +20,6 @@ it("refuses a missing required field and an out-of-range number, then saves", as
 	const onsubmit = vi.fn();
 	const { container, findByText, getByText, getByLabelText } = render(FormView, { definition: form, onsubmit });
 	await findByText("Tree survey");
-	expect(container.querySelector("[data-field=where]")).toBeNull();
 	await fireEvent.change(getByLabelText("DBH"), { target: { value: "140" } });
 	await fireEvent.click(getByText("Save"));
 	await waitFor(() => expect([...container.querySelectorAll("[data-error]")].map((e) => e.textContent)).toEqual(["Response required.", "The value should not be greater than 100"]));
@@ -36,10 +34,9 @@ it("refuses a missing required field and an out-of-range number, then saves", as
 });
 
 it("refuses what Central would: a key from elsewhere, a group in the header, a wrong shape", () => {
-	expect(refused(form, { date: "2026-11-05", where: { lat: 49.2, lng: -123.1 } })).toBeNull();
+	expect(refused(form, { date: "2026-11-05" })).toBeNull();
 	expect(refused(form, { colour: "red" })).toMatch(/colour is not a field/);
 	expect(refused(form, { trees: [] })).toMatch(/trees is not a field/);
-	expect(refused(form, { where: "here" })).toMatch(/where does not hold a gps/);
 	expect(refused(form, { dbh: 12 }, "trees")).toBeNull();
 	expect(refused(form, { dbh: "big" }, "trees")).toMatch(/dbh does not hold a text:number/);
 	expect(refused(form, { date: "x" }, "trees")).toMatch(/date is not a field/);
@@ -184,29 +181,24 @@ it("every answer and every entry carries where it was taken, with no GPS field i
 it("stamps an added entry with where it was added, and marks it once folded", async () => {
 	const nested: Definition = {
 		title: "Trees",
-		elements: [{ type: "paneldynamic", name: "tree", title: "Tree", panelCount: 0, templateElements: [
-			{ type: "text", name: "species", title: "Species" },
-			{ type: "gps", name: "tree_gps" },
-		] }],
+		elements: [{ type: "paneldynamic", name: "tree", title: "Tree", panelCount: 0, templateElements: [{ type: "text", name: "species", title: "Species" }] }],
 	};
 	const getCurrentPosition = vi.fn((ok: PositionCallback) => ok({ coords: { latitude: -19.41, longitude: 146.81, accuracy: 6 } } as GeolocationPosition));
 	vi.stubGlobal("navigator", { ...navigator, geolocation: { getCurrentPosition } });
 	const onsubmit = vi.fn();
 	const { container, findByText, getByText, getByLabelText } = render(FormView, { definition: nested, onsubmit });
 	await findByText("Trees");
+	expect(container.querySelector("[data-gps-stamp]")).not.toBeNull();
 	await fireEvent.click(getByText("Add another"));
 	await waitFor(() => expect(getCurrentPosition).toHaveBeenCalledOnce());
-	expect(container.querySelector("[data-field=tree_gps]")).toBeNull();
 	await fireEvent.change(getByLabelText("Species"), { target: { value: "cedar" } });
 	await fireEvent.click(getByText("Add another"));
 	await waitFor(() => expect(container.querySelector("[data-entry='1'] [data-gps-mark]")).not.toBeNull());
 	await fireEvent.click(getByText("Save"));
 	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
-	const spot = { lat: -19.41, lng: 146.81, accuracy: 6 };
 	const fix = { lat: -19.41, lng: 146.81, accuracyM: 6 };
-	expect(onsubmit.mock.calls[0][0]).toEqual({ [FIX]: fix, tree: [{ species: "cedar", tree_gps: spot, [FIX]: fix }, { tree_gps: spot, [FIX]: fix }] });
-	expect(split(nested, onsubmit.mock.calls[0][0]).rows[0]).toEqual({ groupKey: "tree", n: 1, data: { species: "cedar", tree_gps: spot }, fix });
-	expect(refused(nested, { species: "cedar", tree_gps: spot }, "tree")).toBeNull();
+	expect(onsubmit.mock.calls[0][0]).toEqual({ [FIX]: fix, tree: [{ species: "cedar", [FIX]: fix }, { [FIX]: fix }] });
+	expect(split(nested, onsubmit.mock.calls[0][0]).rows).toEqual([{ groupKey: "tree", n: 1, data: { species: "cedar" }, fix }]);
 	vi.unstubAllGlobals();
 });
 
