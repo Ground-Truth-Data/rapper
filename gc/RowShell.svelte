@@ -124,8 +124,8 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
     .rt-row--selected,
     .rt-row--inspecting { border-color: var(--rt-border-active); }
     .rt-row--active {
-        border-color: var(--rt-yellow);
-        box-shadow: inset 0 0 0 1px var(--rt-yellow);
+        border-color: var(--rt-row-tone, var(--rt-yellow));
+        box-shadow: inset 0 0 0 1px var(--rt-row-tone, var(--rt-yellow));
         /* background-image layer so the row's base surface stays black,
            just gold-washed. */
         background-image: linear-gradient(
@@ -384,10 +384,10 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         content: "";
         position: absolute;
         left: 0;
-        width: 2px;
-        height: 9px;
+        width: 1px;
+        height: 4px;
         background: var(--rt-row-tone, var(--rust));
-        opacity: 0.8;
+        opacity: 0.5;
     }
     .rt-row__half--toggle + .rt-row__half--open::before { top: 0; }
     .rt-row__half--toggle + .rt-row__half--open::after { bottom: 0; }
