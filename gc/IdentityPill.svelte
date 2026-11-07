@@ -92,6 +92,6 @@ const second = $derived(hammer || !!editor || edited);
     }
     .id-pill--hammer {
         background: #4a2a1f;
-        color: #ffb39f;
+        color: var(--rust);
     }
 </style>
