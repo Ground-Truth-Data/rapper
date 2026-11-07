@@ -233,3 +233,23 @@ it("says where a photo is kept only when its ⓘ is tapped", async () => {
 	await fireEvent.click(container.querySelector("[data-photo-info]")!);
 	expect(queryByText("Only on this phone until you send it.")).toBeNull();
 });
+
+it("a Person question offers only the people it is given, searchable, and takes no free text", async () => {
+	const onsubmit = vi.fn();
+	const def: Definition = { title: "Crew", elements: [{ type: "dropdown", name: "boss", title: "Boss", contacts: true }] };
+	const people = [
+		{ key: "p1", name: "Carlie", color: "#3fb8af", picked: true },
+		{ key: "p2", name: "Pete", color: "#e07a9a", picked: false },
+	];
+	const { container, findByText, getByLabelText, getByText } = render(FormView, { definition: def, onsubmit, people });
+	await findByText("Crew");
+	const offered = () => [...container.querySelectorAll("[data-person]")].map((e) => e.textContent?.trim());
+	expect(offered()).toEqual(["Carlie", "Pete"]);
+	expect(container.querySelector("select")).toBeNull();
+	await fireEvent.input(getByLabelText("Boss"), { target: { value: "pe" } });
+	await waitFor(() => expect(offered()).toEqual(["Pete"]));
+	await fireEvent.click(getByText("Pete"));
+	await fireEvent.click(getByText("Save"));
+	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
+	expect(onsubmit.mock.calls[0][0]).toEqual({ boss: "p2" });
+});

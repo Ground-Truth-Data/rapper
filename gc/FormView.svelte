@@ -1,12 +1,15 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import type { Model, PanelModel, Question } from 'survey-core';
-	import { type Definition, FIX, type Fix, type Trigger } from './form';
+	import { type Definition, type El, FIX, type Fix, type Trigger } from './form';
+	import IdentityPill from './IdentityPill.svelte';
 	import { loadSurvey } from './formSurvey';
 	import arrow from '$rig/assets/arrowIconGold.webp';
 
 	type Draft = { data: Record<string, unknown>; path: number[] };
-	let { definition, onsubmit, keep = async (f: File) => f.name, draft, onchange }: {
+	/** One of the filler's contacts, as a Person question offers them: the answer is the key. */
+	type Person = { key: string; name: string; color: string; picked: boolean };
+	let { definition, onsubmit, keep = async (f: File) => f.name, draft, onchange, people = [] }: {
 		definition: Definition;
 		onsubmit: (data: Record<string, unknown>) => void;
 		/** Where the planter left off: the form opens on it. */
@@ -15,7 +18,16 @@
 		onchange?: (d: Draft) => void;
 		/** Saves a photo and returns its blob key: answers never hold the picture itself. */
 		keep?: (file: File) => Promise<string>;
+		/** The host's contacts: rapper reaches no store. */
+		people?: Person[];
 	} = $props();
+	// survey-core drops a property it doesn't know, so a Person question is found in the definition itself.
+	const persons = $derived.by(() => {
+		const walk = (els: El[]): string[] => els.flatMap((e) => [...(e.contacts ? [e.name] : []), ...walk((e.templateElements ?? e.elements ?? []) as El[])]);
+		return new Set(walk(definition.elements));
+	});
+	let find = $state<Record<string, string>>({});
+	const nameOf = (key: unknown) => people.find((p) => p.key === key)?.name ?? 'someone not in your contacts';
 
 	let model = $state.raw<Model>();
 	let tick = $state(0);
@@ -28,8 +40,11 @@
 	$effect(() => {
 		// Our pages follow the triggers; survey-core's own would act on its single page instead.
 		const { triggers = [], ...def } = $state.snapshot(definition);
+		// A dropdown without choices would drop its personKey; survey-core keeps a Person answer as text.
+		const plain = (els: El[]): El[] =>
+			els.map((e) => ({ ...e, ...(e.contacts ? { type: 'text' } : {}), ...(e.elements ? { elements: plain(e.elements as El[]) } : {}), ...(e.templateElements ? { templateElements: plain(e.templateElements as El[]) } : {}) }));
 		loadSurvey().then(({ Model, ExpressionRunner }) => {
-			const m = new Model(def);
+			const m = new Model({ ...def, elements: plain(def.elements) });
 			m.onValueChanged.add(() => tick++);
 			m.onDynamicPanelAdded.add((_, { panel }) => {
 				void fixEntry(panel);
@@ -147,7 +162,10 @@
 		q.addPanel();
 	}
 	const summary = (items: View[]) =>
-		items.filter((v) => v.value != null && typeof v.value !== 'object').map((v) => (typeof v.value === 'number' ? `${v.title} ${v.value}` : String(v.value))).join(' · ') || 'empty';
+		items
+			.filter((v) => v.value != null && typeof v.value !== 'object')
+			.map((v) => (persons.has(v.q.name) ? nameOf(v.value) : typeof v.value === 'number' ? `${v.title} ${v.value}` : String(v.value)))
+			.join(' · ') || 'empty';
 
 	const valid = (p: Page) => p.items.filter((v) => v.visible).map((v) => v.q.validate(true)).every(Boolean);
 	async function go(e: SubmitEvent) {
@@ -174,7 +192,18 @@
 				>{v.title}{#if v.required}<span class="req">*</span>{/if}{#if v.type === 'paneldynamic'}<span class="count" data-count>{v.panels.length}</span>{/if}</span
 			>
 			{#if v.description}<span class="muted">{v.description}</span>{/if}
-			{#if v.type === 'text'}
+			{#if persons.has(v.q.name)}
+				{@const q = (find[v.q.id] ?? '').trim().toLowerCase()}
+				<input type="search" aria-label={v.title} placeholder="Search your contacts" bind:value={find[v.q.id]} />
+				<div class="people" data-people>
+					{#each people.filter((p) => !q || p.name.toLowerCase().includes(q)) as p (p.key)}
+						<button type="button" class="person" class:on={p.key === v.value} aria-pressed={p.key === v.value} onclick={() => set(v.q, p.key === v.value ? '' : p.key)} data-person={p.key}
+							><IdentityPill who={{ label: p.name, color: p.color, self: false, picked: p.picked }} /></button
+						>
+					{/each}
+				</div>
+				{#if v.value != null && !people.some((p) => p.key === v.value)}<span class="muted">{nameOf(v.value)}</span>{/if}
+			{:else if v.type === 'text'}
 				<input aria-label={v.title} type={v.input === 'number' || v.input === 'date' ? v.input : 'text'} value={v.value ?? ''}
 					onchange={(e) => set(v.q, v.input === 'number' && e.currentTarget.value !== '' ? Number(e.currentTarget.value) : e.currentTarget.value)} />
 			{:else if v.type === 'dropdown'}
@@ -329,6 +358,9 @@
 	}
 	.plus { width: 1.5rem; height: 1.5rem; border-radius: 999px; background: var(--rt-sage); color: #161a10; line-height: 1.5rem; text-align: center; }
 	.muted { color: var(--rt-fg-muted); font-size: 0.875rem; }
+	.people { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+	.person { padding: 0.3rem; border: 2px solid transparent; border-radius: 999px; }
+	.person.on { border-color: var(--rt-yellow); }
 	.req { margin-left: 0.3em; color: #ff4d55; font-size: 1.2em; font-weight: 800; line-height: 0; vertical-align: -0.15em; }
 	.error { color: #ff4d55; font-size: 0.875rem; }
 	.nav { display: flex; gap: 0.6rem; padding-top: 0.5rem; }
