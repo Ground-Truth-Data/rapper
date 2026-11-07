@@ -16,12 +16,17 @@ let {
     editor = null,
     hammer = false,
     edited = false,
-}: { who: Identity; editor?: Identity | null; hammer?: boolean; edited?: boolean } = $props();
+    clobber = false,
+}: { who: Identity; editor?: Identity | null; hammer?: boolean; edited?: boolean; clobber?: boolean } = $props();
 const second = $derived(hammer || !!editor || edited);
 </script>
 
 <!-- Dashed = a colour handed out on arrival, still unstyled; filled = chosen
      on purpose. Only you wear a solid gold outline. -->
+{#if clobber}
+<!-- Who clobbered it, alone: the hammer, then the person who made the edit. -->
+<span class="id-pill-wrap"><span class="id-pill id-pill--editor id-pill--hammer id-pill--alone" title={m.gc_edit_replaced()}><Icon name="hammer" size={10} stroke={2.6} />{who.label}</span></span>
+{:else}
 <span class="id-pill-wrap" class:id-pill-wrap--double={second}>
     <span
         class="id-pill"
@@ -38,6 +43,7 @@ const second = $derived(hammer || !!editor || edited);
         <span class="id-pill id-pill--editor" title={m.gc_edited_since_made()}><Icon name="pen" size={10} /></span>
     {/if}
 </span>
+{/if}
 
 <style>
     .id-pill-wrap {
@@ -93,5 +99,8 @@ const second = $derived(hammer || !!editor || edited);
     .id-pill--hammer {
         background: #4a2a1f;
         color: var(--rust);
+    }
+    .id-pill--alone {
+        border-radius: 999px;
     }
 </style>
