@@ -114,6 +114,7 @@ export const MIRRORED_TABLES = [
 	"editNoteTable",
 	"appState",
 	"orgTable",
+	"orgNameTable",
 	"orgKindTable",
 	"orgTagTable",
 	"userProfile",
@@ -143,6 +144,7 @@ export const DEVICE_TABLES = [
 	"mapEntity",
 	"mapTable",
 	"orgTable",
+	"orgNameTable",
 	"orgKindTable",
 	"orgTagTable",
 	"packageEntity",
@@ -170,7 +172,7 @@ export const GC_SCHEMA_SEATS = [
 	"bagUpTable", "bagUpEntity", "tallyTable", "tallyEntity",
 	"packageTable", "packageEntity", "boxTable", "boxEntity",
 	"stockTable", "deliveryTable", "allocationTable", "crewTable", "personEntity", "personTable", "personIdTable",
-	"appState", "userProfile", "orgTable", "orgKindTable", "orgTagTable", "touchTable", "editNoteTable", "snapshot",
+	"appState", "userProfile", "orgTable", "orgNameTable", "orgKindTable", "orgTagTable", "touchTable", "editNoteTable", "snapshot",
 ] as const;
 
 // The pill caption IS the SQL identifier, casing included.
