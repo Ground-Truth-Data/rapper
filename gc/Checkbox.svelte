@@ -49,8 +49,8 @@ let {
         flex-shrink: 0;
     }
     .rt-cb--rust.rt-cb--on {
-        background: var(--rt-rust);
-        border-color: var(--rt-rust);
+        background: var(--rust);
+        border-color: var(--rust);
     }
     .rt-cb--yellow.rt-cb--on {
         background: var(--rt-yellow);

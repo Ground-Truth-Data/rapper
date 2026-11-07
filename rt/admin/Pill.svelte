@@ -45,31 +45,31 @@
 	.view {
 		font-size: 0.72rem;
 		padding: 0.27rem 0.66rem;
-		color: var(--rt-rust);
-		border-color: color-mix(in srgb, var(--rt-rust), var(--at-panel) 55%);
+		color: var(--rust);
+		border-color: color-mix(in srgb, var(--rust), var(--at-panel) 55%);
 	}
 	.scr:hover {
-		border-color: var(--rt-rust);
+		border-color: var(--rust);
 	}
 	.view {
 		gap: 0.34rem;
 	}
 	.view:hover {
-		background: color-mix(in srgb, var(--rt-rust) 10%, var(--at-panel));
+		background: color-mix(in srgb, var(--rust) 10%, var(--at-panel));
 	}
 	.view :global(svg) {
 		flex-shrink: 0;
 	}
-	/* RUST, smaller — subordinate to the tools. Every shade derives from the ONE --rt-rust token. */
+	/* RUST, smaller — subordinate to the tools. Every shade derives from the ONE --rust token. */
 	.table {
 		font-size: 0.7rem;
 		padding: 0.26rem 0.62rem;
-		color: color-mix(in srgb, var(--rt-rust), var(--at-panel) 12%);
-		border-color: color-mix(in srgb, var(--rt-rust), var(--at-panel) 68%);
+		color: color-mix(in srgb, var(--rust), var(--at-panel) 12%);
+		border-color: color-mix(in srgb, var(--rust), var(--at-panel) 68%);
 	}
 	.table:hover {
-		color: var(--rt-rust);
-		border-color: color-mix(in srgb, var(--rt-rust), var(--at-panel) 45%);
+		color: var(--rust);
+		border-color: color-mix(in srgb, var(--rust), var(--at-panel) 45%);
 	}
 	/* SAGE, the third accent: the fixed vocabularies the rust tables point AT. Flat sage: any mix toward the floor drops it under 4.5:1. */
 	.lookup {

@@ -25,7 +25,7 @@
 	--color-background: var(--rt-bg);
 	--color-foreground: var(--rt-fg);
 
-	--color-muted-foreground: #c97a4a;
+	--color-muted-foreground: var(--rust);
 
 	--color-popover: var(--rt-bg);
 	--color-popover-foreground: var(--rt-fg);
@@ -46,19 +46,18 @@
 
 	--color-ring: #cbd5e1;
 
-	--color-link: var(--palette-rust);
+	--color-link: var(--rust);
 
 	--color-accent-gold: var(--palette-gold);
-	--color-accent-terracotta: var(--palette-terracotta);
 	--color-accent-sage: var(--palette-sage);
 
-	--color-section-header: var(--color-accent-terracotta);
-	--color-nav: var(--color-accent-terracotta);
-	--color-heading: var(--color-accent-terracotta);
-	--color-hint: var(--palette-terracotta-hint);
-	--color-mode-indicator: var(--palette-terracotta-hint);
-	--color-readout: var(--palette-terracotta-hint);
-	--color-draw: var(--color-accent-terracotta);
+	--color-section-header: var(--rust);
+	--color-nav: var(--rust);
+	--color-heading: var(--rust);
+	--color-hint: var(--rust);
+	--color-mode-indicator: var(--rust);
+	--color-readout: var(--rust);
+	--color-draw: var(--rust);
 
 	/* .org's gold is deliberately warmer than --rt-yellow — never collapse them, that repaints the mobile app. */
 	--color-gold-bar: #f5a119;
@@ -196,7 +195,7 @@
 	}
 
 	.gc-shell :where(p, li) a {
-		color: var(--rt-rust);
+		color: var(--rust);
 	}
 
 	/* Must follow the emphasis rule: equal specificity, and a <strong> inside a link would take the gold back. */
@@ -206,7 +205,7 @@
 
 	.gc-shell :where(p, li) a:hover,
 	.gc-shell :where(p, li) a:focus-visible {
-		color: var(--rt-meta);
+		color: var(--rust);
 		opacity: 1;
 	}
 

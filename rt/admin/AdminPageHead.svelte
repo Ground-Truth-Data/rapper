@@ -76,7 +76,7 @@ let { title, ident, search, sub, meta, metaSlot, actions }: Props = $props();
 		font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 		font-size: 12px;
 		font-weight: 500;
-		color: var(--at-accent, #c97a4a);
+		color: var(--at-accent, var(--rust));
 		margin-left: 8px;
 	}
 	/* Degrades by SHRINKING to `min-width` before the row's flex-wrap drops it to its own line. Container-relative, not a media query, so it reads the space actually in the row. */

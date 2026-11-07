@@ -14,7 +14,7 @@
 	--rt-yellow: #ffd700;
 	--rt-font-display: "Retreever", sans-serif;
 	--rt-font-web: Futura, "Century Gothic", "Trebuchet MS", sans-serif;
-	--palette-terracotta: #c97a4a;
+	--rust: #c97a4a;
 
 	/* Two different golds on purpose — the bar is warmer than the shard edging. */
 	--color-gold-bar: #f5a119;
@@ -24,9 +24,8 @@
 	   violet propagates through --color-foreground instead of freezing white here. */
 	--color-accent: var(--rt-yellow);
 	--color-accent-foreground: var(--rt-yellow);
-	--color-accent-terracotta: var(--palette-terracotta);
 	--color-background: var(--rt-bg);
 	--color-foreground: var(--rt-fg);
-	--color-muted-foreground: #c97a4a;
+	--color-muted-foreground: var(--rust);
 	--font-retreever: var(--rt-font-display);
 }

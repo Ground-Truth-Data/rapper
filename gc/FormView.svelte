@@ -318,9 +318,9 @@
 	.head h2 { font-size: 1.75rem; line-height: 1.15; }
 	.desc { color: var(--rt-fg-muted); }
 	.field { display: flex; flex-direction: column; gap: 0.5rem; }
-	.form > .field { padding: 1rem; border: 2px solid var(--rt-rust); border-radius: 1.1rem; }
+	.form > .field { padding: 1rem; border: 2px solid var(--rust); border-radius: 1.1rem; }
 	.label { font-size: 1.1rem; }
-	.form > .field > .label { color: var(--rt-rust); }
+	.form > .field > .label { color: var(--rust); }
 	.entry .label { color: var(--rt-sage); font-size: 1rem; }
 	.choices { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 1rem; }
 	.choices label { display: flex; align-items: center; gap: 0.25rem; }
