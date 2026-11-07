@@ -639,8 +639,8 @@ html.native {
 	--rt-popover-glass: rgba(12, 12, 12, 0.92);
 }
 html.native .measure-pop {
-	backdrop-filter: blur(24px) saturate(180%) !important;
-	-webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+	backdrop-filter: blur(10px) !important;
+	-webkit-backdrop-filter: blur(10px) !important;
 }
 
 /* Here, not devCard.css, because the public wiki pages dock here too; .dev-lane aliases these rules. */
