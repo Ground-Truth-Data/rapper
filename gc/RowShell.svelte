@@ -378,5 +378,7 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
     .rt-row__half:focus-visible { outline: 2px solid var(--rt-yellow); outline-offset: -2px; }
     .rt-row__checkbox { z-index: 2; }
     .rt-row__badge--gold { color: var(--rt-yellow); border-color: var(--rt-yellow); white-space: nowrap; }
+    .rt-row__badge--rust { color: var(--rust); border-color: var(--rust); white-space: nowrap; }
+    .rt-row__badge--rustFill { color: #121212; background: var(--rust); border-color: var(--rust); white-space: nowrap; }
 }
 </style>
