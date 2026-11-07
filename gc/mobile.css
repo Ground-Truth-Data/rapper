@@ -74,8 +74,8 @@
 
 	--rust: #c97a4a;
 	/* Lighter on purpose: thin text and 1.5px lines in #c97a4a read brown on #1a1a1a. */
-	--rt-meta: #e88a5a;
-	--rust-edge: #d18a5e;
+	--rt-meta: #e88555;
+	--rust-edge: #c77555;
 	--rust-soft: color-mix(in srgb, var(--rust) 14%, transparent);
 
 	/* The rose of ConfirmedDiamond's art, for text that names it. */
