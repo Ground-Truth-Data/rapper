@@ -118,11 +118,9 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         word-break: normal;
     }
 
-    /* selected/active share a look (gold border, no fill) so a list with
-       everything selected doesn't read as a different style than one
-       selection. Selected is signaled by the checkbox; active by the pill. */
+    /* A ticked row keeps its own colour: the checkbox says selected. */
     .rt-row--selected,
-    .rt-row--inspecting { border-color: var(--rt-border-active); }
+    .rt-row--inspecting { border-color: var(--rt-row-tone, var(--rt-border-active)); }
     .rt-row--active {
         border-color: var(--rt-row-tone, var(--rt-yellow));
         box-shadow: inset 0 0 0 1px var(--rt-row-tone, var(--rt-yellow));
