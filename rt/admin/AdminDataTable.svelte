@@ -765,8 +765,9 @@ const numCols = $derived(
 	   scrolling columns, leaving a transparent strip a frozen cell's edge
 	   would show through — the gutter lives on the first cell instead. */
 	.adt-wrap {
-		/* Under CSS `zoom` a vw is still pre-zoom, so it is divided back out or the table starts off-screen. */
-		margin-inline: calc(50% - 50vw / var(--page-zoom, 1));
+		/* Under CSS `zoom` a vw is still pre-zoom, so it is divided back out or the table starts off-screen.
+		   --adt-bleed: 0 keeps the table inside a box narrower than the window, like a drawer. */
+		margin-inline: var(--adt-bleed, calc(50% - 50vw / var(--page-zoom, 1)));
 		padding-inline: 0 24px;
 	}
 
@@ -942,7 +943,7 @@ const numCols = $derived(
 	/* Full-bleed like the scroller below it, and gutter-aligned with the row's
 	   first cell so the control sits on the grid's own left edge. */
 	.adt-modes {
-		margin-inline: calc(50% - 50vw / var(--page-zoom, 1));
+		margin-inline: var(--adt-bleed, calc(50% - 50vw / var(--page-zoom, 1)));
 		padding: 0 24px 8px;
 		display: flex;
 		justify-content: flex-end;
