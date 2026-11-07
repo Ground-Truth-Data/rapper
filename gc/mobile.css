@@ -552,7 +552,7 @@ hr {
 	gap: 0.4rem;
 	padding: 0.45rem 0.7rem 0.45rem 0.5rem;
 	background: var(--rt-overlay);
-	border: var(--rt-border-w-structural) solid color-mix(in srgb, var(--rust) 55%, transparent);
+	border: var(--rt-border-w-structural) solid var(--rust);
 	border-radius: var(--rt-radius-sm);
 	color: var(--rust);
 	cursor: pointer;
@@ -1124,7 +1124,7 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	padding: 0.7rem 0.75rem 0.75rem;
 	border-radius: 0.95rem;
 	/* 2px @25%: a 1px hairline had no luminance step over satellite imagery. */
-	border: 2px solid color-mix(in srgb, var(--rust), transparent 25%);
+	border: 2px solid var(--rust);
 	box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
 }
 
@@ -1282,7 +1282,7 @@ body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
 	font-family: var(--rt-font-display, "Retreever", sans-serif);
 	padding: 0.7rem 0.75rem 0.75rem;
 	border-radius: 0.95rem;
-	border: 2px solid color-mix(in srgb, var(--rust), transparent 25%);
+	border: 2px solid var(--rust);
 	box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
 }
 .rt-hospital-popup .maplibregl-popup-tip {
