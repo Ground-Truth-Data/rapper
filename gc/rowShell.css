@@ -82,8 +82,8 @@
 }
 
 .row-track--swiping-unbundle {
-	background: rgba(201, 122, 74, 0.5);
-	border-color: rgba(201, 122, 74, 0.7);
+	background: color-mix(in srgb, var(--rust) 50%, transparent);
+	border-color: color-mix(in srgb, var(--rust) 70%, transparent);
 }
 
 .row-track--swiping-bundle {
@@ -137,8 +137,8 @@
 /* Unbagging: ring goes ORANGE not gold — higher specificity here beats the plain .row-card--glow. */
 .row-wrapper .row-track--swiping-unbundle + .row-card--glow {
 	box-shadow:
-		0 0 0 2px #c97a4a,
-		0 0 8px rgba(201, 122, 74, 0.4),
+		0 0 0 2px var(--rust),
+		0 0 8px color-mix(in srgb, var(--rust) 40%, transparent),
 		0 8px 28px rgba(0, 0, 0, 0.7),
 		0 3px 8px rgba(0, 0, 0, 0.5);
 }

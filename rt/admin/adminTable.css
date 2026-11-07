@@ -306,7 +306,7 @@
 	white-space: nowrap;
 }
 .admin-pct.mid {
-	background: var(--rt-rust-soft);
+	background: var(--rust-soft);
 	color: var(--at-accent-bright);
 }
 

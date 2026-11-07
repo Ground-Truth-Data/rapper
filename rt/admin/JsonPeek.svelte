@@ -306,6 +306,6 @@ pre {
 	opacity: 0.55;
 }
 .err {
-	color: var(--palette-terracotta, #c97a4a);
+	color: var(--rust);
 }
 </style>

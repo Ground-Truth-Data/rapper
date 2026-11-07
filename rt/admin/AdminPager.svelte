@@ -134,8 +134,8 @@ const atStart = $derived(page === 0);
 		white-space: nowrap;
 	}
 	.pg-btn:hover:not(.disabled) {
-		border-color: var(--at-accent, #c97a4a);
-		color: var(--at-accent, #c97a4a);
+		border-color: var(--at-accent, var(--rust));
+		color: var(--at-accent, var(--rust));
 	}
 	/* Inert, not gone — `pointer-events` alone would still leave it keyboard-reachable, hence tabindex in markup. */
 	.pg-btn.disabled {

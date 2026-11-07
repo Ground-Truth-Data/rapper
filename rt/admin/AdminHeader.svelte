@@ -491,8 +491,8 @@ $effect(() => {
         flex-shrink: 0;
         white-space: nowrap;
         letter-spacing: 0.12em;
-        color: var(--rt-rust); /* same rust as the CRUD group it introduces — see Pill.svelte */
-        border: 1px solid color-mix(in srgb, var(--rt-rust), var(--at-panel) 68%);
+        color: var(--rust); /* same rust as the CRUD group it introduces — see Pill.svelte */
+        border: 1px solid color-mix(in srgb, var(--rust), var(--at-panel) 68%);
         border-radius: 4px;
         padding: 0.1rem 0.35rem;
         margin-right: 0.35rem;
@@ -539,7 +539,7 @@ $effect(() => {
         font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
         font-size: 0.85rem;
         font-weight: 600;
-        color: var(--rt-rust);
+        color: var(--rust);
         /* The native popup is OS-drawn and unstyleable; `color-scheme` is the one
            lever that keeps it dark instead of dropping a white menu on the band. */
         color-scheme: dark;
@@ -547,7 +547,7 @@ $effect(() => {
         background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' fill='none' stroke='%23c97a4a' stroke-width='1.5'/></svg>");
         background-repeat: no-repeat;
         background-position: right 0.75rem center;
-        border: 1px solid color-mix(in srgb, var(--rt-rust), var(--at-panel) 45%);
+        border: 1px solid color-mix(in srgb, var(--rust), var(--at-panel) 45%);
         border-radius: 999px;
         padding: 0.4rem 2rem 0.4rem 0.9rem;
         text-overflow: ellipsis;
@@ -562,25 +562,25 @@ $effect(() => {
         font-size: 0.9rem;
         line-height: 1;
         text-decoration: none;
-        color: color-mix(in srgb, var(--rt-rust), var(--at-panel) 30%);
+        color: color-mix(in srgb, var(--rust), var(--at-panel) 30%);
         border-radius: 5px;
         transition: color 0.12s ease, background-color 0.12s ease;
     }
     .projgo:hover,
     .projgo:focus-visible {
-        color: var(--rt-rust);
+        color: var(--rust);
         background-color: var(--at-hover);
         outline: none;
     }
 
     .proj:hover,
     .proj:focus-visible {
-        border-color: var(--rt-rust);
+        border-color: var(--rust);
         outline: none;
     }
     .proj.unset {
-        color: color-mix(in srgb, var(--rt-rust), var(--at-panel) 42%);
-        border-color: color-mix(in srgb, var(--rt-rust), var(--at-panel) 68%);
+        color: color-mix(in srgb, var(--rust), var(--at-panel) 42%);
+        border-color: color-mix(in srgb, var(--rust), var(--at-panel) 68%);
     }
 
     /* Deliberately NOT hop-shaped: it doesn't switch hops, so shouldn't wear the "you are in this section" pill. */
@@ -691,7 +691,7 @@ $effect(() => {
         transition: border-color 0.12s ease;
     }
     .face:hover {
-        border-color: color-mix(in srgb, var(--rt-rust), var(--at-panel) 45%);
+        border-color: color-mix(in srgb, var(--rust), var(--at-panel) 45%);
     }
     .front {
         display: flex;
@@ -732,7 +732,7 @@ $effect(() => {
         /* Retuned for this band's floor: a caption is 9px uppercase and the old
            mixes left CRUD at 2.1:1. Still quieter than every pill it names —
            what stops a caption reading as clickable is its shape, not its dimness. */
-        color: color-mix(in srgb, var(--rt-rust), var(--at-panel) 12%);
+        color: color-mix(in srgb, var(--rust), var(--at-panel) 12%);
         /* Asymmetric on purpose: must sit further from the previous group's last pill than from the pill it names, or the boundary it marks is the tightest gap on the bar. */
         margin-left: 0.4rem;
         margin-right: 0.15rem;

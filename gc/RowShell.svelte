@@ -105,7 +105,7 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
     .rt-row--top .rt-row__title { color: var(--rt-cream); }
     .rt-row--child .rt-row__title { color: var(--rt-cream); }
     .rt-row--top .rt-row__subtitle,
-    .rt-row--child .rt-row__subtitle { color: var(--rt-meta); }
+    .rt-row--child .rt-row__subtitle { color: var(--rust); }
     /* Tiered titles never wrap — clip to one line with ellipsis instead. */
     .rt-row--top .rt-row__title,
     .rt-row--child .rt-row__title {
@@ -239,7 +239,7 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
     .rt-row__subtitle {
         font-family: var(--rt-font-body);
         font-size: 0.7rem;
-        color: var(--rt-fg-dim);
+        color: var(--rust);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -293,8 +293,8 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         padding: 0 0.32rem;
         border-radius: 999px;
         background: transparent;
-        border: 1px solid var(--rt-meta);
-        color: var(--rt-meta);
+        border: 1px solid var(--rust);
+        color: var(--rust);
         font-family: var(--rt-font-body);
         font-size: 0.66rem;
         font-weight: 600;
@@ -355,7 +355,7 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         min-width: 0;
         font-family: var(--rt-font-body);
         font-size: 0.7rem;
-        color: var(--rt-meta);
+        color: var(--rust);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -367,14 +367,14 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         bottom: 0;
         z-index: 1;
         cursor: pointer;
-        -webkit-tap-highlight-color: color-mix(in srgb, var(--palette-terracotta) 35%, transparent);
+        -webkit-tap-highlight-color: color-mix(in srgb, var(--rust) 35%, transparent);
         transition: background 140ms ease;
     }
     /* Folding is the common tap on a row that holds rows; the chevron's 30% opens its details. */
     .rt-row__half--toggle { left: 0; width: 70%; }
     .rt-row__half--open { right: 0; width: 30%; }
     .rt-row .rt-row__half:hover { background: color-mix(in srgb, var(--rt-yellow) 10%, transparent); }
-    .rt-row .rt-row__half:active { background: color-mix(in srgb, var(--palette-terracotta) 28%, transparent); }
+    .rt-row .rt-row__half:active { background: color-mix(in srgb, var(--rust) 28%, transparent); }
     .rt-row__half:focus-visible { outline: 2px solid var(--rt-yellow); outline-offset: -2px; }
     .rt-row__checkbox { z-index: 2; }
     .rt-row__badge--gold { color: var(--rt-yellow); border-color: var(--rt-yellow); white-space: nowrap; }

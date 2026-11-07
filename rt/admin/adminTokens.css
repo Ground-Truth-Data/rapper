@@ -26,8 +26,8 @@
 	   NOT for a gold BUTTON's fill (that is `.rt-fancy-btn`) — this is a flat tint, e.g. a dropdown's hover highlight. */
 	--at-gold: #eab627;
 	--at-panel-2: #242424; /* raised surface inside a panel — search boxes, selects, page-size input, the Σ band */
-	--at-accent: var(--rt-rust);
-	--at-accent-bright: var(--rt-meta);
+	--at-accent: var(--rust);
+	--at-accent-bright: var(--rust);
 
 	/* Headers (sort-header handoff, 2 Nov 2026): grey at rest, bright on hover, gold when sorted. NOT rust, which belongs on meta/counts. */
 	--at-th: #8f8b80;
