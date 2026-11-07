@@ -3,7 +3,7 @@
 export const HOTSPOT_X = 11;
 export const HOTSPOT_Y = 5;
 /** A press moved this far is a drag for the rest of it: the hand fists, and no hold can start (doubleTapToPin.ts reads it). */
-export const DRAG_SLOP_PX = 4;
+export const DRAG_SLOP_PX = 12; // a thumb rolls this far while it holds still
 </script>
 
 <script lang="ts">
