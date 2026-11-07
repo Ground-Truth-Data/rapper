@@ -98,12 +98,11 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         gap: var(--rt-space-3);
         padding: var(--rt-space-3) var(--rt-space-3);
     }
-    /* Border carries the tier hierarchy; title stays full cream at both
-       tiers — a child row is no less important to read than its parent. */
-    .rt-row--top { border-color: var(--rt-cream); }
-    .rt-row--child { border-color: var(--rt-cream-dim); }
-    .rt-row--top .rt-row__title { color: var(--rt-cream); }
-    .rt-row--child .rt-row__title { color: var(--rt-cream); }
+    /* --rt-row-tone: the inbox's colour for the row's depth, on border, title and chevrons. */
+    .rt-row--top { border-color: var(--rt-row-tone, var(--rt-cream)); }
+    .rt-row--child { border-color: var(--rt-row-tone, var(--rt-cream-dim)); }
+    .rt-row--top .rt-row__title,
+    .rt-row--child .rt-row__title { color: var(--rt-row-tone, var(--rt-cream)); }
     .rt-row--top .rt-row__subtitle,
     .rt-row--child .rt-row__subtitle { color: var(--rust); }
     /* Tiered titles never wrap — clip to one line with ellipsis instead. */
@@ -176,7 +175,7 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
     /* The box's saplings fill the top of its art: the badge sits on the box's corner, below them. */
     .rt-row__glyph[data-glyph="box"] .rt-count-badge { top: 8px; right: -8px; }
     /* A row that holds rows: chevron down while open, right while folded. The row's tap zone under it does the folding. */
-    .rt-row__fold { display: flex; flex-shrink: 0; width: 16px; margin-inline: -4px; color: var(--rt-yellow); pointer-events: none; }
+    .rt-row__fold { display: flex; flex-shrink: 0; width: 24px; margin-inline: -4px; color: var(--rt-row-tone, var(--rt-yellow)); pointer-events: none; }
     .rt-row__fold svg { transition: transform 180ms ease; }
     .rt-row__fold--shut svg { transform: rotate(-90deg); }
 
@@ -339,7 +338,7 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
     .rt-row__cell {
         display: flex; align-items: center; justify-content: center;
         cursor: pointer;
-        color: var(--rt-yellow);
+        color: var(--rt-row-tone, var(--rt-yellow));
         background: transparent;
         transition: background 140ms ease;
     }
@@ -370,9 +369,28 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         -webkit-tap-highlight-color: color-mix(in srgb, var(--rust) 35%, transparent);
         transition: background 140ms ease;
     }
-    /* Folding is the common tap on a row that holds rows; the chevron's 30% opens its details. */
-    .rt-row__half--toggle { left: 0; width: 70%; background: color-mix(in srgb, var(--rust) 7%, transparent); }
-    .rt-row__half--open { right: 0; width: 30%; }
+    /* Left half folds, right half opens. The fold half's wash is painted on the row, under the text it would fog. */
+    .rt-row__half--toggle { left: 0; width: 50%; }
+    .rt-row__half--open { right: 0; width: 50%; }
+    .rt-row:has(> .rt-row__half--toggle) {
+        --rt-row-wash: color-mix(in srgb, var(--rt-row-tone, var(--rust)) 7%, transparent);
+        background-image: linear-gradient(to right, var(--rt-row-wash) 50%, transparent 50%);
+    }
+    .rt-row:has(> .rt-row__half--toggle[aria-expanded="true"]) {
+        --rt-row-wash: color-mix(in srgb, var(--rt-row-tone, var(--rust)) 20%, transparent);
+    }
+    .rt-row__half--toggle + .rt-row__half--open::before,
+    .rt-row__half--toggle + .rt-row__half--open::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 2px;
+        height: 9px;
+        background: var(--rt-row-tone, var(--rust));
+        opacity: 0.8;
+    }
+    .rt-row__half--toggle + .rt-row__half--open::before { top: 0; }
+    .rt-row__half--toggle + .rt-row__half--open::after { bottom: 0; }
     .rt-row .rt-row__half:hover { background: color-mix(in srgb, var(--rt-yellow) 10%, transparent); }
     .rt-row .rt-row__half:active { background: color-mix(in srgb, var(--rust) 28%, transparent); }
     .rt-row__half:focus-visible { outline: 2px solid var(--rt-yellow); outline-offset: -2px; }
