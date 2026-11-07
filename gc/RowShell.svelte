@@ -293,8 +293,8 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         padding: 0 0.32rem;
         border-radius: 999px;
         background: transparent;
-        border: 1px solid var(--rust);
-        color: var(--rust);
+        border: 1px solid var(--rt-meta);
+        color: var(--rt-meta);
         font-family: var(--rt-font-body);
         font-size: 0.66rem;
         font-weight: 600;
@@ -355,7 +355,7 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         min-width: 0;
         font-family: var(--rt-font-body);
         font-size: 0.7rem;
-        color: var(--rust);
+        color: var(--rt-meta);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -371,7 +371,7 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         transition: background 140ms ease;
     }
     /* Folding is the common tap on a row that holds rows; the chevron's 30% opens its details. */
-    .rt-row__half--toggle { left: 0; width: 70%; }
+    .rt-row__half--toggle { left: 0; width: 70%; background: color-mix(in srgb, var(--rust) 7%, transparent); }
     .rt-row__half--open { right: 0; width: 30%; }
     .rt-row .rt-row__half:hover { background: color-mix(in srgb, var(--rt-yellow) 10%, transparent); }
     .rt-row .rt-row__half:active { background: color-mix(in srgb, var(--rust) 28%, transparent); }
