@@ -83,7 +83,7 @@
 
 .row-track--swiping-unbundle {
 	background: color-mix(in srgb, var(--rust) 50%, transparent);
-	border-color: color-mix(in srgb, var(--rust) 70%, transparent);
+	border-color: var(--rust);
 }
 
 .row-track--swiping-bundle {

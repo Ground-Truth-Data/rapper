@@ -142,7 +142,7 @@ $effect(() => {
     border: 0;
     border-radius: 20px;
     background: transparent;
-    box-shadow: inset 0 0 0 1.6px color-mix(in srgb, var(--rust) 60%, transparent);
+    box-shadow: inset 0 0 0 1.6px var(--rust);
     color: var(--rust);
     font-family: var(--rt-font-body);
     font-size: 13.5px;
