@@ -48,6 +48,7 @@ const config = {
             params: `${tree}/params`,
             hooks: {
                 universal: `${tree}/hooks`,
+                server: "src/hooks.server",
             },
         },
     },
