@@ -114,9 +114,6 @@
 		cursor: default;
 		border-color: var(--rt-yellow);
 	}
-	.zone {
-		width: 50%;
-	}
 	.whole .zone {
 		width: 100%;
 	}
