@@ -173,7 +173,7 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
     /* The box's saplings fill the top of its art: the badge sits on the box's corner, below them. */
     .rt-row__glyph[data-glyph="box"] .rt-count-badge { top: 8px; right: -8px; }
     /* A row that holds rows: chevron down while open, right while folded. The row's tap zone under it does the folding. */
-    .rt-row__fold { display: flex; flex-shrink: 0; width: 24px; margin-inline: -4px; color: var(--rt-row-tone, var(--rt-yellow)); pointer-events: none; }
+    .rt-row__fold { display: flex; flex-shrink: 0; width: 24px; margin: 0 -6px 0 -2px; color: var(--rt-row-tone, var(--rt-yellow)); pointer-events: none; }
     .rt-row__fold svg { transition: transform 180ms ease; }
     .rt-row__fold--shut svg { transform: rotate(-90deg); }
 
