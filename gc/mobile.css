@@ -73,7 +73,7 @@
 	--rt-press-hi: rgba(0, 0, 0, 0.18); /* shaded edge, above */
 
 	/* The one rust. Darker rusts read brown on #1a1a1a. */
-	--rust: #e88555;
+	--rust: #e99366;
 	--rust-soft: color-mix(in srgb, var(--rust) 14%, transparent);
 
 	/* The rose of ConfirmedDiamond's art, for text that names it. */
