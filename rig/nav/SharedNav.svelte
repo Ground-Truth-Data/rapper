@@ -148,7 +148,7 @@ const viewRepoUrl = $derived(
 		padding: 0.15rem 0.45rem;
 		border: 1px solid #7c4a32;
 		border-radius: 3px;
-		color: #c97b52;
+		color: var(--rust);
 		font-size: 0.7rem;
 		white-space: nowrap;
 	}
