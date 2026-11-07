@@ -129,8 +129,8 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         /* background-image layer so the row's base surface stays black,
            just gold-washed. */
         background-image: linear-gradient(
-            color-mix(in srgb, var(--rt-yellow) 12%, transparent),
-            color-mix(in srgb, var(--rt-yellow) 12%, transparent)
+            color-mix(in srgb, var(--rt-row-tone, var(--rt-yellow)) 9%, transparent),
+            color-mix(in srgb, var(--rt-row-tone, var(--rt-yellow)) 9%, transparent)
         );
     }
     .rt-row--dim {
@@ -373,11 +373,11 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
     .rt-row__half--toggle { left: 0; width: 50%; }
     .rt-row__half--open { right: 0; width: 50%; }
     .rt-row:has(> .rt-row__half--toggle) {
-        --rt-row-wash: color-mix(in srgb, var(--rt-row-tone, var(--rust)) 7%, transparent);
+        --rt-row-wash: color-mix(in srgb, var(--rt-row-tone, var(--rust)) 5%, transparent);
         background-image: linear-gradient(to right, var(--rt-row-wash) 50%, transparent 50%);
     }
     .rt-row:has(> .rt-row__half--toggle[aria-expanded="true"]) {
-        --rt-row-wash: color-mix(in srgb, var(--rt-row-tone, var(--rust)) 20%, transparent);
+        --rt-row-wash: color-mix(in srgb, var(--rt-row-tone, var(--rust)) 9%, transparent);
     }
     .rt-row__half--toggle + .rt-row__half--open::before,
     .rt-row__half--toggle + .rt-row__half--open::after {
