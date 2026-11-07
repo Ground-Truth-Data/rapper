@@ -101,7 +101,7 @@
 	{#if folded && isOpen?.(p.id)}{@render folded(p)}{/if}
 {/snippet}
 
-<div class="plugin-list" data-plugins>
+<div class="plugin-list">
 	{#each orgs as o (o.key)}
 		{@const theirs = ofOrg(o.key)}
 		<div class="org" data-org={o.key}>
