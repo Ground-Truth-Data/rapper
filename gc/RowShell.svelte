@@ -105,7 +105,7 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
     .rt-row--top .rt-row__title { color: var(--rt-cream); }
     .rt-row--child .rt-row__title { color: var(--rt-cream); }
     .rt-row--top .rt-row__subtitle,
-    .rt-row--child .rt-row__subtitle { color: var(--rt-meta); }
+    .rt-row--child .rt-row__subtitle { color: var(--rust); }
     /* Tiered titles never wrap — clip to one line with ellipsis instead. */
     .rt-row--top .rt-row__title,
     .rt-row--child .rt-row__title {
@@ -239,7 +239,7 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
     .rt-row__subtitle {
         font-family: var(--rt-font-body);
         font-size: 0.7rem;
-        color: var(--rt-meta);
+        color: var(--rust);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -293,8 +293,8 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         padding: 0 0.32rem;
         border-radius: 999px;
         background: transparent;
-        border: 1px solid var(--rt-meta);
-        color: var(--rt-meta);
+        border: 1px solid var(--rust);
+        color: var(--rust);
         font-family: var(--rt-font-body);
         font-size: 0.66rem;
         font-weight: 600;
@@ -355,7 +355,7 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         min-width: 0;
         font-family: var(--rt-font-body);
         font-size: 0.7rem;
-        color: var(--rt-meta);
+        color: var(--rust);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
