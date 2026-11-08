@@ -21,11 +21,13 @@ describe("IdentityPill", () => {
 		expect(self.className).not.toMatch(/id-pill--picked/);
 	});
 
-	it("a clobber is the hammer and who did it, nothing else", () => {
+	it("a clobber is a hammer half joined to the editor's own pill, in their colour", () => {
 		const c = render(IdentityPill, { who: pete, clobber: true, count: 2 }).container;
+		expect(c.querySelector(".id-hammer-half [aria-hidden]")).not.toBeNull();
+		const pill = c.querySelector(".id-hammer .id-pill")!;
+		expect(pill.textContent).toMatch(/^Pete\s×2$/);
+		expect(pill.classList.contains("id-pill--picked")).toBe(true);
 		expect(c.querySelectorAll(".id-pill")).toHaveLength(1);
-		expect(c.querySelector(".id-pill--hammer [aria-hidden]")).not.toBeNull();
-		expect(c.querySelector(".id-pill--hammer")!.textContent).toMatch(/^Pete\s×2$/);
 	});
 
 	it("the owner's own re-save is a grey pen and its count", () => {

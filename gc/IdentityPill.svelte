@@ -8,8 +8,8 @@ export type Identity = { label: string; color: string; self: boolean; picked: bo
 import { m } from "$parent/src/lib/paraglide/messages";
 import Icon from "./Icon.svelte";
 
-/** One pill, one fact. `clobber`: someone other than the owner changed it — the
- *  hammer, then who did it. `edited`: the owner saved it again — a grey pen.
+/** One pill, one fact. `clobber`: someone other than the owner changed it — a rust
+ *  hammer half joined to the editor's own pill, so their colour still says who. `edited`: the owner saved it again — a grey pen.
  *  Either sits beside the owner's own pill, never joined to it. */
 let {
     who,
@@ -22,18 +22,19 @@ const times = $derived(count > 1 ? `×${count}` : "");
 
 <!-- Dashed = a colour handed out on arrival, still unstyled; filled = chosen
      on purpose. Only you wear a solid gold outline. -->
-{#if clobber}
-<span class="id-pill id-pill--hammer" title={m.gc_edit_replaced()}><Icon name="hammer" size={10} stroke={2.6} />{who.label}{#if times}&nbsp;{times}{/if}</span>
-{:else if edited}
-<span class="id-pill id-pill--pen" title={m.gc_edited_since_made()}><Icon name="pen" size={10} />{times || "×1"}</span>
-{:else}
-<span
+{#snippet own(label: string)}<span
     class="id-pill"
     class:id-pill--picked={who.picked && !who.self}
     class:id-pill--self={who.self}
     style:--id-c={who.color || null}
-    title={who.label}>{who.label}</span
->
+    title={who.label}>{label}</span
+>{/snippet}
+{#if clobber}
+<span class="id-hammer" title={m.gc_edit_replaced()}><span class="id-hammer-half"><Icon name="hammer" size={10} stroke={2.6} /></span>{@render own(times ? `${who.label} ${times}` : who.label)}</span>
+{:else if edited}
+<span class="id-pill id-pill--pen" title={m.gc_edited_since_made()}><Icon name="pen" size={10} />{times || "×1"}</span>
+{:else}
+{@render own(who.label)}
 {/if}
 
 <style>
@@ -69,11 +70,24 @@ const times = $derived(count > 1 ? `×${count}` : "");
         border-style: solid;
         font-weight: 800;
     }
-    .id-pill--hammer {
-        border: 0;
-        background: #4a2a1f;
-        color: var(--rust);
-        font-size: 0.72rem;
+    .id-hammer {
+        display: inline-flex;
+        flex: none;
+        max-width: 9rem;
+    }
+    .id-hammer-half {
+        display: inline-flex;
+        align-items: center;
+        flex: none;
+        height: 1.15rem;
+        padding: 0 4px 0 6px;
+        border-radius: 999px 0 0 999px;
+        background: var(--rust);
+        color: #1a1a1a;
+    }
+    .id-hammer .id-pill {
+        min-width: 0;
+        border-radius: 0 999px 999px 0;
     }
     .id-pill--pen {
         border: 1px solid #555;
