@@ -1,41 +1,48 @@
 <script lang="ts" module>
 /** A person as every surface draws them. `picked`: the book owner chose this
  *  colour (filled); otherwise it was handed out on arrival (dashed outline). */
-export type Identity = { label: string; color: string; self: boolean; picked: boolean };
+export type Identity = { label: string; color: string; self: boolean; picked: boolean; key?: string };
+/** One editor's saves after it was made. */
+export type EditMark = { who: Identity; count: number };
 </script>
 
 <script lang="ts">
 import { m } from "$parent/src/lib/paraglide/messages";
 import Icon from "./Icon.svelte";
 
-/** One pill, one fact. `clobber`: someone other than the owner changed it — a rust
- *  hammer half joined to the editor's own pill, so their colour still says who. `edited`: the owner saved it again — a grey pen.
- *  Either sits beside the owner's own pill, never joined to it. */
+/** The owner, then one joined pill per editor: a pen half for their saves (×n), a rust hammer half on
+ *  `clobberBy`, whose version beat yours. An owner who edited is one joined pill, never two. */
 let {
     who,
-    clobber = false,
-    edited = false,
-    count = 0,
-}: { who: Identity; clobber?: boolean; edited?: boolean; count?: number } = $props();
-const times = $derived(count > 1 ? `×${count}` : "");
+    editors = [],
+    clobberBy = null,
+}: { who: Identity; editors?: readonly EditMark[]; clobberBy?: Identity | null } = $props();
+
+const same = (a: Identity, b: Identity) => (a.self && b.self) || (!!a.key && a.key === b.key);
+const marks = $derived.by(() => {
+    const all = clobberBy && !editors.some((e) => same(e.who, clobberBy)) ? [{ who: clobberBy, count: 0 }, ...editors] : [...editors];
+    return all.sort((a, b) => Number(same(b.who, who)) - Number(same(a.who, who)));
+});
 </script>
 
 <!-- Dashed = a colour handed out on arrival, still unstyled; filled = chosen
-     on purpose. Only you wear a solid gold outline. -->
-{#snippet own(label: string)}<span
+     on purpose. Only you wear a solid gold outline. The editor's half is their
+     own pill untouched — only its left corners square off to join. -->
+{#snippet own(p: Identity, label = p.label)}<span
     class="id-pill"
-    class:id-pill--picked={who.picked && !who.self}
-    class:id-pill--self={who.self}
-    style:--id-c={who.color || null}
-    title={who.label}>{label}</span
+    class:id-pill--picked={p.picked && !p.self}
+    class:id-pill--self={p.self}
+    style:--id-c={p.color || null}
+    title={p.label}>{label}</span
 >{/snippet}
-{#if clobber}
-<span class="id-hammer" title={m.gc_edit_replaced()}><span class="id-hammer-half"><Icon name="hammer" size={10} stroke={2.6} /></span>{@render own(times ? `${who.label} ${times}` : who.label)}</span>
-{:else if edited}
-<span class="id-pill id-pill--pen" title={m.gc_edited_since_made()}><Icon name="pen" size={10} />{times || "×1"}</span>
-{:else}
-{@render own(who.label)}
-{/if}
+{#if !marks.some((e) => same(e.who, who))}{@render own(who)}{/if}
+{#each marks as e (e.who.key ?? e.who.label)}
+    {@const hammer = !!clobberBy && same(e.who, clobberBy)}
+    <span class="id-mark" title={hammer ? m.gc_edit_replaced() : m.gc_edited_since_made()}
+        ><span class="id-mark-half" class:id-mark-half--hammer={hammer}><Icon name={hammer ? "hammer" : "pen"} size={10} stroke={2.6} /></span
+        >{@render own(e.who, e.count ? `${e.who.label} ×${e.count}` : e.who.label)}</span
+    >
+{/each}
 
 <style>
     .id-pill {
@@ -70,28 +77,27 @@ const times = $derived(count > 1 ? `×${count}` : "");
         border-style: solid;
         font-weight: 800;
     }
-    .id-hammer {
+    .id-mark {
         display: inline-flex;
         flex: none;
         max-width: 9rem;
     }
-    .id-hammer-half {
+    .id-mark-half {
         display: inline-flex;
         align-items: center;
         flex: none;
         height: 1.15rem;
         padding: 0 4px 0 6px;
         border-radius: 999px 0 0 999px;
+        background: #555;
+        color: #eee;
+    }
+    .id-mark-half--hammer {
         background: var(--rust);
         color: #1a1a1a;
     }
-    .id-hammer .id-pill {
+    .id-mark .id-pill {
         min-width: 0;
         border-radius: 0 999px 999px 0;
-    }
-    .id-pill--pen {
-        border: 1px solid #555;
-        background: none;
-        color: #bbb;
     }
 </style>
