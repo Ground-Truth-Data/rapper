@@ -655,14 +655,6 @@ html.native .measure-pop {
 .gc-lane--left { --dock-width: var(--dock-width-left); left: 12px; right: var(--lane-far); }
 .gc-lane--right { --dock-width: var(--dock-width-right); right: 12px; left: var(--lane-far); }
 
-/* The pine is U+E001 in the ReTreever display font; `&` is a plain ampersand. */
-.rt-tree-glyph {
-	font-family: var(--rt-font-display);
-	display: inline-block;
-	line-height: 1;
-	transform: translateY(0.05em);
-}
-
 /* Inside `base` on purpose — an unlayered `a {}` outranks every utility colour. */
 @layer base {
 	a {
