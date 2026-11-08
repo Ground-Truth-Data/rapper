@@ -11,7 +11,9 @@ import tree from "./assets/tree_white.webp";
         width: 0.62em;
         height: 0.95em;
         margin-right: 0.18em;
-        vertical-align: -0.1em;
+        /* A margin, not vertical-align: it also holds in a baseline-aligned flex row. */
+        flex: none;
+        margin-bottom: -0.1em;
         background: currentColor;
         mask: var(--tg) center / contain no-repeat;
     }
