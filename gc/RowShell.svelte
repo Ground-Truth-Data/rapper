@@ -219,19 +219,7 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         align-items: center;
         gap: 5px;
         min-width: 0;
-    }
-    /* As quiet as the date: the shovel is the signal, the names are the footnote. */
-    .rt-row__planters-names {
-        min-width: 0;
-        color: var(--rt-yellow);
-        opacity: 0.85;
-        font-family: var(--rt-font-display);
-        font-size: 0.8rem;
-        font-weight: 300;
-        letter-spacing: 0.02em;
-        white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;
     }
     .rt-row__subtitle {
         font-family: var(--rt-font-body);
