@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
-// A person's pill in their colour; a second half for a clobber, someone
-// else's edit, or a plain re-save — clobber first.
+// One pill, one fact: the person, a clobber (hammer + who did it), or the
+// owner's own re-save (a grey pen), each with its count.
 import { render } from "@testing-library/svelte";
 import { describe, expect, it } from "vitest";
 import IdentityPill from "./IdentityPill.svelte";
@@ -15,20 +15,24 @@ describe("IdentityPill", () => {
 		expect(pill.textContent).toBe("Pete");
 		expect(pill.classList.contains("id-pill--picked")).toBe(true);
 		expect(pill.style.getPropertyValue("--id-c")).toBe("#c33");
-		expect(c.querySelector(".id-pill-wrap--double")).toBeNull();
+		expect(c.querySelectorAll(".id-pill")).toHaveLength(1);
 		const self = render(IdentityPill, { who: me }).container.querySelector(".id-pill")!;
 		expect(self.className).toMatch(/id-pill--self/);
 		expect(self.className).not.toMatch(/id-pill--picked/);
 	});
 
-	it("the second half: hammer beats editor beats edited", () => {
-		const hammer = render(IdentityPill, { who: me, editor: pete, hammer: true }).container;
-		expect(hammer.querySelector(".id-pill--hammer")!.textContent).toBe("Pete");
-		const edit = render(IdentityPill, { who: me, editor: pete, edited: true }).container;
-		expect(edit.querySelector(".id-pill--editor")!.textContent).toBe("Pete");
-		expect(edit.querySelector(".id-pill--hammer")).toBeNull();
-		const resaved = render(IdentityPill, { who: me, edited: true }).container;
-		expect(resaved.querySelector(".id-pill-wrap--double .id-pill--editor [aria-hidden]")).not.toBeNull();
-		expect(resaved.querySelector(".id-pill--editor")!.textContent).toBe("");
+	it("a clobber is the hammer and who did it, nothing else", () => {
+		const c = render(IdentityPill, { who: pete, clobber: true, count: 2 }).container;
+		expect(c.querySelectorAll(".id-pill")).toHaveLength(1);
+		expect(c.querySelector(".id-pill--hammer [aria-hidden]")).not.toBeNull();
+		expect(c.querySelector(".id-pill--hammer")!.textContent).toMatch(/^Pete\s×2$/);
+	});
+
+	it("the owner's own re-save is a grey pen and its count", () => {
+		const once = render(IdentityPill, { who: me, edited: true }).container;
+		expect(once.querySelector(".id-pill--pen")!.textContent).toBe("×1");
+		expect(once.querySelector(".id-pill--pen")!.textContent).not.toContain("Me");
+		const thrice = render(IdentityPill, { who: me, edited: true, count: 3 }).container;
+		expect(thrice.querySelector(".id-pill--pen")!.textContent).toBe("×3");
 	});
 });
