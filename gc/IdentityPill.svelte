@@ -18,7 +18,8 @@ let {
     clobberBy = null,
 }: { who: Identity; editors?: readonly EditMark[]; clobberBy?: Identity | null } = $props();
 
-const same = (a: Identity, b: Identity) => (a.self && b.self) || (!!a.key && a.key === b.key);
+// Keyless people match by label, as the #each below keys them; otherwise one person draws twice and the each throws.
+const same = (a: Identity, b: Identity) => (a.self && b.self) || (a.key || b.key ? a.key === b.key : a.label === b.label);
 const marks = $derived.by(() => {
     const all = clobberBy && !editors.some((e) => same(e.who, clobberBy)) ? [{ who: clobberBy, count: 0 }, ...editors] : [...editors];
     return all.sort((a, b) => Number(same(b.who, who)) - Number(same(a.who, who)));

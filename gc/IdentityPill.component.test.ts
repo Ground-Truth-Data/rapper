@@ -1,6 +1,5 @@
 // @vitest-environment happy-dom
-// One pill, one fact: the person, a clobber (hammer + who did it), or the
-// owner's own re-save (a grey pen), each with its count.
+// The person, then one joined pill per editor: a pen half for their saves, a hammer half for a clobber.
 import { render } from "@testing-library/svelte";
 import { describe, expect, it } from "vitest";
 import IdentityPill from "./IdentityPill.svelte";
@@ -22,19 +21,19 @@ describe("IdentityPill", () => {
 	});
 
 	it("a clobber is a hammer half joined to the editor's own pill, in their colour", () => {
-		const c = render(IdentityPill, { who: pete, clobber: true, count: 2 }).container;
-		expect(c.querySelector(".id-hammer-half [aria-hidden]")).not.toBeNull();
-		const pill = c.querySelector(".id-hammer .id-pill")!;
+		const c = render(IdentityPill, { who: pete, editors: [{ who: pete, count: 2 }], clobberBy: pete }).container;
+		expect(c.querySelector(".id-mark-half--hammer")).not.toBeNull();
+		const pill = c.querySelector(".id-mark .id-pill")!;
 		expect(pill.textContent).toMatch(/^Pete\s×2$/);
 		expect(pill.classList.contains("id-pill--picked")).toBe(true);
 		expect(c.querySelectorAll(".id-pill")).toHaveLength(1);
 	});
 
-	it("the owner's own re-save is a grey pen and its count", () => {
-		const once = render(IdentityPill, { who: me, edited: true }).container;
-		expect(once.querySelector(".id-pill--pen")!.textContent).toBe("×1");
-		expect(once.querySelector(".id-pill--pen")!.textContent).not.toContain("Me");
-		const thrice = render(IdentityPill, { who: me, edited: true, count: 3 }).container;
-		expect(thrice.querySelector(".id-pill--pen")!.textContent).toBe("×3");
+	it("an owner who edited is one joined pen pill and its count, never two pills", () => {
+		const c = render(IdentityPill, { who: me, editors: [{ who: me, count: 3 }] }).container;
+		expect(c.querySelector(".id-mark-half")).not.toBeNull();
+		expect(c.querySelector(".id-mark-half--hammer")).toBeNull();
+		expect(c.querySelectorAll(".id-pill")).toHaveLength(1);
+		expect(c.querySelector(".id-pill")!.textContent).toMatch(/^Me\s×3$/);
 	});
 });
