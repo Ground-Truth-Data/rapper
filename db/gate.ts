@@ -183,8 +183,9 @@ export type GateOptions = {
 	/** Each step as it starts, so a stuck boot can say where it is stuck. */
 	step: (s: string) => void;
 	/** A newer tab took the database; this connection is already closed. `cut`: it closed
-	 *  inside a transaction, which SQLite rolled back. */
-	lost: (cut: boolean) => void;
+	 *  inside a transaction, which SQLite rolled back. `takenBack`: the taker is the connection
+	 *  this one took it from, so it was taken back, not opened. */
+	lost: (cut: boolean, takenBack: boolean) => void;
 };
 
 let pool: Awaited<ReturnType<Sqlite3["installOpfsSAHPoolVfs"]>> | null = null;
@@ -203,10 +204,13 @@ export async function openGate(o: GateOptions): Promise<Opened> {
 	o.step("loading SQLite");
 	const api = await loadApi(o.wasmUrl, !memory);
 	o.step("taking the database from other tabs");
+	const name = `gc-db:${o.file}`;
+	const holder = async () => (await navigator.locks.query()).held?.find((l) => l.name === name)?.clientId;
+	const from = await holder();
 	return new Promise((res, rej) => {
 		let held: Db | null = null;
 		navigator.locks
-			.request(`gc-db:${o.file}`, { steal: true }, async () => {
+			.request(name, { steal: true }, async () => {
 				try {
 					const opened = await openHeld(api, o, memory);
 					res(opened);
@@ -219,11 +223,12 @@ export async function openGate(o: GateOptions): Promise<Opened> {
 				}
 				return new Promise<never>(() => {});
 			})
-			.catch((e: unknown) => {
+			.catch(async (e: unknown) => {
 				if ((e as Error)?.name !== "AbortError") return rej(e);
 				const cut = !!held && !api.capi.sqlite3_get_autocommit(held.pointer);
 				held?.close();
-				o.lost(cut);
+				const by = await holder();
+				o.lost(cut, !!from && by === from);
 			});
 	});
 }
