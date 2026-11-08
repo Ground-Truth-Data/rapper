@@ -8,55 +8,41 @@ export type Identity = { label: string; color: string; self: boolean; picked: bo
 import { m } from "$parent/src/lib/paraglide/messages";
 import Icon from "./Icon.svelte";
 
-/** The second half is ONE segment, clobber first: `hammer` (your version was
- *  replaced) shows the hammer and who won — the owner when no other editor has; else `editor` (someone else's
- *  edit) the pen and their name; else `edited` (saved again) the pen alone. */
+/** One pill, one fact. `clobber`: someone other than the owner changed it — the
+ *  hammer, then who did it. `edited`: the owner saved it again — a grey pen.
+ *  Either sits beside the owner's own pill, never joined to it. */
 let {
     who,
-    editor = null,
-    hammer = false,
-    edited = false,
     clobber = false,
-}: { who: Identity; editor?: Identity | null; hammer?: boolean; edited?: boolean; clobber?: boolean } = $props();
-const second = $derived(hammer || !!editor || edited);
+    edited = false,
+    count = 0,
+}: { who: Identity; clobber?: boolean; edited?: boolean; count?: number } = $props();
+const times = $derived(count > 1 ? `×${count}` : "");
 </script>
 
 <!-- Dashed = a colour handed out on arrival, still unstyled; filled = chosen
      on purpose. Only you wear a solid gold outline. -->
 {#if clobber}
-<!-- Who clobbered it, alone: the hammer, then the person who made the edit. -->
-<span class="id-pill-wrap"><span class="id-pill id-pill--editor id-pill--hammer id-pill--alone" title={m.gc_edit_replaced()}><Icon name="hammer" size={10} stroke={2.6} />{who.label}</span></span>
+<span class="id-pill id-pill--hammer" title={m.gc_edit_replaced()}><Icon name="hammer" size={10} stroke={2.6} />{who.label}{#if times}&nbsp;{times}{/if}</span>
+{:else if edited}
+<span class="id-pill id-pill--pen" title={m.gc_edited_since_made()}><Icon name="pen" size={10} />{times || "×1"}</span>
 {:else}
-<span class="id-pill-wrap" class:id-pill-wrap--double={second}>
-    <span
-        class="id-pill"
-        class:id-pill--picked={who.picked && !who.self}
-        class:id-pill--self={who.self}
-        style:--id-c={who.color || null}
-        title={who.label}>{who.label}</span
-    >
-    {#if hammer}
-        <span class="id-pill id-pill--editor id-pill--hammer" title={m.gc_edit_replaced()}><Icon name="hammer" size={10} stroke={2.6} />{(editor ?? who).label}</span>
-    {:else if editor}
-        <span class="id-pill id-pill--editor" title={m.gc_edited_by({ name: editor.label })}><Icon name="pen" size={10} />{editor.label}</span>
-    {:else if edited}
-        <span class="id-pill id-pill--editor" title={m.gc_edited_since_made()}><Icon name="pen" size={10} /></span>
-    {/if}
-</span>
+<span
+    class="id-pill"
+    class:id-pill--picked={who.picked && !who.self}
+    class:id-pill--self={who.self}
+    style:--id-c={who.color || null}
+    title={who.label}>{who.label}</span
+>
 {/if}
 
 <style>
-    .id-pill-wrap {
-        display: inline-flex;
-        align-items: center;
-        flex: none;
-        min-width: 0;
-    }
     .id-pill {
         --id-ink: var(--id-c, var(--rt-row-sender, #c3c8ac));
         display: inline-flex;
         align-items: center;
         flex: none;
+        gap: 3px;
         max-width: 9rem;
         height: 1.15rem;
         padding: 0 0.45rem;
@@ -83,24 +69,15 @@ const second = $derived(hammer || !!editor || edited);
         border-style: solid;
         font-weight: 800;
     }
-    .id-pill-wrap--double .id-pill:first-child {
-        border-radius: 999px 0 0 999px;
-        padding-right: 0.4rem;
-    }
-    .id-pill--editor {
-        gap: 3px;
-        max-width: 7rem;
-        border: 0;
-        border-radius: 0 999px 999px 0;
-        background: #3a2f22;
-        color: #e9c79c;
-        font-size: 0.72rem;
-    }
     .id-pill--hammer {
+        border: 0;
         background: #4a2a1f;
         color: var(--rust);
+        font-size: 0.72rem;
     }
-    .id-pill--alone {
-        border-radius: 999px;
+    .id-pill--pen {
+        border: 1px solid #555;
+        background: none;
+        color: #bbb;
     }
 </style>
