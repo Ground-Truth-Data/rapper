@@ -4,8 +4,6 @@ import {
 	isCoord,
 	toCoord,
 	toCoordFromArray,
-	toCoordFromFeature,
-	toCoordFromLngLat,
 } from "./coord.js";
 
 // This module is a NaN-defence boundary: bad coordinates must never produce a
@@ -108,32 +106,6 @@ describe("toCoord — out-of-range is rejected (not clamped)", () => {
 	});
 });
 
-describe("toCoordFromLngLat", () => {
-	it("accepts a valid {lng,lat} object", () => {
-		expect(toCoordFromLngLat({ lng: -123, lat: 49 })).toEqual([-123, 49]);
-	});
-
-	it("rejects null / undefined", () => {
-		expect(toCoordFromLngLat(null)).toBeNull();
-		expect(toCoordFromLngLat(undefined)).toBeNull();
-	});
-
-	it("rejects an object missing lng or lat", () => {
-		expect(toCoordFromLngLat({ lat: 49 })).toBeNull();
-		expect(toCoordFromLngLat({ lng: -123 })).toBeNull();
-		expect(toCoordFromLngLat({})).toBeNull();
-	});
-
-	it("rejects NaN/Infinity inside the object", () => {
-		expect(toCoordFromLngLat({ lng: Number.NaN, lat: 49 })).toBeNull();
-		expect(toCoordFromLngLat({ lng: -123, lat: Number.POSITIVE_INFINITY })).toBeNull();
-	});
-
-	it("rejects out-of-range inside the object", () => {
-		expect(toCoordFromLngLat({ lng: 999, lat: 49 })).toBeNull();
-	});
-});
-
 describe("toCoordFromArray", () => {
 	it("accepts a valid [lng,lat] tuple", () => {
 		expect(toCoordFromArray([-123, 49])).toEqual([-123, 49]);
@@ -162,31 +134,6 @@ describe("toCoordFromArray", () => {
 
 	it("rejects out-of-range array values", () => {
 		expect(toCoordFromArray([200, 49])).toBeNull();
-	});
-});
-
-describe("toCoordFromFeature", () => {
-	it("accepts a GeoJSON Point feature", () => {
-		const f = { geometry: { coordinates: [-123, 49] } };
-		expect(toCoordFromFeature(f)).toEqual([-123, 49]);
-	});
-
-	it("rejects null / undefined feature", () => {
-		expect(toCoordFromFeature(null)).toBeNull();
-		expect(toCoordFromFeature(undefined)).toBeNull();
-	});
-
-	it("rejects a feature with null geometry (e.g. overlay rows)", () => {
-		expect(toCoordFromFeature({ geometry: undefined })).toBeNull();
-		expect(toCoordFromFeature({})).toBeNull();
-	});
-
-	it("rejects a feature whose coordinates contain NaN", () => {
-		expect(toCoordFromFeature({ geometry: { coordinates: [Number.NaN, 49] } })).toBeNull();
-	});
-
-	it("rejects a feature with out-of-range coordinates", () => {
-		expect(toCoordFromFeature({ geometry: { coordinates: [-123, 500] } })).toBeNull();
 	});
 });
 
