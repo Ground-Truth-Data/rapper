@@ -20,6 +20,7 @@
 </script>
 
 <script lang="ts">
+	import GoChevron from "./GoChevron.svelte";
 	import IdentityPill from "./IdentityPill.svelte";
 	import RowShell from "./RowShell.svelte";
 	import { ago } from "./ago";
@@ -37,8 +38,6 @@
 	const saved = (iso: string) => new Date(iso).toLocaleString(undefined, { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
 	const plural = (n: number, one: string) => `${n.toLocaleString("en-US")} ${n === 1 ? one : `${one}s`}`;
 </script>
-
-{#snippet chevron()}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6" /></svg>{/snippet}
 
 <div class="split" class:whole={!fold}>
 	<RowShell title={card.title || "Untitled"} tier="top">
@@ -97,7 +96,7 @@
 			>
 		</span>
 		{#snippet end()}
-			<span class="end" aria-hidden="true"><span class="fill-label">Fill out</span><span class="rt-row__cell rt-row__cell--chevron">{@render chevron()}</span></span>
+			<span class="end" aria-hidden="true"><span class="fill-label">Fill out</span><span class="rt-row__cell rt-row__cell--chevron"><GoChevron /></span></span>
 		{/snippet}
 	</RowShell>
 </div>

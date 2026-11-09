@@ -89,7 +89,8 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         overflow: hidden;
         transition: background 140ms ease, border-color 140ms ease;
     }
-    .rt-row:hover { background: var(--rt-input); }
+    /* A row with nothing folded inside is one button, so it washes whole; a folding row washes per half. */
+    .rt-row:not(:has(> .rt-row__half)):hover { background: var(--rt-yellow-tint); }
     .rt-row__main {
         flex: 1;
         min-width: 0;
@@ -331,7 +332,7 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         background: transparent;
         transition: background 140ms ease;
     }
-    .rt-row__cell:hover { background: var(--rt-yellow-tint); }
+    .rt-row__cell[role="button"]:hover { background: var(--rt-yellow-tint); }
     .rt-row__cell--chevron {
         flex-direction: column;
         align-items: flex-end;
