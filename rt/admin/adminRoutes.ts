@@ -302,7 +302,6 @@ const RETREEVER_ENTITIES = [
 	"LinkCandidateTable",
 	"RawSnapshotTable",
 	"ObservationTable",
-	"UserProfile",
 ] as const;
 
 /** Fixed vocabularies another table points at. Exported so the table viewer can tell a lookup from an entity. */
