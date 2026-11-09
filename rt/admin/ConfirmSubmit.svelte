@@ -120,6 +120,7 @@ const hinge = (_node: Element) => ({
 		class="cs-pop"
 		class:cs-up={at.flipped}
 		role="dialog"
+		tabindex="-1"
 		aria-modal="true"
 		aria-label="{verb} {target}"
 		style="top:{at.top}px; left:{at.left}px"
