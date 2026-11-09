@@ -303,6 +303,29 @@ describe("openGate — the newest tab wins", () => {
 		expect(await lost.mock.calls[0][1]).toBe(false);
 	});
 
+	it("a tab whose file is taken while it is still opening lets the file go and runs on memory", async () => {
+		const reserve = pool.reserveMinimumCapacity;
+		let entered!: () => void;
+		let release!: () => void;
+		const inside = new Promise<void>((r) => (entered = r));
+		const held = new Promise<void>((r) => (release = r));
+		pool.reserveMinimumCapacity = async () => {
+			pool.reserveMinimumCapacity = reserve;
+			entered();
+			await held;
+		};
+		const lost = vi.fn();
+		const opening = openGate(options("/mid.sqlite3", { native: true, lost }));
+		await inside;
+		const second = await openGate(options("/mid.sqlite3", { native: true }));
+		release();
+		const first = await opening;
+		await tick();
+		expect(first.memory).toBe("a newer tab took the file while this one opened it");
+		expect(lost).not.toHaveBeenCalled();
+		expect(all(second.db, "SELECT 1 AS one")).toEqual([{ one: 1 }]);
+	});
+
 	it("a tab on memory holds no lock: the next open, its own retake included, leaves it running", async () => {
 		const lost = vi.fn();
 		opener = () => {

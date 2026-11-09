@@ -209,10 +209,17 @@ export async function openGate(o: GateOptions): Promise<Opened> {
 	const from = await holder();
 	return new Promise((res, rej) => {
 		let held: Db | null = null;
+		let opening = true;
 		navigator.locks
 			.request(name, { steal: true }, async () => {
 				try {
-					const opened = await openHeld(api, o, memory);
+					let opened = await openHeld(api, o, memory);
+					// Taken while it opened: it holds the file without the lock, so it runs on memory like a held open.
+					if (!opening && !opened.memory) {
+						opened.db.close();
+						opened = { ...opened, db: inMemory(api, o), memory: "a newer tab took the file while this one opened it" };
+					}
+					opening = false;
 					res(opened);
 					// No file, no lock: a retake from this tab must not steal from itself.
 					if (opened.memory) return;
@@ -225,6 +232,7 @@ export async function openGate(o: GateOptions): Promise<Opened> {
 			})
 			.catch((e: unknown) => {
 				if ((e as Error)?.name !== "AbortError") return rej(e);
+				if (opening) return void (opening = false);
 				const cut = !!held && !api.capi.sqlite3_get_autocommit(held.pointer);
 				held?.close();
 				o.lost(cut, holder().then((by) => !!from && by === from));
