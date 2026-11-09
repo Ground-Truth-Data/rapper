@@ -34,11 +34,8 @@ function csvField(s: string): string {
 }
 
 export function rowsToCsv(columns: string[], rows: Row[]): string {
-	const head = columns.map(csvField).join(",");
-	const body = rows
-		.map((r) => columns.map((c) => csvField(cellToScalar(r[c]))).join(","))
-		.join("\n");
-	return body ? `${head}\n${body}` : head;
+	const lines = rows.map((r) => columns.map((c) => csvField(cellToScalar(r[c]))).join(","));
+	return [columns.map(csvField).join(","), ...lines].join("\n");
 }
 
 // Pipes/newlines escaped so they don't break the table shape.
