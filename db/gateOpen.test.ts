@@ -287,7 +287,8 @@ describe("openGate — the newest tab wins", () => {
 		const first = await openGate(options("/tabs.sqlite3", { lost }));
 		const second = await openGate(options("/tabs.sqlite3"));
 		await tick();
-		expect(lost).toHaveBeenCalledWith(false, false);
+		expect(lost).toHaveBeenCalledWith(false, expect.any(Promise));
+		expect(await lost.mock.calls[0][1]).toBe(false);
 		expect(() => first.db.exec({ sql: "SELECT 1" })).toThrow();
 		expect(all(second.db, "SELECT 1 AS one")).toEqual([{ one: 1 }]);
 	});
@@ -298,7 +299,8 @@ describe("openGate — the newest tab wins", () => {
 		first.db.exec({ sql: "BEGIN IMMEDIATE" });
 		await openGate(options("/cut.sqlite3"));
 		await tick();
-		expect(lost).toHaveBeenCalledWith(true, false);
+		expect(lost).toHaveBeenCalledWith(true, expect.any(Promise));
+		expect(await lost.mock.calls[0][1]).toBe(false);
 	});
 
 	it("a tab on memory holds no lock: the next open, its own retake included, leaves it running", async () => {

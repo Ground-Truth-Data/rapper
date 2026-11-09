@@ -182,10 +182,10 @@ export type GateOptions = {
 	wasmUrl: string;
 	/** Each step as it starts, so a stuck boot can say where it is stuck. */
 	step: (s: string) => void;
-	/** A newer tab took the database; this connection is already closed. `cut`: it closed
-	 *  inside a transaction, which SQLite rolled back. `takenBack`: the taker is the connection
-	 *  this one took it from, so it was taken back, not opened. */
-	lost: (cut: boolean, takenBack: boolean) => void;
+	/** A newer tab took the database; called in the tick the connection closes, so nothing reads it closed.
+	 *  `cut`: it closed inside a transaction, which SQLite rolled back. `takenBack`: the taker is the
+	 *  connection this one took it from, so it was taken back, not opened. */
+	lost: (cut: boolean, takenBack: Promise<boolean>) => void;
 };
 
 let pool: Awaited<ReturnType<Sqlite3["installOpfsSAHPoolVfs"]>> | null = null;
@@ -223,12 +223,11 @@ export async function openGate(o: GateOptions): Promise<Opened> {
 				}
 				return new Promise<never>(() => {});
 			})
-			.catch(async (e: unknown) => {
+			.catch((e: unknown) => {
 				if ((e as Error)?.name !== "AbortError") return rej(e);
 				const cut = !!held && !api.capi.sqlite3_get_autocommit(held.pointer);
 				held?.close();
-				const by = await holder();
-				o.lost(cut, !!from && by === from);
+				o.lost(cut, holder().then((by) => !!from && by === from));
 			});
 	});
 }
