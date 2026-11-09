@@ -60,6 +60,9 @@
 	--rule-break: 2px solid var(--rt-yellow);
 	--rule-edge: 1px solid #826c17;
 	--rule-row: 1px solid #45443f;
+	/* Every table's who column: as wide as its pills, up to this; a longer name truncates inside its pill.
+	   Give the who cell min-width: 0 so a pill never props the column open. */
+	--who-col: fit-content(7rem);
 
 	--rt-gold-1: #f5d565;
 	--rt-gold-2: #e8b923;

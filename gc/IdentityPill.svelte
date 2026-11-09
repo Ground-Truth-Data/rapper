@@ -8,6 +8,7 @@ export type EditMark = { who: Identity; count: number };
 
 <script lang="ts">
 import { m } from "$parent/src/lib/paraglide/messages";
+import { SvelteSet } from "svelte/reactivity";
 import Icon from "./Icon.svelte";
 
 /** The owner, then one joined pill per editor: a pen half for their saves (×n), a rust hammer half on
@@ -24,13 +25,24 @@ const marks = $derived.by(() => {
     const all = clobberBy && !editors.some((e) => same(e.who, clobberBy)) ? [{ who: clobberBy, count: 0 }, ...editors] : [...editors];
     return all.sort((a, b) => Number(same(b.who, who)) - Number(same(a.who, who)));
 });
+
+// A name cut short by its cell reads whole on a tap, in place; the tap is the pill's, not the row's under it.
+const full = new SvelteSet<string>();
+function read(e: MouseEvent, label: string) {
+    const el = e.currentTarget as HTMLElement;
+    if (!full.has(label) && el.scrollWidth <= el.clientWidth) return;
+    e.stopPropagation();
+    if (!full.delete(label)) full.add(label);
+}
 </script>
 
 <!-- Dashed = a colour handed out on arrival, still unstyled; filled = chosen
      on purpose. Only you wear a solid gold outline. The editor's half is their
      own pill untouched — only its left corners square off to join. -->
-{#snippet own(p: Identity, label = p.label)}<span
+{#snippet own(p: Identity, label = p.label)}<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions --><span
     class="id-pill"
+    class:id-pill--full={full.has(label)}
+    onclick={(e) => read(e, label)}
     class:id-pill--picked={p.picked && !p.self}
     class:id-pill--self={p.self}
     style:--id-c={p.color || null}
@@ -52,7 +64,7 @@ const marks = $derived.by(() => {
         align-items: center;
         flex: none;
         gap: 3px;
-        max-width: 9rem;
+        max-width: min(9rem, 100%);
         height: 1.15rem;
         padding: 0 0.45rem;
         box-sizing: border-box;
@@ -69,6 +81,15 @@ const marks = $derived.by(() => {
         overflow: hidden;
         text-overflow: ellipsis;
     }
+    .id-pill--full {
+        height: auto;
+        min-height: 1.15rem;
+        padding-block: 2px;
+        border-radius: 0.6rem;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        line-height: 1.15;
+    }
     .id-pill--picked {
         border-style: solid;
         background: var(--id-ink);
@@ -81,7 +102,7 @@ const marks = $derived.by(() => {
     .id-mark {
         display: inline-flex;
         flex: none;
-        max-width: 9rem;
+        max-width: min(9rem, 100%);
     }
     .id-mark-half {
         display: inline-flex;
@@ -98,6 +119,7 @@ const marks = $derived.by(() => {
         color: #1a1a1a;
     }
     .id-mark .id-pill {
+        flex: 0 1 auto;
         min-width: 0;
         border-radius: 0 999px 999px 0;
     }
