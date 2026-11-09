@@ -152,6 +152,8 @@ return {
 	},
 	test: {
 		silent: "passed-only",
+		// One cache at the workspace root, shared by every run: parallel suites hit ENOTEMPTY, and it saved under 10%.
+		fsModuleCache: false,
 		// Scoped to lib/ + routes/: a bare ../<child>/** reaches worker node_modules.
 		include: [
 			"src/**/*.{test,spec}.{js,ts}",
