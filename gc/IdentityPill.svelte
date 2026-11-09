@@ -41,7 +41,7 @@ const marks = $derived.by(() => {
     {@const hammer = !!clobberBy && same(e.who, clobberBy)}
     <span class="id-mark" title={hammer ? m.gc_edit_replaced() : m.gc_edited_since_made()}
         ><span class="id-mark-half" class:id-mark-half--hammer={hammer}><Icon name={hammer ? "hammer" : "pen"} size={10} stroke={2.6} /></span
-        >{@render own(e.who, e.count ? `${e.who.label} ×${e.count}` : e.who.label)}</span
+        >{@render own(e.who, e.count > 1 ? `${e.who.label} ×${e.count}` : e.who.label)}</span
     >
 {/each}
 
