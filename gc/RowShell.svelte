@@ -96,7 +96,7 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         display: flex;
         align-items: center;
         gap: var(--rt-space-3);
-        padding: var(--rt-space-3) var(--rt-space-3);
+        padding: var(--rt-space-3) var(--rt-space-3) var(--rt-space-3) var(--rt-space-2);
     }
     /* --rt-row-tone: the inbox's colour for the row's depth, on border, title and chevrons. */
     .rt-row--top { border-color: var(--rt-row-tone, var(--rt-cream)); }
@@ -207,15 +207,18 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         overflow-wrap: anywhere;
         word-break: break-word;
     }
+    /* Pills wrap to a second line rather than run under the clip. */
     .rt-row__meta {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
-        gap: var(--rt-space-2);
+        gap: 4px var(--rt-space-2);
         min-width: 0;
         overflow: hidden;
     }
     .rt-row__planters {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         gap: 5px;
         min-width: 0;
