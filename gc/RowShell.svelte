@@ -4,7 +4,8 @@
 import type { Snippet } from "svelte";
 
 type Props = {
-    title: string;
+    /** A snippet when the title holds more than text: a person's pill. */
+    title: string | Snippet;
     /** The row is a link: its root is an `<a>`. */
     href?: string;
     onclick?: () => void;
@@ -55,7 +56,7 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         <span class="rt-row__glyph" class:rt-row__glyph--cache={glyphCache} data-glyph={glyphKind}>{@render glyph?.()}</span>
         <span class="rt-row__body">
             <span class="rt-row__title-row">
-                <span class="rt-row__title">{title}</span>
+                <span class="rt-row__title">{#if typeof title === "string"}{title}{:else}{@render title()}{/if}</span>
                 {@render titleEnd?.()}
             </span>
             {#if subtitle}<span class="rt-row__meta">{@render subtitle()}</span>{/if}
