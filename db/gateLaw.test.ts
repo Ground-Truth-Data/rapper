@@ -34,7 +34,7 @@ describe("only gate.ts opens SQLite", () => {
 				for (const what of breaches(rel, readFileSync(file, "utf8"))) offenders.push(`${rel}: ${what}`);
 			}
 		expect(offenders, "ask the gate (rapper/db/gate.ts) instead — rapper/DB_LAW.md").toEqual([]);
-	});
+	}, 30_000); // reads every source file in five repos; the fast tier runs it beside getCache's 11 workers
 });
 
 let sqlite3: { oo1: { DB: new (f?: string) => unknown } };
