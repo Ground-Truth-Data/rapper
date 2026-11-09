@@ -36,6 +36,20 @@ export function refused(d: Definition, data: Record<string, unknown>, group?: st
 	return null;
 }
 
+/** A saved answer's filled questions, in the form's order, each under its title: what a planter reads back.
+ *  A Person question's kind is "person": its value is a contact's key. */
+export function answerFacts(d: Definition, data: Record<string, unknown>, group?: string) {
+	const els = new Map<string, El>();
+	const walk = (es: El[]) => es.forEach((e) => (els.set(e.name, e), walk((e.templateElements ?? e.elements ?? []) as El[])));
+	walk(d.elements);
+	return fields(d)
+		.filter((f) => f.group === group && f.kind !== "panel" && f.kind !== "paneldynamic" && data[f.key] != null && data[f.key] !== "")
+		.map((f) => {
+			const e = els.get(f.key)!;
+			return { key: f.key, label: e.title ?? e.name, kind: e.contacts ? "person" : f.kind, value: data[f.key] };
+		});
+}
+
 /** Where the answer was saved, or an entry added: kept in the form's data under this key, never a field's. */
 export const FIX = "_fix";
 export type Fix = { lat: number; lng: number; accuracyM: number | null };
