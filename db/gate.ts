@@ -307,20 +307,12 @@ async function openHeld(api: Sqlite3, o: GateOptions, memory: string): Promise<O
  *  once it holds nothing the live file lacks. */
 async function carryKept(h: Db, o: GateOptions, skip: string): Promise<void> {
 	const name = o.file.replace(/^\//, "");
-	const prefix = `${name.replace(/\.sqlite3$/, "")}.older-`;
-	const isKept = (n: string) => n.startsWith(prefix) && n.endsWith(".sqlite3") && n !== skip;
-	const pool = o.native ? await loadPool(o) : null;
-	const root = pool ? null : ((await navigator.storage.getDirectory()) as FileSystemDirectoryHandle & { keys(): AsyncIterable<string> });
-	const names: string[] = [];
-	if (pool) names.push(...pool.getFileNames().map((n) => n.replace(/^\//, "")).filter(isKept));
-	else for await (const n of root!.keys()) if (isKept(n)) names.push(n);
-	for (const n of names) {
+	const older = new RegExp(`^${esc(name.replace(/\.sqlite3$/, ""))}\\.older-\\d+\\.sqlite3$`);
+	for (const n of (await names(o, older)).filter((n) => n !== skip)) {
 		try {
-			const bytes = pool ? await pool.exportFile(`/${n}`) : new Uint8Array(await (await (await root!.getFileHandle(n)).getFile()).arrayBuffer());
-			if (!carry(h, bytes, o.ddl)) continue;
+			if (!carry(h, await read(o, n), o.ddl)) continue;
 			console.info(`[gate] ${n} is now in ${name}; removed`);
-			if (pool) pool.unlink(`/${n}`);
-			else for (const f of [n, `${n}-journal`]) await root!.removeEntry(f).catch(() => {});
+			await remove(o, n);
 		} catch (e) {
 			console.error(`[gate] ${n} could not be copied again; it stays aside: ${String((e as Error)?.message ?? e)}`);
 		}
@@ -481,37 +473,44 @@ export async function openBytes(bytes: Uint8Array, wasmUrl?: string): Promise<Db
 }
 
 type Files = Pick<GateOptions, "file" | "native" | "wasmUrl">;
-const unsentName = (o: Files) => {
-	const base = o.file.replace(/^\//, "").replace(/\.sqlite3$/, "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-	return new RegExp(`^${base}\\.unsent-\\d+\\.sqlite3$`);
+const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+/** `.unsent-*` from a signed-in open, plus `.account-<account>-*`, a live file kept for that account alone. */
+const unsentName = (o: Files, account = "") => {
+	const base = esc(o.file.replace(/^\//, "").replace(/\.sqlite3$/, ""));
+	return new RegExp(`^${base}\\.(unsent${account ? `|account-${esc(account)}` : ""})-\\d+\\.sqlite3$`);
 };
 
+/** Another account signed in on a file holding `account`'s unsent rows: the file waits aside for its owner.
+ *  The caller has closed it, and reloads. */
+export const keepFor = (o: Files, account: string): Promise<string> => setAside(o as GateOptions, `account-${account}`);
+
 /** The files a signed-in open kept for rows the account's copy may lack, oldest first. */
-export async function unsentFiles(o: Files): Promise<{ name: string; bytes: Uint8Array }[]> {
-	const found = await names(o, unsentName(o));
-	if (o.native) {
-		const p = await loadPool(o as GateOptions);
-		return Promise.all(found.map(async (name) => ({ name, bytes: await p.exportFile(`/${name}`) })));
-	}
-	const root = await navigator.storage.getDirectory();
-	return Promise.all(found.map(async (name) => ({ name, bytes: new Uint8Array(await (await (await root.getFileHandle(name)).getFile()).arrayBuffer()) })));
+export async function unsentFiles(o: Files, account?: string): Promise<{ name: string; bytes: Uint8Array }[]> {
+	return Promise.all((await names(o, unsentName(o, account))).map(async (name) => ({ name, bytes: await read(o, name) })));
 }
 
 /** An unsent file goes only once its rows are in a copy the cloud holds. */
-export async function dropUnsent(o: Files, names: string[]): Promise<void> {
-	const is = unsentName(o);
+export async function dropUnsent(o: Files, names: string[], account?: string): Promise<void> {
+	const is = unsentName(o, account);
 	for (const name of names) {
 		if (!is.test(name)) throw new Error(`${name} is not an unsent file of ${o.file}`);
-		if (o.native) {
-			(await loadPool(o as GateOptions)).unlink(`/${name}`);
-			continue;
-		}
-		const root = await navigator.storage.getDirectory();
-		await root.removeEntry(name);
-		await root.removeEntry(`${name}-journal`).catch((e: unknown) => {
-			if ((e as Error)?.name !== "NotFoundError") throw e;
-		});
+		await remove(o, name);
 	}
+}
+
+async function read(o: Files, name: string): Promise<Uint8Array> {
+	if (o.native) return (await loadPool(o as GateOptions)).exportFile(`/${name}`);
+	const root = await navigator.storage.getDirectory();
+	return new Uint8Array(await (await (await root.getFileHandle(name)).getFile()).arrayBuffer());
+}
+
+async function remove(o: Files, name: string): Promise<void> {
+	if (o.native) return void (await loadPool(o as GateOptions)).unlink(`/${name}`);
+	const root = await navigator.storage.getDirectory();
+	await root.removeEntry(name);
+	await root.removeEntry(`${name}-journal`).catch((e: unknown) => {
+		if ((e as Error)?.name !== "NotFoundError") throw e;
+	});
 }
 
 /** Sign-out: every file `live` names goes, journals with them. */

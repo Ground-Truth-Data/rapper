@@ -3,7 +3,7 @@
 
 import { fileURLToPath } from "node:url";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import { type Db, dropUnsent, erase, type GateOptions, loadApi, openGate, reconcile, unsentFiles } from "./gate.js";
+import { type Db, dropUnsent, erase, type GateOptions, keepFor, loadApi, openGate, reconcile, unsentFiles } from "./gate.js";
 
 type Api = { oo1: { DB: new (f?: string) => unknown; OpfsDb?: unknown }; installOpfsSAHPoolVfs?: unknown };
 
@@ -115,6 +115,26 @@ describe("unsentFiles — what a pull may merge back", () => {
 			slots.set(n, new Uint8Array([7]));
 		const found = await unsentFiles({ ...web, native: true });
 		expect(found).toEqual([{ name: "getcache-v57.unsent-7.sqlite3", bytes: new Uint8Array([7]) }]);
+	});
+});
+
+// Another account signed in on a file whose rows never reached its owner's cloud: the file waits for its owner.
+describe("keepFor — a live file kept for the account that wrote it", () => {
+	it("moves the live file and its journal aside under the account's name; a new open starts empty", async () => {
+		put("getcache-v57.sqlite3", "getcache-v57.sqlite3-journal");
+		const kept = await keepFor(web, "acct-a");
+		expect(kept).toMatch(/^getcache-v57\.account-acct-a-\d+\.sqlite3$/);
+		expect([...root.files.keys()].sort()).toEqual([kept, `${kept}-journal`]);
+	});
+
+	it("is offered to its own account only, beside the world's unsent files, and only its account may drop it", async () => {
+		put("getcache-v57.account-acct-a-1.sqlite3", "getcache-v57.unsent-2.sqlite3");
+		expect((await unsentFiles(web, "acct-a")).map((f) => f.name)).toEqual(["getcache-v57.account-acct-a-1.sqlite3", "getcache-v57.unsent-2.sqlite3"]);
+		expect((await unsentFiles(web, "acct-b")).map((f) => f.name)).toEqual(["getcache-v57.unsent-2.sqlite3"]);
+		expect((await unsentFiles(web)).map((f) => f.name)).toEqual(["getcache-v57.unsent-2.sqlite3"]);
+		await expect(dropUnsent(web, ["getcache-v57.account-acct-a-1.sqlite3"], "acct-b")).rejects.toThrow(/is not an unsent file/);
+		await dropUnsent(web, ["getcache-v57.account-acct-a-1.sqlite3"], "acct-a");
+		expect([...root.files.keys()]).toEqual(["getcache-v57.unsent-2.sqlite3"]);
 	});
 });
 
