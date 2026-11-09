@@ -336,20 +336,19 @@ export async function attach(h: Db, o: Files, schema: string, ddl: string): Prom
 		await p.reserveMinimumCapacity(Number(p.getFileCount()) + 2);
 	}
 	const on = () => h.exec({ sql: `ATTACH ? AS ${q(schema)}`, bind: [`file:${o.file}?vfs=${o.native ? "opfs-sahpool" : "opfs"}`] });
-	on();
-	let older: string[];
+	// SQLite reads the schema at ATTACH, so an unreadable file is refused there and nothing stays attached.
 	try {
-		older = lacking(h, ddl, schema);
+		on();
 	} catch (e) {
-		detach(h, schema);
 		if (!UNREADABLE.test(String((e as Error)?.message ?? e))) throw e;
 		console.error(`[gate] ${o.file} could not be read and was set aside as ${await setAside(o as GateOptions)}`);
 		on();
 		return reconcile(h, ddl, schema, true);
 	}
+	const older = lacking(h, ddl, schema);
 	if (!older.length) return reconcile(h, ddl, schema, true);
 	const bytes = exportBytes(h, schema);
-	detach(h, schema);
+	h.exec({ sql: `DETACH ${q(schema)}` });
 	const kept = await setAside(o as GateOptions, "older");
 	on();
 	const added = reconcile(h, ddl, schema, true);
@@ -357,8 +356,6 @@ export async function attach(h: Db, o: Files, schema: string, ddl: string): Prom
 	console.info(`[gate] ${o.file} lacked ${older.join(", ")}: its rows were copied from ${kept}`);
 	return added;
 }
-
-export const detach = (h: Db, schema: string): void => void h.exec({ sql: `DETACH ${q(schema)}` });
 
 /** The names, without a leading slash, of the files `is` matches. */
 export async function names(o: Pick<GateOptions, "native" | "wasmUrl">, is: RegExp): Promise<string[]> {
