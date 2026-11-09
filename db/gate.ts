@@ -163,8 +163,12 @@ export const loadApi = async (wasmUrl?: string, opfs = true): Promise<Sqlite3> =
 
 export type Opened = {
 	db: Db;
-	/** Why the browser refused its storage, so this tab runs in memory; "" for the real file. */
+	/** Why this tab runs in memory; "" for the real file. */
 	memory: string;
+	/** On memory only because another connection holds the file: a designed state, not a refusal. */
+	held: boolean;
+	/** Settles when the connection holding the file closes it: true when no newer tab has taken the file since. */
+	freed?: Promise<boolean>;
 	/** The name an unreadable file was set aside under, which alarms; "" when none was. An older build's file, its rows copied, is not one. */
 	aside: string;
 	/** Tables and columns this open added to the file. */
@@ -183,9 +187,8 @@ export type GateOptions = {
 	/** Each step as it starts, so a stuck boot can say where it is stuck. */
 	step: (s: string) => void;
 	/** A newer tab took the database; called in the tick the connection closes, so nothing reads it closed.
-	 *  `cut`: it closed inside a transaction, which SQLite rolled back. `takenBack`: the taker is the
-	 *  connection this one took it from, so it was taken back, not opened. */
-	lost: (cut: boolean, takenBack: Promise<boolean>) => void;
+	 *  `cut`: it closed inside a transaction, which SQLite rolled back. */
+	lost: (cut: boolean) => void;
 };
 
 let pool: Awaited<ReturnType<Sqlite3["installOpfsSAHPoolVfs"]>> | null = null;
@@ -205,25 +208,33 @@ export async function openGate(o: GateOptions): Promise<Opened> {
 	const api = await loadApi(o.wasmUrl, !memory);
 	o.step("taking the database from other tabs");
 	const name = `gc-db:${o.file}`;
-	const holder = async () => (await navigator.locks.query()).held?.find((l) => l.name === name)?.clientId;
-	const from = await holder();
+	// Held from the file's open to its close, never stolen: a steal moves the right to the file, this marks who still has it open.
+	const handle = `gc-db-handle:${o.file}`;
+	const locks = () => navigator.locks.query().then((q) => q.held ?? []);
+	const holder = async () => (await locks()).some((l) => l.name === name);
 	return new Promise((res, rej) => {
 		let held: Db | null = null;
+		let letGo: (() => void) | null = null;
+		let closed = false;
 		let opening = true;
 		navigator.locks
 			.request(name, { steal: true }, async () => {
 				try {
+					const stillOpen = (await locks()).some((l) => l.name === handle);
 					let opened = await openHeld(api, o, memory);
 					// Taken while it opened: it holds the file without the lock, so it runs on memory like a held open.
 					if (!opening && !opened.memory) {
 						opened.db.close();
-						opened = { ...opened, db: inMemory(api, o), memory: "a newer tab took the file while this one opened it" };
+						opened = { ...opened, db: inMemory(api, o), memory: "a newer tab took the file while this one opened it", held: true };
 					}
+					// Freed only while no newer tab has taken the file since: a tab that has one is an older tab, back when looked at.
+					if (opened.held && stillOpen) opened.freed = navigator.locks.request(handle, async () => {}).then(async () => !(await holder()));
 					opening = false;
 					res(opened);
 					// No file, no lock: a retake from this tab must not steal from itself.
 					if (opened.memory) return;
 					held = opened.db;
+					void navigator.locks.request(handle, () => (closed ? undefined : new Promise<void>((r) => (letGo = r))));
 				} catch (e) {
 					rej(e);
 					return;
@@ -233,15 +244,17 @@ export async function openGate(o: GateOptions): Promise<Opened> {
 			.catch((e: unknown) => {
 				if ((e as Error)?.name !== "AbortError") return rej(e);
 				if (opening) return void (opening = false);
-				const cut = !!held && !api.capi.sqlite3_get_autocommit(held.pointer);
+				const cut = !!held && inTransaction(held);
 				held?.close();
-				o.lost(cut, holder().then((by) => !!from && by === from));
+				closed = true;
+				letGo?.();
+				o.lost(cut);
 			});
 	});
 }
 
 async function openHeld(api: Sqlite3, o: GateOptions, memory: string): Promise<Opened> {
-	if (memory) return { db: inMemory(api, o), memory, aside: "", added: [] };
+	if (memory) return { db: inMemory(api, o), memory, held: false, aside: "", added: [] };
 	let aside = "";
 	for (;;) {
 		o.step(`opening ${o.file}`);
@@ -264,14 +277,15 @@ async function openHeld(api: Sqlite3, o: GateOptions, memory: string): Promise<O
 			if (rows) carry(h, rows, o.ddl);
 			h.exec({ sql: `PRAGMA user_version = ${o.version}` });
 			if (added.length) console.info(`[gate] ${o.file}: added ${added.join(", ")}`);
-			return { db: h, memory: "", aside, added };
+			return { db: h, memory: "", held: false, aside, added };
 		} catch (e) {
 			h?.close();
 			const why = String((e as Error)?.message ?? e);
 			if (aside || !UNREADABLE.test(why)) {
 				if (o.native || aside) throw e;
-				console.error(`[gate] the browser refused the database file, so this tab runs in memory: ${why}`);
-				return { db: inMemory(api, o), memory: why, aside, added: [] };
+				const held = /SQLITE_BUSY/.test(why);
+				if (!held) console.error(`[gate] the browser refused the database file, so this tab runs in memory: ${why}`);
+				return { db: inMemory(api, o), memory: why, held, aside, added: [] };
 			}
 			o.step(`setting aside ${o.file}: SQLite cannot read it`);
 			aside = await setAside(o);
@@ -368,6 +382,8 @@ async function openShared(api: Sqlite3, o: GateOptions): Promise<Db> {
 		);
 	return new oo1.OpfsDb(o.file);
 }
+
+export const inTransaction = (h: Db): boolean => !(sqlite3 as Sqlite3).capi.sqlite3_get_autocommit(h.pointer as never);
 
 /** An empty database in memory, never written anywhere. */
 export const scratch = (): Db => new (sqlite3 as Sqlite3).oo1.DB(":memory:") as unknown as Db;

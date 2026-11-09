@@ -1,7 +1,7 @@
 /** rapper/DB_LAW.md 1–5 through the gate's own doors: open, set aside, attach a copy, erase. */
 
 import { fileURLToPath } from "node:url";
-import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { type Db, erase, exportBytes, type GateOptions, loadApi, openBytes, openGate, reconcile, withBytes } from "./gate.js";
 
 type Api = {
@@ -96,6 +96,12 @@ beforeAll(async () => {
 	};
 	api.installOpfsSAHPoolVfs = async () => pool;
 	Object.defineProperty(navigator, "storage", { value: { getDirectory: () => storage() }, configurable: true });
+});
+
+// Each test starts with no other tab: every file a test left open is taken back, which closes its connection.
+afterEach(async () => {
+	for (const l of (await navigator.locks.query()).held ?? []) if (l.name?.startsWith("gc-db:")) await navigator.locks.request(l.name, { steal: true }, async () => {});
+	await tick();
 });
 
 beforeEach(() => {
@@ -287,8 +293,8 @@ describe("openGate — the newest tab wins", () => {
 		const first = await openGate(options("/tabs.sqlite3", { lost }));
 		const second = await openGate(options("/tabs.sqlite3"));
 		await tick();
-		expect(lost).toHaveBeenCalledWith(false, expect.any(Promise));
-		expect(await lost.mock.calls[0][1]).toBe(false);
+		expect(second.memory, "an idle connection never blocks the newest").toBe("");
+		expect(lost).toHaveBeenCalledWith(false);
 		expect(() => first.db.exec({ sql: "SELECT 1" })).toThrow();
 		expect(all(second.db, "SELECT 1 AS one")).toEqual([{ one: 1 }]);
 	});
@@ -299,8 +305,7 @@ describe("openGate — the newest tab wins", () => {
 		first.db.exec({ sql: "BEGIN IMMEDIATE" });
 		await openGate(options("/cut.sqlite3"));
 		await tick();
-		expect(lost).toHaveBeenCalledWith(true, expect.any(Promise));
-		expect(await lost.mock.calls[0][1]).toBe(false);
+		expect(lost).toHaveBeenCalledWith(true);
 	});
 
 	it("a tab whose file is taken while it is still opening lets the file go and runs on memory", async () => {
@@ -326,6 +331,36 @@ describe("openGate — the newest tab wins", () => {
 		expect(all(second.db, "SELECT 1 AS one")).toEqual([{ one: 1 }]);
 	});
 
+	const busyUnder = async (file: string) => {
+		// An older tab's connection, its worker busy inside a write: it hears of the steal, and closes, only when that ends.
+		let closeOlder!: () => void;
+		void navigator.locks.request(`gc-db-handle:${file}`, () => new Promise<void>((r) => (closeOlder = r)));
+		opener = () => {
+			throw new Error("SQLITE_BUSY: database is locked");
+		};
+		const held = await openGate(options(file));
+		expect(held).toMatchObject({ held: true, memory: expect.stringMatching("SQLITE_BUSY") });
+		opener = () => mem();
+		let freed: boolean | undefined;
+		void held.freed?.then((v) => (freed = v));
+		await tick();
+		expect(freed, "still open").toBeUndefined();
+		return { closeOlder, freed: () => freed };
+	};
+
+	it("a tab that finds the file busy under an older tab's connection is freed the moment that connection closes", async () => {
+		const { closeOlder, freed } = await busyUnder("/held.sqlite3");
+		closeOlder();
+		await vi.waitFor(() => expect(freed()).toBe(true));
+	});
+
+	it("a newer tab that takes the file first leaves the held tab an older one: it moves only when looked at", async () => {
+		const { closeOlder, freed } = await busyUnder("/newer.sqlite3");
+		void navigator.locks.request("gc-db:/newer.sqlite3", { steal: true }, () => new Promise<void>(() => {})).catch(() => {});
+		closeOlder();
+		await vi.waitFor(() => expect(freed()).toBe(false));
+	});
+
 	it("a tab on memory holds no lock: the next open, its own retake included, leaves it running", async () => {
 		const lost = vi.fn();
 		opener = () => {
@@ -333,6 +368,8 @@ describe("openGate — the newest tab wins", () => {
 		};
 		const busy = await openGate(options("/busy.sqlite3", { lost }));
 		expect(busy.memory).toMatch("SQLITE_BUSY");
+		expect(busy.held).toBe(true);
+		expect(busy.freed, "nothing of ours holds the file, so nothing will free it: the tab takes it back when looked at").toBeUndefined();
 		opener = () => mem();
 		const retaken = await openGate(options("/busy.sqlite3"));
 		await tick();

@@ -2,7 +2,7 @@
  *  goes only by name, and after a sign-out the next account opens on a file holding none of the last one's rows. */
 
 import { fileURLToPath } from "node:url";
-import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { type Db, dropUnsent, erase, type GateOptions, loadApi, openGate, reconcile, unsentFiles } from "./gate.js";
 
 type Api = { oo1: { DB: new (f?: string) => unknown; OpfsDb?: unknown }; installOpfsSAHPoolVfs?: unknown };
@@ -69,6 +69,12 @@ beforeAll(async () => {
 	};
 	api.installOpfsSAHPoolVfs = async () => pool;
 	Object.defineProperty(navigator, "storage", { value: { getDirectory: async () => root }, configurable: true });
+});
+
+// Each test starts with no other tab: every file a test left open is taken back, which closes its connection.
+afterEach(async () => {
+	for (const l of (await navigator.locks.query()).held ?? []) if (l.name?.startsWith("gc-db:")) await navigator.locks.request(l.name, { steal: true }, async () => {});
+	await new Promise((r) => setTimeout(r, 0));
 });
 
 beforeEach(() => {
