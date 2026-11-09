@@ -60,10 +60,10 @@ function read(e: MouseEvent, label: string) {
 <style>
     .id-pill {
         --id-ink: var(--id-c, var(--rt-row-sender, #c3c8ac));
-        display: inline-flex;
-        align-items: center;
+        /* inline-block, not flex: a flex box clips the name but never draws its …. */
+        display: inline-block;
+        vertical-align: middle;
         flex: none;
-        gap: 3px;
         max-width: min(9rem, 100%);
         height: 1.15rem;
         padding: 0 0.45rem;
@@ -76,7 +76,7 @@ function read(e: MouseEvent, label: string) {
         font-family: var(--rt-font-body);
         font-size: 0.7rem;
         font-weight: 700;
-        line-height: 1;
+        line-height: calc(1.15rem - 4px);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
