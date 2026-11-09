@@ -38,6 +38,7 @@ class FakeRoot {
 		const bytes = this.files.get(name);
 		if (!bytes) throw new DOMException(name, "NotFoundError");
 		return {
+			getFile: async () => ({ arrayBuffer: async () => bytes.slice().buffer }),
 			move: async (to: string) => {
 				this.files.delete(name);
 				this.files.set(to, bytes);
@@ -63,7 +64,7 @@ const pool = {
 	OpfsSAHPoolDb: function (f: string) {
 		return opener(f);
 	},
-	exportFile: (f: string) => {
+	exportFile: async (f: string) => {
 		poolLog.push(`export ${f}`);
 		return slots.get(f);
 	},
@@ -229,7 +230,7 @@ describe("openGate — the browser", () => {
 	});
 
 	it("signed out, an older build's rows are copied into a fresh file, and the older file is kept aside", async () => {
-		const bytes = new Uint8Array([1]);
+		const bytes = exportBytes(older());
 		root.files.set("older.sqlite3", bytes);
 		let opens = 0;
 		opener = () => (opens++ ? mem() : older());
@@ -242,6 +243,40 @@ describe("openGate — the browser", () => {
 			{ pinKey: "p2", name: "Creek", note: "" },
 		]);
 		expect(all(o.db, "SELECT name FROM sqlite_master WHERE name = 'pin_name_idx'")).toEqual([{ name: "pin_name_idx" }]);
+	});
+
+	// The older tab closes only when its lock is stolen, so it can still write to the older file after its rows were copied.
+	it("signed out, a write the older tab made after the copy reaches the live file at the next open; the older file goes once nothing in it is new", async () => {
+		const live = mem();
+		reconcile(live, TODAY);
+		live.exec({ sql: "INSERT INTO pin (pinKey, name) VALUES ('p1', 'North 40'), ('p2', 'Creek')" });
+		const late = older();
+		late.exec({ sql: "INSERT INTO pin VALUES ('p3', 'Written in the gap')" });
+		root.files.set("f.sqlite3", new Uint8Array([1]));
+		root.files.set("f.older-1.sqlite3", exportBytes(late));
+		opener = () => live;
+		const o = await openGate(options("/f.sqlite3"));
+		expect(all(o.db, "SELECT pinKey, name FROM pin ORDER BY pinKey")).toEqual([
+			{ pinKey: "p1", name: "North 40" },
+			{ pinKey: "p2", name: "Creek" },
+			{ pinKey: "p3", name: "Written in the gap" },
+		]);
+		expect([...root.files.keys()]).toEqual(["f.sqlite3"]);
+	});
+
+	it("signed out, a kept older file whose row clashes with the live one stays aside, and the live row stays as it is", async () => {
+		const live = mem();
+		reconcile(live, TODAY);
+		live.exec({ sql: "INSERT INTO pin (pinKey, name) VALUES ('p1', 'Renamed here')" });
+		root.files.set("f.sqlite3", new Uint8Array([1]));
+		root.files.set("f.older-1.sqlite3", exportBytes(older()));
+		opener = () => live;
+		const o = await openGate(options("/f.sqlite3"));
+		expect(all(o.db, "SELECT pinKey, name FROM pin ORDER BY pinKey")).toEqual([
+			{ pinKey: "p1", name: "Renamed here" },
+			{ pinKey: "p2", name: "Creek" },
+		]);
+		expect([...root.files.keys()]).toEqual(["f.sqlite3", "f.older-1.sqlite3"]);
 	});
 
 	it("storage the browser refuses runs this tab in memory, at today's shape, saying why", async () => {
@@ -389,6 +424,19 @@ describe("openGate — the native shells", () => {
 		expect(o.aside).toMatch(/^native\.unreadable-\d+\.sqlite3$/);
 		expect(poolLog).toEqual(["export /native.sqlite3", `import /${o.aside}`, "unlink /native.sqlite3"]);
 		expect(slots.get(`/${o.aside}`)).toBe(bytes);
+	});
+
+	it("signed out, a write the older tab made after the copy reaches the live file at the next open, and its slot is freed", async () => {
+		const live = mem();
+		reconcile(live, TODAY);
+		const late = older();
+		late.exec({ sql: "INSERT INTO pin VALUES ('p3', 'Written in the gap')" });
+		slots.set("/n.sqlite3", new Uint8Array([1]));
+		slots.set("/n.older-1.sqlite3", exportBytes(late));
+		opener = () => live;
+		const o = await openGate(options("/n.sqlite3", { native: true }));
+		expect(all(o.db, "SELECT pinKey FROM pin ORDER BY pinKey")).toEqual([{ pinKey: "p1" }, { pinKey: "p2" }, { pinKey: "p3" }]);
+		expect([...slots.keys()]).toEqual(["/n.sqlite3"]);
 	});
 
 	it("any other refusal fails loudly and leaves the file where it is", async () => {

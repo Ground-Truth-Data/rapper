@@ -97,8 +97,10 @@ function lacking(h: Db, ddl: string, schema = "main"): string[] {
 
 /** An older file's rows, copied into `h` at today's shape. Triggers are rebuilt after the
  *  copy, so a rule newer than a row cannot refuse it. A table today's shape still refuses
- *  keeps its rows in the file set aside, and the console says which. */
-export function carry(h: Db, bytes: Uint8Array, ddl: string, schema = "main"): void {
+ *  keeps its rows in the file set aside, and the console says which. A key already here keeps its row.
+ *  True when the copy holds no row `h` lacks. */
+export function carry(h: Db, bytes: Uint8Array, ddl: string, schema = "main"): boolean {
+	let none = true;
 	withBytes(h, bytes, ddl, () => {
 		for (const r of rows(h, `SELECT name FROM ${schema}.sqlite_master WHERE type = 'trigger'`))
 			h.exec({ sql: `DROP TRIGGER ${schema}.${q(String(r.name))}` });
@@ -110,8 +112,10 @@ export function carry(h: Db, bytes: Uint8Array, ddl: string, schema = "main"): v
 				if (!table) continue;
 				const cols = rows(h, `PRAGMA ${schema}.table_info(${q(table)})`).map((c) => q(String(c.name))).join(", ");
 				try {
-					h.exec({ sql: `INSERT INTO ${schema}.${q(table)} (${cols}) SELECT ${cols} FROM backup.${q(table)}` });
+					h.exec({ sql: `INSERT INTO ${schema}.${q(table)} (${cols}) SELECT ${cols} FROM backup.${q(table)} WHERE true ON CONFLICT DO NOTHING` });
+					if (rows(h, `SELECT ${cols} FROM backup.${q(table)} EXCEPT SELECT ${cols} FROM ${schema}.${q(table)} LIMIT 1`).length) none = false;
 				} catch (e) {
+					none = false;
 					console.error(`[gate] ${table}'s rows were refused by today's shape; they stay in the older file: ${String((e as Error)?.message ?? e)}`);
 				}
 			}
@@ -124,6 +128,7 @@ export function carry(h: Db, bytes: Uint8Array, ddl: string, schema = "main"): v
 		}
 	});
 	reconcile(h, ddl, schema, true);
+	return none;
 }
 
 function addColumns(h: Db, schema: string, table: string, create: string): string[] {
@@ -263,18 +268,21 @@ async function openHeld(api: Sqlite3, o: GateOptions, memory: string): Promise<O
 			h = o.native ? await openPooled(o) : await openShared(api, o);
 			const older = lacking(h, o.ddl);
 			const rows = older.length && !o.signedIn ? exportBytes(h) : null;
+			let kept = "";
 			if (older.length) {
 				h.close();
 				h = null;
 				o.step(`replacing ${o.file}: an older build made it`);
 				// Signed in, the account's copy fills the fresh file; rows written since the last upload wait in the kept one.
-				const kept = await setAside(o, rows ? "older" : "unsent");
+				kept = await setAside(o, rows ? "older" : "unsent");
 				console.info(`[gate] ${o.file} lacked ${older.join(", ")}: ${rows ? `its rows were copied from ${kept}` : `kept as ${kept} until its rows reach the cloud`}`);
 				h = o.native ? await openPooled(o) : await openShared(api, o);
 			}
 			o.step("adding missing tables and columns");
 			const added = reconcile(h, o.ddl);
 			if (rows) carry(h, rows, o.ddl);
+			// Signed in, a kept older file is a signed-out session's: its rows never join an account.
+			if (!o.signedIn) await carryKept(h, o, kept);
 			h.exec({ sql: `PRAGMA user_version = ${o.version}` });
 			if (added.length) console.info(`[gate] ${o.file}: added ${added.join(", ")}`);
 			return { db: h, memory: "", held: false, aside, added };
@@ -290,6 +298,31 @@ async function openHeld(api: Sqlite3, o: GateOptions, memory: string): Promise<O
 			o.step(`setting aside ${o.file}: SQLite cannot read it`);
 			aside = await setAside(o);
 			console.error(`[gate] ${o.file} could not be read and was set aside as ${aside}: ${why}`);
+		}
+	}
+}
+
+/** The older tab writes on until its lock is stolen, so a kept older file can hold rows its copy missed. Each open
+ *  copies it again, the one this open set aside excepted; a key already here stays as it is, and the file goes
+ *  once it holds nothing the live file lacks. */
+async function carryKept(h: Db, o: GateOptions, skip: string): Promise<void> {
+	const name = o.file.replace(/^\//, "");
+	const prefix = `${name.replace(/\.sqlite3$/, "")}.older-`;
+	const isKept = (n: string) => n.startsWith(prefix) && n.endsWith(".sqlite3") && n !== skip;
+	const pool = o.native ? await loadPool(o) : null;
+	const root = pool ? null : ((await navigator.storage.getDirectory()) as FileSystemDirectoryHandle & { keys(): AsyncIterable<string> });
+	const names: string[] = [];
+	if (pool) names.push(...pool.getFileNames().map((n) => n.replace(/^\//, "")).filter(isKept));
+	else for await (const n of root!.keys()) if (isKept(n)) names.push(n);
+	for (const n of names) {
+		try {
+			const bytes = pool ? await pool.exportFile(`/${n}`) : new Uint8Array(await (await (await root!.getFileHandle(n)).getFile()).arrayBuffer());
+			if (!carry(h, bytes, o.ddl)) continue;
+			console.info(`[gate] ${n} is now in ${name}; removed`);
+			if (pool) pool.unlink(`/${n}`);
+			else for (const f of [n, `${n}-journal`]) await root!.removeEntry(f).catch(() => {});
+		} catch (e) {
+			console.error(`[gate] ${n} could not be copied again; it stays aside: ${String((e as Error)?.message ?? e)}`);
 		}
 	}
 }
