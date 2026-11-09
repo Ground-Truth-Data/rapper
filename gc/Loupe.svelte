@@ -2,7 +2,6 @@
 <script module lang="ts">
 export const LOUPE_W = 150;
 export const LOUPE_H = 96;
-export const LOUPE_R = 48;
 export const LOUPE_ZOOM = 1.8;
 // The lens's bottom edge sits this far above the finger.
 export const LOUPE_GAP = 62;
