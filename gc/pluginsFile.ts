@@ -21,8 +21,8 @@ export const pluginsDdl = [
 	\`logo\` text,
 	\`publishedAt\` text NOT NULL,
 	\`addedAt\` text NOT NULL,
-	-- The company that publishes it, as Central named it then: { key, name, slug, logo }. Null for a person's own.
-	\`org\` text CHECK (\`org\` IS NULL OR json_valid(\`org\`) AND json_type(\`org\`) = 'object'),
+	-- The company that publishes it, null for a person's own. Its name and colour are the planter's Contacts org's.
+	\`orgKey\` text,
 	\`submissions\` integer,
 	\`lastSubmittedAt\` text,
 	\`lockedAt\` text,
@@ -34,7 +34,6 @@ export const pluginsDdl = [
 	// A company's suite, kept once its link is opened; its forms come down with it on every refresh online.
 	`CREATE TABLE \`suite\` (
 	\`suiteKey\` text PRIMARY KEY NOT NULL,
-	\`company\` text NOT NULL CHECK (json_valid(\`company\`) AND json_type(\`company\`) = 'object'),
 	\`fetchedAt\` text NOT NULL
 )`,
 	// editedByKey is this phone's self personKey, filled by the insert from the planter's file. No REFERENCES:
