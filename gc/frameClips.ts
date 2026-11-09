@@ -44,7 +44,3 @@ export function frameUrl(root: string, clip: string, facts: ClipFacts, frame: nu
 export function frameUrls(root: string, clip: string, facts: ClipFacts): string[] {
 	return Array.from({ length: facts.frameCount }, (_, i) => frameUrl(root, clip, facts, i + 1));
 }
-
-export function clipMs(facts: ClipFacts): number {
-	return Math.round((facts.frameCount / facts.fps) * 1000);
-}

@@ -30,23 +30,9 @@ export function toCoord(lng: unknown, lat: unknown): Coord | null {
     return [lng, lat] as unknown as Coord;
 }
 
-export function toCoordFromLngLat(
-    p: { lng?: unknown; lat?: unknown } | null | undefined,
-): Coord | null {
-    if (!p) return null;
-    return toCoord(p.lng, p.lat);
-}
-
 export function toCoordFromArray(a: unknown): Coord | null {
     if (!Array.isArray(a)) return null;
     return toCoord(a[0], a[1]);
-}
-
-export function toCoordFromFeature(
-    f: { geometry?: { coordinates?: unknown } } | null | undefined,
-): Coord | null {
-    if (!f) return null;
-    return toCoordFromArray(f.geometry?.coordinates);
 }
 
 // For values already shaped as a tuple but not provably validated (e.g.

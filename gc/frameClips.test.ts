@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { clipMs, forgetClips, frameUrl, frameUrls, loadClips, type ClipFacts } from "./frameClips";
+import { forgetClips, frameUrl, frameUrls, loadClips, type ClipFacts } from "./frameClips";
 
 const facts: ClipFacts = { section: "dog", frameCount: 3, fps: 24, widthRem: 36, note: "t" };
 
@@ -13,10 +13,6 @@ describe("frameClips", () => {
 			"https://x.org/rt_anime/dog/dog-blink/dog-blink_002.webp",
 			"https://x.org/rt_anime/dog/dog-blink/dog-blink_003.webp",
 		]);
-	});
-
-	it("times a clip from its count and fps", () => {
-		expect(clipMs({ ...facts, frameCount: 163, fps: 24 })).toBe(6792);
 	});
 
 	it("loads clips.json from the root and refuses a missing one", async () => {
