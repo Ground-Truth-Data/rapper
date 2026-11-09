@@ -211,6 +211,9 @@ export async function openGate(o: GateOptions): Promise<Opened> {
 	}
 	o.step("loading SQLite");
 	const api = await loadApi(o.wasmUrl, !memory);
+	// Read before the lock: an await between the lock and the open lets an older tab's focus steal the open.
+	// Signed in, a kept older file is a signed-out session's: its rows never join an account.
+	const olderKept = memory || o.signedIn ? [] : await readOlderKept(o);
 	o.step("taking the database from other tabs");
 	const name = `gc-db:${o.file}`;
 	// Held from the file's open to its close, never stolen: a steal moves the right to the file, this marks who still has it open.
@@ -226,7 +229,7 @@ export async function openGate(o: GateOptions): Promise<Opened> {
 			.request(name, { steal: true }, async () => {
 				try {
 					const stillOpen = (await locks()).some((l) => l.name === handle);
-					let opened = await openHeld(api, o, memory);
+					let opened = await openHeld(api, o, memory, olderKept);
 					// Taken while it opened: it holds the file without the lock, so it runs on memory like a held open.
 					if (!opening && !opened.memory) {
 						opened.db.close();
@@ -258,7 +261,7 @@ export async function openGate(o: GateOptions): Promise<Opened> {
 	});
 }
 
-async function openHeld(api: Sqlite3, o: GateOptions, memory: string): Promise<Opened> {
+async function openHeld(api: Sqlite3, o: GateOptions, memory: string, olderKept: Kept[]): Promise<Opened> {
 	if (memory) return { db: inMemory(api, o), memory, held: false, aside: "", added: [] };
 	let aside = "";
 	for (;;) {
@@ -281,9 +284,10 @@ async function openHeld(api: Sqlite3, o: GateOptions, memory: string): Promise<O
 			o.step("adding missing tables and columns");
 			const added = reconcile(h, o.ddl);
 			if (rows) carry(h, rows, o.ddl);
-			// Signed in, a kept older file is a signed-out session's: its rows never join an account.
-			if (!o.signedIn) await carryKept(h, o, kept);
+			const carried = olderKept.filter((k) => carryKept(h!, o, k));
 			h.exec({ sql: `PRAGMA user_version = ${o.version}` });
+			for (const { name } of carried)
+				remove(o, name).catch((e: unknown) => console.error(`[gate] ${name} is in ${o.file} but could not be removed: ${String((e as Error)?.message ?? e)}`));
 			if (added.length) console.info(`[gate] ${o.file}: added ${added.join(", ")}`);
 			return { db: h, memory: "", held: false, aside, added };
 		} catch (e) {
@@ -303,19 +307,30 @@ async function openHeld(api: Sqlite3, o: GateOptions, memory: string): Promise<O
 }
 
 /** The older tab writes on until its lock is stolen, so a kept older file can hold rows its copy missed. Each open
- *  copies it again, the one this open set aside excepted; a key already here stays as it is, and the file goes
- *  once it holds nothing the live file lacks. */
-async function carryKept(h: Db, o: GateOptions, skip: string): Promise<void> {
-	const name = o.file.replace(/^\//, "");
-	const older = new RegExp(`^${esc(name.replace(/\.sqlite3$/, ""))}\\.older-\\d+\\.sqlite3$`);
-	for (const n of (await names(o, older)).filter((n) => n !== skip)) {
+ *  copies it again; a key already here stays as it is, and the file goes once it holds nothing the live file lacks. */
+type Kept = { name: string; bytes: Uint8Array };
+async function readOlderKept(o: GateOptions): Promise<Kept[]> {
+	const older = new RegExp(`^${esc(o.file.replace(/^\//, "").replace(/\.sqlite3$/, ""))}\\.older-\\d+\\.sqlite3$`);
+	const out: Kept[] = [];
+	for (const name of await names(o, older)) {
 		try {
-			if (!carry(h, await read(o, n), o.ddl)) continue;
-			console.info(`[gate] ${n} is now in ${name}; removed`);
-			await remove(o, n);
+			out.push({ name, bytes: await read(o, name) });
 		} catch (e) {
-			console.error(`[gate] ${n} could not be copied again; it stays aside: ${String((e as Error)?.message ?? e)}`);
+			console.error(`[gate] ${name} could not be read; it stays aside: ${String((e as Error)?.message ?? e)}`);
 		}
+	}
+	return out;
+}
+
+/** True once `k` holds nothing the live file lacks. */
+function carryKept(h: Db, o: GateOptions, k: Kept): boolean {
+	try {
+		if (!carry(h, k.bytes, o.ddl)) return false;
+		console.info(`[gate] ${k.name} is now in ${o.file}; removed`);
+		return true;
+	} catch (e) {
+		console.error(`[gate] ${k.name} could not be copied again; it stays aside: ${String((e as Error)?.message ?? e)}`);
+		return false;
 	}
 }
 

@@ -21,6 +21,9 @@ const PLUGINS = "/getcache-plugins.sqlite3";
 class FakeRoot {
 	files = new Map<string, Uint8Array>();
 	refuse = new Set<string>();
+	async *keys() {
+		yield* [...this.files.keys()];
+	}
 	async getFileHandle(name: string) {
 		const bytes = this.files.get(name);
 		if (!bytes) throw new DOMException(name, "NotFoundError");
