@@ -8,7 +8,7 @@ export type ChromeButton = { label: string; aria?: string; icon: Snippet; gold?:
 import type { Snippet } from "svelte";
 import { flip } from "svelte/animate";
 import FancyButton from "./FancyButton.svelte";
-import Icon from "./Icon.svelte";
+import GoChevron from "./GoChevron.svelte";
 import SearchInput from "./SearchInput.svelte";
 
 type Props = {
@@ -47,7 +47,7 @@ $effect(() => {
                         {#if p.sep === "div"}
                             <span class="inbox2-pill-div"></span>
                         {:else if p.sep}
-                            <span class="inbox2-pill-sep"><Icon name="chevron-right" size={14} stroke={2.6} /></span>
+                            <span class="inbox2-pill-sep"><GoChevron /></span>
                         {/if}
                         <button
                             type="button"
