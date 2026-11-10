@@ -101,7 +101,7 @@ function lacking(h: Db, ddl: string, schema = "main"): string[] {
  *  copy, so a rule newer than a row cannot refuse it. A table today's shape still refuses
  *  keeps its rows in the file set aside, and the console says which. A key already here keeps its row.
  *  True when the copy holds no row `h` lacks. */
-export function carry(h: Db, bytes: Uint8Array, ddl: string, schema = "main"): boolean {
+export function carry(h: Db, bytes: Uint8Array, ddl: string, schema = "main", previous = ""): boolean {
 	let none = true;
 	withBytes(h, bytes, ddl, () => {
 		// main's DDL owns the TEMP triggers (getCache's door); another schema's reconcile would never rebuild them.
@@ -130,7 +130,7 @@ export function carry(h: Db, bytes: Uint8Array, ddl: string, schema = "main"): b
 		} finally {
 			h.exec({ sql: "PRAGMA foreign_keys = ON" });
 		}
-	});
+	}, previous);
 	reconcile(h, ddl, schema, true);
 	return none;
 }
@@ -187,6 +187,8 @@ export type Opened = {
 export type GateOptions = {
 	file: string;
 	ddl: string;
+	/** How the previous build's rows take today's columns (`fromPrevious`); "" when nothing needs it. */
+	previous?: string;
 	version: number;
 	/** The native shells: one webview, the pool VFS, no cross-origin isolation. */
 	native: boolean;
@@ -287,7 +289,7 @@ async function openHeld(api: Sqlite3, o: GateOptions, memory: string, olderKept:
 			}
 			o.step("adding missing tables and columns");
 			const added = reconcile(h, o.ddl);
-			if (rows) carry(h, rows, o.ddl);
+			if (rows) carry(h, rows, o.ddl, "main", o.previous);
 			const carried = olderKept.filter((k) => carryKept(h!, o, k));
 			h.exec({ sql: `PRAGMA user_version = ${o.version}` });
 			for (const { name } of carried)
@@ -329,7 +331,7 @@ async function readOlderKept(o: GateOptions): Promise<Kept[]> {
 /** True once `k` holds nothing the live file lacks. */
 function carryKept(h: Db, o: GateOptions, k: Kept): boolean {
 	try {
-		if (!carry(h, k.bytes, o.ddl)) return false;
+		if (!carry(h, k.bytes, o.ddl, "main", o.previous)) return false;
 		console.info(`[gate] ${k.name} is now in ${o.file}; removed`);
 		return true;
 	} catch (e) {
@@ -437,8 +439,8 @@ export const exportBytes = (h: Db, schema = "main"): Uint8Array =>
 
 /** `bytes` attached beside `h` as schema `backup`, in memory, brought to `ddl`'s tables and
  *  columns first — an older copy lands like a newer one. Detached when `fn` returns. */
-export function withBytes<T>(h: Db, bytes: Uint8Array, ddl: string, fn: () => T): T {
-	attachBytes(h, bytes, ddl);
+export function withBytes<T>(h: Db, bytes: Uint8Array, ddl: string, fn: () => T, previous = ""): T {
+	attachBytes(h, bytes, ddl, previous);
 	try {
 		return fn();
 	} finally {
@@ -447,7 +449,7 @@ export function withBytes<T>(h: Db, bytes: Uint8Array, ddl: string, fn: () => T)
 }
 
 /** `withBytes`' attach alone, for a copy whose transaction spans more than one call. Detach after its COMMIT. */
-export function attachBytes(h: Db, bytes: Uint8Array, ddl: string): void {
+export function attachBytes(h: Db, bytes: Uint8Array, ddl: string, previous = ""): void {
 	const api = sqlite3 as unknown as {
 		wasm: { allocFromTypedArray: (b: Uint8Array) => number };
 		capi: {
@@ -482,10 +484,26 @@ export function attachBytes(h: Db, bytes: Uint8Array, ddl: string): void {
 	h.exec({ sql: "ATTACH ':memory:' AS backup" });
 	try {
 		load(h, "backup");
+		if (previous && lacking(h, ddl, "backup").some((c) => !c.endsWith(" (dropped)"))) fromPrevious(h, previous);
 		reconcile(h, ddl, "backup");
 	} catch (e) {
 		detachBytes(h);
 		throw e;
+	}
+}
+
+/** The previous build's copy, given today's columns by the same rules Central's migration filled them with.
+ *  It is a copy in memory, so its own triggers and views go first; one the script does not fit throws. */
+function fromPrevious(h: Db, previous: string): void {
+	for (const r of rows(h, "SELECT type, name FROM backup.sqlite_master WHERE type IN ('view', 'trigger')"))
+		h.exec({ sql: `DROP ${String(r.type).toUpperCase()} backup.${q(String(r.name))}` });
+	h.exec({ sql: "BEGIN" });
+	try {
+		for (const s of statements(previous)) h.exec({ sql: s });
+		h.exec({ sql: "COMMIT" });
+	} catch (e) {
+		h.exec({ sql: "ROLLBACK" });
+		throw new Error(`the previous build's copy could not take today's shape: ${String((e as Error)?.message ?? e)}`);
 	}
 }
 
