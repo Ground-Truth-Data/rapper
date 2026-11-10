@@ -196,13 +196,13 @@
 	.org-count {
 		background: var(--rt-cream);
 	}
-	/* The phone's swipe: a red bed with the can under an opaque track; a retired row greys with no bed. */
+	/* Grey, not red: archiving is undoable, never a delete. A retired row greys with no bed. */
 	.swipe {
 		position: relative;
 		flex: 1;
 		min-width: 0;
 		border-radius: var(--rt-radius-lg);
-		background: color-mix(in srgb, var(--palette-red) 85%, black);
+		background: var(--rt-btn-neutral-bg);
 	}
 	.swipe.past {
 		background: none;
