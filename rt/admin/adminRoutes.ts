@@ -165,15 +165,22 @@ export const DEVICE_TABLES = [
 // Where each table sits on the Get Cache schema maps, four to a row, each
 // version table beside its entity — so the phone's map and Central's line up.
 // A table left out still draws, after these.
-export const GC_SCHEMA_SEATS = [
-	"mapTable", "mapEntity", "mapFeatureTable", "mapFeatureEntity",
-	"blockTable", "blockEntity", "qaSurveyTable", "qaSurveyEntity",
-	"qaPlotTable", "qaPlotEntity", "bagTable", "bagEntity",
-	"bagUpTable", "bagUpEntity", "tallyTable", "tallyEntity",
-	"packageTable", "packageEntity", "boxTable", "boxEntity",
-	"stockTable", "deliveryTable", "allocationTable", "crewTable", "personEntity", "personTable", "personIdTable",
-	"appState", "userProfile", "orgTable", "orgNameTable", "orgKindTable", "orgTagTable", "touchTable", "editNoteTable", "snapshot",
-] as const;
+/** The schema map's columns, by what the data is about; each thing's entity, table and view sit together. */
+export const GC_SCHEMA_SEATS: Readonly<Record<string, readonly string[]>> = {
+	land: [
+		"mapEntity", "mapTable", "mapView", "mapFeatureEntity", "mapFeatureTable", "mapFeatureView",
+		"blockEntity", "blockTable", "blockView", "crewTable", "crewView", "orgTagTable", "orgTagView",
+	],
+	trees: ["boxEntity", "boxTable", "boxView", "stockTable", "stockView", "deliveryTable", "deliveryView", "allocationTable", "allocationView"],
+	"piece rate": ["bagEntity", "bagTable", "bagView", "bagUpEntity", "bagUpTable", "bagUpView", "tallyEntity", "tallyTable", "tallyView"],
+	quality: ["qaSurveyEntity", "qaSurveyTable", "qaSurveyView", "qaPlotEntity", "qaPlotTable", "qaPlotView"],
+	"people & orgs": [
+		"personEntity", "personTable", "personView", "personIdTable",
+		"orgTable", "orgNameTable", "orgNameView", "orgKindTable", "orgKindView",
+	],
+	transport: ["packageEntity", "packageTable", "packageView", "purgatoryTable", "editNoteTable", "snapshot"],
+	"this phone": ["appState", "userProfile", "settingTable", "touchTable", "currentStateTable", "trailTable"],
+};
 
 // The pill caption IS the SQL identifier, casing included.
 const tableLabel = (t: string): string => t;
