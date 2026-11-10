@@ -4,4 +4,6 @@ type Survey = typeof import('survey-core');
 let loading: Promise<Survey> | undefined;
 
 // An old version's hidden gps field is an unknown type to survey-core, so it is dropped: location is the answer's columns.
-export const loadSurvey = () => (loading ??= import('survey-core').then(async (s) => (await import('survey-core/i18n/french'), s)));
+export const loadSurvey = () =>
+	// @ts-expect-error survey-core ships no types for its locale files
+	(loading ??= import('survey-core').then(async (s) => (await import('survey-core/i18n/french'), s)));
