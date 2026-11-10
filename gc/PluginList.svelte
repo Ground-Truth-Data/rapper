@@ -1,6 +1,6 @@
 <!-- The one plugins list, phone and Ops alike. Your own forms stand loose, in the order you drag them to; a company's
-     forms sit under its white card, which opens in place. Swiped left a form rests on the trash can; a tap there
-     retires it for you alone. -->
+     forms sit under its white card, which opens in place. Swiped left a form rests on the archive box; a tap there
+     archives it for you alone, and its own page unarchives it. -->
 <script lang="ts" module>
 	import type { PluginCardData } from "./PluginCard.svelte";
 
@@ -89,7 +89,7 @@
 {#snippet form(p: PluginListItem)}
 	<div class="swipe" class:past={p.past}>
 		{#if !p.retired}
-			<button type="button" class="retire" aria-label="Retire {p.title || 'Untitled'}" onclick={() => onretire(p.id)} data-retire><Icon name="trash" size={26} /></button>
+			<button type="button" class="retire" aria-label="Archive {p.title || 'Untitled'}" onclick={() => onretire(p.id)} data-retire><Icon name="archive" size={26} /></button>
 		{/if}
 		<div class="track" use:rowSwipe={p.retired ? null : { hold: RETIRE_PX }}>
 			<PluginCard card={p} href={p.href} {go} fold={folded && isOpen && ontoggle ? { open: isOpen(p.id), toggle: () => ontoggle(p.id) } : undefined} />
