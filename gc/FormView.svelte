@@ -9,8 +9,10 @@
 	type Draft = { data: Record<string, unknown>; path: number[] };
 	/** One of the filler's contacts, as a Person question offers them: the answer is the key. */
 	type Person = { key: string; name: string; color: string; picked: boolean };
-	let { definition, onsubmit, keep = async (f: File) => f.name, draft, onchange, people = [] }: {
+	let { definition, onsubmit, keep = async (f: File) => f.name, draft, onchange, people = [], locale = 'en' }: {
 		definition: Definition;
+		/** The app's language: rapper can't read it, and survey-core writes the validation errors. */
+		locale?: string;
 		onsubmit: (data: Record<string, unknown>) => void;
 		/** Where the planter left off: the form opens on it. */
 		draft?: Draft;
@@ -43,8 +45,10 @@
 		// A dropdown without choices would drop its personKey; survey-core keeps a Person answer as text.
 		const plain = (els: El[]): El[] =>
 			els.map((e) => ({ ...e, ...(e.contacts ? { type: 'text' } : {}), ...(e.elements ? { elements: plain(e.elements as El[]) } : {}), ...(e.templateElements ? { templateElements: plain(e.templateElements as El[]) } : {}) }));
+		const lang = locale.slice(0, 2);
 		loadSurvey().then(({ Model, ExpressionRunner }) => {
 			const m = new Model({ ...def, elements: plain(def.elements) });
+			m.locale = lang;
 			m.onValueChanged.add(() => tick++);
 			m.onDynamicPanelAdded.add((_, { panel }) => {
 				void fixEntry(panel);
