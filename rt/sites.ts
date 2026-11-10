@@ -62,7 +62,7 @@ export const SITES: readonly Site[] = [
 		icon: rtLogo,
 		home: "/",
 
-		pages: ["/", "/why", "/where", "/retreeve", "/legal"], // /who, /what are [param] routes with no single URL
+		pages: ["/", "/why", "/where", "/retreeve", "/legal"],
 		app: ["/who", "/what"],
 
 		seo: {
