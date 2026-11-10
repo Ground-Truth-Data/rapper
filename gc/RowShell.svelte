@@ -74,9 +74,7 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         display: flex;
         align-items: stretch;
         width: 100%;
-        /* The glyph centres on the row and its count badge rides 8px above it:
-           any shorter and overflow:hidden cuts the badge on a two-line row. */
-        min-height: 76px;
+        min-height: var(--rt-row-min-h);
         padding: 0;
         /* Reserve space for the drag handle all inbox items will adopt. */
         padding-right: var(--rt-row-handle-reserve, 28px);
