@@ -104,8 +104,9 @@ function lacking(h: Db, ddl: string, schema = "main"): string[] {
 export function carry(h: Db, bytes: Uint8Array, ddl: string, schema = "main"): boolean {
 	let none = true;
 	withBytes(h, bytes, ddl, () => {
-		for (const r of rows(h, `SELECT name FROM ${schema}.sqlite_master WHERE type = 'trigger'`))
-			h.exec({ sql: `DROP TRIGGER ${schema}.${q(String(r.name))}` });
+		for (const s of [schema, "temp"])
+			for (const r of rows(h, `SELECT name FROM ${s}.sqlite_master WHERE type = 'trigger'`))
+				h.exec({ sql: `DROP TRIGGER ${s}.${q(String(r.name))}` });
 		h.exec({ sql: "PRAGMA foreign_keys = OFF" });
 		h.exec({ sql: "BEGIN IMMEDIATE" });
 		try {
