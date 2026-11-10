@@ -488,10 +488,10 @@ hr {
 .rt-icon-btn--share[aria-expanded="true"] {
 	background: var(--rt-yellow-soft);
 }
-/* The bin sits in the gold row a shade quieter: thinner, red, faint. */
+/* The bin sits in the gold row a shade quieter: red, faint. */
 .rt-icon-btn--delete {
 	color: var(--rt-red, #e0533d);
-	border: 1.5px solid color-mix(in srgb, var(--rt-red, #e0533d) 70%, transparent);
+	border-color: color-mix(in srgb, var(--rt-red, #e0533d) 70%, transparent);
 }
 .rt-icon-btn--delete:active {
 	background: color-mix(in srgb, var(--rt-red, #e0533d) 18%, transparent);
@@ -506,10 +506,9 @@ hr {
 	height: 22px;
 	width: auto;
 }
+/* Dimmed, never re-bordered: a faint border reads as a smaller button. */
 .rt-icon-btn:disabled {
-	color: var(--rt-fg-muted);
-	border-color: var(--rt-border-subtle);
-	opacity: 0.6;
+	opacity: 0.45;
 	cursor: default;
 }
 
