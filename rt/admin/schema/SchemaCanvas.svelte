@@ -56,8 +56,37 @@ const WHY_H = 25;
 
 const whyHeight = (t: TableFill) => (purposes[t.model] ? WHY_H : 0);
 
+// A thing is one card: with a seating plan, `xEntity` and `xView` fold into
+// `xTable` as one-line strips (the view repeats the table's cells).
+const STRIP_H = 20;
+const folded = $derived.by(() => {
+	const into = new Map<string, string>();
+	if (!seats) return into;
+	const names = new Set(tables.map((t) => t.model));
+	for (const n of names) {
+		if (!n.endsWith("Table")) continue;
+		const thing = n.slice(0, -"Table".length);
+		for (const twin of [`${thing}Entity`, `${thing}View`]) if (names.has(twin)) into.set(twin, n);
+	}
+	return into;
+});
+const stripsOf = $derived.by(() => {
+	const by = new Map<string, TableFill[]>();
+	for (const t of tables) {
+		const host = folded.get(t.model);
+		if (host) by.set(host, [...(by.get(host) ?? []), t].sort((a, b) => a.model.localeCompare(b.model)));
+	}
+	return by;
+});
+
+// A version's stamps are the same on every versioned table: one line, not six rows.
+const STAMPS = new Set(["versionKey", "replacesKey", "kind", "actKey", "editedByKey", "createdAt"]);
+const stamped = (t: TableFill) => !!seats && t.columns.some((c) => c.column === "versionKey");
+const shown = (t: TableFill) => (stamped(t) ? t.columns.filter((c) => !STAMPS.has(c.column)) : t.columns);
+const stripCount = (t: TableFill) => (stripsOf.get(t.model)?.length ?? 0) + (stamped(t) ? 1 : 0);
+
 const cardHeight = (t: TableFill) =>
-	HEAD_H + whyHeight(t) + t.columns.length * ROW_H + 8;
+	HEAD_H + whyHeight(t) + shown(t).length * ROW_H + stripCount(t) * STRIP_H + 8;
 
 // With a seating plan each table sits in its named column whatever the heights,
 // so two databases with the same tables draw them in the same places; unplanned
@@ -76,7 +105,7 @@ const placed = $derived.by(() => {
 		return c * 10000 + i;
 	};
 	const ordered = seats
-		? [...tables].sort((a, b) => rank(a) - rank(b))
+		? tables.filter((t) => !folded.has(t.model)).sort((a, b) => rank(a) - rank(b))
 		: [...tables].sort((a, b) => cardHeight(b) - cardHeight(a));
 	return ordered.map((t) => {
 		let col = 0;
@@ -104,11 +133,16 @@ const byModel = $derived(new Map(placed.map((p) => [p.table.model, p])));
 /** Which row of a card a column sits on, so an FK line lands on the column
  *  it actually constrains rather than the card in general. */
 function rowY(model: string, column: string): number | null {
-	const p = byModel.get(model);
+	const host = folded.get(model);
+	const p = byModel.get(host ?? model);
 	if (!p) return null;
-	const i = p.table.columns.findIndex((c) => c.column === column);
-	if (i < 0) return null;
-	return p.y + HEAD_H + whyHeight(p.table) + i * ROW_H + ROW_H / 2;
+	const rows = shown(p.table);
+	const i = rows.findIndex((c) => c.column === column);
+	const top = p.y + HEAD_H + whyHeight(p.table);
+	if (i >= 0) return top + i * ROW_H + ROW_H / 2;
+	if (!host) return null;
+	const s = stripsOf.get(host)?.findIndex((t) => t.model === model) ?? -1;
+	return top + rows.length * ROW_H + s * STRIP_H + STRIP_H / 2;
 }
 
 // FK lines as cubic curves; control points offset on x only so they leave
@@ -117,9 +151,9 @@ function rowY(model: string, column: string): number | null {
 const edges = $derived.by(() =>
 	links
 		.map((l) => {
-			const from = byModel.get(l.from);
-			const to = byModel.get(l.to);
-			if (!from || !to) return null;
+			const from = byModel.get(folded.get(l.from) ?? l.from);
+			const to = byModel.get(folded.get(l.to) ?? l.to);
+			if (!from || !to || from === to) return null;
 			const y1 = rowY(l.from, l.field);
 			const y2 = rowY(l.to, l.ref);
 			if (y1 === null || y2 === null) return null;
@@ -304,7 +338,7 @@ const pct = (filled: number, rows: number) =>
 						? `${p.table.model} — ${purposes[p.table.model]}\n\nClick to open in the table viewer.`
 						: `Open ${p.table.model} in the table viewer`}
 				>
-					<span class="card-name">{p.table.model}</span>
+					<span class="card-name">{stamped(p.table) ? p.table.model.replace(/Table$/, "") : p.table.model}</span>
 					<span class="card-rows">
 						{#if p.table.error}
 							!
@@ -326,7 +360,7 @@ const pct = (filled: number, rows: number) =>
 					</p>
 				{/if}
 
-				{#each p.table.columns as c (c.column)}
+				{#each shown(p.table) as c (c.column)}
 					{@const b = cellBand(p.table, c.column, c.filled)}
 					<div
 						class="row band-{b}"
@@ -342,6 +376,14 @@ const pct = (filled: number, rows: number) =>
 						<span class="col-pct">{pct(c.filled, p.table.rows)}</span>
 					</div>
 				{/each}
+				{#each stripsOf.get(p.table.model) ?? [] as s (s.model)}
+					<button class="strip" style="height:{STRIP_H}px" onclick={() => onPickTable?.(s.model)} title="Open {s.model}">
+						<span>→ {s.model}</span><span class="col-pct">{s.rows.toLocaleString()}</span>
+					</button>
+				{/each}
+				{#if stamped(p.table)}
+					<div class="strip stamp" style="height:{STRIP_H}px" title={[...STAMPS].join(" · ")}>+ stamped</div>
+				{/if}
 			</div>
 		{/each}
 	</div>
@@ -434,6 +476,20 @@ const pct = (filled: number, rows: number) =>
 		stroke-dasharray: 3 3;
 	}
 
+	.strip {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		padding: 0 8px;
+		box-sizing: border-box;
+		border: 0;
+		background: none;
+		color: #9aa078;
+		font: 11px ui-monospace, monospace;
+		cursor: pointer;
+	}
+	.strip.stamp { cursor: default; }
 	.col-title {
 		position: absolute;
 		margin: 0;
