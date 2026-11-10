@@ -437,6 +437,16 @@ export const exportBytes = (h: Db, schema = "main"): Uint8Array =>
 /** `bytes` attached beside `h` as schema `backup`, in memory, brought to `ddl`'s tables and
  *  columns first — an older copy lands like a newer one. Detached when `fn` returns. */
 export function withBytes<T>(h: Db, bytes: Uint8Array, ddl: string, fn: () => T): T {
+	attachBytes(h, bytes, ddl);
+	try {
+		return fn();
+	} finally {
+		detachBytes(h);
+	}
+}
+
+/** `withBytes`' attach alone, for a copy whose transaction spans more than one call. Detach after its COMMIT. */
+export function attachBytes(h: Db, bytes: Uint8Array, ddl: string): void {
 	const api = sqlite3 as unknown as {
 		wasm: { allocFromTypedArray: (b: Uint8Array) => number };
 		capi: {
@@ -472,11 +482,16 @@ export function withBytes<T>(h: Db, bytes: Uint8Array, ddl: string, fn: () => T)
 	try {
 		load(h, "backup");
 		reconcile(h, ddl, "backup");
-		return fn();
-	} finally {
-		h.exec({ sql: "DETACH backup" });
+	} catch (e) {
+		detachBytes(h);
+		throw e;
 	}
 }
+
+/** A no-op once the copy is gone: a newer tab's connection never had it. */
+export const detachBytes = (h: Db): void => {
+	if (h.selectValue("SELECT 1 FROM pragma_database_list WHERE name = 'backup'")) h.exec({ sql: "DETACH backup" });
+};
 
 /** A dropped or downloaded `.sqlite3`, read-only in memory — the admin viewers' door. */
 export async function openBytes(bytes: Uint8Array, wasmUrl?: string): Promise<Db> {
