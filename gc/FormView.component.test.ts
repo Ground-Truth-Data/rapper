@@ -253,3 +253,10 @@ it("a Person question offers only the people it is given, searchable, and takes 
 	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
 	expect(onsubmit.mock.calls[0][0]).toEqual({ boss: "p2" });
 });
+
+it("speaks the planter's language: a French planter is refused in French", async () => {
+	const { container, findByText, getByText } = render(FormView, { definition: form, onsubmit: vi.fn(), locale: "fr-CA" });
+	await findByText("Tree survey");
+	await fireEvent.click(getByText("Save"));
+	await waitFor(() => expect(container.querySelector("[data-error]")?.textContent).toBe("La réponse à cette question est obligatoire."));
+});
