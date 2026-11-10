@@ -255,6 +255,22 @@ describe("openGate — the browser", () => {
 		expect(all(o.db, "SELECT name FROM sqlite_master WHERE name = 'pin_name_idx'")).toEqual([{ name: "pin_name_idx" }]);
 	});
 
+	it("signed out, a file holding a column today's shape dropped is another build's: its rows are copied, the column left behind", async () => {
+		const dropped = () => {
+			const db = mem();
+			reconcile(db, TODAY.replace("\t`note` text DEFAULT '' NOT NULL\n", "\t`note` text DEFAULT '' NOT NULL,\n\t`gone` text NOT NULL\n"));
+			db.exec({ sql: "INSERT INTO pin (pinKey, name, gone) VALUES ('p1', 'North 40', 'x')" });
+			return db;
+		};
+		root.files.set("dropped.sqlite3", exportBytes(dropped()));
+		let opens = 0;
+		opener = () => (opens++ ? mem() : dropped());
+		const o = await openGate(options("/dropped.sqlite3", { signedIn: false }));
+		expect([...root.files.keys()].some((n) => /^dropped\.older-\d+\.sqlite3$/.test(n))).toBe(true);
+		expect(all(o.db, "SELECT name FROM pragma_table_info('pin')").map((r) => r.name)).toEqual(["pinKey", "name", "note"]);
+		expect(all(o.db, "SELECT pinKey, name FROM pin")).toEqual([{ pinKey: "p1", name: "North 40" }]);
+	});
+
 	// The older tab closes only when its lock is stolen, so it can still write to the older file after its rows were copied.
 	it("signed out, a write the older tab made after the copy reaches the live file at the next open; the older file goes once nothing in it is new", async () => {
 		const live = mem();

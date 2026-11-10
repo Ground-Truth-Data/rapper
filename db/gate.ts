@@ -76,8 +76,8 @@ export function reconcile(h: Db, ddl: string, schema = "main", full = schema ===
 	return added;
 }
 
-/** The tables and columns `ddl` declares that the file lacks: an older build made it. An
- *  empty file lacks nothing — it is new, not older. */
+/** The tables and columns `ddl` declares that the file lacks, and the columns it holds that `ddl`
+ *  dropped: another build made it. An empty file lacks nothing — it is new, not older. */
 function lacking(h: Db, ddl: string, schema = "main"): string[] {
 	const has = new Set(rows(h, `SELECT name FROM ${schema}.sqlite_master WHERE type = 'table'`).map((r) => String(r.name)));
 	if (!has.size) return [];
@@ -90,7 +90,9 @@ function lacking(h: Db, ddl: string, schema = "main"): string[] {
 			continue;
 		}
 		const cols = new Set(rows(h, `PRAGMA ${schema}.table_info(${q(table)})`).map((c) => String(c.name)));
-		for (const [, col] of s.matchAll(/^\t`([^`]+)` /gm)) if (!cols.has(col)) out.push(`${table}.${col}`);
+		const declared = new Set([...s.matchAll(/^\t`([^`]+)` /gm)].map((m) => m[1]));
+		for (const col of declared) if (!cols.has(col)) out.push(`${table}.${col}`);
+		for (const col of cols) if (!declared.has(col)) out.push(`${table}.${col} (dropped)`);
 	}
 	return out;
 }
