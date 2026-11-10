@@ -34,8 +34,8 @@ let {
 	/** Model name → the one-line "what is this for", from the data dictionary. */
 	purposes?: Record<string, string>;
 	onPickTable?: (model: string) => void;
-	/** A fixed seating plan by table name, read four to a row. */
-	seats?: readonly string[];
+	/** A fixed seating plan: column title → its tables, top to bottom. */
+	seats?: Readonly<Record<string, readonly string[]>>;
 } = $props();
 
 // Fixed sizes in sheet units; the sheet scales as a whole so rendering never
@@ -59,21 +59,28 @@ const whyHeight = (t: TableFill) => (purposes[t.model] ? WHY_H : 0);
 const cardHeight = (t: TableFill) =>
 	HEAD_H + whyHeight(t) + t.columns.length * ROW_H + 8;
 
-// With a seating plan, slot i sits in column i % 4 whatever the heights, so
-// two databases with the same tables draw them in the same places. Unplanned
-// tables follow in name order. Without one: tallest first, shortest column.
-const COLUMNS = 4;
+// With a seating plan each table sits in its named column whatever the heights,
+// so two databases with the same tables draw them in the same places; unplanned
+// tables join the last column in name order. Without one: tallest first, shortest column.
+const TITLE_H = 44;
+const titles = $derived(seats ? Object.keys(seats) : []);
+const COLUMNS = $derived(seats ? titles.length : 4);
 const placed = $derived.by(() => {
-	const heights = Array<number>(COLUMNS).fill(PAD);
-	const slot = new Map(seats?.map((m, i) => [m, i]));
+	const heights = Array<number>(COLUMNS).fill(PAD + (seats ? TITLE_H : 0));
+	const slot = new Map<string, [number, number]>();
+	titles.forEach((title, c) => seats?.[title].forEach((m, i) => slot.set(m, [c, i])));
 	const extra = tables.filter((t) => !slot.has(t.model)).sort((a, b) => a.model.localeCompare(b.model));
-	for (const [i, t] of extra.entries()) slot.set(t.model, (seats?.length ?? 0) + i);
+	for (const [i, t] of extra.entries()) slot.set(t.model, [COLUMNS - 1, 1000 + i]);
+	const rank = (t: TableFill) => {
+		const [c, i] = slot.get(t.model) ?? [0, 0];
+		return c * 10000 + i;
+	};
 	const ordered = seats
-		? [...tables].sort((a, b) => (slot.get(a.model) ?? 0) - (slot.get(b.model) ?? 0))
+		? [...tables].sort((a, b) => rank(a) - rank(b))
 		: [...tables].sort((a, b) => cardHeight(b) - cardHeight(a));
 	return ordered.map((t) => {
 		let col = 0;
-		if (seats) col = (slot.get(t.model) ?? 0) % COLUMNS;
+		if (seats) col = slot.get(t.model)?.[0] ?? 0;
 		else for (let i = 1; i < COLUMNS; i++) if (heights[i] < heights[col]) col = i;
 		const y = heights[col];
 		heights[col] += cardHeight(t) + CARD_GAP_Y;
@@ -149,21 +156,25 @@ const clamp = (n: number) => Math.min(MAX_SCALE, Math.max(MIN_SCALE, n));
 // every card to nothing.
 export function fit() {
 	if (!viewport) return;
-	const r = viewport.getBoundingClientRect();
-	if (r.width < 1 || r.height < 1) return;
+	const w = viewport.clientWidth;
+	const h = viewport.clientHeight;
+	if (w < 1 || h < 1) return;
 	if (sheet.w < 1 || sheet.h < 1) return;
-	const s = clamp(Math.min(r.width / sheet.w, r.height / sheet.h) * 0.96);
+	const s = clamp(Math.min(w / sheet.w, h / sheet.h) * 0.96);
 	scale = s;
-	tx = (r.width - sheet.w * s) / 2;
-	ty = (r.height - sheet.h * s) / 2;
+	tx = (w - sheet.w * s) / 2;
+	ty = (h - sheet.h * s) / 2;
 }
 
 // Zoom about the cursor point, or content shoots off screen on every zoom.
+// Pointer and rect are screen px; the sheet is laid out in this element's px,
+// which differ when an ancestor sets CSS `zoom` (the admin pages do).
 function zoomAt(clientX: number, clientY: number, factor: number) {
 	if (!viewport) return;
 	const r = viewport.getBoundingClientRect();
-	const px = clientX - r.left;
-	const py = clientY - r.top;
+	const u = pxPerScreenPx();
+	const px = (clientX - r.left) * u;
+	const py = (clientY - r.top) * u;
 	const next = clamp(scale * factor);
 	const k = next / scale;
 	tx = px - (px - tx) * k;
@@ -186,9 +197,12 @@ function onWheel(e: WheelEvent) {
 		return;
 	}
 	e.preventDefault();
-	tx -= e.deltaX;
-	ty -= e.deltaY;
+	const k = pxPerScreenPx();
+	tx -= e.deltaX * k;
+	ty -= e.deltaY * k;
 }
+
+const pxPerScreenPx = () => (viewport ? viewport.clientWidth / viewport.getBoundingClientRect().width || 1 : 1);
 
 let dragging = $state(false);
 function onPointerDown(e: PointerEvent) {
@@ -198,8 +212,9 @@ function onPointerDown(e: PointerEvent) {
 }
 function onPointerMove(e: PointerEvent) {
 	if (!dragging) return;
-	tx += e.movementX;
-	ty += e.movementY;
+	const k = pxPerScreenPx();
+	tx += e.movementX * k;
+	ty += e.movementY * k;
 }
 function onPointerUp(e: PointerEvent) {
 	dragging = false;
@@ -215,8 +230,7 @@ $effect(() => {
 	if (!viewport) return;
 	const ro = new ResizeObserver(() => {
 		if (fitted) return;
-		const r = viewport?.getBoundingClientRect();
-		if (!r || r.width < 1 || r.height < 1) return;
+		if (!viewport?.clientWidth || !viewport.clientHeight) return;
 		fit();
 		fitted = true;
 	});
@@ -270,6 +284,10 @@ const pct = (filled: number, rows: number) =>
 				<path d={e.d} class="wire" class:self={e.self} />
 			{/each}
 		</svg>
+
+		{#each titles as title, c (title)}
+			<h3 class="col-title" style="left:{PAD + c * (CARD_W + CARD_GAP_X)}px; top:{PAD}px; width:{CARD_W}px;">{title}</h3>
+		{/each}
 
 		{#each placed as p (p.table.model)}
 			{@const empty = tableEmpty(p.table.rows)}
@@ -416,6 +434,15 @@ const pct = (filled: number, rows: number) =>
 		stroke-dasharray: 3 3;
 	}
 
+	.col-title {
+		position: absolute;
+		margin: 0;
+		padding-bottom: 6px;
+		border-bottom: 2px solid #e0b24a;
+		color: #e0b24a;
+		font-size: 20px;
+		font-weight: 700;
+	}
 	.card {
 		position: absolute;
 		border-radius: 6px;
