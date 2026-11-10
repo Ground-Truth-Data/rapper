@@ -445,17 +445,29 @@ export function withBytes<T>(h: Db, bytes: Uint8Array, ddl: string, fn: () => T)
 	};
 	// DETACH is refused inside a transaction, so a copy attached there would stay attached and refuse every later one.
 	if (!api.capi.sqlite3_get_autocommit(h.pointer)) throw new Error("a backup copy cannot be attached inside a transaction");
-	h.exec({ sql: "ATTACH ':memory:' AS backup" });
-	try {
+	const load = (into: Db, schema: string) => {
 		const rc = api.capi.sqlite3_deserialize(
-			h.pointer,
-			"backup",
+			into.pointer,
+			schema,
 			api.wasm.allocFromTypedArray(bytes),
 			bytes.byteLength,
 			bytes.byteLength,
 			api.capi.SQLITE_DESERIALIZE_FREEONCLOSE | api.capi.SQLITE_DESERIALIZE_RESIZEABLE,
 		);
 		if (rc !== 0) throw new Error(`the copy could not be opened (sqlite rc=${rc})`);
+	};
+	// Read first on a handle of its own: once attached, a copy that is not a database refuses even DETACH,
+	// and every later query on the live file fails with it.
+	const check = scratch();
+	try {
+		load(check, "main");
+		check.exec({ sql: "PRAGMA schema_version" });
+	} finally {
+		check.close();
+	}
+	h.exec({ sql: "ATTACH ':memory:' AS backup" });
+	try {
+		load(h, "backup");
 		reconcile(h, ddl, "backup");
 		return fn();
 	} finally {

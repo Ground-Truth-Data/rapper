@@ -183,6 +183,16 @@ describe("withBytes — a backup copy beside the live file", () => {
 		expect(withBytes(live, exportBytes(older()), TODAY, () => all(live, "SELECT count(*) AS n FROM backup.pin"))).toEqual([{ n: 2 }]);
 	});
 
+	it("a copy that is not a database is refused and lets go: the live file still reads and the next copy attaches", () => {
+		const live = mem();
+		reconcile(live, TODAY);
+		live.exec({ sql: "INSERT INTO pin (pinKey, name) VALUES ('p9', 'Live')" });
+		expect(() => withBytes(live, new Uint8Array([7, 7, 7]), TODAY, () => 0)).toThrow(/not a database/);
+		expect(all(live, "PRAGMA database_list").map((d) => d.name)).toEqual(["main"]);
+		expect(all(live, "SELECT pinKey FROM pin")).toEqual([{ pinKey: "p9" }]);
+		expect(withBytes(live, exportBytes(older()), TODAY, () => all(live, "SELECT count(*) AS n FROM backup.pin"))).toEqual([{ n: 2 }]);
+	});
+
 	it("a copy asked for mid-transaction is refused before it attaches, so the next one still can", () => {
 		const live = mem();
 		reconcile(live, TODAY);
@@ -277,6 +287,40 @@ describe("openGate — the browser", () => {
 			{ pinKey: "p2", name: "Creek" },
 		]);
 		expect([...root.files.keys()]).toEqual(["f.sqlite3", "f.older-1.sqlite3"]);
+	});
+
+	it("signed out, a kept older file SQLite cannot read stays aside, bytes intact, and the open lands on the live file", async () => {
+		const live = mem();
+		reconcile(live, TODAY);
+		live.exec({ sql: "INSERT INTO pin (pinKey, name) VALUES ('p1', 'North 40')" });
+		const junk = new Uint8Array([7, 7, 7]);
+		root.files.set("f.sqlite3", new Uint8Array([1]));
+		root.files.set("f.older-1.sqlite3", junk);
+		opener = () => live;
+		const said = vi.spyOn(console, "error").mockImplementation(() => {});
+		const o = await openGate(options("/f.sqlite3"));
+		expect(o.memory).toBe("");
+		expect(all(o.db, "SELECT pinKey FROM pin")).toEqual([{ pinKey: "p1" }]);
+		expect(root.files.get("f.older-1.sqlite3")).toEqual(junk);
+		expect(said.mock.calls.flat().join(" ")).toMatch(/f\.older-1\.sqlite3 could not be copied again; it stays aside/);
+	});
+
+	it("signed out, a copied older file the browser will not remove stays, and the open still lands on the live file", async () => {
+		const live = mem();
+		reconcile(live, TODAY);
+		root.files.set("f.sqlite3", new Uint8Array([1]));
+		root.files.set("f.older-1.sqlite3", exportBytes(older()));
+		root.removeEntry = async (name: string) => {
+			throw new DOMException(name, "NoModificationAllowedError");
+		};
+		opener = () => live;
+		const said = vi.spyOn(console, "error").mockImplementation(() => {});
+		const o = await openGate(options("/f.sqlite3"));
+		expect(o.memory).toBe("");
+		expect(all(o.db, "SELECT pinKey FROM pin ORDER BY pinKey")).toEqual([{ pinKey: "p1" }, { pinKey: "p2" }]);
+		await tick();
+		expect([...root.files.keys()]).toEqual(["f.sqlite3", "f.older-1.sqlite3"]);
+		expect(said.mock.calls.flat().join(" ")).toMatch(/f\.older-1\.sqlite3 is in \/f\.sqlite3 but could not be removed/);
 	});
 
 	it("storage the browser refuses runs this tab in memory, at today's shape, saying why", async () => {
