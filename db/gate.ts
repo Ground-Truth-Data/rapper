@@ -104,7 +104,8 @@ function lacking(h: Db, ddl: string, schema = "main"): string[] {
 export function carry(h: Db, bytes: Uint8Array, ddl: string, schema = "main"): boolean {
 	let none = true;
 	withBytes(h, bytes, ddl, () => {
-		for (const s of [schema, "temp"])
+		// main's DDL owns the TEMP triggers (getCache's door); another schema's reconcile would never rebuild them.
+		for (const s of schema === "main" ? ["main", "temp"] : [schema])
 			for (const r of rows(h, `SELECT name FROM ${s}.sqlite_master WHERE type = 'trigger'`))
 				h.exec({ sql: `DROP TRIGGER ${s}.${q(String(r.name))}` });
 		h.exec({ sql: "PRAGMA foreign_keys = OFF" });
