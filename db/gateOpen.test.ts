@@ -172,6 +172,17 @@ describe("withBytes — a backup copy beside the live file", () => {
 		expect(withBytes(live, exportBytes(empty), TODAY, () => all(live, "SELECT count(*) AS n FROM backup.pin"))).toEqual([{ n: 0 }]);
 	});
 
+	it("the previous build's copy takes today's columns by its script; another copy never runs it", () => {
+		const live = mem();
+		reconcile(live, TODAY);
+		const previous = { lacks: "pin.note", sql: "ALTER TABLE backup.pin ADD COLUMN note text\n--> statement-breakpoint\nUPDATE backup.pin SET note = 'was ' || name" };
+		const notes = () => all(live, "SELECT note FROM backup.pin ORDER BY pinKey");
+		expect(withBytes(live, exportBytes(older()), TODAY, notes, previous)).toEqual([{ note: "was North 40" }, { note: "was Creek" }]);
+		const noOwner = mem();
+		noOwner.exec({ sql: "CREATE TABLE `pin` (`pinKey` text PRIMARY KEY NOT NULL, `name` text NOT NULL, `note` text DEFAULT '' NOT NULL); INSERT INTO pin VALUES ('p1', 'North 40', 'kept');" });
+		expect(withBytes(live, exportBytes(noOwner), TODAY, notes, previous)).toEqual([{ note: "kept" }]);
+	});
+
 	it("a restore that throws still lets go of the copy, so the next restore can attach", () => {
 		const live = mem();
 		reconcile(live, TODAY);

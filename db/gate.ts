@@ -101,7 +101,7 @@ function lacking(h: Db, ddl: string, schema = "main"): string[] {
  *  copy, so a rule newer than a row cannot refuse it. A table today's shape still refuses
  *  keeps its rows in the file set aside, and the console says which. A key already here keeps its row.
  *  True when the copy holds no row `h` lacks. */
-export function carry(h: Db, bytes: Uint8Array, ddl: string, schema = "main", previous = ""): boolean {
+export function carry(h: Db, bytes: Uint8Array, ddl: string, schema = "main", previous?: Previous): boolean {
 	let none = true;
 	withBytes(h, bytes, ddl, () => {
 		// main's DDL owns the TEMP triggers (getCache's door); another schema's reconcile would never rebuild them.
@@ -187,8 +187,7 @@ export type Opened = {
 export type GateOptions = {
 	file: string;
 	ddl: string;
-	/** How the previous build's rows take today's columns (`fromPrevious`); "" when nothing needs it. */
-	previous?: string;
+	previous?: Previous;
 	version: number;
 	/** The native shells: one webview, the pool VFS, no cross-origin isolation. */
 	native: boolean;
@@ -439,7 +438,7 @@ export const exportBytes = (h: Db, schema = "main"): Uint8Array =>
 
 /** `bytes` attached beside `h` as schema `backup`, in memory, brought to `ddl`'s tables and
  *  columns first — an older copy lands like a newer one. Detached when `fn` returns. */
-export function withBytes<T>(h: Db, bytes: Uint8Array, ddl: string, fn: () => T, previous = ""): T {
+export function withBytes<T>(h: Db, bytes: Uint8Array, ddl: string, fn: () => T, previous?: Previous): T {
 	attachBytes(h, bytes, ddl, previous);
 	try {
 		return fn();
@@ -449,7 +448,7 @@ export function withBytes<T>(h: Db, bytes: Uint8Array, ddl: string, fn: () => T,
 }
 
 /** `withBytes`' attach alone, for a copy whose transaction spans more than one call. Detach after its COMMIT. */
-export function attachBytes(h: Db, bytes: Uint8Array, ddl: string, previous = ""): void {
+export function attachBytes(h: Db, bytes: Uint8Array, ddl: string, previous?: Previous): void {
 	const api = sqlite3 as unknown as {
 		wasm: { allocFromTypedArray: (b: Uint8Array) => number };
 		capi: {
@@ -484,13 +483,17 @@ export function attachBytes(h: Db, bytes: Uint8Array, ddl: string, previous = ""
 	h.exec({ sql: "ATTACH ':memory:' AS backup" });
 	try {
 		load(h, "backup");
-		if (previous && lacking(h, ddl, "backup").some((c) => !c.endsWith(" (dropped)"))) fromPrevious(h, previous);
+		if (previous && lacking(h, ddl, "backup").includes(previous.lacks)) fromPrevious(h, previous.sql);
 		reconcile(h, ddl, "backup");
 	} catch (e) {
 		detachBytes(h);
 		throw e;
 	}
 }
+
+/** How the previous build's rows take today's required columns: `sql` runs on a copy that lacks `lacks`
+ *  ("table.column"), the column that marks it as that build's. */
+export type Previous = { lacks: string; sql: string };
 
 /** The previous build's copy, given today's columns by the same rules Central's migration filled them with.
  *  It is a copy in memory, so its own triggers and views go first; one the script does not fit throws. */
