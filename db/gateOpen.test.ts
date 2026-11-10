@@ -274,6 +274,27 @@ describe("openGate — the browser", () => {
 		expect([...root.files.keys()]).toEqual(["f.sqlite3"]);
 	});
 
+	// Any await between the lock and the open lets an older tab's focus steal the file mid-open (gate stage 10).
+	it("signed out, a kept older file is read before the database lock is taken, never inside it", async () => {
+		const live = mem();
+		reconcile(live, TODAY);
+		root.files.set("f.sqlite3", new Uint8Array([1]));
+		root.files.set("f.older-1.sqlite3", exportBytes(older()));
+		opener = () => live;
+		const heldAtRead: string[][] = [];
+		const handleOf = root.getFileHandle.bind(root);
+		root.getFileHandle = async (name: string) => {
+			const h = await handleOf(name);
+			const getFile = async () => {
+				heldAtRead.push(((await navigator.locks.query()).held ?? []).map((l) => l.name ?? "").filter((n) => n.includes("f.sqlite3")));
+				return h.getFile();
+			};
+			return { ...h, getFile };
+		};
+		await openGate(options("/f.sqlite3"));
+		expect(heldAtRead).toEqual([[]]);
+	});
+
 	it("signed out, a kept older file whose row clashes with the live one stays aside, and the live row stays as it is", async () => {
 		const live = mem();
 		reconcile(live, TODAY);
