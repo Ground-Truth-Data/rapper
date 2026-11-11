@@ -5,14 +5,14 @@
 	import IdentityPill from './IdentityPill.svelte';
 	import { loadSurvey } from './formSurvey';
 	import arrow from '$rig/assets/arrowIconGold.webp';
+	import { m as t } from '$parent/src/lib/paraglide/messages';
+	import { getLocale } from '$parent/src/lib/paraglide/runtime';
 
 	type Draft = { data: Record<string, unknown>; path: number[] };
 	/** One of the filler's contacts, as a Person question offers them: the answer is the key. */
 	type Person = { key: string; name: string; color: string; picked: boolean };
-	let { definition, onsubmit, keep = async (f: File) => f.name, draft, onchange, people = [], locale = 'en' }: {
+	let { definition, onsubmit, keep = async (f: File) => f.name, draft, onchange, people = [] }: {
 		definition: Definition;
-		/** The app's language: rapper can't read it, and survey-core writes the validation errors. */
-		locale?: string;
 		onsubmit: (data: Record<string, unknown>) => void;
 		/** Where the planter left off: the form opens on it. */
 		draft?: Draft;
@@ -29,7 +29,7 @@
 		return new Set(walk(definition.elements));
 	});
 	let find = $state<Record<string, string>>({});
-	const nameOf = (key: unknown) => people.find((p) => p.key === key)?.name ?? 'someone not in your contacts';
+	const nameOf = (key: unknown) => people.find((p) => p.key === key)?.name ?? t.gc_form_not_in_contacts();
 
 	let model = $state.raw<Model>();
 	let tick = $state(0);
@@ -45,7 +45,7 @@
 		// A dropdown without choices would drop its personKey; survey-core keeps a Person answer as text.
 		const plain = (els: El[]): El[] =>
 			els.map((e) => ({ ...e, ...(e.contacts ? { type: 'text' } : {}), ...(e.elements ? { elements: plain(e.elements as El[]) } : {}), ...(e.templateElements ? { templateElements: plain(e.templateElements as El[]) } : {}) }));
-		const lang = locale.slice(0, 2);
+		const lang = getLocale().slice(0, 2);
 		loadSurvey().then(({ Model, ExpressionRunner }) => {
 			const m = new Model({ ...def, elements: plain(def.elements) });
 			m.locale = lang;
@@ -253,7 +253,7 @@
 							<span class="name font-display">{name}</span>
 							{#if !shown}<span class="summary" data-summary>{summary(entry.items)}</span>{/if}
 							{#if entry.stamped}
-								<svg class="gem" viewBox="0 0 24 24" role="img" aria-label="GPS stamped" data-gps-mark
+								<svg class="gem" viewBox="0 0 24 24" role="img" aria-label={t.gc_form_gps_stamped()} data-gps-mark
 									><path d="M6 4h12l4 5-10 11L2 9z M2 9h20 M9 4l-2 5 5 11 5-11-2-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" /></svg
 								>
 							{/if}
@@ -289,15 +289,15 @@
 			</div>
 		{/if}
 		<div class="head" data-section={at + 1}>
-			{#if pages.length > 1}<span class="badge">Section {at + 1} of {pages.length}</span>{/if}
+			{#if pages.length > 1}<span class="badge">{t.gc_form_section({ n: at + 1, total: pages.length })}</span>{/if}
 			{#if page.title}<h2 class="font-display">{page.title}</h2>{/if}
 			{#if page.description}<span class="desc">{page.description}</span>{/if}
 		</div>
 		{#each page.items as v (v.q.id)}{@render field(v)}{/each}
-		{#if tick && !model.getValue(FIX)}<span class="muted stamped" data-gps-stamp>Your location is stamped when you save</span>{/if}
+		{#if tick && !model.getValue(FIX)}<span class="muted stamped" data-gps-stamp>{t.gc_form_stamp_on_save()}</span>{/if}
 		<div class="nav">
-			{#if at > 0}<button type="button" class="back font-display" onclick={() => (path = path.slice(0, -1))} data-back>Back</button>{/if}
-			<button class="rt-fancy-btn next" data-next>{last ? 'Save' : 'Next'}{#if !last}<span class="go" style="--src: url({arrow})"></span>{/if}</button>
+			{#if at > 0}<button type="button" class="back font-display" onclick={() => (path = path.slice(0, -1))} data-back>{t.gc_form_back()}</button>{/if}
+			<button class="rt-fancy-btn next" data-next>{last ? t.gc_form_save() : t.gc_form_next()}{#if !last}<span class="go" style="--src: url({arrow})"></span>{/if}</button>
 		</div>
 	</form>
 {/if}

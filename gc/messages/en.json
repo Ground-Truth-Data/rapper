@@ -23,5 +23,12 @@
 	"gc_mapbox_marker_title": "Map marker",
 	"gc_mapbox_popup_close": "Close popup",
 	"gc_location_confirmed": "Location confirmed",
-	"gc_delivery_done": "Delivered, now planted or removed"
+	"gc_delivery_done": "Delivered, now planted or removed",
+	"gc_form_save": "Save",
+	"gc_form_next": "Next",
+	"gc_form_back": "Back",
+	"gc_form_section": "Section {n} of {total}",
+	"gc_form_stamp_on_save": "Your location is stamped when you save",
+	"gc_form_gps_stamped": "GPS stamped",
+	"gc_form_not_in_contacts": "someone not in your contacts"
 }

@@ -23,5 +23,12 @@
 	"gc_mapbox_marker_title": "Marqueur de carte",
 	"gc_mapbox_popup_close": "Fermer la fenêtre",
 	"gc_location_confirmed": "Position confirmée",
-	"gc_delivery_done": "Livré, maintenant planté ou retiré"
+	"gc_delivery_done": "Livré, maintenant planté ou retiré",
+	"gc_form_save": "Enregistrer",
+	"gc_form_next": "Suivant",
+	"gc_form_back": "Retour",
+	"gc_form_section": "Section {n} sur {total}",
+	"gc_form_stamp_on_save": "Votre position est notée à l'enregistrement",
+	"gc_form_gps_stamped": "Position GPS notée",
+	"gc_form_not_in_contacts": "quelqu'un hors de vos contacts"
 }
