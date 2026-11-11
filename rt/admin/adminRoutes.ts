@@ -309,6 +309,9 @@ const RETREEVER_ENTITIES = [
 	"LinkCandidateTable",
 	"RawSnapshotTable",
 	"ObservationTable",
+	"FoundrRunTable",
+	"ScoreRunTable",
+	"DriftEventTable",
 ] as const;
 
 /** Fixed vocabularies another table points at. Exported so the table viewer can tell a lookup from an entity. */
@@ -328,6 +331,7 @@ export const PLATFORM_SCOPED: ReadonlySet<string> = new Set([
 	"MiscTable",
 	"ProjectScoreByFieldTable",
 	"RawSnapshotTable",
+	"DriftEventTable",
 ]);
 
 export const RETREEVER_LOOKUPS = [
