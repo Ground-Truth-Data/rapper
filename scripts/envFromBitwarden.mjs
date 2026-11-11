@@ -27,7 +27,7 @@ const KEY_LINE = /^([A-Za-z_][A-Za-z0-9_]*)=/gm;
 // this script writes them from the block, so reading them back keeps every key named forever.
 const SOURCE = /\.(m?[jt]s|cjs|svelte|prisma|py|sh|json|toml|ya?ml)$|^\.env\.(dev|prod)$/;
 const SKIP_DIRS = new Set([
-	".git", "node_modules", ".svelte-kit", ".svelte-kit-cap", ".vercel", "build", "build-cap",
+	".git", "node_modules", ".vercel", "build", "build-cap",
 	"dist", "ios", "android", "_rapper", "_siblings", ".wt", ".test", ".playwright-mcp",
 ]);
 
@@ -75,7 +75,8 @@ function* sourceFiles(dir) {
 	if (isWorker(dir)) return;
 	for (const e of readdirSync(dir, { withFileTypes: true })) {
 		if (e.isDirectory()) {
-			if (!SKIP_DIRS.has(e.name)) yield* sourceFiles(path.join(dir, e.name));
+			// .svelte-kit-<outDir> too: the gate builds into its own, and SvelteKit's generated docs name example keys.
+			if (!SKIP_DIRS.has(e.name) && !e.name.startsWith(".svelte-kit")) yield* sourceFiles(path.join(dir, e.name));
 		} else if (SOURCE.test(e.name)) yield path.join(dir, e.name);
 	}
 }
@@ -149,6 +150,18 @@ if (bws.error?.code === "ENOENT") {
 const schemaKeys = [...schemaSrc.matchAll(KEY_LINE)].map((m) => m[1]);
 const bitwardenKeys = [...schemaSrc.matchAll(/^(\w+)=bitwarden\(/gm)].map((m) => m[1]);
 if (schemaKeys.length === 0) fail(`${SCHEMA} declares no keys — this proves nothing.`);
+
+// varlock audit scans process.env and import.meta.env only, never SvelteKit's $env reads.
+const envReads = corpus.filter((src) => src.includes("$env/")).flatMap((src) => [
+	...[...src.matchAll(/(?<![\w.$])env\.([A-Za-z_]\w*)/g)].map((m) => m[1]),
+	...[...src.matchAll(/import\s*\{([^}]*)\}\s*from\s*["']\$env\/static\/\w+["']/g)].flatMap((m) =>
+		m[1].split(",").map((s) => s.trim().split(/\s+as\s+/)[0]).filter(Boolean),
+	),
+]);
+const undeclared = [...new Set(envReads)].filter((k) => !schemaKeys.includes(k));
+if (undeclared.length) {
+	fail(`code reads ${undeclared.join(", ")} through $env, and the vault has no such name. Fix the spelling, or Chris creates it in Bitwarden.`);
+}
 
 const load = varlock(["load", "--format", "json"]);
 if (load.status !== 0) fail(`varlock could not resolve ${SCHEMA}:\n${load.stderr || load.stdout}`);
