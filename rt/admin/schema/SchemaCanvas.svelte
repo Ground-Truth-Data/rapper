@@ -252,7 +252,8 @@ const pxPerScreenPx = () => (viewport ? viewport.clientWidth / viewport.getBound
 
 let dragging = $state(false);
 function onPointerDown(e: PointerEvent) {
-	if (e.button !== 0) return;
+	// A captured press sends its click to the canvas, so a button would never fire.
+	if (e.button !== 0 || (e.target as Element).closest("button")) return;
 	dragging = true;
 	(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
 }
@@ -425,7 +426,7 @@ const pct = (filled: number, rows: number) =>
 		{/each}
 	</div>
 	{#if seats}
-		<dl class="key" onpointerdown={(e) => e.stopPropagation()}>
+		<dl class="key">
 			<dt><i class="b-e">E</i></dt><dd>entity: the thing is born, its key</dd>
 			<dt><i class="b-t">T</i></dt><dd>table: every version</dd>
 			<dt><i class="b-v">V</i></dt><dd>view: only the live rows</dd>
@@ -436,7 +437,6 @@ const pct = (filled: number, rows: number) =>
 	{/if}
 	<button
 		class="fs"
-		onpointerdown={(e) => e.stopPropagation()}
 		onclick={toggleFull}
 		title={full ? "Exit full screen (Esc)" : "Full screen"}
 	>
