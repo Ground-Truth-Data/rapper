@@ -70,14 +70,13 @@ const folded = $derived.by(() => {
 	}
 	return into;
 });
-const stripsOf = $derived.by(() => {
-	const by = new Map<string, TableFill[]>();
-	for (const t of tables) {
-		const host = folded.get(t.model);
-		if (host) by.set(host, [...(by.get(host) ?? []), t].sort((a, b) => a.model.localeCompare(b.model)));
-	}
-	return by;
-});
+const byName = $derived(new Map(tables.map((t) => [t.model, t])));
+const twin = (t: TableFill, suffix: "Entity" | "View") => {
+	const m = t.model.replace(/Table$/, suffix);
+	return folded.get(m) === t.model ? byName.get(m) : undefined;
+};
+const entityOf = (t: TableFill) => twin(t, "Entity");
+const viewOf = (t: TableFill) => twin(t, "View");
 
 // A version's stamps are the same on every versioned table: one line, not six rows.
 const STAMPS = new Set(["versionKey", "replacesKey", "kind", "actKey", "editedByKey", "createdAt"]);
@@ -92,15 +91,17 @@ const pointsAt = $derived(
 			.map((l) => [`${l.from}.${l.field}`, thingName(l.to)]),
 	),
 );
-const stripCount =(t: TableFill) => (stripsOf.get(t.model)?.length ?? 0) + (stamped(t) ? 1 : 0);
+/** Strips above the columns (the entity) and below them (the view, the stamps). */
+const above = (t: TableFill) => (entityOf(t) ? 1 : 0);
+const below = (t: TableFill) => (viewOf(t) ? 1 : 0) + (stamped(t) ? 1 : 0);
 
 const cardHeight = (t: TableFill) =>
-	HEAD_H + whyHeight(t) + shown(t).length * ROW_H + stripCount(t) * STRIP_H + 8;
+	HEAD_H + whyHeight(t) + (above(t) + below(t)) * STRIP_H + shown(t).length * ROW_H + 8;
 
 // With a seating plan each table sits in its named column whatever the heights,
 // so two databases with the same tables draw them in the same places; unplanned
 // tables join the last column in name order. Without one: tallest first, shortest column.
-const TITLE_H = 44;
+const TITLE_H = 60;
 const titles = $derived(seats ? Object.keys(seats) : []);
 const COLUMNS = $derived(seats ? titles.length : 4);
 const placed = $derived.by(() => {
@@ -146,12 +147,12 @@ function rowY(model: string, column: string): number | null {
 	const p = byModel.get(host ?? model);
 	if (!p) return null;
 	const rows = shown(p.table);
-	const i = rows.findIndex((c) => c.column === column);
 	const top = p.y + HEAD_H + whyHeight(p.table);
-	if (i >= 0) return top + i * ROW_H + ROW_H / 2;
-	if (!host) return null;
-	const s = stripsOf.get(host)?.findIndex((t) => t.model === model) ?? -1;
-	return top + rows.length * ROW_H + s * STRIP_H + STRIP_H / 2;
+	if (model.endsWith("Entity") && host) return top + STRIP_H / 2;
+	const first = top + above(p.table) * STRIP_H;
+	const i = rows.findIndex((c) => c.column === column);
+	if (i >= 0) return first + i * ROW_H + ROW_H / 2;
+	return host ? first + rows.length * ROW_H + STRIP_H / 2 : null;
 }
 
 // FK lines as cubic curves; control points offset on x only so they leave
@@ -329,7 +330,10 @@ const pct = (filled: number, rows: number) =>
 		</svg>
 
 		{#each titles as title, c (title)}
-			<h3 class="col-title" style="left:{PAD + c * (CARD_W + CARD_GAP_X)}px; top:{PAD}px; width:{CARD_W}px;">{title}</h3>
+			{@const [name, sub] = title.split(" — ")}
+			<h3 class="col-title" style="left:{PAD + c * (CARD_W + CARD_GAP_X)}px; top:{PAD}px; width:{CARD_W}px;">
+				{name}{#if sub}<small>{sub}</small>{/if}
+			</h3>
 		{/each}
 
 		{#each placed as p (p.table.model)}
@@ -337,6 +341,7 @@ const pct = (filled: number, rows: number) =>
 			<div
 				class="card"
 				class:empty
+				class:thing={!!seats}
 				style="left:{p.x}px; top:{p.y}px; width:{CARD_W}px;"
 			>
 				<button
@@ -348,6 +353,11 @@ const pct = (filled: number, rows: number) =>
 						: `Open ${p.table.model} in the table viewer`}
 				>
 					<span class="card-name">{stamped(p.table) ? p.table.model.replace(/Table$/, "") : p.table.model}</span>
+					{#if stamped(p.table)}
+						<span class="badges">
+							{#if entityOf(p.table)}<i class="b-e">E</i>{/if}<i class="b-t">T</i>{#if viewOf(p.table)}<i class="b-v">V</i>{/if}
+						</span>
+					{/if}
 					<span class="card-rows">
 						{#if p.table.error}
 							!
@@ -369,10 +379,16 @@ const pct = (filled: number, rows: number) =>
 					</p>
 				{/if}
 
+				{#if entityOf(p.table)}
+					{@const ent = entityOf(p.table)!}
+					<button class="strip ent" style="height:{STRIP_H}px" onclick={() => onPickTable?.(ent.model)} title="Open {ent.model}">
+						<span>{ent.columns[0]?.column} · born</span><span class="col-pct">{ent.rows.toLocaleString()}</span>
+					</button>
+				{/if}
 				{#each shown(p.table) as c (c.column)}
 					{@const b = cellBand(p.table, c.column, c.filled)}
 					<div
-						class="row band-{b}"
+						class="row {p.table.rows ? `band-${b}` : ''}"
 						style="height:{ROW_H}px"
 						title="{p.table.model}.{c.column} — {pct(
 							c.filled,
@@ -388,11 +404,12 @@ const pct = (filled: number, rows: number) =>
 						<span class="col-pct">{pct(c.filled, p.table.rows)}</span>
 					</div>
 				{/each}
-				{#each stripsOf.get(p.table.model) ?? [] as s (s.model)}
-					<button class="strip" style="height:{STRIP_H}px" onclick={() => onPickTable?.(s.model)} title="Open {s.model}">
-						<span>→ {s.model}</span><span class="col-pct">{s.rows.toLocaleString()}</span>
+				{#if viewOf(p.table)}
+					{@const view = viewOf(p.table)!}
+					<button class="strip" style="height:{STRIP_H}px" onclick={() => onPickTable?.(view.model)} title="Open {view.model}">
+						<span>→ {view.model}</span><span class="col-pct">{view.rows.toLocaleString()}</span>
 					</button>
-				{/each}
+				{/if}
 				{#if stamped(p.table)}
 					<div class="strip stamp" style="height:{STRIP_H}px" title={[...STAMPS].join(" · ")}>+ stamped</div>
 				{/if}
@@ -502,6 +519,36 @@ const pct = (filled: number, rows: number) =>
 		cursor: pointer;
 	}
 	.strip.stamp { cursor: default; }
+	.strip.ent { color: #e88555; background: #141414; }
+
+	/* The hand-drawn schema map's look: rounded cards, gold names, E/T/V badges. */
+	.card.thing {
+		border-radius: 12px;
+		border: 1.5px solid rgb(236 228 208 / 35%);
+		background: #1f1f1f;
+	}
+	.card.thing.empty { border-color: rgb(232 133 85 / 60%); }
+	.card.thing .card-head { background: none; border-bottom: 0; }
+	.card.thing .card-name { color: #ffd700; font-family: ui-monospace, monospace; font-size: 13px; }
+	.badges { display: flex; gap: 3px; margin-left: auto; }
+	.badges i {
+		font-style: normal;
+		font-size: 9px;
+		font-weight: 700;
+		padding: 0 5px;
+		border-radius: 999px;
+		border: 1.2px solid currentColor;
+	}
+	.b-e { color: #e88555; }
+	.b-t { color: #ffd700; }
+	.b-v { color: #9aa078; }
+	.col-title small {
+		display: block;
+		margin-top: 2px;
+		color: #e88555;
+		font-size: 11px;
+		font-weight: 400;
+	}
 	.col-title {
 		position: absolute;
 		margin: 0;
