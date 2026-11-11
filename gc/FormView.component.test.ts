@@ -254,9 +254,15 @@ it("a Person question offers only the people it is given, searchable, and takes 
 	expect(onsubmit.mock.calls[0][0]).toEqual({ boss: "p2" });
 });
 
-it("speaks the planter's language: a French planter is refused in French", async () => {
-	const { container, findByText, getByText } = render(FormView, { definition: form, onsubmit: vi.fn(), locale: "fr-CA" });
-	await findByText("Tree survey");
-	await fireEvent.click(getByText("Save"));
-	await waitFor(() => expect(container.querySelector("[data-error]")?.textContent).toBe("La réponse à cette question est obligatoire."));
+it("speaks the planter's language: a French form reads and refuses in French", async () => {
+	const langs = vi.spyOn(navigator, "languages", "get").mockReturnValue(["fr-CA"]);
+	try {
+		const { container, findByText, getByText } = render(FormView, { definition: form, onsubmit: vi.fn() });
+		await findByText("Tree survey");
+		expect(container.querySelector("[data-gps-stamp]")?.textContent).toMatch(/position/);
+		await fireEvent.click(getByText("Enregistrer"));
+		await waitFor(() => expect(container.querySelector("[data-error]")?.textContent).toBe("La réponse à cette question est obligatoire."));
+	} finally {
+		langs.mockRestore();
+	}
 });
