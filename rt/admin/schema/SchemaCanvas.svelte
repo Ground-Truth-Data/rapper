@@ -424,6 +424,16 @@ const pct = (filled: number, rows: number) =>
 			</div>
 		{/each}
 	</div>
+	{#if seats}
+		<dl class="key" onpointerdown={(e) => e.stopPropagation()}>
+			<dt><i class="b-e">E</i></dt><dd>entity: the thing is born, its key</dd>
+			<dt><i class="b-t">T</i></dt><dd>table: every version</dd>
+			<dt><i class="b-v">V</i></dt><dd>view: only the live rows</dd>
+			<dt><span class="sw band-empty"></span></dt><dd>column empty in a table that has rows</dd>
+			<dt><span class="sw rust"></span></dt><dd>table with no rows</dd>
+			<dt>%</dt><dd>how full the column is</dd>
+		</dl>
+	{/if}
 	<button
 		class="fs"
 		onpointerdown={(e) => e.stopPropagation()}
@@ -560,6 +570,29 @@ const pct = (filled: number, rows: number) =>
 		border-radius: 999px;
 		border: 1.2px solid currentColor;
 	}
+	.key {
+		position: absolute;
+		top: 12px;
+		right: 68px;
+		z-index: 2;
+		display: grid;
+		grid-template-columns: auto auto;
+		gap: 1px 6px;
+		align-items: center;
+		margin: 0;
+		padding: 5px 8px;
+		border: 1px solid var(--at-line, #262626);
+		border-radius: 8px;
+		background: rgb(17 17 17 / 85%);
+		color: #ece4d0;
+		font-size: 9px;
+		line-height: 1.3;
+	}
+	.key dt { justify-self: center; color: #ece4d0; font-weight: 700; }
+	.key dd { margin: 0; }
+	.key i { font-style: normal; font-size: 8px; font-weight: 700; padding: 0 5px; border: 1px solid currentColor; border-radius: 999px; }
+	.sw { display: block; width: 12px; height: 8px; border-radius: 3px; }
+	.sw.rust { border: 1.5px solid #e88555; }
 	.b-e { color: #e88555; }
 	.b-t { color: #ffd700; }
 	.b-v { color: #9aa078; }
