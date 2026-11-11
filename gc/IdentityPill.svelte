@@ -52,7 +52,7 @@ function read(e: MouseEvent, label: string) {
 {#each marks as e (e.who.key ?? e.who.label)}
     {@const hammer = !!clobberBy && same(e.who, clobberBy)}
     <span class="id-mark" title={hammer ? m.gc_edit_replaced() : m.gc_edited_since_made()}
-        ><span class="id-mark-half" class:id-mark-half--hammer={hammer}><Icon name={hammer ? "hammer" : "pen"} size={9} stroke={2.2} /></span
+        ><span class="id-mark-half" class:id-mark-half--hammer={hammer}><Icon name={hammer ? "hammer" : "pen"} size={hammer ? 11 : 9} stroke={2.2} /></span
         >{@render own(e.who, e.who.label, e.count)}</span
     >
 {/each}
@@ -122,8 +122,9 @@ function read(e: MouseEvent, label: string) {
         color: #eee;
     }
     .id-mark-half--hammer {
-        background: var(--rust);
-        color: #1a1a1a;
+        border-color: var(--rust);
+        background: #111;
+        color: var(--rust);
     }
     .id-mark .id-pill {
         flex: 0 1 auto;
