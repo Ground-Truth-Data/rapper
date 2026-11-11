@@ -69,6 +69,10 @@ const derived = $derived(
 	opacity: 0.6;
 	transition: opacity 0.15s;
 }
+/* Narrow pages pin a 44px strip to the bottom edge (the rating tally); sit above it, not on its figures. */
+@media (max-width: 1099px) {
+	.ephem-tab { bottom: 58px; }
+}
 .ephem-tab:hover { opacity: 1; }
 /* The asset points left; flipped, it points into the page — "bring it out". */
 .ephem-tab img {
