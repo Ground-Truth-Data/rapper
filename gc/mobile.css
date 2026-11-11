@@ -117,8 +117,8 @@
 	--rt-radius-sm: 8px;
 	--rt-radius-md: 10px;
 	--rt-radius-lg: 12px;
-	/* Every list row and group header: one height up to three lines, so a count badge never clips. */
-	--rt-row-min-h: 88px;
+	/* Every list row and group header: a three-line row (name, pill, place) with its padding, no more. */
+	--rt-row-min-h: 75px;
 	--rt-radius-xl: 14px;
 	--rt-radius-pill: 999px;
 
