@@ -121,6 +121,7 @@ const ownRowTools = $derived(visibleTools.filter((t) => t.ownRow));
 // Foundr's strip is the pipeline: one captioned group per stage, the lit caption being the stage the page is in.
 const activeStage = $derived(isFoundr ? foundrStageOf(path)?.key ?? null : null);
 const stageTools = (s: FoundrStage): AdminTool[] => visibleTools.filter((t) => t.stage === s.key);
+const stagelessTools = $derived(isFoundr ? visibleTools.filter((t) => !t.stage) : []);
 // Every other stage folds to its caption, which opens it in place: the stepper below already navigates between stages.
 let peek = $state<FoundrStage["key"] | null>(null);
 $effect(() => {
@@ -369,6 +370,19 @@ $effect(() => {
                 {#each FOUNDR_STAGES as s (s.key)}
                     {@render stageGroup(s)}
                 {/each}
+                {#if stagelessTools.length}
+                    <span class="grp">
+                        {#each stagelessTools.slice(0, 1) as tool}
+                            <span class="lead">
+                                <span class="grp-tag gold-tag">TOOLS</span>
+                                {@render toolPill(tool)}
+                            </span>
+                        {/each}
+                        {#each stagelessTools.slice(1) as tool}
+                            {@render toolPill(tool)}
+                        {/each}
+                    </span>
+                {/if}
             {:else if visibleTools.length}
                 <span class="grp">
                     <!-- Sliced rather than `{#if i === 0}`: Svelte requires balanced tags inside a block. -->
