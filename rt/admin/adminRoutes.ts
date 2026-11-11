@@ -60,7 +60,7 @@ export type AdminTool = {
 	ownRow?: boolean;
 	/** The page cannot be read without `?site=`, so its pill dims until a site is picked. */
 	scopedToSite?: boolean;
-	/** Foundr tools only: the pipeline stage the header groups it under (FOUNDR_STAGES). */
+	/** Foundr tools only: the pipeline stage the header groups it under (FOUNDR_STAGES); none trails the stages. */
 	stage?: FoundrStageKey;
 };
 
@@ -644,10 +644,9 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				href: `${FOUNDR_TOOL}/upkeep`,
 				title: "Routine Foundr jobs and their state — runs are local dev only",
 			},
-			// Not a pipeline stage: the strip has no other place, and last reads as "outside the walk".
+			// No stage: not a pipeline tool, so the header puts it in a trailing group after the stages.
 			{
 				key: "decisions",
-				stage: "prove",
 				label: "Decisions",
 				href: `${DECISIONS}/foundr`,
 				title: "Foundr's architectural decisions, and the proposed ones waiting for a call",
