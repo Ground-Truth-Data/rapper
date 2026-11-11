@@ -83,7 +83,16 @@ const stripsOf = $derived.by(() => {
 const STAMPS = new Set(["versionKey", "replacesKey", "kind", "actKey", "editedByKey", "createdAt"]);
 const stamped = (t: TableFill) => !!seats && t.columns.some((c) => c.column === "versionKey");
 const shown = (t: TableFill) => (stamped(t) ? t.columns.filter((c) => !STAMPS.has(c.column)) : t.columns);
-const stripCount = (t: TableFill) => (stripsOf.get(t.model)?.length ?? 0) + (stamped(t) ? 1 : 0);
+/** `table.column` → the thing its foreign key names, e.g. `mapFeatureTable.mapKey` → `map`. */
+const thingName = (model: string) => model.replace(/(Table|Entity|View)$/, "");
+const pointsAt = $derived(
+	new Map(
+		links
+			.filter((l) => thingName(l.from) !== thingName(l.to))
+			.map((l) => [`${l.from}.${l.field}`, thingName(l.to)]),
+	),
+);
+const stripCount =(t: TableFill) => (stripsOf.get(t.model)?.length ?? 0) + (stamped(t) ? 1 : 0);
 
 const cardHeight = (t: TableFill) =>
 	HEAD_H + whyHeight(t) + shown(t).length * ROW_H + stripCount(t) * STRIP_H + 8;
@@ -373,6 +382,9 @@ const pct = (filled: number, rows: number) =>
 						]}"
 					>
 						<span class="col-name">{c.column}</span>
+						{#if seats && pointsAt.get(`${p.table.model}.${c.column}`)}
+							<span class="col-fk">→ {pointsAt.get(`${p.table.model}.${c.column}`)}</span>
+						{/if}
 						<span class="col-pct">{pct(c.filled, p.table.rows)}</span>
 					</div>
 				{/each}
@@ -558,6 +570,11 @@ const pct = (filled: number, rows: number) =>
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+	}
+	.col-fk {
+		flex: none;
+		margin: 0 6px 0 auto;
+		color: #9aa078;
 	}
 	.col-pct {
 		flex: none;
