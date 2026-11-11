@@ -107,16 +107,16 @@ $effect(() => {
     padding: var(--rt-space-3) 0 var(--rt-space-2);
 }
 
-/* The trash is the row's last stop: you scroll all the way right to reach it. */
+/* Edge to edge: the row cancels the page's gutter so pills slide off the screen, not off the margin. */
 .inbox2-pills {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 2px 28px 2px 0;
+    margin: 0 calc(-1 * var(--page-gutter, 0px));
+    padding: 2px var(--page-gutter, 0px);
+    scroll-padding-inline: var(--page-gutter, 0px);
     overflow-x: auto;
     scrollbar-width: none;
-    -webkit-mask-image: linear-gradient(90deg, #000 84%, transparent);
-    mask-image: linear-gradient(90deg, #000 84%, transparent);
 }
 .inbox2-pill-slot {
     flex: none;
