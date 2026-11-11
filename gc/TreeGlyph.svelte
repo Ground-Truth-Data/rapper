@@ -1,4 +1,5 @@
-<!-- The Get Cache tree, filled with the text colour around it (gold, white, grey). -->
+<!-- The Get Cache tree, filled with the text colour around it (gold, white, grey). A host counting
+     something else (cones) sets --thing-glyph on an ancestor. -->
 <script lang="ts">
 import tree from "./assets/tree_white.webp";
 </script>
@@ -15,6 +16,6 @@ import tree from "./assets/tree_white.webp";
         flex: none;
         margin-bottom: -0.1em;
         background: currentColor;
-        mask: var(--tg) center / contain no-repeat;
+        mask: var(--thing-glyph, var(--tg)) center / contain no-repeat;
     }
 </style>
