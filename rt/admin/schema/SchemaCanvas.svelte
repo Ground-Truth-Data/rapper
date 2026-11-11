@@ -91,12 +91,14 @@ const pointsAt = $derived(
 			.map((l) => [`${l.from}.${l.field}`, thingName(l.to)]),
 	),
 );
-/** Strips above the columns (the entity) and below them (the view, the stamps). */
-const above = (t: TableFill) => (entityOf(t) ? 1 : 0);
-const below = (t: TableFill) => (viewOf(t) ? 1 : 0) + (stamped(t) ? 1 : 0);
+/** The entity chip above the columns; the view row and the totals line below them. */
+const above = (t: TableFill) => (entityOf(t) ? STRIP_H : 0);
+const below = (t: TableFill) => (viewOf(t) ? ROW_H : 0) + (seats ? STRIP_H : 0);
+const rowsWord = (n: number, word: string) => `${n.toLocaleString()} ${word}${n === 1 ? "" : "s"}`;
+const filledCols =(t: TableFill) => t.columns.filter((c) => c.filled > 0).length;
 
 const cardHeight = (t: TableFill) =>
-	HEAD_H + whyHeight(t) + (above(t) + below(t)) * STRIP_H + shown(t).length * ROW_H + 8;
+	HEAD_H + whyHeight(t) + above(t) + shown(t).length * ROW_H + below(t) + 8;
 
 // With a seating plan each table sits in its named column whatever the heights,
 // so two databases with the same tables draw them in the same places; unplanned
@@ -149,10 +151,10 @@ function rowY(model: string, column: string): number | null {
 	const rows = shown(p.table);
 	const top = p.y + HEAD_H + whyHeight(p.table);
 	if (model.endsWith("Entity") && host) return top + STRIP_H / 2;
-	const first = top + above(p.table) * STRIP_H;
+	const first = top + above(p.table);
 	const i = rows.findIndex((c) => c.column === column);
 	if (i >= 0) return first + i * ROW_H + ROW_H / 2;
-	return host ? first + rows.length * ROW_H + STRIP_H / 2 : null;
+	return host ? first + rows.length * ROW_H + ROW_H / 2 : null;
 }
 
 // FK lines as cubic curves; control points offset on x only so they leave
@@ -406,12 +408,18 @@ const pct = (filled: number, rows: number) =>
 				{/each}
 				{#if viewOf(p.table)}
 					{@const view = viewOf(p.table)!}
-					<button class="strip" style="height:{STRIP_H}px" onclick={() => onPickTable?.(view.model)} title="Open {view.model}">
-						<span>→ {view.model}</span><span class="col-pct">{view.rows.toLocaleString()}</span>
+					<button class="row view-row" style="height:{ROW_H}px" onclick={() => onPickTable?.(view.model)} title="Open {view.model}'s rows">
+						<span class="col-name">view: {view.model} · {rowsWord(view.rows, "live row")}</span>
 					</button>
 				{/if}
-				{#if stamped(p.table)}
-					<div class="strip stamp" style="height:{STRIP_H}px" title={[...STAMPS].join(" · ")}>+ stamped</div>
+				{#if seats}
+					<div class="strip total" style="height:{STRIP_H}px">
+						{[
+							rowsWord(p.table.rows, "row"),
+							...(viewOf(p.table) ? [`${viewOf(p.table)!.rows.toLocaleString()} live`] : []),
+							`${filledCols(p.table)}/${p.table.columns.length} cols filled`,
+						].join(" · ")}
+					</div>
 				{/if}
 			</div>
 		{/each}
@@ -518,7 +526,20 @@ const pct = (filled: number, rows: number) =>
 		font: 11px ui-monospace, monospace;
 		cursor: pointer;
 	}
-	.strip.stamp { cursor: default; }
+	.strip.total {
+		display: block;
+		line-height: 20px;
+		cursor: default;
+		color: #8f8a76;
+		font-size: 10px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		border-top: 1px solid rgb(255 255 255 / 8%);
+	}
+	.view-row { width: 100%; border: 0; background: none; color: #9aa078; cursor: pointer; text-align: left; }
+	.view-row:hover { background: rgb(154 160 120 / 15%); }
+	.card.thing .card-rows { font-size: 15px; color: #ece4d0; }
 	.strip.ent { color: #e88555; background: #141414; }
 
 	/* The hand-drawn schema map's look: rounded cards, gold names, E/T/V badges. */
