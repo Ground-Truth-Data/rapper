@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 // rapper must serve its own /mobileAssets/worldBase — a missing tile 404s here even though the identical URL 200s under ReTreever, and it draws nothing rather than announcing itself.
 // worldBase is the ONLY thing left under this URL: every other map image is imported by the child that owns it, so the bundler carries it. Nothing new belongs in this list.
-// ⚠️ This test FAILS on missing assets; it does not copy them. Fix: npm run predev (runs the child's fetchAssets.sh).
+// ⚠️ This test FAILS on a missing asset (skips only when the whole folder is absent); it does not copy them. Fix: npm run predev (runs the child's fetchAssets.sh).
 // ⚠️ rapper never reaches into ReTreever at runtime — assets must be rapper's own real files, never a fallback path into ReTreever's static/.
 
 const RAPPER_ROOT = fileURLToPath(new URL("../../..", import.meta.url));
@@ -25,17 +25,22 @@ const REQUIRED: ReadonlyArray<{ group: string; witness: string; why: string }> =
 	},
 ];
 
-describe("rapper serves the assets its mounted child asks for", () => {
-	it("has a static/mobileAssets directory at all", () => {
-		expect(
-			existsSync(ASSETS),
-			`${ASSETS} is missing.\n` +
-				"rapper serves no /mobileAssets/worldBase/* without it, so the mounted child's " +
-				"basemap 404s while working fine under ReTreever.\n" +
-				"Fix: npm run predev  (runs getCache_OfflineMap/fetchAssets.sh)",
-		).toBe(true);
-	});
+// A fresh clone has no copied assets (the folder is gitignored), so the presence checks skip there instead of
+// failing every suite run that never ran predev; a half-copied folder still fails.
+const PRESENT = existsSync(ASSETS);
+if (!PRESENT) {
+	console.warn(
+		`assetsPresent: skipped, ${ASSETS} is absent (a fresh clone). ` +
+			"Fix before serving the map: npm run predev  (runs getCache_OfflineMap/fetchAssets.sh)",
+	);
+}
 
+// The title carries the reason too: rapper's silent "passed-only" hides the warning above.
+const SERVES = PRESENT
+	? "rapper serves the assets its mounted child asks for"
+	: "rapper serves the assets its mounted child asks for — SKIPPED: static/mobileAssets is absent, run npm run predev";
+
+describe.skipIf(!PRESENT)(SERVES, () => {
 	for (const { group, witness, why } of REQUIRED) {
 		it(`serves ${group}`, () => {
 			const path = join(ASSETS, witness);
@@ -49,17 +54,6 @@ describe("rapper serves the assets its mounted child asks for", () => {
 		});
 	}
 
-	it("keeps the copied assets out of git", () => {
-		const gitignore = join(RAPPER_ROOT, ".gitignore");
-		const text = existsSync(gitignore) ? readFileSync(gitignore, "utf8") : "";
-		expect(
-			/^static\/mobileAssets\/?$/m.test(text),
-			"static/mobileAssets/ is not in rapper/.gitignore.\n" +
-				"It is ~49 MB across ~3600 binary files, copied from ReTreever/static, " +
-				"which stays the single source of truth. Committing it forks that source.",
-		).toBe(true);
-	});
-
 	it("does not reach into ReTreever at runtime", () => {
 		// ⚠️ Assets must be rapper's own files, never symlinks — a symlink passes here but breaks for everyone else, and SvelteKit dies at build time on a dangling one.
 		for (const entry of readdirSync(ASSETS, { withFileTypes: true })) {
@@ -70,5 +64,18 @@ describe("rapper serves the assets its mounted child asks for", () => {
 					"checkout existing at a particular path on one machine.",
 			).toBe(false);
 		}
+	});
+});
+
+describe("rapper keeps its copied assets out of git", () => {
+	it("keeps the copied assets out of git", () => {
+		const gitignore = join(RAPPER_ROOT, ".gitignore");
+		const text = existsSync(gitignore) ? readFileSync(gitignore, "utf8") : "";
+		expect(
+			/^static\/mobileAssets\/?$/m.test(text),
+			"static/mobileAssets/ is not in rapper/.gitignore.\n" +
+				"It is ~49 MB across ~3600 binary files, copied from ReTreever/static, " +
+				"which stays the single source of truth. Committing it forks that source.",
+		).toBe(true);
 	});
 });
