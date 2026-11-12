@@ -38,6 +38,37 @@ export const distance = {
 	},
 };
 
+export type AreaUnit = "ha" | "ac";
+
+// Areas and per-area rates are stored in hectares; only what is shown or typed converts.
+let area = $state<AreaUnit>("ha");
+
+export const areaUnit = {
+	get value() {
+		return area;
+	},
+	set value(v: AreaUnit) {
+		area = v;
+	},
+};
+
+const AC_PER_HA = 2.471;
+
+export const areaLabel = (): AreaUnit => area;
+export const areaOf = (ha: number) => (area === "ac" ? ha * AC_PER_HA : ha);
+export const haOf = (typed: number) => (area === "ac" ? typed / AC_PER_HA : typed);
+/** A per-hectare count (trees/ha), per the area unit, whole. */
+export const perArea = (perHa: number) => (area === "ac" ? Math.round(perHa / AC_PER_HA) : perHa);
+export const perHaOf = (typed: number) => (area === "ac" ? Math.round(typed * AC_PER_HA) : typed);
+
+/** A block's hectares in the area unit, the number only: "3.1", "1,029". */
+export const areaText = (ha: number) => {
+	const a = areaOf(ha);
+	return a < 10 ? num(a, 1) : num(Math.round(a));
+};
+/** Trees/ha in the area unit, the number only: "1,200", or "486" per acre. */
+export const rateText = (perHa: number) => num(perArea(perHa));
+
 const FT_PER_M = 3.28084;
 const M_PER_MI = 1609.344;
 const M2_PER_AC = 4046.8564224;
@@ -60,16 +91,16 @@ export function formatLength(metres: number): string {
 
 /** "500 m²" / "3.1 ha" / "1,200 km²" or "5,400 ft²" / "7.7 ac" / "460 mi²". */
 export function formatArea(sqMetres: number): string {
+	const ac = sqMetres / M2_PER_AC;
+	const ha = sqMetres / 10_000;
 	if (value === "imperial") {
-		const ac = sqMetres / M2_PER_AC;
 		if (ac < 0.1) return `${num(Math.round(sqMetres * FT_PER_M ** 2))} ft²`;
 		if (ac >= 100 * AC_PER_MI2) return `${num(Math.round(ac / AC_PER_MI2))} mi²`;
-		return `${scaledArea(ac)} ac`;
+	} else {
+		if (ha < 0.1) return `${num(Math.round(sqMetres))} m²`;
+		if (ha >= 100_000) return `${num(Math.round(ha / 100))} km²`;
 	}
-	const ha = sqMetres / 10_000;
-	if (ha < 0.1) return `${num(Math.round(sqMetres))} m²`;
-	if (ha >= 100_000) return `${num(Math.round(ha / 100))} km²`;
-	return `${scaledArea(ha)} ha`;
+	return area === "ac" ? `${scaledArea(ac)} ac` : `${scaledArea(ha)} ha`;
 }
 
 /** The unit a far-off thing is counted in, whole: km, or mi in imperial. */
