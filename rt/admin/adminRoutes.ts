@@ -381,7 +381,7 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				label: "Records",
 				href: RETREEVER_PROJECTS,
 				match: [RETREEVER_PROJECTS, RETREEVER_ORGANISATIONS],
-				title: "Every project and organisation family, read-only: what it holds and what needs a fix",
+				title: "Every project and organisation family: what it holds, what needs a fix, and the project pairs to answer",
 			},
 			{
 				key: "platforms",
