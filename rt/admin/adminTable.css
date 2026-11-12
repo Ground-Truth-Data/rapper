@@ -150,6 +150,74 @@
 	color: var(--at-muted-2);
 }
 
+/* The textbox's cell, as a native control: an autosave needs a real `change` event. */
+.admin-select {
+	height: 26px;
+	border-radius: 4px;
+	border: 1px solid transparent;
+	background: transparent;
+	color: var(--at-fg);
+	padding: 0 var(--at-cell-pad-x);
+	font: inherit;
+	font-size: var(--at-font);
+	outline: none;
+}
+.admin-select:focus {
+	background: var(--at-inset);
+	border-color: var(--at-th-hover);
+}
+
+/* ── Expanded rows and page notices ──────────────────────────────────── */
+
+/* `display:contents`: a DOM parent for `form=` links, never a grid item. */
+.row-form {
+	display: contents;
+}
+/* Outranks a page's own `.badge.child` colours, as the scoped copy did. */
+.admin-table tr.row-open .badge {
+	border-color: var(--at-accent);
+	color: var(--at-accent);
+}
+
+/* Under `.fieldsgrid`: `.fld` is also the missMeta desk's own, unrelated class. */
+.fieldsgrid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 18px 20px;
+}
+.fieldsgrid .fld {
+	display: block;
+	min-width: 0;
+}
+.fieldsgrid .fld.full {
+	grid-column: 1 / -1;
+}
+.fieldsgrid .fld .admin-fieldlbl {
+	margin: 0 0 8px;
+}
+
+.admin-banner {
+	margin-bottom: 14px;
+	padding: 10px 14px;
+	border-radius: var(--at-radius-sm);
+	border: 1px solid color-mix(in srgb, var(--at-danger) 40%, transparent);
+	background: color-mix(in srgb, var(--at-danger) 12%, transparent);
+	color: var(--at-danger);
+	font-size: 13px;
+}
+.admin-banner.ok {
+	border-color: color-mix(in srgb, var(--at-match-hi) 40%, transparent);
+	background: color-mix(in srgb, var(--at-match-hi) 12%, transparent);
+	color: var(--at-match-hi);
+}
+
+.admin-emptystate {
+	padding: 48px 18px;
+	text-align: center;
+	color: var(--at-muted);
+	font-size: 13px;
+}
+
 /* ── Rows ────────────────────────────────────────────────────────────── */
 
 /* A real hit target, not a glyph — at 11px it was a decoration people aimed at and missed; the eye treats the triangle as THE control despite the row also toggling. */
@@ -510,9 +578,10 @@ main:has(.admin-table) {
    the grid allows — a zebra or a per-row background is the noise it exists to
    avoid. So every fifth separator is simply drawn stronger. Colour only, never
    the shorthand: the last row's `border-bottom: none` above must keep winning,
-   and hover and selection stay the only things that mark a row's STATE. */
-.admin-table tbody tr:nth-child(5n) td,
-.admin-table tbody tr:nth-child(5n) th {
+   and hover and selection stay the only things that mark a row's STATE. An
+   open detail row is not a row the reader counts, so it is not counted. */
+.admin-table tbody tr:nth-child(5n of :not(.adt-detail)) td,
+.admin-table tbody tr:nth-child(5n of :not(.adt-detail)) th {
 	border-bottom-color: var(--at-line-strong);
 }
 

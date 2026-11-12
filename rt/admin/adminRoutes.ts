@@ -12,8 +12,6 @@ export type AdminLinkKind = "tool" | "table" | "lookup" | "view";
 export type AdminLink = {
 	label: string;
 	href: string;
-	/** Reads `?site=` — the header appends the focused project to it. */
-	scopedToSite?: boolean;
 	/** Hover text. Carries the REAL table identifier once `label` is humanised. */
 	title?: string;
 	/** Defaults to "table" for a tool's `tables` array — see AdminTool. */
@@ -60,9 +58,9 @@ export type AdminTool = {
 	tables?: AdminLink[];
 	/** Rendered on its own line, `tables` shown whenever the parent is active. */
 	ownRow?: boolean;
-	/** The pages read `?site=`; the header appends the focused project. */
+	/** The page cannot be read without `?site=`, so its pill dims until a site is picked. */
 	scopedToSite?: boolean;
-	/** Foundr tools only: the pipeline stage the header groups it under (FOUNDR_STAGES). */
+	/** Foundr tools only: the pipeline stage the header groups it under (FOUNDR_STAGES); none trails the stages. */
 	stage?: FoundrStageKey;
 };
 
@@ -309,27 +307,12 @@ const RETREEVER_ENTITIES = [
 	"LinkCandidateTable",
 	"RawSnapshotTable",
 	"ObservationTable",
+	"FoundrRunTable",
+	"ScoreRunTable",
+	"DriftEventTable",
 ] as const;
 
 /** Fixed vocabularies another table points at. Exported so the table viewer can tell a lookup from an entity. */
-/** The entities whose viewer narrows to one Foundr site — ReTreever's retreeverTables.ts `platformScope`, pinned equal by adminRoutes.test.ts. */
-export const PLATFORM_SCOPED: ReadonlySet<string> = new Set([
-	"OrganizationTable",
-	"ProjectTable",
-	"ClaimTable",
-	"StakeholderTable",
-	"PlatformTable",
-	"LandTable",
-	"CropTable",
-	"PlantingTable",
-	"PolygonTable",
-	"SurveyTable",
-	"SourceTable",
-	"MiscTable",
-	"ProjectScoreByFieldTable",
-	"RawSnapshotTable",
-]);
-
 export const RETREEVER_LOOKUPS = [
 	"RestorationTypeTable",
 	"TreatmentTypeTable",
@@ -344,9 +327,6 @@ const retreeverTablePills = (base: string): AdminLink[] => [
 		href: `${base}/${t.toLowerCase()}`,
 		title: `${t} — Prisma model (SQL table name)`,
 		kind: "table" as const,
-		// Only under Foundr does the viewer read the project.
-		scopedToSite:
-			base === FOUNDR_TABLE && PLATFORM_SCOPED.has(t),
 	})),
 	...RETREEVER_LOOKUPS.map((t) => ({
 		label: t,
@@ -664,10 +644,9 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				href: `${FOUNDR_TOOL}/upkeep`,
 				title: "Routine Foundr jobs and their state — runs are local dev only",
 			},
-			// Not a pipeline stage: the strip has no other place, and last reads as "outside the walk".
+			// No stage: not a pipeline tool, so the header puts it in a trailing group after the stages.
 			{
 				key: "decisions",
-				stage: "prove",
 				label: "Decisions",
 				href: `${DECISIONS}/foundr`,
 				title: "Foundr's architectural decisions, and the proposed ones waiting for a call",
