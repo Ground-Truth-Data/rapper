@@ -449,9 +449,10 @@
 	display: none;
 }
 
-/* Wide windows only, low under the phone's screen: narrower, the pill runs into the phone. */
+/* Wide windows only, low under the phone's screen: narrower, the pill runs into the phone. The app's phone rig and
+   Get Cache's home page (.gc-shell) both carry it. */
 @media (min-width: 1000px) {
-body.mobile-app-framed {
+:is(body.mobile-app-framed, .gc-shell) {
 	.rig-legal {
 		position: absolute;
 		left: 0;
