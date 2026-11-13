@@ -6,7 +6,6 @@
  * opt-in and must stay so: a default-on turn would rotate every tier's pages.
  */
 import type { Snippet } from "svelte";
-import { m } from "$parent/src/lib/paraglide/messages";
 import handPhoneUrl from "./assets/hand_phoneV3.webp";
 import backdropUrl from "./assets/getcache_DT_bg.webp";
 
@@ -15,8 +14,6 @@ let {
 	viewport = false,
 	landscape = false,
 }: { children?: Snippet; viewport?: boolean; landscape?: boolean } = $props();
-
-const year = new Date().getFullYear();
 </script>
 
 {#snippet rig()}
@@ -34,12 +31,6 @@ const year = new Date().getFullYear();
 				{@render children?.()}
 			{/if}
 		</div>
-	</div>
-
-	<!-- Outside .mobile-preview-wrapper so --fit never scales the type. -->
-	<div class="rig-legal" aria-hidden="false">
-		<span class="rig-legal__item">&copy; {year} Get Cache</span>
-		<a class="rig-legal__item" href="/getcache/privacy">{m.gc_privacy_policy()}</a>
 	</div>
 </div>
 {/snippet}
