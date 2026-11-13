@@ -4,7 +4,7 @@ import type { Snippet } from "svelte";
 
 type Props = {
 	size?: "xs" | "sm" | "md" | "lg";
-	variant?: "gold" | "rust";
+	variant?: "gold" | "rust" | "sage";
 	/** Block CTAs fill their column; `false` hugs the label. */
 	full?: boolean;
 	disabled?: boolean;
@@ -46,8 +46,7 @@ const release = () => (pressed = false);
 
 <svelte:element
     this={href ? "a" : "button"}
-    class="rt-fancy-btn fb size-{size} {cls}"
-    class:rt-fancy-btn--rust={variant === "rust"}
+    class="rt-fancy-btn rt-fancy-btn--{variant} fb size-{size} {cls}"
     class:full
     class:pressed
     class:disabled={href && disabled}
