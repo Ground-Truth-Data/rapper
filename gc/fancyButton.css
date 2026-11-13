@@ -47,6 +47,15 @@
     --fb-press-lo: rgba(255, 255, 255, 0.3);
     --fb-press-hi: rgba(0, 0, 0, 0.3);
 }
+.rt-fancy-btn--sage {
+    --fb-hi: color-mix(in srgb, var(--rt-sage) 85%, white);
+    --fb-mid: var(--rt-sage);
+    --fb-lo: color-mix(in srgb, var(--rt-sage) 75%, black);
+    --fb-lip: color-mix(in srgb, var(--rt-sage) 50%, black);
+    --fb-glow: color-mix(in srgb, var(--rt-sage) 25%, transparent);
+    --fb-press-lo: rgba(255, 255, 255, 0.3);
+    --fb-press-hi: rgba(0, 0, 0, 0.3);
+}
 .rt-fancy-btn::before {
     content: "";
     position: absolute;
