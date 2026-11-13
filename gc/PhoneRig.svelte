@@ -15,8 +15,6 @@ let {
 	viewport = false,
 	landscape = false,
 }: { children?: Snippet; viewport?: boolean; landscape?: boolean } = $props();
-
-const year = new Date().getFullYear();
 </script>
 
 {#snippet rig()}
@@ -37,8 +35,7 @@ const year = new Date().getFullYear();
 	</div>
 
 	<!-- Outside .mobile-preview-wrapper so --fit never scales the type. -->
-	<div class="rig-legal" aria-hidden="false">
-		<span class="rig-legal__item">&copy; {year} Get Cache</span>
+	<div class="rig-legal">
 		<a class="rig-legal__item" href="/getcache/privacy">{m.gc_privacy_policy()}</a>
 	</div>
 </div>

@@ -449,6 +449,8 @@
 	display: none;
 }
 
+/* Wide windows only, low under the phone's screen: narrower, the pill runs into the phone. */
+@media (min-width: 1000px) {
 body.mobile-app-framed {
 	.rig-legal {
 		position: absolute;
@@ -456,10 +458,9 @@ body.mobile-app-framed {
 		right: 0;
 		bottom: 0;
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-end;
 		align-items: flex-end;
-		gap: 1rem;
-		padding: 0 clamp(1.5rem, 3vw, 2.5rem) 1.4rem;
+		padding: 0 clamp(1.5rem, 3vw, 2.5rem) 0.5rem;
 		font-family: var(--rt-font-body);
 		font-size: 1.05rem;
 		line-height: 1;
@@ -512,6 +513,7 @@ body.mobile-app-framed {
 	a.rig-legal__item:active {
 		transform: translateY(0);
 	}
+}
 }
 
 /* Capacitor app only, not rapper. `fixed` so the mobile URL bar sliding in cannot resize the stage. */
