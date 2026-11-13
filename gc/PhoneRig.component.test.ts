@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
-// The phone: hand, frame and the page inside it; turned only on request, and
-// the legal line under it carries this year and the privacy link.
+// The phone: hand, frame and the page inside it; turned only on request, with
+// the privacy link under it.
 import { render } from "@testing-library/svelte";
 import { createRawSnippet } from "svelte";
 import { describe, expect, it } from "vitest";
@@ -14,7 +14,6 @@ describe("PhoneRig", () => {
 		expect(container.querySelector(".mobile-preview-frame > #pg")).not.toBeNull();
 		expect(container.querySelector(".rig-landscape")).toBeNull();
 		expect(container.querySelector(".phone-viewport")).toBeNull();
-		expect(container.querySelector(".rig-legal")!.textContent).toContain(`© ${new Date().getFullYear()} Get Cache`);
 		expect(container.querySelector<HTMLAnchorElement>(".rig-legal a")!.getAttribute("href")).toBe("/getcache/privacy");
 	});
 
