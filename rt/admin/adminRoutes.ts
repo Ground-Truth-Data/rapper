@@ -115,6 +115,8 @@ export const MIRRORED_TABLES = [
 	"orgNameTable",
 	"orgKindTable",
 	"orgTagTable",
+	"speciesTable",
+	"speciesMarkTable",
 	"userProfile",
 	"settingTable",
 ] as const;
@@ -152,6 +154,8 @@ export const DEVICE_TABLES = [
 	"qaPlotTable",
 	"qaSurveyEntity",
 	"qaSurveyTable",
+	"speciesTable",
+	"speciesMarkTable",
 	"stockTable",
 	"tallyEntity",
 	"tallyTable",
@@ -169,7 +173,7 @@ export const GC_SCHEMA_SEATS: Readonly<Record<string, readonly string[]>> = {
 		"mapEntity", "mapTable", "mapView", "mapFeatureEntity", "mapFeatureTable", "mapFeatureView",
 		"blockEntity", "blockTable", "blockView", "crewTable", "crewView", "orgTagTable", "orgTagView",
 	],
-	"trees — on hand, dropped, planned": ["cropEntity", "cropTable", "cropView", "stockTable", "stockView", "deliveryTable", "deliveryView", "allocationTable", "allocationView"],
+	"trees — on hand, dropped, planned": ["cropEntity", "cropTable", "cropView", "stockTable", "stockView", "deliveryTable", "deliveryView", "allocationTable", "allocationView", "speciesTable", "speciesView", "speciesMarkTable", "speciesMarkView"],
 	"piece rate — price, currency, counts: the money": ["bagEntity", "bagTable", "bagView", "bagUpEntity", "bagUpTable", "bagUpView", "tallyEntity", "tallyTable", "tallyView"],
 	"quality — FS-704 surveys": ["qaSurveyEntity", "qaSurveyTable", "qaSurveyView", "qaPlotEntity", "qaPlotTable", "qaPlotView"],
 	"people & orgs — who": [
