@@ -88,6 +88,14 @@
   font-display: swap;
 }
 
+/* Chris's gold bubble alphabet, colour glyphs (built by gitEr/fancyFont). Loads only where .rt-fancy is used. */
+@font-face {
+  font-family: 'ReTreever Fancy';
+  src: url('$gc/assets/ReTreeverFancy.otf') format('opentype');
+  font-display: swap;
+}
+.rt-fancy { font-family: 'ReTreever Fancy', var(--rt-font-display); text-transform: none; }
+
 @font-face {
   font-family: 'JetBrains Mono';
   src: url('$gc/assets/jetbrainsMono.woff2') format('woff2');
