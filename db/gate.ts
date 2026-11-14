@@ -502,7 +502,12 @@ function fromPrevious(h: Db, previous: string): void {
 		h.exec({ sql: `DROP ${String(r.type).toUpperCase()} backup.${q(String(r.name))}` });
 	h.exec({ sql: "BEGIN" });
 	try {
-		for (const s of statements(previous)) h.exec({ sql: s });
+		for (const s of statements(previous)) {
+			// Every build since the last ship is "previous": one may already hold a column the rules add.
+			const add = /^ALTER TABLE backup\.(\w+) ADD COLUMN (\w+)/.exec(s.trim());
+			if (add && h.selectValue("SELECT 1 FROM pragma_table_info(?, 'backup') WHERE name = ?", [add[1], add[2]])) continue;
+			h.exec({ sql: s });
+		}
 		h.exec({ sql: "COMMIT" });
 	} catch (e) {
 		h.exec({ sql: "ROLLBACK" });

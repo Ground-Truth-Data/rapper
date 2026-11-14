@@ -183,6 +183,16 @@ describe("withBytes — a backup copy beside the live file", () => {
 		expect(withBytes(live, exportBytes(noOwner), TODAY, notes, previous)).toEqual([{ note: "kept" }]);
 	});
 
+	it("a copy from a build between ships that already holds a column the script adds still takes today's shape", () => {
+		const live = mem();
+		reconcile(live, TODAY);
+		const between = mem();
+		between.exec({ sql: "CREATE TABLE `pin` (`pinKey` text PRIMARY KEY NOT NULL, `name` text NOT NULL, `note` text); INSERT INTO pin VALUES ('p1', 'North 40', 'kept'), ('p2', 'Creek', NULL);" });
+		const previous = { lacks: "owner", sql: "ALTER TABLE backup.pin ADD COLUMN note text\n--> statement-breakpoint\nUPDATE backup.pin SET note = coalesce(note, 'was ' || name)" };
+		const notes = () => all(live, "SELECT note FROM backup.pin ORDER BY pinKey");
+		expect(withBytes(live, exportBytes(between), TODAY, notes, previous)).toEqual([{ note: "kept" }, { note: "was Creek" }]);
+	});
+
 	it("a restore that throws still lets go of the copy, so the next restore can attach", () => {
 		const live = mem();
 		reconcile(live, TODAY);
