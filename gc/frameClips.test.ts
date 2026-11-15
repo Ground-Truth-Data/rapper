@@ -13,6 +13,9 @@ describe("frameClips", () => {
 			"https://x.org/rt_anime/dog/dog-blink/dog-blink_002.webp",
 			"https://x.org/rt_anime/dog/dog-blink/dog-blink_003.webp",
 		]);
+		expect(frameUrl("/rt_anime_window", "dog-blink", { ...facts, ext: "avif" }, 2)).toBe(
+			"/rt_anime_window/dog/dog-blink/dog-blink_002.avif",
+		);
 	});
 
 	it("loads clips.json from the root and refuses a missing one", async () => {

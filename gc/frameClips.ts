@@ -1,4 +1,4 @@
-// Frame clips: a folder of numbered WebP frames per clip, declared by a
+// Frame clips: a folder of numbered frames per clip, declared by a
 // clips.json the import script measures from the files. No hand-typed table
 // anywhere — a count typed by hand is one frame off the day a clip is re-exported.
 
@@ -10,6 +10,8 @@ export type ClipFacts = {
 	/** rendered width on screen, a property of the art, not of the page */
 	widthRem: number;
 	note: string;
+	/** the frames' file extension; absent, webp */
+	ext?: string;
 };
 
 export type ClipManifest = {
@@ -38,7 +40,7 @@ export function forgetClips(): void {
 }
 
 export function frameUrl(root: string, clip: string, facts: ClipFacts, frame: number): string {
-	return `${root}/${facts.section}/${clip}/${clip}_${String(frame).padStart(3, "0")}.webp`;
+	return `${root}/${facts.section}/${clip}/${clip}_${String(frame).padStart(3, "0")}.${facts.ext ?? "webp"}`;
 }
 
 export function frameUrls(root: string, clip: string, facts: ClipFacts): string[] {
