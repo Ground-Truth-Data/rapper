@@ -7,7 +7,7 @@ import { expect, test } from "vitest";
 // A country's letters glued to a $, but not a template's `${` or a rune's `$state`.
 const PREFIXED = /(?<![\p{L}\p{N}_])\p{Lu}{1,3}\$(?![{\p{L}_])/u;
 const UI = /\.(svelte|ts|js|mjs|html|css|json)$/;
-const SKIP = new Set(["node_modules", ".git", ".svelte-kit", "build", "dist", "package-lock.json", "plainDollar.test.ts"]);
+const SKIP = new Set(["node_modules", ".git", ".svelte-kit", ".vercel", "build", "dist", "package-lock.json", "plainDollar.test.ts"]);
 
 test("no UI source writes a prefixed dollar", () => {
 	const hits: string[] = [];
