@@ -9,7 +9,7 @@ import tree from "./assets/tree_white.webp";
 <style>
     .tg {
         display: inline-block;
-        width: 0.62em;
+        width: var(--thing-w, 0.62em);
         height: 0.95em;
         margin-right: 0.18em;
         /* A margin, not vertical-align: it also holds in a baseline-aligned flex row. */
