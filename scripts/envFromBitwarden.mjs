@@ -82,10 +82,10 @@ function* sourceFiles(dir) {
 }
 // A scraped corpus is .json too, and Foundr's run to hundreds of MB each: joined into one string they pass Node's limit.
 const MAX_SOURCE_BYTES = 1 << 20;
-const corpus = roots
-	.flatMap((r) => [...sourceFiles(r)])
-	.filter((f) => statSync(f).size <= MAX_SOURCE_BYTES)
-	.map((f) => readFileSync(f, "utf8"));
+const files = roots.flatMap((r) => [...sourceFiles(r)]).filter((f) => statSync(f).size <= MAX_SOURCE_BYTES);
+const corpus = files.map((f) => readFileSync(f, "utf8"));
+// A test stubs $env with names of its own; no build ever compiles it.
+const built = corpus.filter((_, i) => !/\.test\.[cm]?[jt]s$/.test(files[i]));
 const named = (key) => {
 	const re = new RegExp(`(^|[^A-Za-z0-9_])${key}(?![A-Za-z0-9_])`);
 	return corpus.some((src) => re.test(src));
@@ -152,7 +152,7 @@ const bitwardenKeys = [...schemaSrc.matchAll(/^(\w+)=bitwarden\(/gm)].map((m) =>
 if (schemaKeys.length === 0) fail(`${SCHEMA} declares no keys — this proves nothing.`);
 
 // varlock audit scans process.env and import.meta.env only, never SvelteKit's $env reads.
-const envReads = corpus.filter((src) => src.includes("$env/")).flatMap((src) => [
+const envReads = built.filter((src) => src.includes("$env/")).flatMap((src) => [
 	...[...src.matchAll(/(?<![\w.$])env\.([A-Za-z_]\w*)/g)].map((m) => m[1]),
 	...[...src.matchAll(/import\s*\{([^}]*)\}\s*from\s*["']\$env\/static\/\w+["']/g)].flatMap((m) =>
 		m[1].split(",").map((s) => s.trim().split(/\s+as\s+/)[0]).filter(Boolean),
