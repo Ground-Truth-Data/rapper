@@ -463,7 +463,8 @@
 	/* Flex centring, not margin:auto: margin collapses to 0 once the unscaled box is taller than the stage, pinning the phone to the top. */
 	align-items: center;
 	justify-content: center;
-	overflow: hidden;
+	/* `clip`, not `hidden`: a hidden box still scrolls for scrollIntoView, which shoved the phone off screen with no way to scroll it back. */
+	overflow: clip;
 	container-type: size;
 }
 
