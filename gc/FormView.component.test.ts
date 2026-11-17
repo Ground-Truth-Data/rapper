@@ -6,7 +6,7 @@ import { afterEach, expect, it, vi } from "vitest";
 import { type Definition, FIX, refused, split } from "./form";
 import FormView from "./FormView.svelte";
 
-afterEach(cleanup);
+afterEach(() => (cleanup(), vi.unstubAllGlobals()));
 
 const form: Definition = {
 	title: "Tree survey",
@@ -96,6 +96,31 @@ it("reports each change as a draft, and a draft reopens the form where it was le
 	await again.findByText("Section 2 of 2");
 	await fireEvent.click(again.getByText("Back"));
 	await waitFor(() => expect((again.getByLabelText("Species") as HTMLInputElement).value).toBe("cedar"));
+});
+
+it("a form only opened is no draft though its entry is located, and a saved one reports nothing after its save", async () => {
+	const nested: Definition = {
+		title: "Trees",
+		elements: [{ type: "paneldynamic", name: "tree", title: "Tree", panelCount: 1, templateElements: [{ type: "text", name: "species", title: "Species" }] }],
+	};
+	const getCurrentPosition = vi.fn((ok: PositionCallback) => ok({ coords: { latitude: -19.41, longitude: 146.81, accuracy: 6 } } as GeolocationPosition));
+	vi.stubGlobal("navigator", { ...navigator, geolocation: { getCurrentPosition } });
+	const settled = () => new Promise((r) => setTimeout(r));
+	const onchange = vi.fn();
+	let atSave = -1;
+	const onsubmit = vi.fn(() => void (atSave = onchange.mock.calls.length));
+	const { findByText, getByText, getByLabelText } = render(FormView, { definition: nested, onsubmit, onchange });
+	await findByText("Trees");
+	await waitFor(() => expect(getCurrentPosition).toHaveBeenCalledOnce());
+	await settled();
+	expect(onchange).not.toHaveBeenCalled();
+
+	await fireEvent.change(getByLabelText("Species"), { target: { value: "cedar" } });
+	await waitFor(() => expect(onchange).toHaveBeenCalled());
+	await fireEvent.click(getByText("Save"));
+	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
+	await settled();
+	expect(onchange.mock.calls.length).toBe(atSave);
 });
 
 const branching: Definition = {

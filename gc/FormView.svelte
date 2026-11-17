@@ -71,6 +71,7 @@
 	});
 	// A form as it opened is not a change: an untouched one never becomes a draft.
 	let opened = '';
+	const asIs = () => JSON.stringify({ data: model?.data, path });
 	$effect(() => {
 		if (!tick || !model) return;
 		const d = { data: model.data, path: [...path] };
@@ -107,7 +108,10 @@
 	async function fixEntry(panel: PanelModel) {
 		const s = await locate();
 		if (!s) return;
+		// Where an untouched form stands is no answer: it still reads as it opened.
+		const untouched = asIs() === opened;
 		(panel.data as unknown as { setValue: (k: string, v: unknown) => void }).setValue(FIX, toFix(s));
+		if (untouched) opened = asIs();
 		tick++;
 	}
 	// The answer is located as it is saved.
@@ -182,6 +186,8 @@
 			const bad = path.find((i) => !valid(pages[i]));
 			if (bad == null) {
 				const off = new Set(pages.filter((_, i) => !path.includes(i)).flatMap((p) => p.items.map((v) => v.q.name)));
+				// A saved answer ends its draft: reported after the save, it would be kept as a new one.
+				opened = asIs();
 				onsubmit(Object.fromEntries(Object.entries(model!.data).filter(([k]) => !off.has(k))));
 			} else path = path.slice(0, path.indexOf(bad) + 1);
 		}
