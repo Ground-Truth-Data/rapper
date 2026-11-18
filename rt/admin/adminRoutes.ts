@@ -641,14 +641,13 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				title:
 					"A project's or org's score followed down: rank, ratio, the projects it averaged, each field's points",
 			},
+			// No stage: not a pipeline tool, so the header puts these in a trailing group after the stages.
 			{
 				key: "upkeep",
-				stage: "prove",
-				label: "upkeep",
+				label: "Upkeep",
 				href: `${FOUNDR_TOOL}/upkeep`,
 				title: "Routine Foundr jobs and their state — runs are local dev only",
 			},
-			// No stage: not a pipeline tool, so the header puts it in a trailing group after the stages.
 			{
 				key: "decisions",
 				label: "Decisions",
