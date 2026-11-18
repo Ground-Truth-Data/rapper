@@ -460,11 +460,6 @@ $effect(() => {
 <style>
     /* Must clear the page tables' own sticky `thead` (z-10), or the table header parks ON TOP of the nav. */
     .admin-hd {
-        /* --rt-sage resolves to EMPTY STRING on the admin host (dropped between
-           mobile.css's :root and app.css's Tailwind-processed @import), so this
-           header hardcodes the literal rather than fail silently and look styled.
-           Keep it in step with --palette-sage (app.css) / --rt-sage (mobile.css). */
-        --rt-sage: var(--palette-sage, #838963);
         /* Every grey in this band is one of these three, mixed onto the panel
            rather than the sheet; the text grey is the kit's token so the stepper
            below the header reads the same one. */
