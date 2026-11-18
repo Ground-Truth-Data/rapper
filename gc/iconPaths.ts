@@ -30,7 +30,9 @@ export const ICONS = {
 		body: `<path d="M9 7L4 11l5 4"/><path d="M4 11h9a5 5 0 015 5v2"/>`,
 		sw: 2.4,
 	},
+	// Signs are drawn, never typed: a font's "+" rides high while its "−" centres.
 	plus: { body: `<path d="M12 5v14M5 12h14"/>`, sw: 2.4 },
+	minus: { body: `<path d="M5 12h14"/>`, sw: 2.4 },
 	ruler: {
 		body: `<path d="M3 17L17 3l4 4L7 21z"/><path d="M7 13l2 2M10 10l2 2M13 7l2 2"/>`,
 		sw: 1.9,
@@ -218,3 +220,8 @@ export const ICONS = {
 } as const satisfies Record<string, IconDef>;
 
 export type IconName = keyof typeof ICONS;
+
+/** The <Icon> svg as a string, for markup built as innerHTML (map markers). */
+export function iconSvg(name: "plus" | "minus", size: number, stroke: number): string {
+	return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${stroke}" stroke-linecap="round" aria-hidden="true">${ICONS[name].body}</svg>`;
+}
