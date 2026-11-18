@@ -3,6 +3,7 @@
 	import type { Model, PanelModel, Question } from 'survey-core';
 	import { type Definition, type El, FIX, type Fix, type Trigger } from './form';
 	import IdentityPill from './IdentityPill.svelte';
+	import Icon from './Icon.svelte';
 	import { loadSurvey } from './formSurvey';
 	import arrow from '$rig/assets/arrowIconGold.webp';
 	import { m as t } from '$parent/src/lib/paraglide/messages';
@@ -272,7 +273,7 @@
 						{/if}
 					</div>
 				{/each}
-				<button type="button" class="add font-display" onclick={() => add(v.q)} data-add><span class="plus">+</span>{addText(v.q).replace(/^\+\s*/, '')}</button>
+				<button type="button" class="add font-display" onclick={() => add(v.q)} data-add><span class="plus"><Icon name="plus" size={16} stroke={3} /></span>{addText(v.q).replace(/^\+\s*/, '')}</button>
 			{/if}
 			{#each v.errors as e (e)}<span class="error" data-error>{e}</span>{/each}
 		</div>
@@ -366,7 +367,7 @@
 		display: flex; align-items: center; justify-content: center; gap: 0.6rem; min-height: 3.4rem; border: 2px solid var(--rt-sage); border-radius: 0.875rem;
 		background: color-mix(in srgb, var(--rt-sage) 18%, transparent); color: var(--rt-fg); font-size: 1.05rem;
 	}
-	.plus { width: 1.5rem; height: 1.5rem; border-radius: 999px; background: var(--rt-sage); color: #161a10; line-height: 1.5rem; text-align: center; }
+	.plus { width: 1.5rem; height: 1.5rem; border-radius: 999px; background: var(--rt-sage); color: #161a10; display: inline-flex; align-items: center; justify-content: center; }
 	.muted { color: var(--rt-fg-muted); font-size: 0.875rem; }
 	.people { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 	.person { padding: 0.3rem; border: 2px solid transparent; border-radius: 999px; }
