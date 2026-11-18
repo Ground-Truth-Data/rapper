@@ -18,7 +18,7 @@ function toggle() {
 <svelte:window onpointerdown={(e) => { if (open && !(e.target as Element).closest?.(".info-tip, .info-btn")) open = false; }} />
 
 <button bind:this={btn} type="button" class="info-btn" aria-label={label} aria-expanded={open} onclick={toggle}>
-	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9.5" /><path d="M12 11v6" /><circle cx="12" cy="7.5" r="0.6" fill="currentColor" /></svg>
+	<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9.5" /><path d="M12 11v6" /><circle cx="12" cy="7.5" r="0.6" fill="currentColor" /></svg>
 </button>
 {#if open}
 	<div class="info-tip" role="dialog" aria-label={label} style:top="{at.top}px" style:--arrow="{at.arrow}px">
@@ -40,7 +40,7 @@ function toggle() {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		color: var(--rust);
+		color: var(--rt-sage);
 	}
 	.info-tip {
 		position: absolute;
