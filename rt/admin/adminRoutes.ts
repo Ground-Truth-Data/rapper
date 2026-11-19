@@ -1,7 +1,7 @@
 import type { IconName } from "$gc/iconPaths";
 import rtLogo from "$rt/assets/ReTreever_logo_sm.webp";
 import foundrLogo from "$rt/assets/foundr_logo_sm2.webp";
-import GC_LOGO from "$gc/assets/GC_fly_logo_512px.webp";
+import GC_LOGO from "$gc/assets/GC_fly_logo_transparent.webp";
 import GC_TAB from "$gc/assets/favicon.png";
 
 // Route map for the three-tier admin header: tier 1 parents, tier 2 tools inside the active parent, tier 3 the active tool's tables.
