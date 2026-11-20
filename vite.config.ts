@@ -158,7 +158,6 @@ return {
 			"rig/**/*.{test,spec}.{js,ts}",
 			"gc/**/*.{test,spec}.{js,ts}",
 			"rt/**/*.{test,spec}.{js,ts}",
-			"db/**/*.{test,spec}.{js,ts}",
 			"scripts/**/*.{test,spec}.{js,ts}",
 			...mountedChildRepos().flatMap((r) => [
 				`../${r}/lib/**/*.{test,spec}.{js,ts}`,
