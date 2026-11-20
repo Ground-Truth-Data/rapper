@@ -541,7 +541,7 @@
 }
 }
 
-/* Capacitor app only, not rapper. `fixed` so the mobile URL bar sliding in cannot resize the stage. */
+/* The app only, not rapper. `fixed` so the mobile URL bar sliding in cannot resize the stage. */
 .phone-viewport {
 	position: fixed;
 	inset: 0;

@@ -2,7 +2,7 @@
 /**
  * THE PHONE: backdrop, hand and frame, rendered identically by every tier.
  * Geometry lives in gc/theme.css. `viewport` = the page is nothing but the
- * phone (the Capacitor app; not rapper, which draws a nav). `landscape` is
+ * phone (the app; not rapper, which draws a nav). `landscape` is
  * opt-in and must stay so: a default-on turn would rotate every tier's pages.
  */
 import type { Snippet } from "svelte";

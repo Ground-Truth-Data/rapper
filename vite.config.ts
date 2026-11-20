@@ -12,8 +12,6 @@ import { pdfjsWasm } from "./src/lib/vite/pdfjsWasmPlugin.ts";
 import { CHILDREN, childByRepo, mountPath } from "./rig/childRegistry.ts";
 import { mountedChild } from "./scripts/mounted.mjs";
 
-// No PWA plugin on purpose: Get Cache is a Capacitor native app, no service worker.
-
 const LOCALES: string[] = JSON.parse(
 	readFileSync(new URL("./project.inlang/settings.json", import.meta.url), "utf8"),
 ).locales;
