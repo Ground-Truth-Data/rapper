@@ -1,7 +1,8 @@
 // The teaching hands' place in the z ladder: above every app surface, below
 // the modal popovers. Never hand-type a z for a hand; never fix a buried hand
 // by out-bidding a sibling. Ladder: 9999 sheets
-// · 10500 hands + share quad · 10600 modal scrims · 10610 field menus.
+// · 10500 hands + share quad · 10600 every overlay-root surface (input popovers, side drawers, confirm and
+// link dialogs: one tier, the last opened on top) · 10610 field menus.
 
 export const Z_HANDS = 10500;
 
