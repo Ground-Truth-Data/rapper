@@ -1,0 +1,798 @@
+id	name	source
+gbif:2684241	furuslekta	inat
+gbif:5285750	vrifuru	inat
+gbif:5284982	weymouthfuru	inat
+gbif:5285053	gullfuru	gbif
+gbif:5285067	rødfuru	gbif
+gbif:5285637	Furu	inat
+gbif:5285533	banksfuru	gbif
+gbif:5285621	vestlig hvitfuru	gbif
+gbif:5285727	montereyfuru	gbif
+gbif:5284989	sukkerfuru	gbif
+gbif:5284809	svartfuru	inat
+gbif:5285604	aleppofuru	gbif
+gbif:5285385	buskfuru	inat
+gbif:5285165	pinje	gbif
+gbif:5285074	himalayafuru	inat
+gbif:5285565	strandfuru	gbif
+gbif:5284979	koreafuru	gbif
+gbif:5285134	sembrafuru	inat
+gbif:5285332	bergfuru	inat
+gbif:5285079	silkefuru	inat
+gbif:5284667	sibirsk sembrafuru	inat
+gbif:7606064	granslekta	inat
+gbif:5284745	hvitgran	inat
+gbif:5284884	gran	inat
+gbif:5284871	blågran	inat
+gbif:5284717	nordamerikansk rødgran	gbif
+gbif:5284827	sitkagran	inat
+gbif:5284802	svartgran	inat
+gbif:5284917	engelmannsgran	inat
+gbif:5284950	serbergran	inat
+gbif:5284794	orientgran	gbif
+gbif:5284798	ajangran	gbif
+gbif:5284862	kinesisk dragegran	gbif
+gbif:2685775	douglasgranslekta	gbif
+gbif:2685796	douglasgran	inat
+gbif:2684168	tujaslekta	inat
+gbif:2684178	tuja	inat
+gbif:2684171	kjempetuja	inat
+gbif:2686156	lerkeslekta	gbif
+gbif:2686270	kjempelerk	gbif
+gbif:2686212	europalerk	inat
+gbif:2686276	sibirlerk	inat
+gbif:2686157	japanlerk	inat
+gbif:3040215	Amerikaosp	inat
+gbif:3040249	osp	inat
+gbif:8527396	hemlokkslekta	gbif
+gbif:2687182	kanadahemlokk	inat
+gbif:2687210	vestamerikansk hemlokk	inat
+gbif:2687201	fjellhemlokk	inat
+gbif:2684876	edelgranslekta	inat
+gbif:2685383	balsamedelgran	inat
+gbif:2685580	koloradoedelgran	inat
+gbif:2685313	fjelledelgran	inat
+gbif:2685361	kjempeedelgran	inat
+gbif:2685524	stillehavsedelgran	inat
+gbif:2685422	praktedelgran	gbif
+gbif:2685308	nobelgran	inat
+gbif:2685552	nordmannsedelgran	inat
+gbif:2685484	edelgran	inat
+gbif:2685326	gresk edelgran	inat
+gbif:2685437	sakhalinedelgran	inat
+gbif:2685654	sibiredelgran	inat
+gbif:2875008	bjørkeslekta	inat
+gbif:5332120	papirbjørk	gbif
+gbif:5331916	hengebjørk	inat
+gbif:9118014	bjørk	inat
+gbif:3040183	poppelslekta	inat
+gbif:3040232	virginiapoppel	gbif
+gbif:6362904	kjempepoppel	inat
+gbif:3040184	balsampoppel	inat
+gbif:3040233	sølvpoppel	inat
+gbif:3040227	svartpoppel	inat
+gbif:3040231	kinapoppel	gbif
+gbif:3803716	laurbærpoppel	gbif
+gbif:8190077	kanadapoppel	gbif
+gbif:3040185	gråpoppel	gbif
+gbif:7493935	eukalyptusslekta	gbif
+gbif:2978223	akasieslekta	gbif
+gbif:2683915	japansederslekta	gbif
+gbif:5284237	japanseder	inat
+gbif:2952066	robiniaslekta	gbif
+gbif:5352251	robinia	inat
+gbif:2683848	lawsonsypress-slekta	gbif
+gbif:2683866	lawsonsypress	inat
+gbif:2874875	bøkeslekta	inat
+gbif:2882316	bøk	inat
+gbif:2877951	eik	inat
+gbif:2880539	rødeik	inat
+gbif:2878688	sommereik	inat
+gbif:2880580	frynseeik	gbif
+gbif:2879685	mongol-eik	gbif
+gbif:2880130	vintereik	inat
+gbif:2684854	orienttujaslekta	gbif
+gbif:2684855	orienttuja	gbif
+gbif:5284698	himalayaseder	gbif
+gbif:5284702	atlasseder	inat
+gbif:10225588	sypress-slekta	gbif
+gbif:2684030	ekte sypress	gbif
+gbif:2684910	kranstreslekta	gbif
+gbif:2684984	Apeskrekk	inat
+gbif:3170823	keisertre	gbif
+gbif:2984510	almeslekta	inat
+gbif:5361865	lundalm	inat
+gbif:5361866	alm	inat
+gbif:7303616	vrangalm	inat
+gbif:3039284	tindvedslekta	gbif
+gbif:3039285	tindved	inat
+gbif:3152860	tulipantreslekta	gbif
+gbif:3152861	Tulipantreslekten	inat
+gbif:3189834	lønn	inat
+gbif:3189866	asklønn	inat
+gbif:3189859	sukkerlønn	gbif
+gbif:3189846	spisslønn	inat
+gbif:3189837	sølvlønn	gbif
+gbif:3189870	platanlønn	inat
+gbif:3189863	naverlønn	inat
+gbif:3189843	tatarlønn	inat
+gbif:7262958	montpellierlønn	gbif
+gbif:7100278	italialønn	gbif
+gbif:2876099	or	inat
+gbif:9148577	gråor	inat
+gbif:2876176	Rødor	inat
+gbif:2876213	svartor	inat
+gbif:2876607	italiaor	gbif
+gbif:3172323	askeslekta	inat
+gbif:3172348	rødask	gbif
+gbif:3172358	ask	inat
+gbif:3172347	mannaask	gbif
+gbif:3054350	valnøttslekta	gbif
+gbif:3054368	valnøtt	inat
+gbif:3020559	kirsebærslekta	inat
+gbif:3021850	romhegg	inat
+gbif:3020791	morell	inat
+gbif:3021496	laurbærhegg	inat
+gbif:8149923	fersken	inat
+gbif:3021730	kirsebærplomme	inat
+gbif:7931731	plomme	inat
+gbif:3021037	hegg	inat
+gbif:3020871	portugalhegg	gbif
+gbif:3022789	mahaleb	inat
+gbif:3023221	slåpetorn	inat
+gbif:3152041	lindeslekta	gbif
+gbif:3152047	lind	inat
+gbif:4259350	sølvlind	inat
+gbif:3152048	storlind	inat
+gbif:2875770	agnbøkslekta	gbif
+gbif:2875818	agnbøk	inat
+gbif:2882140	edelkastanjeslekta	gbif
+gbif:5333294	edelkastanje	inat
+gbif:2684119	mammuttreslekta	gbif
+gbif:2684120	mammuttre	gbif
+gbif:2683935	dufttreslekta	gbif
+gbif:2683936	kaliforniadufttre	gbif
+gbif:2684190	sumpsypress-slekta	gbif
+gbif:2684191	sumpsypress	gbif
+gbif:8307747	urtidstreslekta	gbif
+gbif:5284231	urtidstre	inat
+gbif:2735117	Kokosnøtt	gbif
+gbif:2928997	søtvierslekta	gbif
+gbif:2885158	Sapodilletre	gbif
+gbif:3190155	sitrusslekta	gbif
+gbif:3190172	mandarin	gbif
+gbif:8077391	pomerans	gbif
+gbif:7647136	sitron	gbif
+gbif:2956904	sennaslekta	gbif
+gbif:2732076	daddelpalmeslekta	gbif
+gbif:3033991	kamfertre	gbif
+gbif:3084187	fikenkaktusslekta	gbif
+gbif:3188663	granatepleslekta	gbif
+gbif:5420901	granateple	gbif
+gbif:3032980	daddelplomme	gbif
+gbif:2984545	morbærslekta	gbif
+gbif:2984588	fikenslekta	gbif
+gbif:5361909	fiken	inat
+gbif:2684359	einerslekta	inat
+gbif:2684709	einer	inat
+gbif:3172574	afrikansk tulipantre	gbif
+gbif:3120641	malurtslekta	inat
+gbif:3039576	vierslekta	inat
+gbif:5372513	hvitpil	inat
+gbif:5372800	rødpil	inat
+gbif:5372605	gråselje	inat
+gbif:5372952	selje	inat
+gbif:5372933	kurvpil	inat
+gbif:3190652	gudetreslekta	gbif
+gbif:3190653	gudetre	inat
+gbif:11397237	vortemelk	inat
+gbif:2888195	magnoliaslekta	gbif
+gbif:3172244	olivenslekta	gbif
+gbif:5415040	oliven	gbif
+gbif:2874694	tamariskslekta	gbif
+gbif:8380575	salttamarisk	gbif
+gbif:2687884	ginkgoslekta	gbif
+gbif:8091875	humlebøkslekta	gbif
+gbif:5332305	europahumlebøk	gbif
+gbif:3012146	rognslekta	inat
+gbif:3012167	rogn	inat
+gbif:3084013	kermesbærslekta	gbif
+gbif:8090366	lodnegyvelslekta	gbif
+gbif:2875967	hasselslekta	gbif
+gbif:2875979	hassel	inat
+gbif:2875968	tyrkerhassel	gbif
+gbif:3169115	spolebuskslekta	inat
+gbif:3169131	spolebusk	inat
+gbif:2984479	nesletreslekta	gbif
+gbif:3152542	hibiskusslekta	gbif
+gbif:2874877	sørbøkslekta	gbif
+gbif:3152811	Platanslekta	inat
+gbif:2882796	jordbærtreslekta	gbif
+gbif:3013395	hagtornslekta	inat
+gbif:9220780	hagtorn	inat
+gbif:8252683	parkhagtorn	inat
+gbif:10792217	kristtornslekta	gbif
+gbif:5414222	kristtorn	inat
+gbif:2988444	laurbærslekta	gbif
+gbif:3034015	laurbær	gbif
+gbif:2874693	basilikumslekta	gbif
+gbif:3189801	hestekastanjeslekta	gbif
+gbif:3189815	hestekastanje	inat
+gbif:2925347	prestetreslekta	gbif
+gbif:2683206	Konglepalmeslekten	gbif
+gbif:3032925	styraksslekta	gbif
+gbif:3023817	blåheggslekta	gbif
+gbif:3033893	berberisslekta	gbif
+gbif:3033894	berberis	inat
+gbif:3169168	frøbuskslekta	gbif
+gbif:3033512	rankeslekta	inat
+gbif:3033558	tysk klematis	gbif
+gbif:7844167	blærebusk	gbif
+gbif:3082226	vårkornellslekta	inat
+gbif:3082263	vårkornell	inat
+gbif:8365953	sibirkornell	inat
+gbif:3082234	villkornell	inat
+gbif:8089532	gyvelslekta	inat
+gbif:5354656	gyvel	inat
+gbif:3172032	revebjelleslekta	gbif
+gbif:2882780	klokkelyngslekta	inat
+gbif:3039453	trollheggslekta	inat
+gbif:3039454	trollhegg	inat
+gbif:2940025	ginstslekta	gbif
+gbif:5347571	hårginst	gbif
+gbif:3036021	bergfletteslekta	gbif
+gbif:8351737	bergflette	inat
+gbif:2928509	praktvindelslekta	gbif
+gbif:3234737	gullregnslekta	gbif
+gbif:5356345	gullregn	inat
+gbif:2927302	lavendelslekta	gbif
+gbif:3172289	ligusterslekta	gbif
+gbif:3172300	liguster	inat
+gbif:2888645	leddvedslekta	inat
+gbif:5334259	leddved	inat
+gbif:5334277	vivendel	inat
+gbif:3001068	epleslekta	inat
+gbif:3001244	eple	inat
+gbif:3001509	villeple	inat
+gbif:3180085	myrt	gbif
+gbif:2986532	pæreslekta	inat
+gbif:5362573	hagepære	gbif
+gbif:3039471	geitvedslekta	gbif
+gbif:3039491	geitved	inat
+gbif:3190534	sumakslekta	gbif
+gbif:3190538	hjortesumak	inat
+gbif:2986095	ripsslekta	inat
+gbif:2986185	stikkelsbær	inat
+gbif:2986192	solbær	inat
+gbif:8395064	roseslekta	inat
+gbif:3003979	rukkerose	inat
+gbif:3002461	Steinnype	inat
+gbif:2892184	krappslekta	gbif
+gbif:2892347	vandrekrapp	gbif
+gbif:2988638	bjørnebærslekta	inat
+gbif:2993094	Bringebær	inat
+gbif:2888942	syreslekta	inat
+gbif:2888961	skjoldsyre	gbif
+gbif:3190380	ruteslekta	gbif
+gbif:2888721	hylleslekta	gbif
+gbif:2888723	rødhyll	inat
+gbif:2888728	svarthyll	inat
+gbif:8109416	spanskgyvelslekta	gbif
+gbif:5355395	spansk gyvel	gbif
+gbif:8012439	snøbær	inat
+gbif:3172235	syrinslekta	gbif
+gbif:5415039	syrin	inat
+gbif:2684902	barlindslekta	inat
+gbif:5284517	barlind	inat
+gbif:2926960	timianslekta	gbif
+gbif:3026338	tarmvriasalslekta	gbif
+gbif:9410160	tarmvriasal	gbif
+gbif:2951953	gulltornslekta	gbif
+gbif:2951984	gulltorn	inat
+gbif:2882813	bærlyngslekta	inat
+gbif:2882849	hageblåbær	gbif
+gbif:2882833	Blåbær	inat
+gbif:2888580	korsvedslekta	gbif
+gbif:2888605	korsved	inat
+gbif:2888615	filtkorsved	inat
+gbif:2883026	rhododendronslekta	gbif
+gbif:9623860	kantareller	inat
+gbif:5249504	kantarell	inat
+gbif:5249555	ametystkantarell	inat
+gbif:8010163	oransjekantarell	inat
+gbif:5249496	blek kantarell	inat
+gbif:5241808	grå jordmusserong	inat
+gbif:5241784	skjeggmusserong	inat
+gbif:3324883	riddermusserong	inat
+gbif:3324249	Såpemusserong	inat
+gbif:5241793	bjørkemusserong	inat
+gbif:5241860	gråmusserong	inat
+gbif:5241729	lundmusserong	inat
+gbif:5241789	Dråpemusserong	inat
+gbif:8897119	svovelmusserong	inat
+gbif:5241767	poppelmusserong	inat
+gbif:5241858	finskjellet musserong	inat
+gbif:5241749	eikemusserong	inat
+gbif:7242238	svartspettet musserong	inat
+gbif:5241832	sleip kastanjemusserong	inat
+gbif:5241820	kransmusserong	inat
+gbif:5241733	rosaskivemusserong	inat
+gbif:7908172	brannspissmorkel	gbif
+gbif:2594620	spissmorkel	inat
+gbif:8287374	rørsopper	gbif
+gbif:5954958	Steinsopp	inat
+gbif:5954949	rødbrun steinsopp	inat
+gbif:5954691	bleklodden steinsopp	inat
+gbif:8733688	eikesteinsopp	gbif
+gbif:7805465	snylteskorper	gbif
+gbif:2513763	matpiggsopper	inat
+gbif:2554706	navlepiggsopp	gbif
+gbif:2554716	Blek piggsopp	inat
+gbif:3368245	hvit piggsopp	inat
+gbif:2544165	Rødgul piggsopp	inat
+gbif:2521421	trompetsopper	inat
+gbif:2554536	Traktkantarell	inat
+gbif:8871787	Gul trompetsopp	inat
+gbif:2554662	svart trompetsopp	inat
+gbif:2594602	rundmorkel	inat
+gbif:2550232	blomkålsopper	gbif
+gbif:2550247	blomkålsopp	inat
+gbif:8282501	ekte trøfler	gbif
+gbif:5258468	perigordtrøffel	gbif
+gbif:5258456	kongetrøffel	gbif
+gbif:5258463	hagetrøffel	gbif
+gbif:5258455	svarthvit trøffel	gbif
+gbif:2532156	risker	inat
+gbif:5248629	furumatriske	inat
+gbif:5248684	rødbrun pepperriske	inat
+gbif:8813286	duftriske	inat
+gbif:5248664	blek skjeggriske	inat
+gbif:7925734	granmatriske	inat
+gbif:5248616	eikeriske	inat
+gbif:5248610	gul eikeriske	inat
+gbif:8881331	svovelriske	inat
+gbif:8122710	skjeggriske	inat
+gbif:5248714	rosaskiveriske	gbif
+gbif:9016531	branngul riske	inat
+gbif:8959060	blek svovelriske	inat
+gbif:9125990	hasselriske	inat
+gbif:5248801	hulriske	inat
+gbif:9186214	bøkesøtriske	inat
+gbif:5248670	svartriske	gbif
+gbif:2542160	svovelkjuker	gbif
+gbif:9072021	svovelkjuke	inat
+gbif:2540800	korallkjuke	inat
+gbif:2518610	østerssopp	inat
+gbif:2526530	blågrå østerssopp	inat
+gbif:2526548	bjørkeøsterssopp	inat
+gbif:2526564	seig østerssopp	inat
+gbif:7987658	matblekksopp	inat
+gbif:2536689	møkkblekksopp	inat
+gbif:2526021	honningsopper	inat
+gbif:2536891	ekte honningsopp	inat
+gbif:2536899	mørk honningsopp	inat
+gbif:9330501	storrøyksopper	gbif
+gbif:2536058	kjemperøyksopp	inat
+gbif:7984308	geléører	gbif
+gbif:5249271	judasøre	inat
+gbif:5249297	skrukkeøre	inat
+gbif:7939704	gelésopper	gbif
+gbif:11945016	gul gelésopp	inat
+gbif:2530192	sliresopper	gbif
+gbif:5241399	stor sliresopp	inat
+gbif:5241445	grå sliresopp	inat
+gbif:2518646	sjampinjong	gbif
+gbif:5243458	beitesjampinjong	inat
+gbif:5243429	kongesjampinjong	inat
+gbif:5243403	åkersjampinjong	inat
+gbif:5243374	bysjampinjong	inat
+gbif:8365581	snøballsjampinjong	inat
+gbif:5243392	veisjampinjong	inat
+gbif:5243447	dyrket sjampinjong	inat
+gbif:8108291	blodsjampinjong	inat
+gbif:5455910	knollsjampinjong	gbif
+gbif:8353373	hvit blodsjampinjong	inat
+gbif:5243354	dvergsjampinjong	inat
+gbif:5243433	kopperbrun sjampinjong	inat
+gbif:5243507	hagesjampinjong	inat
+gbif:5243420	falsk blodsjampinjong	inat
+gbif:5244571	korallpiggsopper	gbif
+gbif:5248508	piggsvinsopp	inat
+gbif:5248532	korallpiggsopp	inat
+gbif:2594601	ekte morkler	gbif
+gbif:5259065	klokkemorkler	gbif
+gbif:5259057	rynket klokkemorkel	inat
+gbif:5499531	klokkemorkel	inat
+gbif:2521977	fiolgubber	gbif
+gbif:5238786	fiolgubbe	inat
+gbif:2521435	storpigger	gbif
+gbif:5238865	granskjellpigg	inat
+gbif:2530483	fagerhatter	gbif
+gbif:8936224	vårfagerhatt	inat
+gbif:2532282	ridderhatter	gbif
+gbif:5242033	himmelblå ridderhatt	inat
+gbif:5242069	engridderhatt	inat
+gbif:5242048	blå ridderhatt	gbif
+gbif:5242097	lillabrun ridderhatt	gbif
+gbif:5242039	brun knipperidderhatt	gbif
+gbif:5242058	irisridderhatt	gbif
+gbif:2532098	sommertraktsopper	gbif
+gbif:2531146	sommertraktsopp	inat
+gbif:9186073	heggetraktsopp	inat
+gbif:2530661	knippesopper og gråhatter	gbif
+gbif:9173236	grå knippesopp	inat
+gbif:2530742	furuknippesopp	gbif
+gbif:9113338	almeknippesopp	inat
+gbif:9015458	dråpeknippesopp	gbif
+gbif:2531729	keisersopp	inat
+gbif:7621106	svartbrunrørsopper	gbif
+gbif:7832732	Svartbrun rørsopp	inat
+gbif:7240529	fløyelsrørsopper	gbif
+gbif:2519413	ruterørsopp	inat
+gbif:2519224	fløyelsrørsopper	gbif
+gbif:2519457	sørlig fløyelsrørsopp	inat
+gbif:7816100	fløyelsrørsopp	inat
+gbif:7730499	praktrørsopper	gbif
+gbif:2519844	gallerørsopper	gbif
+gbif:2524910	gallerørsopp	inat
+gbif:9133361	kastanjerørsopp	inat
+gbif:2524265	blånende rørsopp	inat
+gbif:9225326	skjellrørsopp	inat
+gbif:2520104	skrubber	inat
+gbif:9141390	brunskrubb	inat
+gbif:2524513	eikeskrubb	inat
+gbif:2524503	Myrskrubb	inat
+gbif:2524490	Rødskrubb	inat
+gbif:2524528	furuskrubb	inat
+gbif:7414997	kusopper	inat
+gbif:8146046	ringløs smørsopp	inat
+gbif:7777157	smørsopp	inat
+gbif:5239864	lerkesopp	inat
+gbif:5239925	elfenbenskusopp	gbif
+gbif:5239851	hulrørsopp	inat
+gbif:7623986	seig kusopp	inat
+gbif:5239873	grå lerkesopp	inat
+gbif:9043861	sandsopp	inat
+gbif:2524218	ekornnøtter	gbif
+gbif:2524228	rosenekornnøtt	inat
+gbif:2524248	gul ekornnøtt	inat
+gbif:6009534	melkerisker	gbif
+gbif:2551150	mandelriske	inat
+gbif:7719797	hvit pepperriske	inat
+gbif:2551071	lodden hvitriske	inat
+gbif:2551169	kremler	inat
+gbif:2551356	rød sildekremle	inat
+gbif:2551213	giftkremle	inat
+gbif:2551254	skjørkremle	inat
+gbif:2551542	broket kremle	inat
+gbif:2551201	storkremle	inat
+gbif:3359736	blodkremle	inat
+gbif:2551173	grønnkremle	inat
+gbif:2551479	gulrød kremle	inat
+gbif:2551457	mild kamkremle	inat
+gbif:2551299	mild gulkremle	inat
+gbif:2551443	gråsvart kremle	inat
+gbif:2551415	nøttekremle	inat
+gbif:2551447	stankkremle	inat
+gbif:9561742	olivenkremle	inat
+gbif:2551558	Grantårekremle	inat
+gbif:9223923	røykkremle	inat
+gbif:2551191	tettkremle	inat
+gbif:2551423	rutekremle	inat
+gbif:2551331	traktkremle	inat
+gbif:2551419	skarp gulkremle	inat
+gbif:8894724	Mandelkremle	inat
+gbif:2551388	gullkremle	inat
+gbif:2551597	gaffelkremle	inat
+gbif:2551274	furutårekremle	inat
+gbif:2551392	kameleonkremle	inat
+gbif:2551426	turkistraktkremle	inat
+gbif:9089269	liten bjørkekremle	inat
+gbif:2551231	ferskenkremle	inat
+gbif:2551318	lærkremle	inat
+gbif:9075447	neslekremle	inat
+gbif:9734401	sprø olivenkremle	gbif
+gbif:2551176	rosenkremle	gbif
+gbif:2536706	storparasollsopper	gbif
+gbif:8914748	stor parasollsopp	inat
+gbif:2536733	åkerparasollsopp	inat
+gbif:2536707	skjoldparasollsopp	gbif
+gbif:7496350	rødnende fluesopp	inat
+gbif:7765582	brun kamfluesopp	inat
+gbif:5240282	gul kamfluesopp	inat
+gbif:5240213	stor kamfluesopp	inat
+gbif:5240306	grå kamfluesopp	gbif
+gbif:5240292	løvefluesopp	gbif
+gbif:2526826	skjermsopper	gbif
+gbif:7446067	skjermsopp	inat
+gbif:5241354	kantskjermsopp	inat
+gbif:5241254	skarlagenskjermsopp	inat
+gbif:5241259	gul skjermsopp	inat
+gbif:5241314	hvit skjermsopp	inat
+gbif:2526677	lakssopper	inat
+gbif:2530926	lakssopp	inat
+gbif:2530983	ametystsopp	inat
+gbif:2530973	tofargelakssopp	inat
+gbif:2530966	stor lakssopp	inat
+gbif:5241128	kløyvsopp	inat
+gbif:2526678	seigsopper	gbif
+gbif:2537250	nelliksopp	inat
+gbif:2526827	vintersopper	gbif
+gbif:3341441	vintersopp	inat
+gbif:9367003	røyksopper	inat
+gbif:5243258	vorterøyksopp	inat
+gbif:5243244	engrøyksopp	inat
+gbif:5243243	skogrøyksopp	inat
+gbif:5243279	stilkrøyksopp	inat
+gbif:5243210	mørk vorterøyksopp	inat
+gbif:9441377	eggrøyksopper	gbif
+gbif:2535193	liten eggrøyksopp	inat
+gbif:2535211	puslerøyksopp	gbif
+gbif:10676978	pærerøyksopper	gbif
+gbif:10852503	pærerøyksopp	inat
+gbif:2519188	traktsopp	gbif
+gbif:2531072	puddertraktsopp	inat
+gbif:2531124	grønn anistraktsopp	gbif
+gbif:8691923	melsopper	gbif
+gbif:2539197	melsopp	inat
+gbif:2531012	oksetungesopp	inat
+gbif:2521377	høstmorkler	inat
+gbif:2594776	lodden begermorkel	inat
+gbif:2594756	pokalmorkel	inat
+gbif:2594716	seig høstmorkel	inat
+gbif:2594765	mørk høstmorkel	inat
+gbif:2525706	skogvokssopper	gbif
+gbif:9053531	elfenbensvokssopp	inat
+gbif:2538788	gullrandvokssopp	inat
+gbif:2538807	kremlevokssopp	inat
+gbif:2538799	rødflekkvokssopp	inat
+gbif:3344741	slørvokssopp	inat
+gbif:2538727	duftvokssopp	inat
+gbif:2538784	olivenbrun vokssopp	inat
+gbif:2538720	sotvokssopp	inat
+gbif:2538714	mild rødflekkvokssopp	inat
+gbif:2538718	kremvokssopp	inat
+gbif:2534558	dunblekksopper	gbif
+gbif:2534578	Glimmerblekksopp	inat
+gbif:2534625	stubbeblekksopp	inat
+gbif:2524960	slørsopper	inat
+gbif:7844497	lysfiolett slørsopp	inat
+gbif:2529415	rimsopp	inat
+gbif:8802917	Rødbelteslørsopp	inat
+gbif:7476637	blåbelteslørsopp	inat
+gbif:12012261	aprikosslørsopp	inat
+gbif:7379140	kjempeslørsopp	gbif
+gbif:2529531	rødoliven slørsopp	gbif
+gbif:2528781	klyngeslørsopp	gbif
+gbif:2528818	rynkeslørsopp	gbif
+gbif:2529520	lys eikeslørsopp	gbif
+gbif:5898337	blåkantslørsopp	gbif
+gbif:2530002	rødsporesopper	inat
+gbif:3345846	mørk rødspore	inat
+gbif:2539763	praktrødspore	inat
+gbif:2539389	aprilrødspore	inat
+gbif:8899985	praktrødskivesopp	gbif
+gbif:2521461	korallsopper	gbif
+gbif:5238663	giftkorallsopp	inat
+gbif:5238449	sørlig rødtuppsopp	gbif
+gbif:5238654	Gul korallsopp [UTGÅTT]	inat
+gbif:5238642	gullkorallsopp [GAMMELT]	inat
+gbif:7486196	rødtuppsopp	inat
+gbif:5238647	solkorallsopp	inat
+gbif:5238688	blodflekkorallsopp	inat
+gbif:8869949	rank korallsopp	gbif
+gbif:5238581	stubbekorallsopp	gbif
+gbif:2551762	fåresopper	gbif
+gbif:2551823	Fåresopp	inat
+gbif:2524961	rabarbrasopper	gbif
+gbif:2524996	rabarbrasopp	inat
+gbif:2538863	klubbetraktsopper	gbif
+gbif:2538864	klubbetraktsopp	inat
+gbif:12008655	hvit sprøsopp	inat
+gbif:2540196	fingersopper	inat
+gbif:5249883	Kamfingersopp	inat
+gbif:5249808	rynkefingersopp	inat
+gbif:5249860	grå fingersopp	inat
+gbif:7244096	engvokssopper	gbif
+gbif:3345381	krittvokssopp	inat
+gbif:3291564	engvokssopp	inat
+gbif:7542962	heksagonstilkkjuke	gbif
+gbif:2529999	narresjampinjong	gbif
+gbif:2538146	rotsopper	gbif
+gbif:9217873	Rødbrun flathatt [UTGÅTT]	inat
+gbif:3321179	tannflathatt	inat
+gbif:5244501	tuekøllesopp	inat
+gbif:2521383	klubbesopper	gbif
+gbif:2521401	granklubbesopp	inat
+gbif:2521391	stor klubbesopp	inat
+gbif:2521384	storsporet klubbesopp	inat
+gbif:12092733	pepperflathatt	inat
+gbif:11993337	klyngeflathatt	inat
+gbif:2525056	jordstjerner	gbif
+gbif:2554367	prestejordstjerne	inat
+gbif:2554355	brun jordstjerne	inat
+gbif:2593331	trollmorkler	gbif
+gbif:5258510	sandmorkel	inat
+gbif:5258509	bispelue	gbif
+gbif:5258515	narrelue	gbif
+gbif:2525560	narrekantareller	gbif
+gbif:2525710	falsk kantarell	inat
+gbif:5955261	hettesopp	gbif
+gbif:2527219	reddikhette	inat
+gbif:4911710	potethette	gbif
+gbif:8689071	stor lærhatt	inat
+gbif:2581823	skarlagen vårbegre	gbif
+gbif:2550493	begerfingersopp	inat
+gbif:2523631	knivkjuker	gbif
+gbif:2542395	Rødrandkjuke	inat
+gbif:12081600	brun begersopp	inat
+gbif:2529618	munkehatt	gbif
+gbif:5242142	brun munkehatt	inat
+gbif:5242168	stutt munkehatt	inat
+gbif:8849982	brunriflet munkehatt	inat
+gbif:8191932	fibret slørsopp	inat
+gbif:2526774	sprøsopp	gbif
+gbif:2534836	kastanjesprøsopp	inat
+gbif:2526775	fleinsopper	gbif
+gbif:2527828	åkersopper	inat
+gbif:9050242	blek åkersopp	inat
+gbif:8393417	poppelåkersopp	gbif
+gbif:3268912	rødnende parasollsopper	gbif
+gbif:5243168	grønnskiveparasollsopp	gbif
+gbif:5955395	rødnende parasollsopp	inat
+gbif:2607519	begerlaver	inat
+gbif:2607712	kvitkrull	inat
+gbif:2527585	flathatter	gbif
+gbif:2534316	lurveblekksopper	gbif
+gbif:5242740	grå blekksopp	inat
+gbif:5242754	kompostblekksopp	inat
+gbif:5242778	mørkpukkelblekksopp	inat
+gbif:3333955	dronningsopp	gbif
+gbif:2527854	bittersopper	gbif
+gbif:8972210	orerørsopp	inat
+gbif:2528519	reddiksopper	gbif
+gbif:2533062	slørreddiksopp	inat
+gbif:2523318	fagervokssopper	gbif
+gbif:2538595	kantarellvokssopp	inat
+gbif:2538524	kjeglevokssopp	inat
+gbif:2538445	mønjevokssopp	inat
+gbif:2538552	skarlagenvokssopp	inat
+gbif:2535536	paraplyhatter	gbif
+gbif:2535581	brunskjellparaplyhatt	inat
+gbif:2540761	storkjuke	inat
+gbif:9129313	svillesopp	inat
+gbif:2528397	skjellsopper	gbif
+gbif:2534205	raspskjellsopp	inat
+gbif:2534085	bøkeskjellsopp	inat
+gbif:9091857	slimskjellsopp	inat
+gbif:2534112	rødbrun slimskjellsopp	inat
+gbif:11200098	stilkkjuker	gbif
+gbif:5246840	skjermkjuke	inat
+gbif:2594999	kronebeger	inat
+gbif:2531603	knollsliresopper	gbif
+gbif:2519084	korkkjuker	gbif
+gbif:2548311	silkekjuke	inat
+gbif:9227816	sinoberkjuke	inat
+gbif:2548374	beltekjuke	inat
+gbif:2518649	ostekjuker	gbif
+gbif:2600611	navlelav	inat
+gbif:2533397	svovelsopper	gbif
+gbif:2533424	teglrød svovelsopp	inat
+gbif:2513794	frynsesopper	gbif
+gbif:2519220	lakkjuker	gbif
+gbif:2549730	lakkjuke	inat
+gbif:2533959	stubbeskjellsopper	gbif
+gbif:2533962	stubbeskjellsopp	inat
+gbif:8005891	kompostsliresopper	gbif
+gbif:8329645	kompostsliresopp	inat
+gbif:2527767	flathatter	gbif
+gbif:5243756	blek flathatt	inat
+gbif:5243758	stubbeflathatt	inat
+gbif:2524102	stanksopper	gbif
+gbif:3314876	stanksopp	inat
+gbif:5249353	issvullsopp	inat
+gbif:7240504	praktrørsopper	gbif
+gbif:3355021	ildrørsopp	inat
+gbif:2581719	oransjebegre	gbif
+gbif:5258678	oransjebeger	inat
+gbif:2524936	potetrøyksopper	gbif
+gbif:5239982	gul potetrøyksopp	inat
+gbif:5239959	stor mørkprikket potetrøyksopp	inat
+gbif:2532024	kjempetraktmusseronger	gbif
+gbif:2532720	kjempetraktmusserong	inat
+gbif:2524865	pepperrørsopper	gbif
+gbif:9156243	pepperrørsopp	inat
+gbif:8114489	knippeflathatt	inat
+gbif:7242432	skjellparasollsopper	gbif
+gbif:5243011	stor skjellparasollsopp	gbif
+gbif:2525026	sleipsopper	gbif
+gbif:2525027	sleipsopp	inat
+gbif:2525039	lerkesleipsopp	inat
+gbif:2537081	porselenshatt	gbif
+gbif:2537417	løkseigsopper	gbif
+gbif:2537418	løksopp	inat
+gbif:11011338	gulgrønn lærhatt	inat
+gbif:2531807	stubbemusseronger	gbif
+gbif:9056826	brungul stubbemusserong	inat
+gbif:2531814	rød stubbemusserong	inat
+gbif:2551821	franskbrødsopp	inat
+gbif:2523872	gråfiolett køllesopp	inat
+gbif:8399317	praktrørsopper	gbif
+gbif:8203051	besk rørsopp	inat
+gbif:7550396	rotrørsopp	gbif
+gbif:2512968	gaffelsopper	gbif
+gbif:2512969	dverggaffel	inat
+gbif:9134585	gullgaffel	inat
+gbif:5240984	glatt muslingsopp	inat
+gbif:5240943	myk muslingsopp	inat
+gbif:2526255	gelémusling	gbif
+gbif:2526256	lærgelémusling	inat
+gbif:7686337	stor knippesprøsopp	inat
+gbif:7778366	fløyelsrørsopper	gbif
+gbif:8060178	skarlagenrørsopp	inat
+gbif:2534671	lodnehatter	gbif
+gbif:5242798	lodnehatt	inat
+gbif:9227295	parasollsopp	gbif
+gbif:2535486	gulfiltparasollsopp	inat
+gbif:2535456	filtskjellet parasollsopp	inat
+gbif:2530577	vedtraktsopp	inat
+gbif:2521516	pluggsopper	gbif
+gbif:5240002	pluggsopp	inat
+gbif:2535252	gullskjellsopper	gbif
+gbif:2530482	krittøsterssopper	gbif
+gbif:2538000	krittøsterssopp	inat
+gbif:2524797	falsk brunskrubb	inat
+gbif:11159309	kragesopper	inat
+gbif:2533347	rødbrun kragesopp	inat
+gbif:2525650	fløyelspluggsopper	gbif
+gbif:7693097	fløyelspluggsopp	inat
+gbif:12054660	purpurslørsopp	inat
+gbif:2527268	rusthetter	gbif
+gbif:2527302	stubberusthette	inat
+gbif:2532395	navletraktsopp	inat
+gbif:2521976	småkøllesopper	gbif
+gbif:5244486	knippesmåfingersopp	inat
+gbif:9117445	gul småkøllesopp	inat
+gbif:2542720	vasskjuke	inat
+gbif:2532412	tægersopper	gbif
+gbif:7451789	grynhatter	inat
+gbif:5243525	okergul grynhatt	inat
+gbif:9049960	tåresopper	gbif
+gbif:2512921	kjempetåresopp	inat
+gbif:3214437	smørslim	gbif
+gbif:5426027	trollsmør	inat
+gbif:2522021	korallknoll	gbif
+gbif:2519216	mosehatter	gbif
+gbif:2538832	sleipvokssopper	gbif
+gbif:3345400	rød papegøyevokssopp	inat
+gbif:3304469	seig vokssopp	inat
+gbif:8097905	grå vokssopp	inat
+gbif:8824388	traktgelésopp	inat
+gbif:2593381	foldtrøfler	gbif
+gbif:2593397	foldtrøffel	inat
+gbif:8031042	pelerotsopp	gbif
+gbif:2518613	piggmuslinger	gbif
+gbif:2532154	sagsopper	gbif
+gbif:2550371	anissagsopp	inat
+gbif:5241698	klumpfotsopp	inat
+gbif:7603327	traktsopper	gbif
+gbif:8189348	hvit knippesopp	inat
+gbif:2526024	sneglehatter	gbif
+gbif:2537689	tægersopp	inat
+gbif:2536182	lærball	gbif
+gbif:2593788	øresopper	gbif
+gbif:9128195	eseløre	inat
+gbif:5259242	kompostbegersopp	inat
+gbif:2528493	kvisthatter	gbif
+gbif:9645698	bladgelésopp	inat
+gbif:2522127	sølvpigger	gbif
+gbif:7562246	lurvesøtpigg	inat
+gbif:2521975	ragglaver	inat
+gbif:8815567	eggeslim	gbif
+gbif:5425828	sotegg	inat
+gbif:2530818	eggsporet bålgråhatt	gbif
+gbif:9055239	ringfagerhatt	inat
+gbif:2594803	øremorkel	gbif
+gbif:10691289	slimsneglehatt	inat
+gbif:2521376	gråkjuker	gbif
+gbif:5238896	grangråkjuke	inat

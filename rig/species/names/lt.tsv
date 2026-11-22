@@ -1,0 +1,949 @@
+id	name	source
+gbif:2684241	Pušis	inat
+gbif:5285750	Suktaspyglė pušis	inat
+gbif:5284982	Veimutinė pušis	inat
+gbif:5285053	Geltonoji pušis	gbif
+gbif:5285067	Raudonoji pušis	inat
+gbif:5285816	Pelkinė pušis	gbif
+gbif:5285777	Rantytoji pušis	gbif
+gbif:5285637	Paprastoji pušis	inat
+gbif:5285533	Bankso pušis	inat
+gbif:5285621	Kalvinė pušis	gbif
+gbif:5285183	Baltakamienė pušis	gbif
+gbif:5285324	Ežinė pušis	inat
+gbif:5284989	Lamberto pušis	gbif
+gbif:5284809	Juodoji pušis	inat
+gbif:5285243	Kanarinė pušis	inat
+gbif:5285604	Alepinė pušis	inat
+gbif:5285385	Kalninė pušis	inat
+gbif:5285511	Glotniaspyglė pušis	inat
+gbif:5285090	Plačioji pušis	gbif
+gbif:5285710	Uolinė pušis	inat
+gbif:5285565	Pajūrinė pušis	inat
+gbif:5284979	Korėjinė pušis	inat
+gbif:5285134	Kedrinė pušis	inat
+gbif:5285079	Balkaninė pušis	inat
+gbif:5284667	Sibirinė pušis	inat
+gbif:7606064	Eglė	inat
+gbif:5284745	Baltoji eglė	inat
+gbif:5284884	Paprastoji eglė	inat
+gbif:5284871	Dygioji eglė	inat
+gbif:5284717	Raudonoji eglė	inat
+gbif:5284827	Sitkinė eglė	inat
+gbif:5284802	Juodoji eglė	inat
+gbif:5284917	Engelmano eglė	gbif
+gbif:5284950	Serbinė eglė	inat
+gbif:5284765	Sibirinė eglė	gbif
+gbif:5284834	Himalajinė eglė	gbif
+gbif:5284854	Korėjinė eglė	gbif
+gbif:5284862	Šiurkščioji eglė	gbif
+gbif:5284814	Šrenko eglė	gbif
+gbif:2685775	Pocūgė	inat
+gbif:2685796	Didžioji pocūgė	inat
+gbif:2684168	Tuja	inat
+gbif:2684178	Vakarinė tuja	inat
+gbif:2684171	Didžioji tuja	inat
+gbif:2686156	Maumedis	inat
+gbif:2686231	Amerikinis maumedis	gbif
+gbif:2686270	Vakarinis maumedis	gbif
+gbif:2686212	Europinis maumedis	inat
+gbif:2686276	Sibirinis maumedis	inat
+gbif:3040215	Smulkiadantė tuopa	inat
+gbif:3040249	Paprastoji drebulė	inat
+gbif:2687182	Kanadinė cūga	gbif
+gbif:2687210	Kaliforninė cūga	gbif
+gbif:2687201	Juodoji cūga	gbif
+gbif:2684876	Kėnis	inat
+gbif:2685383	Balzaminis kėnis	inat
+gbif:2685580	Pilkasis kėnis	inat
+gbif:2685318	Dervingasis kėnis	inat
+gbif:2685308	Kvapusis kėnis	inat
+gbif:2685552	Kaukazinis kėnis	gbif
+gbif:2685484	Europinis kėnis	inat
+gbif:2685326	Graikinis kėnis	gbif
+gbif:2875008	Beržas	inat
+gbif:5332120	Popieržievis beržas	inat
+gbif:5331532	Juodasis beržas	inat
+gbif:5331916	Karpotasis beržas	inat
+gbif:9118014	Plaukuotasis beržas	inat
+gbif:3040183	Tuopa	inat
+gbif:3040232	Didžioji tuopa	inat
+gbif:3040184	Balzaminė tuopa	inat
+gbif:3040233	Baltoji Tuopa	inat
+gbif:3040227	Juodoji tuopa	inat
+gbif:7874619	Kvapioji tuopa	inat
+gbif:5284278	Paprastoji kuningamija	inat
+gbif:7493935	Eukaliptas	gbif
+gbif:3176787	Rutulinis eukaliptas	inat
+gbif:3176723	Pilkasis eukaliptas	inat
+gbif:2925649	Didysis tikmedis	inat
+gbif:2979000	Juodoji akacija	inat
+gbif:2981159	Garbiniuotoji akacija	inat
+gbif:5284237	Japoninė kriptomerija	gbif
+gbif:2952066	Robinija	inat
+gbif:5352251	Baltažiedė robinija	inat
+gbif:2683848	Puskiparisis	inat
+gbif:2683866	Lausono puskiparisis	inat
+gbif:2683849	Bukasis puskiparisis	inat
+gbif:2874875	Bukas	inat
+gbif:2882316	Paprastasis Bukas	inat
+gbif:2882360	Rytinis bukas	inat
+gbif:2877951	Ąžuolas	inat
+gbif:2880539	Raudonasis ąžuolas	inat
+gbif:2879737	Baltasis ąžuolas	gbif
+gbif:2878213	Stambiavaisis ąžuolas	inat
+gbif:8313153	Pelkinis ąžuolas	inat
+gbif:2878688	Paprastasis ąžuolas	inat
+gbif:2877959	Šeriuotasis ąžuolas	inat
+gbif:2879411	Kamštinis ąžuolas	inat
+gbif:2879098	Akmeninis ąžuolas	inat
+gbif:2880580	Burgundinis ąžuolas	inat
+gbif:7930013	Kaštainialapis ąžuolas	inat
+gbif:2880130	Bekotis ąžuolas	inat
+gbif:2879787	Storažievis ąžuolas	inat
+gbif:2879175	Krūminis ąžuolas	inat
+gbif:2880808	Kanarinis ąžuolas	inat
+gbif:2881283	pūkuotasis ąžuolas	inat
+gbif:2881010	Turkinis ąžuolas	inat
+gbif:2878554	Persinis ąžuolas	inat
+gbif:7940744	grevilėja	gbif
+gbif:2970418	Tikroji baltva	inat
+gbif:2684854	Tujūnas	inat
+gbif:2684855	Rytinis tujūnas	inat
+gbif:2685742	Kedras	gbif
+gbif:5284698	Himalajinis kedras	inat
+gbif:5284682	Libano kedras	inat
+gbif:2979265	Antilinė akacija	inat
+gbif:3977346	Senegalinė akacija	inat
+gbif:7107974	Skalusis kedrenis	gbif
+gbif:5914287	Kininė melija	inat
+gbif:8082978	Tamsusis ūkmedis	inat
+gbif:10225588	Kiparisas	inat
+gbif:2684030	Visžalis kiparisas	inat
+gbif:2684910	Araukarijos	inat
+gbif:2684984	Čilinė araukarija	inat
+gbif:2684969	Aukštoji araukarija	inat
+gbif:2684996	Lenktašakė araukarija	inat
+gbif:2684940	Brazilinė araukarija	inat
+gbif:3170823	Kininė paulovnija	inat
+gbif:2984510	Guoba	inat
+gbif:5361865	Paprastasis skirpstas	inat
+gbif:5361866	Kalninė guoba	inat
+gbif:7303616	Paprastoji vinkšna	inat
+gbif:6035751	Saksaūlas	gbif
+gbif:3039284	Šaltalankis	inat
+gbif:3039285	Dygliuotasis šaltalankis	inat
+gbif:3189634	Kamelijos	inat
+gbif:8307542	Aliejinė kamelija	inat
+gbif:3152824	Tikrasis dervamedis	inat
+gbif:3152860	Tulpmedis	inat
+gbif:3152861	Gelsvažiedis tulpmedis	inat
+gbif:3189834	Klevas	inat
+gbif:3189883	Raudonasis klevas	inat
+gbif:3189866	Uosialapis klevas	inat
+gbif:3189846	Paprastasis klevas	inat
+gbif:3189837	Sidabrinis klevas	inat
+gbif:3189870	Platanalapis klevas	inat
+gbif:3189863	Trakinis klevas	inat
+gbif:3189843	Totorinis klevas	inat
+gbif:2876099	Alksnis	inat
+gbif:9148577	Baltalksnis	inat
+gbif:2876213	Juodalksnis	inat
+gbif:2876607	Širdžialapis alksnis	inat
+gbif:3172323	Uosis	inat
+gbif:3172327	Amerikinis uosis	inat
+gbif:3172348	Plaukuotasis uosis	inat
+gbif:3172371	Raukšlėtasis uosis	inat
+gbif:3172358	Paprastasis uosis	inat
+gbif:7325877	Siauralapis uosis	inat
+gbif:3172347	Maninis uosis	inat
+gbif:3054350	Riešutmedis	inat
+gbif:3054357	Juodasis riešutmedis	inat
+gbif:3054368	Graikinis riešutmedis	inat
+gbif:3020559	Slyva	inat
+gbif:3021850	Vėlyvoji ieva	inat
+gbif:3020791	Paprastoji trešnė	inat
+gbif:3021496	Vaistinė ieva	inat
+gbif:8149923	Paprastasis persikas	inat
+gbif:3021730	Vyšninė slyva	inat
+gbif:7931731	Naminė slyva	inat
+gbif:3021037	Paprastoji ieva	inat
+gbif:3022789	Kvapioji vyšnia	inat
+gbif:3023221	Dygioji Slyva	inat
+gbif:3152041	liepa	inat
+gbif:3152047	Mažalapė liepa	inat
+gbif:4259350	Sidabrinė liepa	inat
+gbif:3152048	Didžialapė liepa	inat
+gbif:2875770	Skroblas	inat
+gbif:2875818	Paprastasis skroblas	inat
+gbif:2882140	Kaštainis	gbif
+gbif:5333294	Valgomasis Kaštainis	inat
+gbif:2683909	Visžalė sekvoja	gbif
+gbif:2684120	Didysis mamutmedis	gbif
+gbif:8307747	Metasekvoja	inat
+gbif:5284231	Tikroji metasekvoja	inat
+gbif:3075453	Mangas	gbif
+gbif:2984573	Paprastasis duonmedis	inat
+gbif:2984565	Stambusis duonmedis	inat
+gbif:2970648	Tikroji agatpupė	inat
+gbif:2735117	Riešutinė kokospalmė	inat
+gbif:3034041	Persėja	inat
+gbif:3034046	Amerikinė persėja	inat
+gbif:2928997	Kiauliauogė	inat
+gbif:2930216	Stambiavaisė basovija	inat
+gbif:3189387	Viršūkliai	inat
+gbif:3189394	Migdolinis viršūklis	inat
+gbif:3189390	Karpotasis viršūklis	inat
+gbif:2975768	Indinis tamarindas	inat
+gbif:3172499	Mėlynasis palisandramedis	inat
+gbif:2885158	Paprastasis gumenis	gbif
+gbif:3029010	Gvazdikmedis	gbif
+gbif:3152213	Baobabas	gbif
+gbif:5406695	Tikrasis baobabas	inat
+gbif:3579089	Didžioji pienuolė	inat
+gbif:3190155	Citrinmedis	gbif
+gbif:2956904	Velniapupės	inat
+gbif:2984934	Kakavmedis	gbif
+gbif:5356354	Saldžioji ceratonija	inat
+gbif:5407147	Peruvinė anona	gbif
+gbif:2962831	Saldžioji beždžionpupė	inat
+gbif:2895315	Kavamedis	inat
+gbif:2895345	Arabinis kavamedis	inat
+gbif:2956176	Karališkasis ugniamedis	inat
+gbif:3190641	Pirulis	gbif
+gbif:3190642	Švelnusis pirulis	inat
+gbif:3033980	Cinamonai	inat
+gbif:3033987	Ceiloninis cinamonas	inat
+gbif:9128079	Indinis cinamonas	inat
+gbif:9407103	Averojos	inat
+gbif:5406697	Tikrasis kapokmedis	inat
+gbif:2891784	Makadamija	inat
+gbif:2891785	Plačialapė makadamija	inat
+gbif:3084187	Opuncija	inat
+gbif:3190001	Ličis	inat
+gbif:2969235	Mimozos	inat
+gbif:5420901	Paprastasis granatmedis	inat
+gbif:7649215	Paprastasis širdamedis	inat
+gbif:5660325	Afrikinis Širdamedis	inat
+gbif:2984545	Šilkmedis	inat
+gbif:2984588	Fikusas	inat
+gbif:5361909	Skiautėtalapis fikusas	inat
+gbif:5361932	Svyruoklinis fikusas	inat
+gbif:7835333	Stambialapis fikusas	inat
+gbif:6358534	Kirmėlinis fikusas	inat
+gbif:5570636	Didžialapis fikusas	inat
+gbif:5361935	Maldyklinis fikusas	inat
+gbif:5361904	Kekinis fikusas	inat
+gbif:5361921	Šilkmedinis fikusas	inat
+gbif:5361900	Gluosnialapis fikusas	inat
+gbif:3234563	Margasis fikusas	inat
+gbif:2950720	Kopalmedis	gbif
+gbif:2684359	Kadagys	inat
+gbif:2684709	Paprastasis kadagys	inat
+gbif:2736531	Katekinė areka	inat
+gbif:2963414	Kasijos	inat
+gbif:5357108	Ilgavaisė kasija	inat
+gbif:5357169	Plonalapė kasija	inat
+gbif:5357125	Javinė kasija	inat
+gbif:3152229	Durijus	gbif
+gbif:3190471	Indenis	gbif
+gbif:3120641	Kietis	inat
+gbif:5381567	Rūgštusis lapainis	inat
+gbif:2952214	Paprastoji andira	inat
+gbif:2959442	Gledičija	inat
+gbif:2959443	Tridyglė gledičija	inat
+gbif:3060685	Manijokas	gbif
+gbif:3039576	Gluosnis	inat
+gbif:5372513	Baltasis gluosnis	inat
+gbif:5372800	Purpurinis karklas	inat
+gbif:5372605	Pilkasis karklas	inat
+gbif:5372952	Paprastoji blindė	inat
+gbif:5372933	Žilvitinis karklas	inat
+gbif:3190653	Aukštasis ailantas	inat
+gbif:11397237	Karpažolė	inat
+gbif:3069353	Lazdelinė karpažolė	inat
+gbif:5406817	Kvapusis muskatmedis	inat
+gbif:3190450	Baltoji bursera	inat
+gbif:2961142	Rintausė	gbif
+gbif:2961150	Tikroji rintausė	gbif
+gbif:2888195	Magnolija	inat
+gbif:5415040	Europinis alyvmedis	inat
+gbif:2874694	Eglūnas	inat
+gbif:8380575	Prancūzinis eglūnas	inat
+gbif:2687884	Ginkmedis	inat
+gbif:3012146	Šermukšnis	inat
+gbif:3012167	Paprastasis šermukšnis	inat
+gbif:3084013	Fitolaka	inat
+gbif:5352512	Tikroji tipuana	inat
+gbif:2875967	Lazdynas	inat
+gbif:2875979	Paprastasis lazdynas	inat
+gbif:2875968	Turkinis lazdynas	inat
+gbif:3169115	Ožekšnis	inat
+gbif:3169131	Europinis ožekšnis	inat
+gbif:2971355	Indigažolė	inat
+gbif:2952763	skydmis	gbif
+gbif:7935410	Balamedis	gbif
+gbif:3172537	Rausvasis balamedis	inat
+gbif:3172526	Įvairialapis balamedis	inat
+gbif:2685008	Agatmedžiai	inat
+gbif:5284418	Stambusis agatmedis	inat
+gbif:5414410	Baltoji alstonija	inat
+gbif:7316860	Baltasis kvebrachas	gbif
+gbif:3152542	Kinrožė	inat
+gbif:3152811	Platanas	inat
+gbif:3152816	Rytinis platanas	inat
+gbif:3190529	Raudonmedis	gbif
+gbif:2882803	Žemuoginis arbutas	inat
+gbif:7661971	Paprastasis bambukas	inat
+gbif:2888831	Uoginė pajūrenė	inat
+gbif:3013395	Gudobelė	inat
+gbif:9220780	Vienapiestė gudobelė	inat
+gbif:8252683	Grauželinė gudobelė	inat
+gbif:3189685	Hopėja	gbif
+gbif:10792217	Bugienis	gbif
+gbif:5414222	Dygialapis Bugienis	inat
+gbif:2988444	Lauramedis	inat
+gbif:3034015	Kilnusis lauramedis	inat
+gbif:2874693	Bazilikas	inat
+gbif:3190583	Mastikinė pistacija	inat
+gbif:3189801	Kaštonas	inat
+gbif:3189815	Paprastasis kaštonas	inat
+gbif:3190431	Kanaris	inat
+gbif:2984472	Delnuotė	gbif
+gbif:2683206	Cikas	inat
+gbif:2683207	Mikronezinis cikas	inat
+gbif:5286163	Kiparisinis dakridis	gbif
+gbif:7837019	Valgomoji šventpupė	inat
+gbif:3172560	Kigelija	inat
+gbif:2731979	Seišelinė lodoicė	inat
+gbif:3169632	Gelstis	gbif
+gbif:3034076	Okotija	gbif
+gbif:2733733	Roistonijos	inat
+gbif:5371666	Vaistinis stirakas	inat
+gbif:2770879	Alavijas	inat
+gbif:2945821	Paprastasis rievonis	gbif
+gbif:3023817	Medlieva	inat
+gbif:3233900	Agarmedis	inat
+gbif:3033893	Raugerškis	inat
+gbif:3033894	Paprastasis raugerškis	inat
+gbif:3152226	Kapokinis bombakmedis	inat
+gbif:8119595	Klevalapis bambalis	inat
+gbif:3180879	Kampomanezija	gbif
+gbif:3083017	Karaliūnai (gentis)	gbif
+gbif:3083036	Tikrasis karaliūnas	gbif
+gbif:3172611	Katalpa	inat
+gbif:3169168	Smaugikas	inat
+gbif:2734376	Palmikė	inat
+gbif:2736625	Paprastoji nykštukė	inat
+gbif:3033512	Raganė	inat
+gbif:3033558	Gelsvoji raganė	inat
+gbif:2946499	Balnapupės	inat
+gbif:2946600	Kekinė balnapupė	inat
+gbif:2956426	Pūslius	gbif
+gbif:7844167	Krūminis pūslius	inat
+gbif:3013215	Naminis šermukšnis	inat
+gbif:3082226	sedula	inat
+gbif:3082263	Geltonžiedė sedula	inat
+gbif:8365953	baltoji sedula	inat
+gbif:3082234	Raudonoji sedula	inat
+gbif:8089532	Raipstas	inat
+gbif:5354656	Šluotinis raipstas	inat
+gbif:3172032	Rusmenė	inat
+gbif:2882780	Erika	inat
+gbif:2964737	Viblutė	inat
+gbif:3039453	Šaltekšnis	inat
+gbif:3039454	Paprastasis šaltekšnis	inat
+gbif:2940025	Prožirnis	gbif
+gbif:4092253	Septynlapis balamedis	inat
+gbif:4092017	Pjūklalapis balamedis	inat
+gbif:3036021	Gebenė	inat
+gbif:8351737	Gebenė lipikė	inat
+gbif:2928509	Sukutis	inat
+gbif:3234737	Pupmedis	inat
+gbif:5356345	Paprastasis pupmedis	inat
+gbif:2927302	Levanda	inat
+gbif:2927303	Italinė levanda	inat
+gbif:3172289	Ligustras	inat
+gbif:3172300	Paprastasis ligustras	inat
+gbif:2888645	Sausmedis	inat
+gbif:5334259	Paprastasis sausmedis	inat
+gbif:5334277	Vijoklinis sausmedis	inat
+gbif:3001068	Obelis	inat
+gbif:3001244	Naminė obelis	inat
+gbif:3001509	Miškinė obelis	inat
+gbif:3169095	Auguonis	inat
+gbif:2762680	Mažasis bananas	inat
+gbif:3152240	Kūginė balza	inat
+gbif:3075433	Pipirai	inat
+gbif:3086357	Juodasis pipiras	inat
+gbif:2986532	Kriaušė	inat
+gbif:5362573	Paprastoji kriaušė	inat
+gbif:3039471	Šunobelė	inat
+gbif:3039491	Dygioji šunobelė	inat
+gbif:6371424	Italinė šunobelė	inat
+gbif:3190534	Žagrenis	inat
+gbif:3190538	Rūgštusis žagrenis	inat
+gbif:2986095	Serbentas	inat
+gbif:2986185	Paprastasis agrastas	inat
+gbif:2986192	Juodasis serbentas	inat
+gbif:8395064	Erškėtis	inat
+gbif:3003979	Raukšlėtalapis erškėtis	inat
+gbif:3002461	Paprastasis erškėtis	inat
+gbif:2988638	Gervuogė	inat
+gbif:2993094	Paprastoji avietė	inat
+gbif:2888942	Rūgštynė	inat
+gbif:2769754	Pelžiedė	gbif
+gbif:2769766	Dygioji Pelžiedė	inat
+gbif:3190380	Rūta	inat
+gbif:2888721	Šeivamedis	inat
+gbif:2888723	Raudonuogis šeivamedis	inat
+gbif:2888728	Juoduogis šeivamedis	inat
+gbif:7458904	Paprastoji raudena	inat
+gbif:3158673	Skeptrenė	inat
+gbif:7892576	Meškytė	inat
+gbif:8012439	Baltauogė meškytė	inat
+gbif:3172235	Alyvos	inat
+gbif:5415039	Paprastosios alyvos	inat
+gbif:2684902	Kukmedis	inat
+gbif:5284517	Europinis kukmedis	inat
+gbif:2926960	Čiobrelis	inat
+gbif:9410160	Grūstinis Šermukšnis	inat
+gbif:2951953	Dygliakrūmis	gbif
+gbif:2951984	Europinis dygliakrūmis	inat
+gbif:2882813	Šilauogė	gbif
+gbif:2882849	Aukštoji šilauogė	inat
+gbif:2882833	Paprastoji mėlynė	inat
+gbif:2888580	Putinas	inat
+gbif:2888605	Paprastasis putinas	inat
+gbif:2888615	Sodinis putinas	inat
+gbif:2883026	Rododendras	inat
+gbif:9623860	Voveraitė	inat
+gbif:5249504	Valgomoji voveraitė	inat
+gbif:5249496	Blyškioji voveraitė	inat
+gbif:2527766	Baltikas	inat
+gbif:5241808	Raibasis baltikas	inat
+gbif:5241784	Barzdotasis baltikas	inat
+gbif:3324883	Žaliuokė	inat
+gbif:3324249	Muilinis baltikas	inat
+gbif:5241793	Geltonrudis baltikas	inat
+gbif:5241860	Juosvažalis Baltikas	inat
+gbif:5241729	Žalsvagelsvis baltikas	inat
+gbif:5241789	Taškuotasis baltikas	inat
+gbif:8897119	Geltonasis baltikas	inat
+gbif:5241767	Drebulyninis baltikas	inat
+gbif:5241858	Šiurpėtasis baltikas	inat
+gbif:5241749	Baltasis baltikas	inat
+gbif:5241832	Kartusis baltikas	inat
+gbif:2594649	Puslaisvis briedžiukas	inat
+gbif:2594626	Aukštasis briedžiukas	inat
+gbif:8287374	Baravykas	inat
+gbif:5954958	Tikrinis baravykas	inat
+gbif:5954949	Pušyninis baravykas	inat
+gbif:5954691	Vasarinis baravykas	inat
+gbif:8733688	Bronzinis baravykas	inat
+gbif:7805465	Grybvalktis	inat
+gbif:2513763	Dyglutis	inat
+gbif:2554706	Dubusis dyglutis	inat
+gbif:2554716	Raukšlėtasis dyglutis	inat
+gbif:2544165	Mėsingasis dyglutis	inat
+gbif:2521421	Trimitėlis	inat
+gbif:2554536	Rudasis trimitėlis	inat
+gbif:8871787	Gelsvasis trimitėlis	inat
+gbif:2554662	Paprastasis trimitėlis	inat
+gbif:2594602	Valgomasis briedžiukas	inat
+gbif:8071344	Pilkšvasis briedžiukas	inat
+gbif:2550247	Kopūstgalvis raukšlius	inat
+gbif:8282501	Trumas	inat
+gbif:7364443	Vasarinis trumas	inat
+gbif:7900498	Rausvasis trumas	inat
+gbif:5258468	Juodasis trumas	inat
+gbif:5258456	Baltasis trumas	inat
+gbif:5258463	Balkšvasis trumas	inat
+gbif:5258455	Valgomasis trumas	inat
+gbif:2532156	Piengrybis	inat
+gbif:5248629	Pušyninė rudmėsė	inat
+gbif:5248684	Rudasis piengrybis	inat
+gbif:8813286	Kamparinis piengrybis	inat
+gbif:5248664	Baltagauris piengrybis	inat
+gbif:7925734	Eglyninė Rudmėsė	inat
+gbif:5248616	Piengrybis paąžuolis	inat
+gbif:5248610	Gelsvasultis piengrybis	inat
+gbif:8881331	Geltonasis piengrybis	inat
+gbif:8122710	Piengrybis paberžis	inat
+gbif:5248714	Drebulyninis piengrybis	inat
+gbif:9016531	Oranžinis piengrybis	inat
+gbif:8959060	Gelsvasis piengrybis	inat
+gbif:5248643	Rievėtasis piengrybis	inat
+gbif:9125990	Aitrusis piengrybis	inat
+gbif:5248801	Paprastasis piengrybis	inat
+gbif:9186214	Salsvasis piengrybis	inat
+gbif:5248648	Vyninis piengrybis	inat
+gbif:2542160	Geltonpintė	inat
+gbif:9072021	Valgomoji geltonpintė	inat
+gbif:2540799	Grifolė	inat
+gbif:2540800	Kuokštinė grifolė	inat
+gbif:2518610	Kreivabudė	inat
+gbif:2526530	Gluosninė kreivabudė	inat
+gbif:2526548	Pilkšvoji kreivabudė	inat
+gbif:2526504	Geltonoji kreivabudė	inat
+gbif:2526564	Ąžuolinė kreivabudė	inat
+gbif:2526599	Rausvoji kreivabudė	inat
+gbif:7830030	Trimitėlinė kreivabudė	inat
+gbif:9075265	Stambiakotė kreivabudė	inat
+gbif:2526779	Mėšlagrybis	inat
+gbif:7987658	Gauruotasis mėšlagrybis	inat
+gbif:2536689	Žieduotasis mėšlagrybis	inat
+gbif:2526021	Kelmutis	inat
+gbif:2536891	Paprastasis kelmutis	inat
+gbif:2536899	Tamsiažvynis kelmutis	inat
+gbif:9330501	Kukurdvelkis	inat
+gbif:2536058	Didysis kukurdvelkis	inat
+gbif:2537730	Dantenis	inat
+gbif:2537743	Valgomasis dantenis	inat
+gbif:2560546	Ofiokordicepsas	inat
+gbif:2560562	Kininis ofiokordicepsas	inat
+gbif:7984308	Ausiagrybis	inat
+gbif:5249271	Paprastasis ausiagrybis	inat
+gbif:5249297	Raukšlinis ausiagrybis	inat
+gbif:7939704	Žiūrytis	inat
+gbif:11945016	Raukšlinis žiūrytis	inat
+gbif:2530192	Šydabudė	inat
+gbif:5241399	Šilkaviršė šydabudė	inat
+gbif:5241445	Juosvadryžė šydabudė	inat
+gbif:2518646	Pievagrybis	inat
+gbif:5243458	Valgomasis pievagrybis	inat
+gbif:5243429	Gelsvarudis pievagrybis	inat
+gbif:5243403	Dirvinis pievagrybis	inat
+gbif:5243374	Dvižiedis Pievagrybis	inat
+gbif:8365581	Girinis pievagrybis	inat
+gbif:5243392	Druskinis pievagrybis	inat
+gbif:5243447	Dvisporis pievagrybis	inat
+gbif:8108291	Miškinis pievagrybis	inat
+gbif:5455910	Gumbakotis pievagrybis	inat
+gbif:5243354	Mažasis pievagrybis	inat
+gbif:5243420	Paprastasis pievagrybis	inat
+gbif:5244571	Trapiadyglis	inat
+gbif:5248508	Ežinis trapiadyglis	inat
+gbif:5248532	Korališkasis trapiadyglis	inat
+gbif:2594601	Briedžiukas	inat
+gbif:5259065	Aukšliavarpis	inat
+gbif:5259057	Bohemiškasis aukšliavarpis	inat
+gbif:5499531	Pirštuotasis aukšliavarpis	inat
+gbif:2521977	Kuokas	inat
+gbif:5238786	Didysis kuokas	inat
+gbif:2521435	Žvynadyglis	inat
+gbif:5238865	Čerpėtasis žvynadyglis	inat
+gbif:2530483	Balteklė	inat
+gbif:8936224	Pavasarinė balteklė	inat
+gbif:2532282	Stirnabudė	inat
+gbif:5242033	Melsvoji stirnabudė	inat
+gbif:5242069	Pilkšvarudė stirnabudė	inat
+gbif:5242039	Pailgasporė stirnabudė	inat
+gbif:2532098	Taurena	inat
+gbif:2531146	Dauburinė taurena	inat
+gbif:9186073	Stambioji taurena	inat
+gbif:2530661	Kupstabudė	inat
+gbif:9173236	Rudeninė kupstabudė	inat
+gbif:2530640	Baltenis	inat
+gbif:9113338	Guobinis baltenis	inat
+gbif:9015458	Marmurinis baltenis	inat
+gbif:8405404	Sviestbaravykis	inat
+gbif:8250249	Gelsvakotis sviestbaravykis	inat
+gbif:7621106	Šilgrybis	inat
+gbif:7832732	Rudakepuris šilgrybis	inat
+gbif:7240529	Švelniabaravykis	inat
+gbif:2519413	Auksakotis švelniabaravykis	inat
+gbif:2519224	Aksombaravykis	inat
+gbif:2519457	Žalsvasis aksombaravykis	inat
+gbif:7816100	Rūdinis aksombaravykis	inat
+gbif:7730499	Perkūnbaravykis	inat
+gbif:2519406	Auksabaravykis	inat
+gbif:2519844	Pušynbaravykis	inat
+gbif:2524910	Aitrusis Pušynbaravykis	inat
+gbif:2524262	Šilkbaravykis	inat
+gbif:9133361	Smiltyninis Šilbaravykis	inat
+gbif:2524265	Melsvėjantysis Šilbaravykis	inat
+gbif:2524323	Žvynbaravykis	inat
+gbif:9225326	Tikrasis žvynbaravykis	inat
+gbif:2520104	Raudonviršis	inat
+gbif:9141390	Lepšė	inat
+gbif:2524513	Tikrasis raudonviršis	inat
+gbif:2524503	Palšasis raudonviršis	inat
+gbif:2524490	Juosvažvynis raudonviršis	inat
+gbif:2524528	Pušyninis raudonviršis	inat
+gbif:7414997	Kazlėkas	inat
+gbif:5239915	Sibirinis kazlėkas	inat
+gbif:8146046	Šilinis Kazlėkas	inat
+gbif:7777157	Tikrasis Kazlėkas	inat
+gbif:5239864	Grakštusis kazlėkas	inat
+gbif:5239925	Blyškusis kazlėkas	inat
+gbif:9104622	Rausvakotis kazlėkas	inat
+gbif:5239851	Tuščiakotis kazlėkas	inat
+gbif:7623986	Tamprusis Kazlėkas	inat
+gbif:5239873	Pilkasis kazlėkas	inat
+gbif:9043861	Geltonasis kazlėkas	inat
+gbif:2524218	Šakniagrybis	inat
+gbif:2524228	Rožinis šakniagrybis	inat
+gbif:2524248	Gelsvasis šakniagrybis	inat
+gbif:2551150	Piengrybis jautakis	inat
+gbif:7719797	Piengrybis grūzdas	inat
+gbif:2551071	Piengrybis paliepis	inat
+gbif:2551169	Ūmėdė	inat
+gbif:2551356	Silkiakvapė ūmėdė	inat
+gbif:2551213	Piktoji ūmėdė	inat
+gbif:2551254	Trapioji ūmėdė	inat
+gbif:2551542	Melsvažalė ūmėdė	inat
+gbif:2551201	Pelkinė ūmėdė	inat
+gbif:3359736	Kraujaspalvė ūmėdė	inat
+gbif:2551173	Pilkšvažalė Ūmėdė	inat
+gbif:2551479	Blunkančioji ūmėdė	inat
+gbif:2551457	Šukinė ūmėdė	inat
+gbif:2551299	Auksiškoji ūmėdė	inat
+gbif:2551470	Purpurinė ūmėdė	inat
+gbif:2551443	Juosvakepurė ūmėdė	inat
+gbif:2551415	Tikroji Ūmėdė	inat
+gbif:2551447	Dvokioji ūmėdė	inat
+gbif:9561742	Rausvažalė ūmėdė	inat
+gbif:2551558	Agrastinė ūmėdė	inat
+gbif:9223923	Juodmėsė ūmėdė	inat
+gbif:2551191	Tankialakštė ūmėdė	inat
+gbif:2551423	Žalsvoji ūmėdė	inat
+gbif:2551331	Ūmėdė garduolė	inat
+gbif:2551419	Geltonviršė Ūmėdė	inat
+gbif:8894724	Raiboji ūmėdė	inat
+gbif:2551388	Auksaviršė ūmėdė	inat
+gbif:2551597	Šakotalakštė ūmėdė	inat
+gbif:2551274	Citrinalakštė ūmėdė	inat
+gbif:2551392	Kislioji ūmėdė	inat
+gbif:2551426	Melsvajuostė ūmėdė	inat
+gbif:9089269	Žvilgioji ūmėdė	inat
+gbif:2551318	Rausvoji ūmėdė	inat
+gbif:9075447	Pilkšvarudė ūmėdė	inat
+gbif:9770228	Raudonoji ūmėdė	inat
+gbif:2551233	Aksominė ūmėdė	inat
+gbif:2536706	Žvynabudė	inat
+gbif:8914748	Skėtinė žvynabudė	inat
+gbif:2536733	Dirvinė žvynabudė	inat
+gbif:2536707	Palšoji žvynabudė	inat
+gbif:6005964	Musmirė	inat
+gbif:7496350	Rausvoji musmirė	inat
+gbif:7765582	Gelsvarudė musmirė	inat
+gbif:5240282	Oranžinė musmirė	inat
+gbif:5240213	Didžioji musmirė	inat
+gbif:5240269	Karališkoji musmirė	inat
+gbif:2526826	Skydabudė	inat
+gbif:7446067	Elninė skydabudė	inat
+gbif:5241354	Juodakraštė skydabudė	inat
+gbif:5241259	Geltonkepurė skydabudė	inat
+gbif:5241314	Baltoji skydabudė	inat
+gbif:2526677	Lakabudė	inat
+gbif:2530926	Lakuotoji Lakabudė	inat
+gbif:2530983	Ametistinė lakabudė	inat
+gbif:2530973	Dvispalvė lakabudė	inat
+gbif:2530966	Stambioji lakabudė	inat
+gbif:2529580	Alksniabudė	inat
+gbif:5241128	Paprastoji alksniabudė	inat
+gbif:2526678	Mažūnis	inat
+gbif:2537250	Lauminis mažūnis	inat
+gbif:2526827	Ugniabudė	inat
+gbif:3341441	Juodkotė ugniabudė	inat
+gbif:9367003	Pumpotaukšlis	inat
+gbif:5243258	Karpotasis pumpotaukšlis	inat
+gbif:5453425	Lupusis pumpotaukšlis	inat
+gbif:5243244	Pievinis pumpotaukšlis	inat
+gbif:5243243	Pavėsinis pumpotaukšlis	inat
+gbif:5243279	Ilgasis pumpotaukšlis	inat
+gbif:5243210	Juostantysis pumpotaukšlis	inat
+gbif:9441377	Vilktabokė	inat
+gbif:2535193	Švininė vilktabokė	inat
+gbif:2535211	Nykštukinė vilktabokė	inat
+gbif:10852503	Kriaušinis pumpotaukšlis	inat
+gbif:2519188	Tauriabudė	inat
+gbif:2531072	Pilkoji tauriabudė	inat
+gbif:8691923	Miltbudė	inat
+gbif:2539197	Vyšninė miltbudė	inat
+gbif:9072989	Kepena	inat
+gbif:2531012	Ąžuolinė kepena	inat
+gbif:2521377	Alvytė	inat
+gbif:2594776	Verpsčiasporė alvytė	inat
+gbif:2594756	Paprastoji alvytė	inat
+gbif:2594716	Lanksčioji alvytė	inat
+gbif:2594765	Urvuotoji alvytė	inat
+gbif:2525706	Guotė	inat
+gbif:9053531	Balsvoji guotė	inat
+gbif:2538788	Geltonžvynė guotė	inat
+gbif:2538807	Ūmėdinė guotė	inat
+gbif:2538799	Purpurinė guotė	inat
+gbif:2538727	Kvapioji guotė	inat
+gbif:2538784	Margakotė guotė	inat
+gbif:2538720	Juosvarudė guotė	inat
+gbif:2538714	Oranžinė guotė	inat
+gbif:2538774	Maumedinė guotė	inat
+gbif:2538736	Pušyninė guotė	inat
+gbif:2538716	Baltakotė guotė	inat
+gbif:2538718	Kietoji guotė	inat
+gbif:2534558	Mėšlagrybukas	inat
+gbif:2534578	Kelminis mėšlagrybukas	inat
+gbif:2534625	Išsėtinis mėšlagrybukas	inat
+gbif:2524960	Nuosėdis	inat
+gbif:7844497	Lelijinis nuosėdis	inat
+gbif:2529415	Raukšlėtasis nuosėdis	inat
+gbif:8802917	Žieduotasis nuosėdis	inat
+gbif:7476637	Melsvakotis nuosėdis	inat
+gbif:12012261	Abrikosinis nuosėdis	inat
+gbif:2530002	Gijabudė	inat
+gbif:3345846	Skydinė gijabudė	inat
+gbif:2539763	Melsvoji gijabudė	inat
+gbif:2539389	Ankstyvoji gijabudė	inat
+gbif:2521461	Šakočius	inat
+gbif:5238663	Bekotis šakočius	inat
+gbif:5238449	Rauzganasis šakočius	inat
+gbif:5238654	Krūmiškasis šakočius	inat
+gbif:5238642	Auksaspalvis šakočius	inat
+gbif:7486196	Kekinis šakočius	inat
+gbif:5238647	Geltonrudis šakočius	inat
+gbif:5238760	Bukašakis šakočius	inat
+gbif:5238688	Raudondėmis šakočius	inat
+gbif:8869949	Statusis Šakočius	gbif
+gbif:5238581	Smailiaviršūnis šakočius	gbif
+gbif:2551762	Dirvapintė	inat
+gbif:2551823	Avinė dirvapintė	inat
+gbif:2524961	Gelsvabudė	inat
+gbif:2524996	Varinė gelsvabudė	inat
+gbif:2538863	Taurulė	inat
+gbif:2538864	Drūtgalė taurulė	inat
+gbif:12008655	Paprastoji trapiabudė	inat
+gbif:2540196	Žagaris	inat
+gbif:5249883	Skiauterėtasis žagaris	inat
+gbif:5249808	Raukšlėtasis žagaris	inat
+gbif:5249860	Pilkasis Žagaris	inat
+gbif:7244096	Guotainė	inat
+gbif:3345381	Baltoji guotainė	inat
+gbif:3291564	Pievinė guotainė	inat
+gbif:2526675	Dantūnis	inat
+gbif:7542962	Korėtoji skylėtbudė	inat
+gbif:9154166	Margasis dantūnis	inat
+gbif:2529999	Balsvis	inat
+gbif:2538146	Didplempė	inat
+gbif:9217873	Sviestinė didplempė	inat
+gbif:3321179	Smailiakotė didplempė	inat
+gbif:9091779	Žagarūnas	inat
+gbif:5244501	Kirmiškasis žagarūnas	inat
+gbif:2521383	Pirštūnis	inat
+gbif:2521401	Bukagalvis pirštūnis	inat
+gbif:2521391	Piestinis pirštūnis	inat
+gbif:2531845	Plempytis	inat
+gbif:12092733	Plaukuotpėdė plempenė	inat
+gbif:11993337	Šiurkščiakotė plempenė	inat
+gbif:9713443	Bežiedis kelmutis	inat
+gbif:2525056	Žvaigždinas	inat
+gbif:2554367	Didysis žvaigždinas	inat
+gbif:2554355	Tuščiaviduris žvaigždinas	inat
+gbif:2593331	Bobausis	inat
+gbif:5258510	Valgomasis bobausis	inat
+gbif:2525560	Guotelė	inat
+gbif:2525710	Voveraitinė guotelė	inat
+gbif:5955261	Šalmabudė	inat
+gbif:2527219	Dvokioji šalmabudė	inat
+gbif:4911710	Gelsvoji šalmabudė	inat
+gbif:7850509	Skiautenis	inat
+gbif:8689071	Rusvasis skiautenis	inat
+gbif:2581823	Plačiataurė	inat
+gbif:8156721	Raudonoji plačiataurė	inat
+gbif:2550493	Taurinis Žvakidėlis	inat
+gbif:7243095	Žiedabudė	inat
+gbif:2523631	Pintainė	inat
+gbif:2542395	Raudonkraštė pintainė	inat
+gbif:2524413	Rudaviršis	inat
+gbif:11239960	Ausytis	inat
+gbif:12081600	Rudasis ausūnis	inat
+gbif:2529618	Minkštūnis	inat
+gbif:5242142	Tikrasis minkštūnis	inat
+gbif:5242168	Trumpakotis minkštūnis	inat
+gbif:8849982	Vagotakotis minkštūnis	inat
+gbif:8191932	Žydrakotis nuosėdis	inat
+gbif:2526774	Trapiabudė	inat
+gbif:2534836	Kelminė trapiabudė	inat
+gbif:2526775	Glotniagalvė	inat
+gbif:2527828	Dirvabudė	inat
+gbif:9050242	Pusgaubtė dirvabudė	inat
+gbif:2533227	Pelkinė dirvabudė	inat
+gbif:9151391	Dirvoninė dirvabudė	inat
+gbif:2519998	Cerena	inat
+gbif:3268912	Žvynoklė	inat
+gbif:5955395	Šiurkščioji žvynoklė	inat
+gbif:2607519	Šiurė	inat
+gbif:2607712	Žvaigždiškoji šiurė	inat
+gbif:2527585	Plempė	inat
+gbif:2534316	Mėšlabudė	inat
+gbif:5242740	Rašalinė mėšlabudė	inat
+gbif:5242754	Pilkoji mėšlabudė	inat
+gbif:2518609	Gleiviaporis	inat
+gbif:2527854	Karteklė	inat
+gbif:2524677	Alksniabaravykis	inat
+gbif:8972210	Melsvėjantysis alksniabaravykis	inat
+gbif:2528519	Jaunabudė	inat
+gbif:2533062	Rudakepurė jaunabudė	inat
+gbif:2523318	Guotenė	inat
+gbif:2538595	Voveraitinė guotenė	inat
+gbif:2538524	Kūginė guotenė	inat
+gbif:2538445	Raudonoji guotenė	inat
+gbif:2538552	Ryškioji guotenė	inat
+gbif:7672956	Juosvamėsė guotenė	inat
+gbif:2535536	Lepūnis	inat
+gbif:2535581	Gumbakotis lepūnis	inat
+gbif:2540760	Meripilas	inat
+gbif:9129313	Žvynuotasis dantūnis	inat
+gbif:2528397	Skujagalvė	inat
+gbif:2534102	Auksaviršė skujagalvė	inat
+gbif:2534205	Žvynuotoji skujagalvė	inat
+gbif:2534085	Lipnioji skujagalvė	inat
+gbif:9091857	Švelniaspalvė skujagalvė	inat
+gbif:2534112	Gličioji skujagalvė	inat
+gbif:2534290	Japoninė skujagalvė	inat
+gbif:11200098	Sėdis	inat
+gbif:5246840	Šakotasis sėdis	inat
+gbif:2556075	Sporakūlė	inat
+gbif:2519084	Kempė	inat
+gbif:2548311	Įvairiaspalvė kempė	inat
+gbif:9227816	Tikroji raudonpintė	inat
+gbif:2548374	Juostuotoji kempė	inat
+gbif:2519062	Kempelė	inat
+gbif:2518649	Baltapintė	inat
+gbif:2600611	Saitakerpė	inat
+gbif:2513349	Kūlė	inat
+gbif:2533397	Kelmabudė	inat
+gbif:2533424	Geltonraudė kelmabudė	inat
+gbif:2513794	Karpininkas	inat
+gbif:2519220	Blizgutis	inat
+gbif:2549730	Tikrinis Blizgutis	inat
+gbif:2533959	Kelmiukė	inat
+gbif:2533962	Kislioji kelmiukė	inat
+gbif:8005891	Dirvūnė	inat
+gbif:8329645	Stambioji dirvūnė	inat
+gbif:2527767	Plempenė	inat
+gbif:5243756	Paprastoji plempenė	inat
+gbif:5243758	Verpstinė plempenė	inat
+gbif:2524102	Poniabudė	inat
+gbif:3314876	Paprastoji poniabudė	inat
+gbif:2523243	Netikradyglis	inat
+gbif:5249353	Drebutinis netikradyglis	inat
+gbif:7240504	Paąžuolis	inat
+gbif:3355021	Tikrasis paąžuolis	inat
+gbif:2581719	Lėkščiagrybis	inat
+gbif:5258678	Oranžinis lėkščiagrybis	inat
+gbif:2524936	Ankštenė	inat
+gbif:5239982	Gelsvoji ankštenė	inat
+gbif:5239959	Karpotoji ankštenė	inat
+gbif:2532720	Didžioji meškabudė	inat
+gbif:2524865	Pipirbaravykis	inat
+gbif:9156243	Kartusis pipirbaravykis	inat
+gbif:8114489	Krūmiškoji plempenė	inat
+gbif:7242432	Dygiabudė	inat
+gbif:5243011	Smailiažvynė dygiabudė	inat
+gbif:2525026	Geltonpėdė	inat
+gbif:2525027	Gličioji Geltonpėdė	inat
+gbif:2525039	Dėmėtoji geltonpėdė	inat
+gbif:2537417	Šalmūnis	inat
+gbif:2537418	Česnakinis šalmūnis	inat
+gbif:11011338	Geltonkotis skiautenėlis	inat
+gbif:2531807	Baltikenis	inat
+gbif:9056826	Gelsvasis Baltikenis	inat
+gbif:2531814	Raudongalvis baltikenis	inat
+gbif:2551821	Suaugtinė dirvapintė	inat
+gbif:8399317	Gražbaravykis	inat
+gbif:8203051	Gražiakotis baravykas	inat
+gbif:7550396	Kartusis gražbaravykis	inat
+gbif:2512968	Tampriagrybis	inat
+gbif:2512969	Mažasis Tampriagrybis	inat
+gbif:9134585	Lipnusis tampriagrybis	inat
+gbif:2526680	Klumpiaausis	inat
+gbif:5240984	Paprastasis klumpiaausis	inat
+gbif:5240943	Minkštasis Klumpiaausis	inat
+gbif:2526255	Kriaukliabudė	inat
+gbif:2526256	Vėduoklinė kriaukliabudė	inat
+gbif:3268970	Plikabudė	inat
+gbif:7686337	Rudakepurė plikabudė	inat
+gbif:7778366	Sodbaravykis	inat
+gbif:8060178	Raudonkepuris sodbaravykis	inat
+gbif:2534671	Lakrimarija	inat
+gbif:5242798	Šiurkščioji lakrimarija	inat
+gbif:9227295	Žvynabudėlė	inat
+gbif:2535486	Didžiasporė žvynabudėlė	inat
+gbif:2535456	Skydinė žvynabudėlė	inat
+gbif:2530576	Piltuvė	inat
+gbif:2530577	Baltoji piltuvė	inat
+gbif:2521516	Meškutė	inat
+gbif:5240002	Pilkoji Meškutė	inat
+gbif:2530482	Baltė	inat
+gbif:2538000	Kriauklinė baltė	inat
+gbif:7240441	Juodbaravykis	inat
+gbif:2524797	Tikrasis juodbaravykis	inat
+gbif:11159309	Gleiviabudė	inat
+gbif:2533347	Raukšlėtažiedė gleiviabudė	inat
+gbif:2525650	Storalūpė	inat
+gbif:7693097	Juodkotė storalūpė	inat
+gbif:12054660	Purpurinis nuosėdis	inat
+gbif:2527268	Sausabudė	inat
+gbif:2527302	Varpelinė Sausabudė	inat
+gbif:2542159	Bondarcevija	inat
+gbif:2523874	Odžievis	inat
+gbif:2532393	Samanbudė	inat
+gbif:2532395	Gūbriuotoji samanbudė	inat
+gbif:9400640	Kislioji skylėtbudė	inat
+gbif:2521976	Žagarenis	inat
+gbif:5244486	Verpstinis žagarenis	inat
+gbif:9117445	Gelsvasis žagarenis	inat
+gbif:2542719	Klimokas	inat
+gbif:2542720	Šiaurinis Klimokas	inat
+gbif:2532412	Taurūnėlis	inat
+gbif:2514221	Veimutrūdė	inat
+gbif:7451789	Šlakabudė	inat
+gbif:5243525	Amiantinė šlakabudė	inat
+gbif:9049960	Dakrimicis	inat
+gbif:2512921	Geltonsporis dakrimicis	inat
+gbif:3214437	Fuligas	inat
+gbif:5426027	Geltonasis fuligas	inat
+gbif:2519216	Laibūnė	inat
+gbif:2538832	Guotikė	inat
+gbif:3345400	Žalsvoji guotikė	inat
+gbif:3304469	Tamprioji guotikė	inat
+gbif:8097905	Pilkoji guotikė	inat
+gbif:10523914	Drebutulis	inat
+gbif:8824388	Bobausinis drebutulis	inat
+gbif:2593381	Hidnotrija	inat
+gbif:2593397	Požeminė hidnotrija	inat
+gbif:2518613	Dantžievis	inat
+gbif:2532154	Dantūnėlis	inat
+gbif:2550371	Kriauklinis dantūnėlis	inat
+gbif:2531301	Baltnuosėdis	inat
+gbif:5241698	Gumbuotasis baltnuosėdis	inat
+gbif:8189348	Balsvoji kupstabudė	inat
+gbif:2526024	Slidabudė	inat
+gbif:9793586	Kvapioji slidabudė	inat
+gbif:2537688	Kremblė	inat
+gbif:2537689	Plačialakštė kremblė	inat
+gbif:2536181	Žvaigždėgrybis	inat
+gbif:2536182	Odiškasis žvaigždėgrybis	inat
+gbif:2593788	Kiškiaausis	inat
+gbif:9128195	Geltonasis Kiškiaausis	inat
+gbif:8766080	Ausūnis	inat
+gbif:5259242	Pūslingasis ausūnis	inat
+gbif:7241701	Šakūnė	inat
+gbif:2528493	Šiuršis	inat
+gbif:9645698	Lakštinis žiūrytis	inat
+gbif:2522127	Tampriadyglis	inat
+gbif:7562246	Pilkšvarudė bankera	inat
+gbif:2531624	Meškaitė	inat
+gbif:8815567	Retikuliarija	inat
+gbif:5425828	Pumpotaukšlinė retikuliarija	inat
+gbif:9756029	Plutpintenė	inat
+gbif:2530750	Pilkabudė	inat
+gbif:2536794	Kserulė	inat
+gbif:10691289	Gličioji slidabudė	inat
+gbif:2521376	Baravykpintė	inat
+gbif:5238896	Eglinė baravykpintė	inat
+gbif:2593180	Godūnas	inat
+gbif:2593184	Baltasis godūnas	gbif
+gbif:2524061	Krepšiagrybis	inat
+gbif:2524062	Baltasis krepšiagrybis	inat

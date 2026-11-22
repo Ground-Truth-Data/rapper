@@ -1,0 +1,959 @@
+id	name	source
+gbif:2684241	Den	inat
+gbif:5285750	Draaiden	inat
+gbif:5284982	Weymouthden	inat
+gbif:5285053	Gele den	inat
+gbif:5285241	Wierookden	inat
+gbif:5285635	Pekden	inat
+gbif:5285067	Harsige den	inat
+gbif:5285091	Virginia-den	inat
+gbif:5285816	Moerasden	inat
+gbif:5285777	Elliotti-den	inat
+gbif:5285637	Grove Den	inat
+gbif:5285533	Struikden	inat
+gbif:8892957	Jeffrey-den	inat
+gbif:5285621	Amerikaanse witte den	inat
+gbif:5285183	Asgrijze den	inat
+gbif:5285324	Kortbladige den	inat
+gbif:5285551	Buigzame den	inat
+gbif:5285727	Montereyden	inat
+gbif:5284989	Suikerden	inat
+gbif:5284809	Zwarte den	inat
+gbif:5285113	Coulterden	inat
+gbif:5285243	Canarische den	inat
+gbif:5285604	Aleppoden	inat
+gbif:5285385	Bergden	inat
+gbif:5285799	Japanse zwarte den	inat
+gbif:5285280	Valse weymouthden	inat
+gbif:5285511	Gladschaalden	inat
+gbif:5285090	Mexicaanse treurden	inat
+gbif:5285165	Parasolden	inat
+gbif:5285740	Caribische den	inat
+gbif:5285220	Eierkegelden	inat
+gbif:5285261	Montezumaden	inat
+gbif:5285216	Gregg's den	inat
+gbif:5285094	Arizona-den	inat
+gbif:5285233	Aztekenden	inat
+gbif:5285019	Slappe den	inat
+gbif:5285710	Turkse den	inat
+gbif:5285104	Japanse rode den	inat
+gbif:5285286	Hispaniola-den	inat
+gbif:5285543	Dunbladige den	inat
+gbif:5285074	Tranenden	inat
+gbif:5285565	Zeeden	inat
+gbif:5284979	Koreaanse den	inat
+gbif:5285224	Durango-den	inat
+gbif:5285134	Alpenden	inat
+gbif:5285629	Tecunumanden	inat
+gbif:5285332	Opgaande bergden	inat
+gbif:5285079	Balkanden	inat
+gbif:5285359	Chinese rode den	inat
+gbif:5285084	Chir-den	inat
+gbif:5285215	Masson's den	inat
+gbif:5284667	Siberische den	inat
+gbif:5285192	Sikang-den	inat
+gbif:5285824	Khasi-den	inat
+gbif:5285119	Sumatraanse den	inat
+gbif:5285783	Yunnan-den	inat
+gbif:7606064	Spar	inat
+gbif:5284745	Witte spar	inat
+gbif:5284884	Fijnspar	inat
+gbif:5284871	Blauwe spar	inat
+gbif:5284717	Rode spar	inat
+gbif:5284827	Sitkaspar	inat
+gbif:5284802	Zwarte spar	inat
+gbif:5284917	Engelmannspar	inat
+gbif:5284950	Servische spar	inat
+gbif:5284794	Kaukasische spar	inat
+gbif:5284765	Siberische spar	inat
+gbif:5284798	Jezospar	inat
+gbif:5284834	Himalaja spar	inat
+gbif:5284814	Kirgizenspar	inat
+gbif:2685775	Douglassparren	inat
+gbif:2685796	Douglasspar	inat
+gbif:2685776	Grootkegeldouglasspar	inat
+gbif:2684168	Levensbomen	inat
+gbif:2684178	Westerse levensboom	inat
+gbif:2684171	Reuzenlevensboom	inat
+gbif:2686156	Lorken	inat
+gbif:2686231	Amerikaanse lork	inat
+gbif:2686270	West-Amerikaanse lork	inat
+gbif:2686212	Europese lork	inat
+gbif:2686276	Siberische lork	inat
+gbif:2686157	Goudlork	inat
+gbif:2686170	Aziatische lork	inat
+gbif:3040215	Amerikaanse ratelpopulier	inat
+gbif:3040249	Ratelpopulier	inat
+gbif:8527396	Hemlocksparren	inat
+gbif:2687182	Oostelijke hemlockspar	inat
+gbif:2687210	Westelijke hemlockspar	inat
+gbif:2687201	Berghemlockspar	inat
+gbif:2687227	Himalaya hemlockspar	inat
+gbif:2684876	Zilversparren	inat
+gbif:2685383	Balsemzilverspar	inat
+gbif:2685580	Coloradozilverspar	inat
+gbif:2685313	Alpen zilverspar	inat
+gbif:2685361	Reuzenzilverspar	inat
+gbif:2685524	Pacifische zilverspar	inat
+gbif:2685422	Rode zilverspar	inat
+gbif:2685318	Frasers zilverspar	inat
+gbif:2685527	Heilige spar	inat
+gbif:2685308	Edelspar	inat
+gbif:2685464	Spaanse zilverspar	inat
+gbif:2685552	Kaukasische zilverspar	inat
+gbif:2685484	Gewone zilverspar	inat
+gbif:2685326	Griekse zilverspar	inat
+gbif:2685628	Syrische zilverspar	inat
+gbif:2685437	Sachalinse zilverspar	inat
+gbif:2685654	Siberische zilverspar	inat
+gbif:2685683	Pindrows zilverspar	inat
+gbif:2685619	Himalaja zilverspar	inat
+gbif:2685476	Bhutaanse zilverspar	inat
+gbif:2875008	Berken	inat
+gbif:5332120	Papierberk	inat
+gbif:5331779	Gele berk	inat
+gbif:5331532	Rode berk	inat
+gbif:5331916	Ruwe berk	inat
+gbif:9118014	Zachte berk	inat
+gbif:5331720	Iberische berk	inat
+gbif:3040183	Populier	inat
+gbif:3040232	Amerikaanse populier	inat
+gbif:6362904	Zwarte balsempopulier	inat
+gbif:3040184	Ontariopopulier	inat
+gbif:3040233	Witte abeel	inat
+gbif:3040227	Zwarte populier	inat
+gbif:3040231	Chinese balsempopulier	inat
+gbif:3803716	Laurierpopulier	inat
+gbif:7874619	Mongoolse populier	inat
+gbif:3804846	Eufraatpopulier	inat
+gbif:8190077	Canadapopulier	gbif
+gbif:3040185	Grauwe abeel	gbif
+gbif:3176787	blauwe gomboom	inat
+gbif:3177112	Suikereucalyptus	gbif
+gbif:2978552	wilgacacia	inat
+gbif:2979775	bleekgele acacia	gbif
+gbif:2981159	Kangoeroedoorn	inat
+gbif:3071157	Rubberboom	inat
+gbif:3071171	Braziliaanse rubberboom	inat
+gbif:2683915	Sikkelcipressen	inat
+gbif:5284237	Japanse cipres	inat
+gbif:5352251	robinia	inat
+gbif:2683848	Schijncipressen	inat
+gbif:2683866	Californische cipres	inat
+gbif:2683849	Hinokicipres	inat
+gbif:2874875	Beuken	inat
+gbif:2882274	Amerikaanse beuk	inat
+gbif:2882316	Beuk	inat
+gbif:2882360	Oosterse beuk	inat
+gbif:2877951	Eik	inat
+gbif:2880539	Amerikaanse eik	inat
+gbif:2879737	Amerikaanse witte eik	gbif
+gbif:8313153	Moeraseik	inat
+gbif:2878688	zomereik	inat
+gbif:2877959	Japanse kastanje-eik	inat
+gbif:2879411	Kurkeik	inat
+gbif:2879098	Steeneik	inat
+gbif:2880580	Moseik	inat
+gbif:7930013	Kastanjebladige eik	inat
+gbif:2880130	Wintereik	inat
+gbif:2879787	Chinese kurkeik	inat
+gbif:2879175	Hulsteik	inat
+gbif:2881283	Donzige eik	inat
+gbif:2881550	Steeneik	inat
+gbif:2878826	Pyreneese eik	inat
+gbif:3190485	West-indische mahonie	gbif
+gbif:2891791	Australische zilvereik	gbif
+gbif:2970418	Witte mimosa	gbif
+gbif:2684854	Levensbomen	inat
+gbif:2684855	oosterse levensboom	inat
+gbif:2685742	Ceder	inat
+gbif:5284698	Himalayaceder	inat
+gbif:5284702	Atlasceder	inat
+gbif:5284682	Libanonceder	inat
+gbif:7403310	Geeldoornacacia	inat
+gbif:5914287	Indische sering	gbif
+gbif:10225588	Cipres	inat
+gbif:2684030	Italiaanse cipres	inat
+gbif:2684984	Slangenden	inat
+gbif:2684969	Norfolkaraucaria	inat
+gbif:3170823	Anna Paulownaboom	inat
+gbif:2984510	Iepen	inat
+gbif:5361865	Gladde iep	inat
+gbif:5361866	Ruwe iep	inat
+gbif:7303616	Fladderiep	inat
+gbif:3039284	Duindoorns	inat
+gbif:3039285	duindoorn	inat
+gbif:3152824	Amberboom	inat
+gbif:3152861	tulpenboom	inat
+gbif:3189834	Esdoorn	inat
+gbif:3189883	Rode esdoorn	inat
+gbif:3189866	Vederesdoorn	inat
+gbif:3189859	Suikeresdoorn	inat
+gbif:3189846	Noorse esdoorn	inat
+gbif:3189837	Witte esdoorn	inat
+gbif:3189835	Grootbladige esdoorn	inat
+gbif:3189870	Gewone esdoorn	inat
+gbif:3189863	Veldesdoorn	inat
+gbif:3189843	Tataarse esdoorn	inat
+gbif:7262958	Montpellieresdoorn	inat
+gbif:7100278	Italiaanse esdoorn	inat
+gbif:2876099	Elzen	inat
+gbif:9148577	Grauwe els	inat
+gbif:2876176	Rode els	inat
+gbif:2876213	Zwarte els	inat
+gbif:2876131	Andes-els	inat
+gbif:2876607	Hartbladige els	inat
+gbif:2876187	Nepalese els	inat
+gbif:3172323	Es	gbif
+gbif:3172327	Amerikaanse es	inat
+gbif:3172348	Pennsylvaanse es	inat
+gbif:3172358	Es	inat
+gbif:7325877	Smalbladige es	inat
+gbif:3172347	Pluimes	inat
+gbif:3054350	Walnoten	inat
+gbif:3054357	Zwarte walnoot	inat
+gbif:3054368	Okkernoot	inat
+gbif:3020559	Pruimen	inat
+gbif:3021850	Amerikaanse Vogelkers	inat
+gbif:3020791	Zoete kers	inat
+gbif:3021496	Laurierkers	inat
+gbif:8149923	Perzik	inat
+gbif:3021730	Kerspruim	inat
+gbif:7931731	Pruim	inat
+gbif:3021037	gewone vogelkers	inat
+gbif:3022789	Weichselboom	inat
+gbif:3021120	Japanse pruim	inat
+gbif:3023221	Sleedoorn	inat
+gbif:3022853	Afrikaanse kers	gbif
+gbif:3152041	linde	inat
+gbif:3152047	Winterlinde	inat
+gbif:4259350	Zilverlinde	inat
+gbif:3152048	Zomerlinde	inat
+gbif:2875770	Haagbeuken	inat
+gbif:2875842	Amerikaanse beuk	inat
+gbif:2875818	Haagbeuk	inat
+gbif:2875780	Oosterse haagbeuk	inat
+gbif:2882140	Kastanje	inat
+gbif:5333237	Chinese kastanje	inat
+gbif:5333294	Tamme kastanje	inat
+gbif:5333249	Japanse kastanje	inat
+gbif:2683908	Sequoia's	inat
+gbif:2683909	Kustmammoetboom	inat
+gbif:2684119	Mammoetbomen	inat
+gbif:2684120	Mammoetboom	inat
+gbif:2683935	Wierookcipressen	inat
+gbif:2683936	Zuilcipres	inat
+gbif:2684190	Moerascipressen	inat
+gbif:2684191	Moerascipres	inat
+gbif:8307747	Watercipressen	inat
+gbif:5284231	Watercipres	inat
+gbif:3190638	Mango	inat
+gbif:2973167	Witte siris	inat
+gbif:3072953	Purgeer Noot	gbif
+gbif:2984573	Broodvrucht	inat
+gbif:2984565	Nangka	inat
+gbif:2735117	Kokospalm	inat
+gbif:3034046	Avocado	inat
+gbif:2928997	Nachtschade	inat
+gbif:2930216	Boomtomaat	inat
+gbif:2930210	Kangoeroe-appel	inat
+gbif:3189394	Wilde amandel	gbif
+gbif:2970763	muskietboom	gbif
+gbif:5358460	mesquite	gbif
+gbif:5420380	Guave	inat
+gbif:5420641	Aardbeiguave	gbif
+gbif:3183534	Djamboe aer mawar	gbif
+gbif:3183002	Kruidnagel	gbif
+gbif:3039411	Jujube	inat
+gbif:3039423	Jujube	inat
+gbif:3039424	Indiase jujube	inat
+gbif:8228089	Christusdoorn	inat
+gbif:5406695	Afrikaanse baobab	inat
+gbif:5357677	IJsboon	inat
+gbif:3190155	Citrusvrucht	gbif
+gbif:3190172	Mandarijn	inat
+gbif:8077391	Zure sinaasappel	gbif
+gbif:3190164	Limoen	gbif
+gbif:2984934	Cacaobomen	inat
+gbif:3152205	Cacaoboom	inat
+gbif:3152208	Cupuazú	inat
+gbif:7657303	Cacaui	inat
+gbif:5356354	Johannesbroodboom	inat
+gbif:5407273	Zuurzak	inat
+gbif:5407099	kaneelappel	gbif
+gbif:5407147	Suikerappel	inat
+gbif:2731882	Oliepalm	inat
+gbif:2895315	Koffie	inat
+gbif:2895345	Arabica-koffie	inat
+gbif:3152795	Strandpopulier	gbif
+gbif:2732076	Dadelpalmen	gbif
+gbif:3660419	Roze peper	gbif
+gbif:3190642	Peruaanse peper	gbif
+gbif:5406697	Katoen Boom	gbif
+gbif:2874863	Anattoboom	inat
+gbif:2891785	Macadamianoot	inat
+gbif:3084187	vijgcactus	inat
+gbif:5421368	Westindische Nierenboom	inat
+gbif:2953871	Snijbonenboom	gbif
+gbif:5420901	Granaatappel	inat
+gbif:2972960	Regenboom	inat
+gbif:3032986	Amerikaanse persimoen	inat
+gbif:3032980	Dadelpruim	inat
+gbif:4071204	Jakhalsbes	inat
+gbif:4070768	Bergpersimoen	inat
+gbif:7715874	Coromandel-ebbenhout	inat
+gbif:2984545	Moerbei	gbif
+gbif:5361886	rode moerbei	inat
+gbif:5361909	Vijg	inat
+gbif:5361932	Treurvijg	inat
+gbif:7835333	Indische rubberboom	inat
+gbif:5361935	Bodhiboom	inat
+gbif:5361904	Indische vijgenboom	inat
+gbif:5361921	Wilde vijgenboom	inat
+gbif:5571438	Watkins vijg	inat
+gbif:6358688	Swietiboontje	gbif
+gbif:5361900	Wurgvijgenboom	inat
+gbif:5569827	Kaapse wilde vijgenboom	inat
+gbif:3234563	Bolle vijghoren	inat
+gbif:2684359	Jeneverbessen	inat
+gbif:2684709	Jeneverbes	inat
+gbif:2684626	Griekse jeneverbes	inat
+gbif:2684528	Spaanse jeneverbes	inat
+gbif:2684451	Stekelige jeneverbes	inat
+gbif:2684640	Punische jeneverbes	inat
+gbif:2684584	Syrische jeneverbes	inat
+gbif:2736531	Betelpalm	inat
+gbif:5357108	Indische goudenregen	gbif
+gbif:5407583	Ylang-ylang	inat
+gbif:5421115	Woestijndadel	gbif
+gbif:3083180	Paranootboom	inat
+gbif:5381567	Kleine Birambi	gbif
+gbif:2959443	valse christusdoorn	inat
+gbif:3039576	Wilg	inat
+gbif:5372513	Schietwilg	inat
+gbif:5372800	Bittere wilg	inat
+gbif:5372605	Grauwe wilg	inat
+gbif:5372952	Boswilg	inat
+gbif:5372933	Katwilg	inat
+gbif:8185571	Gele mombinpruim	inat
+gbif:3190653	Hemelboom	inat
+gbif:2901235	Kina	inat
+gbif:11397237	Wolfsmelk	inat
+gbif:3069353	Potloodplant	gbif
+gbif:3152840	Muskaatboom	gbif
+gbif:5406817	nootmuskaatboom	gbif
+gbif:5361944	Papiermoerbei	inat
+gbif:5415040	Olijf	inat
+gbif:8023236	Geurende schroefpalm	inat
+gbif:8380575	Franse tamarisk	inat
+gbif:2874702	Afrikaanse tamarisk	inat
+gbif:2684184	Sandarakboom	gbif
+gbif:5421195	Slijmappel	gbif
+gbif:8091875	Hopbeuken	inat
+gbif:5332305	Hopbeuk	inat
+gbif:3012146	Lijsterbes	inat
+gbif:3012167	lijsterbes	inat
+gbif:3084013	Karmozijnbes	inat
+gbif:3086525	Echte mangroves	inat
+gbif:3086528	Rode mangrove	inat
+gbif:2925562	Monnikenpeper	gbif
+gbif:2925400	Zwarte mangrove	inat
+gbif:2875967	Hazelaars	inat
+gbif:2875979	Hazelaar	inat
+gbif:2875968	Turkse hazelaar	inat
+gbif:3169115	Kardinaalsmutsen	inat
+gbif:3169131	Kardinaalsmuts	inat
+gbif:5339879	Indische moerbei	gbif
+gbif:7935410	Pau d'Arco kruid	gbif
+gbif:2943522	Walaba	gbif
+gbif:3152811	Plataan	gbif
+gbif:3152816	Oosterse plataan	inat
+gbif:2886244	Arganboom	inat
+gbif:2882796	Aardbeibomen	gbif
+gbif:2882803	Aardbeiboom	inat
+gbif:2705751	Bamboe	inat
+gbif:2705765	Bengaalse bamboe	inat
+gbif:2888831	Stranddruif	gbif
+gbif:3013395	Meidoorn	inat
+gbif:9220780	eenstijlige meidoorn	inat
+gbif:8252683	Tweestijlige meidoorn	inat
+gbif:5380015	Zandkokerboom	gbif
+gbif:10792217	Hulst	gbif
+gbif:5414222	Hulst	inat
+gbif:3034015	Laurierboom	inat
+gbif:3190583	Mastiekboom	inat
+gbif:3189983	Zeepnotenboom	gbif
+gbif:5421133	grote zeepnoot	gbif
+gbif:3189801	Paardenkastanje	inat
+gbif:3189815	Witte Paardenkastanje	inat
+gbif:7531920	Panamese rubberboom	inat
+gbif:10779983	Tonkaboon	gbif
+gbif:3189907	Pokhout	inat
+gbif:4923705	Coco de mer	inat
+gbif:2731979	Coco de mer	inat
+gbif:3189990	Knippa	gbif
+gbif:3054399	talgboom	inat
+gbif:3023817	Krentenboompje	inat
+gbif:8162077	Agarhout	inat
+gbif:2732609	Australische Koningspalm	inat
+gbif:2733997	Suikerpalm	inat
+gbif:2733060	Perzikpalm	inat
+gbif:3033894	Zuurbes	inat
+gbif:3172611	Trompetboom	gbif
+gbif:2736624	chamerops	gbif
+gbif:2736625	Dwergpalm	inat
+gbif:7906922	Sneeuwvlokkenboom	inat
+gbif:3033558	Bosrank	inat
+gbif:2956426	Blazenstruik	gbif
+gbif:7844167	Europese blazenstruik	inat
+gbif:2766216	Koolpalm	inat
+gbif:3013215	Tamme lijsterbes	inat
+gbif:3082226	kornoelje	inat
+gbif:3082263	gele kornoelje	inat
+gbif:8365953	witte kornoelje	inat
+gbif:3082234	Rode Kornoelje	inat
+gbif:8089532	Brem	inat
+gbif:5354656	Gewone brem	inat
+gbif:4145704	Reuzenbamboe	gbif
+gbif:2882780	Dophei	inat
+gbif:5293398	pina	gbif
+gbif:3039454	sporkehout	inat
+gbif:2940025	Heidebrem	inat
+gbif:5347571	Kruipbrem	inat
+gbif:3036021	Klimop	inat
+gbif:8351737	klimop	inat
+gbif:2928509	Dagwinde	inat
+gbif:5421180	Gele zeepboom	inat
+gbif:3234737	Goudenregen	inat
+gbif:5356345	Gouden regen	inat
+gbif:2927302	Lavendel	inat
+gbif:2927303	Kuiflavendel	inat
+gbif:3172300	Wilde liguster	inat
+gbif:2888645	kamperfoelie	inat
+gbif:5334259	Rode kamperfoelie	inat
+gbif:5334277	Wilde kamperfoelie	inat
+gbif:2984579	Osagedoorn	gbif
+gbif:3001244	Eetappel	inat
+gbif:3001509	Appel	inat
+gbif:5294777	Mauritiuspalm	inat
+gbif:3031774	mispel	gbif
+gbif:2760990	Banaan	inat
+gbif:2762680	Blauwe Banaan	inat
+gbif:3152240	Balsaboom	gbif
+gbif:2735454	alata-kaka	gbif
+gbif:3034108	Boldo	inat
+gbif:3075433	Peper	inat
+gbif:3086357	Zwarte peper	inat
+gbif:2986532	Peren	inat
+gbif:5362573	Peer	inat
+gbif:3039491	Wegedoorn	inat
+gbif:3190534	Fluweelboom	inat
+gbif:3190538	Azijnboom	inat
+gbif:2986095	Bes	inat
+gbif:2986185	Kruisbes	inat
+gbif:2986192	Zwarte bes	inat
+gbif:8395064	rozen	inat
+gbif:3003979	Rimpelroos	inat
+gbif:3002461	Hondsroos	inat
+gbif:3007054	Bosroos	inat
+gbif:2988638	Braam	inat
+gbif:2993094	Framboos	inat
+gbif:2888942	Zuring	inat
+gbif:2888961	Spaanse zuring	inat
+gbif:2769766	Stekelige muizendoorn	inat
+gbif:3190380	Wijnruit	gbif
+gbif:2888721	Vlier	inat
+gbif:2888723	Trosvlier	inat
+gbif:2888728	Gewone vlier	inat
+gbif:3125925	Heiligenbloem	inat
+gbif:3125933	Heiligenbloem	inat
+gbif:8109416	Bezemstruik	gbif
+gbif:5355395	Spaanse brem	inat
+gbif:5293897	Koninginpalm	inat
+gbif:7892576	Sneeuwbes	inat
+gbif:8012439	sneeuwbes	inat
+gbif:5415039	sering	inat
+gbif:5284517	Taxus	inat
+gbif:2926960	Tijm	inat
+gbif:9410160	Elsbes	inat
+gbif:2951953	Gaspeldoorn	inat
+gbif:2951984	Gaspeldoorn	inat
+gbif:2882813	Bosbes	inat
+gbif:2882849	Trosbosbes	inat
+gbif:2882833	Blauwe Bosbes	inat
+gbif:2888580	Sneeuwbal	inat
+gbif:2888605	gelderse roos	inat
+gbif:2888615	Wollige Sneeuwbal	inat
+gbif:2888585	Lauriersneeuwbal	inat
+gbif:2984531	Schijniep	inat
+gbif:2883026	Rododendron	inat
+gbif:9623860	Hanenkam	gbif
+gbif:5249504	Hanenkam	inat
+gbif:5249555	Amethistcantharel	inat
+gbif:5249496	Bleke cantharel	inat
+gbif:9226626	grauwe cantharel	gbif
+gbif:2527766	Ridderzwam	inat
+gbif:5241808	Muisgrijze ridderzwam	inat
+gbif:5241784	Ruige ridderzwam	inat
+gbif:3324883	Gele ridderzwam	inat
+gbif:3324249	Zeepzwam	inat
+gbif:5241793	Berkenridderzwam	inat
+gbif:5241860	Glanzende ridderzwam	inat
+gbif:5241729	Streephoedridderzwam	inat
+gbif:5241789	Druppelvlekridderzwam	inat
+gbif:8897119	Narcisridderzwam	inat
+gbif:5241767	Populierridderzwam	inat
+gbif:5241858	Fijnschubbige ridderzwam	inat
+gbif:5241749	Witte ridderzwam	inat
+gbif:7242238	Zwartschubbige ridderzwam	inat
+gbif:5241832	Valse beukenridderzwam	inat
+gbif:5241733	Blozende ridderzwam	inat
+gbif:8426492	Kegelmorielje	inat
+gbif:2594649	Kapjesmorielje	inat
+gbif:2594626	Kegelmorielje	gbif
+gbif:5954958	Gewoon eekhoorntjesbrood	inat
+gbif:5954949	Denneneekhoorntjesbrood	inat
+gbif:5954691	Vroeg eekhoorntjesbrood	inat
+gbif:8733688	Bronskleurig eekhoorntjesbrood	inat
+gbif:7601434	Gewone heksenboleet	gbif
+gbif:2554716	Gele stekelzwam	inat
+gbif:2544165	Rossige stekelzwam	inat
+gbif:2521421	Hoorn-van-overvloed	inat
+gbif:2554536	Trechtercantharel	inat
+gbif:2554662	Hoorn-van-overvloed	inat
+gbif:7904574	Oevermorielje	gbif
+gbif:2594602	Gewone morielje	inat
+gbif:8071344	Hersenkronkelmorielje	inat
+gbif:2550232	Sponszwam	inat
+gbif:2550242	Breedbladige sponszwam	inat
+gbif:2550247	Grote sponszwam	inat
+gbif:8282501	Truffel	gbif
+gbif:7364443	Zomertruffel	gbif
+gbif:7900498	Roodbruine truffel	gbif
+gbif:5258468	Périgord-truffel	gbif
+gbif:5258471	maantruffel	inat
+gbif:5258463	Bleke truffel	gbif
+gbif:5258455	Wintertruffel	gbif
+gbif:2532156	Melkzwammen	inat
+gbif:5248629	Smakelijke melkzwam	inat
+gbif:5248684	rossige melkzwam	inat
+gbif:8813286	Kruidige melkzwam	inat
+gbif:5248664	Donzige melkzwam	inat
+gbif:7925734	Peenrode melkzwam	inat
+gbif:5248616	Kaneelkleurige melkzwam	inat
+gbif:5248610	Zwavelmelkzwam	inat
+gbif:8122710	Baardige melkzwam	inat
+gbif:5248714	Populiermelkzwam	inat
+gbif:9016531	Oranje melkzwam	inat
+gbif:8959060	Gewimperde melkzwam	inat
+gbif:5248643	Fijngegordelde melkzwam	inat
+gbif:9125990	Vuurmelkzwam	inat
+gbif:5248801	Forse melkzwam	inat
+gbif:9186214	Bitterzoete melkzwam	inat
+gbif:5248648	Wijnrode melkzwam	inat
+gbif:5248649	Vaalrode melkzwam	inat
+gbif:5248670	Zwartgroene melkzwam	gbif
+gbif:2542160	Zwavelzwam	inat
+gbif:9072021	Zwavelzwam	inat
+gbif:2540799	Eikhaas	inat
+gbif:2540800	Eikhaas	inat
+gbif:2526530	Gewone oesterzwam	inat
+gbif:2526548	Bleke oesterzwam	inat
+gbif:2526504	Gele oesterzwam	inat
+gbif:2526564	Schubbige oesterzwam	inat
+gbif:7830030	Trechteroesterzwam	inat
+gbif:9075265	Kruisdisteloesterzwam	inat
+gbif:7987658	Geschubde inktzwam	inat
+gbif:2536689	Geringde inktzwam	inat
+gbif:2526021	Honingzwam	inat
+gbif:2536891	Echte honingzwam	inat
+gbif:2536899	Sombere honingzwam	inat
+gbif:2536058	Reuzenbovist	inat
+gbif:2537730	Shiitake	inat
+gbif:2537743	Shiitake	inat
+gbif:5249271	echt judasoor	inat
+gbif:5249297	Viltig judasoor	inat
+gbif:7939704	Trilzwam	inat
+gbif:11945016	Gele trilzwam	inat
+gbif:7830431	Gele hersentrilzwam	gbif
+gbif:2530192	Beurszwam	inat
+gbif:5241399	Zijdeachtige beurszwam	inat
+gbif:5241445	Tropische beurszwam	inat
+gbif:2518646	Champignons	inat
+gbif:5243458	Gewone weidechampignon	inat
+gbif:5243429	Reuzenchampignon	inat
+gbif:5243403	Gewone anijschampignon	inat
+gbif:5243374	Straatchampignon	inat
+gbif:8365581	Slanke anijschampignon	inat
+gbif:5243392	Kwelderchampignon	inat
+gbif:5243447	Gekweekte champignon	inat
+gbif:8108291	Schubbige boschampignon	inat
+gbif:5243460	Bladhoopchampignon	inat
+gbif:8353373	Tandringchampignon	inat
+gbif:5243354	Kleine champignon	inat
+gbif:5456646	Kaschampignon	inat
+gbif:5243473	Fijnvezelige boschampignon	inat
+gbif:5243433	Bruine weidechampignon	inat
+gbif:5243489	Beurschampignon	inat
+gbif:5243507	Gordelchampignon	inat
+gbif:5243420	Panterchampignon	inat
+gbif:3336440	Grootsporige champignon	gbif
+gbif:5244571	Pruikzwam	inat
+gbif:5248508	Pruikzwam	inat
+gbif:5248532	Kammetjesstekelzwam	inat
+gbif:5248527	Koraalstekelzwam	gbif
+gbif:2594625	Tuinmorielje	inat
+gbif:5499531	Vingerhoedje	inat
+gbif:5238865	geschubde stekelzwam	gbif
+gbif:8936224	Voorjaarspronkridder	inat
+gbif:5242069	Vale schijnridderzwam	inat
+gbif:5242048	Paarse schijnridderzwam	gbif
+gbif:5242097	Vaalpaarse schijnridderzwam	gbif
+gbif:5242039	Bundelschijnridderzwam	inat
+gbif:5242058	Geurige schijnridderzwam	gbif
+gbif:2531146	Slanke trechterzwam	inat
+gbif:9186073	Grote trechterzwam	inat
+gbif:2530661	Rouwridderzwam	inat
+gbif:9173236	Bruine bundelridderzwam	inat
+gbif:2530640	Iepenzwam	inat
+gbif:9113338	Iepezwam	gbif
+gbif:8405404	Boleet	inat
+gbif:8250249	Geelnetboleet	inat
+gbif:7617313	Koningsboleet	inat
+gbif:7832732	Kastanjeboleet	inat
+gbif:2519413	Roodsteelfluweelboleet	inat
+gbif:2519224	Fluweelboleet	inat
+gbif:2519457	Fluweelboleet	inat
+gbif:7816100	Bruine fluweelboleet	inat
+gbif:2524910	Bittere boleet	inat
+gbif:9133361	Kaneelboleet	inat
+gbif:2524265	Indigoboleet	inat
+gbif:9225326	Geschubde boleet	inat
+gbif:2520104	Ruigsteelboleet	inat
+gbif:9141390	berkenboleet	inat
+gbif:2524513	Rosse populierboleet	inat
+gbif:2524503	Witte berkenboleet	inat
+gbif:2524490	Oranje berkenboleet	inat
+gbif:7596307	Roodschubbige ringboleet	inat
+gbif:5239846	Douglasboleet	inat
+gbif:8146046	Melkboleet	inat
+gbif:7777157	Bruine ringboleet	inat
+gbif:5239864	Gele ringboleet	inat
+gbif:5239925	Ivoorboleet	inat
+gbif:9104622	Valse melkboleet	inat
+gbif:5239851	Holsteelboleet	inat
+gbif:7623986	Koeienboleet	inat
+gbif:5239873	Grauwe ringboleet	inat
+gbif:9043861	Fijnschubbige boleet	inat
+gbif:2524218	Vezeltruffel	inat
+gbif:2524228	Bruine vezeltruffel	gbif
+gbif:2524248	Okerkleurige vezeltruffel	inat
+gbif:2551150	Vissige melkzwam	inat
+gbif:7719797	Gepeperde melkzwam	inat
+gbif:2551071	Schaapje	inat
+gbif:2551356	Roodvoetrussula	inat
+gbif:2551213	Braakrussula	inat
+gbif:2551254	Broze russula	inat
+gbif:2551542	regenboogrussula	inat
+gbif:2551201	Appelrussula	inat
+gbif:3359736	Bloedrode russula	inat
+gbif:2551173	Groene berkenrussula	inat
+gbif:2551479	Grauwstelige russula	inat
+gbif:2551457	Onsmakelijke kamrussula	inat
+gbif:2551299	Gele berkerussula	inat
+gbif:2551470	Zwartpurperen russula	inat
+gbif:2551443	Zwartwitte russula	inat
+gbif:2551415	Smakelijke russula	inat
+gbif:2551447	Stinkende russula	inat
+gbif:9561742	Gerimpelde russula	inat
+gbif:2551558	Purperrode russula	inat
+gbif:9223923	Rookrussula	inat
+gbif:2551191	Fijnplaatrussula	inat
+gbif:2551423	Ruwe russula	inat
+gbif:2551331	Witte russula	inat
+gbif:2551419	Geelwitte russula	inat
+gbif:8894724	Glanzende russula	gbif
+gbif:2551203	Bloedrode russula	gbif
+gbif:2551597	Vorkplaatrussula	inat
+gbif:2551274	Duivelsbroodrussula	inat
+gbif:2551392	Abrikozenrussula	inat
+gbif:2551426	Smalplaatrussula	inat
+gbif:9089269	Kleine berkenrussula	inat
+gbif:2551231	Paarsstelige pastelrussula	inat
+gbif:2551233	Pastelrussula	gbif
+gbif:2551504	Plompe russula	inat
+gbif:2551240	Potloodrussula	gbif
+gbif:2551176	Dwergrussula	inat
+gbif:8914748	Grote parasolzwam	inat
+gbif:2536733	Rafelige parasolzwam	inat
+gbif:2536707	Tepelparasolzwam	inat
+gbif:6005964	Amaniet	inat
+gbif:7496350	Parelamaniet	inat
+gbif:7765582	Roodbruine slanke amaniet	inat
+gbif:5240282	Saffraanamaniet	inat
+gbif:5240213	Prachtamaniet	inat
+gbif:5240269	Keizersamaniet	inat
+gbif:5240306	Grijze slanke amaniet	gbif
+gbif:5240292	Narcisamaniet	gbif
+gbif:2526826	Hertenzwam	inat
+gbif:7446067	Gewone hertenzwam	inat
+gbif:5241354	Zwartsnedehertenzwam	inat
+gbif:5241254	Oranjerode hertenzwam	inat
+gbif:5241259	Goudgele hertenzwam	inat
+gbif:5241314	Sneeuwwitte hertenzwam	inat
+gbif:2526677	Fopzwam	inat
+gbif:2530926	Gewone fopzwam	inat
+gbif:2530983	Amethistzwam	inat
+gbif:2530973	Tweekleurige fopzwam	inat
+gbif:2530966	Schubbige fopzwam	inat
+gbif:2529580	Waaiertje	inat
+gbif:5241128	Waaiertje	inat
+gbif:2526678	Taailing	inat
+gbif:2537250	Weidekringzwam	inat
+gbif:2526827	Fluweelpootjes	inat
+gbif:3341441	Gewoon fluweelpootje	inat
+gbif:5243258	Parelstuifzwam	inat
+gbif:5453425	Viltige stuifzwam	inat
+gbif:5243244	Afgeplatte Stuifzwam	inat
+gbif:5243243	Donkerbruine stuifzwam	inat
+gbif:5243279	Plooivoetstuifzwam	inat
+gbif:5243210	Zwartwordende stuifzwam	inat
+gbif:2535193	Loodgrijze bovist	inat
+gbif:2535211	Kleine bovist	inat
+gbif:10852503	Peervormige stuifzwam	inat
+gbif:2531072	Nevelzwam	inat
+gbif:2531124	Groene anijstrechterzwam	gbif
+gbif:9468011	fijnschubbige trechterzwam	gbif
+gbif:8691923	Molenaar	inat
+gbif:2539197	Grote molenaar	inat
+gbif:9072989	Biefstukzwam	inat
+gbif:2531012	Biefstukzwam	inat
+gbif:2594776	Schotelkluifzwam	inat
+gbif:2594756	Bokaalkluifzwam	inat
+gbif:2594716	Holsteelkluifzwam	inat
+gbif:2594765	Zwarte kluifzwam	inat
+gbif:2525706	Slijmkop	inat
+gbif:9053531	Ivoorzwam	inat
+gbif:2538788	Goudgerande slijmkop	inat
+gbif:2538807	Roze slijmkop	inat
+gbif:3344741	Purpervlekslijmkop	inat
+gbif:2538727	Amandelslijmkop	inat
+gbif:2538784	Sparrenslijmkop	inat
+gbif:2538774	Lorkenslijmkop	inat
+gbif:2538718	Droge slijmkop	inat
+gbif:2534578	Gewone glimmerinktzwam	inat
+gbif:2534625	Zwerminktzwam	inat
+gbif:7844497	Lila gordijnzwam	inat
+gbif:2529415	Meelkop	inat
+gbif:8802917	Armbandgordijnzwam	inat
+gbif:7476637	Blauwgegordelde gordijnzwam	inat
+gbif:12012261	Abrikoosgordijnzwam	inat
+gbif:2529531	Rode groenplaatgordijnzwam	gbif
+gbif:2528781	Witgegordelde gordijnzwam	gbif
+gbif:2529520	Bruine kleibosgordijnzwam	gbif
+gbif:5898337	veranderlijke gordijnzwam	gbif
+gbif:2530002	Satijnzwam	inat
+gbif:3345846	Harde voorjaarssatijnzwam	inat
+gbif:2539763	Blauwe molenaarssatijnzwam	inat
+gbif:2539389	Slanke voorjaarssatijnzwam	inat
+gbif:5238602	Beukenkoraalzwam	inat
+gbif:5238663	Fraaie koraalzwam	inat
+gbif:5238654	Gele koraalzwam	inat
+gbif:5238642	Goudgele koraalzwam	inat
+gbif:7486196	Bloemkoolzwam	inat
+gbif:5238688	Roodkleurende koraalzwam	inat
+gbif:8869949	Rechte koraalzwam	gbif
+gbif:2551823	Schapenbuisjeszwam	inat
+gbif:2524996	Koperrode spijkerzwam	inat
+gbif:2538864	Knotsvoettrechterzwam	inat
+gbif:12008655	Bleke franjehoed	inat
+gbif:5249883	Witte koraalzwam	inat
+gbif:5249808	Rimpelige koraalzwam	inat
+gbif:5249860	Asgrauwe koraalzwam	inat
+gbif:3345381	Sneeuwzwammetje	inat
+gbif:3291564	Weidewasplaat	inat
+gbif:7542962	Grootporiehoutzwam	inat
+gbif:9154166	Tijgertaaiplaat	inat
+gbif:2529999	Champignonparasol	inat
+gbif:2535875	Blanke champignonparasol	gbif
+gbif:2535788	Witschubbige parasolzwam	gbif
+gbif:9217873	Botercollybia	inat
+gbif:3321179	Rossige collybia	inat
+gbif:9091779	Knotszwammen	inat
+gbif:5244501	Wormvormige knotszwam	inat
+gbif:2521383	Reuzenknotszwam	inat
+gbif:2521401	Afgeknotte reuzenknotszwam	inat
+gbif:2521391	Reuzenknotszwam	gbif
+gbif:2531845	Ruitertjes	inat
+gbif:12092733	Scherpe collybia	inat
+gbif:11993337	Bundelcollybia	inat
+gbif:2525056	Aardster	inat
+gbif:2554367	Gekraagde aardster	gbif
+gbif:2554355	Gewimperde aardster	inat
+gbif:5258510	Voorjaarskluifzwam	inat
+gbif:5258509	bisschopsmuts	gbif
+gbif:2525560	Schijncantharel	inat
+gbif:2525710	Valse hanenkam	inat
+gbif:2527219	Gewoon elfenschermpje	inat
+gbif:4911710	Geelsnedemycena	inat
+gbif:2526010	Porseleinzwam	inat
+gbif:8689071	Trechtertaaiplaat	inat
+gbif:7648570	Ruige taaiplaat	gbif
+gbif:8156721	Rode kelkzwam	inat
+gbif:2550493	Kroontjesknotszwam	inat
+gbif:2523631	Doolhofzwam	inat
+gbif:2542395	Roodgerande houtzwam	inat
+gbif:2543474	Larikszwam	gbif
+gbif:12081600	Bruine bekerzwam	inat
+gbif:2529618	Veldridderzwam	inat
+gbif:5242142	Kale veldridderzwam	inat
+gbif:5242168	Kortstelige veldridderzwam	inat
+gbif:8849982	Streepsteelveldridderzwam	inat
+gbif:8191932	Blauwsteelgordijnzwam	inat
+gbif:2526774	Franjehoeden	inat
+gbif:2534836	Witsteelfranjehoed	inat
+gbif:9108597	okergele stropharia	gbif
+gbif:2527828	Leemhoed	inat
+gbif:9050242	Grasleemhoed	inat
+gbif:2533227	Moerasleemhoed	gbif
+gbif:9151391	Gelige leemhoed	inat
+gbif:8393417	populierleemhoed	gbif
+gbif:5243168	Groenspoorparasolzwam	inat
+gbif:5955395	Gewone knolparasolzwam	inat
+gbif:2607519	Rendiermossen	inat
+gbif:2607712	Kerststukjes-rendiermos	inat
+gbif:5242740	Grote kale inktzwam	inat
+gbif:5242754	Wortelende inktzwam	inat
+gbif:5242778	Kleine kale inktzwam	inat
+gbif:2527854	dennenvlamhoed	inat
+gbif:8972210	Elzenboleet	inat
+gbif:2528519	Vaalhoed	inat
+gbif:2533062	Tweekleurige vaalhoed	inat
+gbif:2523318	Wasplaten	inat
+gbif:2538595	Trechterwasplaat	inat
+gbif:2538524	Zwartwordende wasplaat	inat
+gbif:2538445	Scharlaken wasplaat	inat
+gbif:2538552	Granaatbloemwasplaat	inat
+gbif:3345253	Wantsenwasplaat	gbif
+gbif:2537903	Melkcollybia	inat
+gbif:2535536	Plooiparasol	inat
+gbif:2535581	Dikvoetplooiparasol	inat
+gbif:2540760	Reuzenzwam	inat
+gbif:2540761	Reuzenzwam	inat
+gbif:9129313	Schubbige taaiplaat	inat
+gbif:2548894	Harsige taaiplaat	inat
+gbif:2565599	Groot schildmos	inat
+gbif:2534102	Goudvliesbundelzwam	inat
+gbif:2534205	Schubbige bundelzwam	inat
+gbif:2534085	Goudvliesbundelzwam	inat
+gbif:9091857	Slijmerige blekerik	inat
+gbif:2534112	Witvlokkige bundelzwam	inat
+gbif:2534290	Japanse bundelzwam	inat
+gbif:5246840	Schermpjeseikhaas	inat
+gbif:2594999	kroonbekerzwam	inat
+gbif:2531603	Dikpootje	inat
+gbif:2519084	Elfenbankjes	inat
+gbif:2548311	Gewoon Elfenbankje	inat
+gbif:9227816	Vermiljoenhoutzwam	inat
+gbif:2548374	Gezoneerd elfenbankje	inat
+gbif:2600611	Navelmos	inat
+gbif:2533424	Rode zwavelkop	inat
+gbif:2513794	Franjezwam	inat
+gbif:2519220	Gesteelde lakzwam	gbif
+gbif:2549730	Gesteelde lakzwam	inat
+gbif:2533962	Stobbezwammetje	inat
+gbif:8329645	Gewone beurszwam	inat
+gbif:5243756	Gewoon eikenbladzwammetje	inat
+gbif:5243758	Spoelvoetcollybia	inat
+gbif:3314876	Grote stinkzwam	inat
+gbif:2524108	Gesluierde dame	gbif
+gbif:2523243	Stekeltrilzwam	inat
+gbif:5249353	Stekeltrilzwam	inat
+gbif:3355021	Netstelige heksenboleet	inat
+gbif:5258678	Grote oranje bekerzwam	inat
+gbif:2524936	Aardappelbovist	inat
+gbif:5239982	Gele aardappelbovist	inat
+gbif:5239959	Wortelende aardappelbovist	inat
+gbif:2532720	Reuzendikhoed	inat
+gbif:5239766	Weerhuisje	inat
+gbif:9156243	Peperboleet	inat
+gbif:8114489	Kale bundelcollybia	inat
+gbif:5243011	Spitsschubbige parasolzwam	inat
+gbif:2525027	Slijmige spijkerzwam	inat
+gbif:2525039	Lariksspijkerzwam	inat
+gbif:2537081	Porseleinzwam	gbif
+gbif:2537417	Knoflooktaailing	inat
+gbif:2537418	Kale knoflooktaailing	inat
+gbif:11011338	Groene schelpzwam	inat
+gbif:2531807	Houtridderzwam	inat
+gbif:9056826	Gele houtridderzwam	inat
+gbif:2531814	Koningsmantel	inat
+gbif:8399317	Boleet	inat
+gbif:8203051	Pronksteelboleet	inat
+gbif:7550396	Wortelende boleet	inat
+gbif:2512968	Hoorntje	inat
+gbif:2512969	Geel hoorntje	inat
+gbif:9134585	Kleverig koraalzwammetje	inat
+gbif:2526680	Oorzwammetje	inat
+gbif:5240984	Gestreept oorzwammetje	inat
+gbif:5240943	Week oorzwammetje	inat
+gbif:2526255	Harpoenzwam	inat
+gbif:2526256	Grote harpoenzwam	inat
+gbif:7686337	Dadelfranjehoed	inat
+gbif:8060178	Rode boleet	inat
+gbif:5242798	Tranende franjehoed	inat
+gbif:9227295	Druppelparasolzwam	inat
+gbif:2535486	Geelbruine wolsteelparasolzwam	inat
+gbif:2535456	Bosparasolzwam	inat
+gbif:2530576	Houttrechterzwam	inat
+gbif:2530577	Fraaie houttrechterzwam	inat
+gbif:5240002	Gewone krulzoom	inat
+gbif:2533347	Blauwplaatstropharia	inat
+gbif:7693097	Zwartvoetkrulzoom	inat
+gbif:12054660	Purperen gordijnzwam	inat
+gbif:2524832	Houtboleet	inat
+gbif:2523874	Papierzwammetje	inat
+gbif:2532393	Vorkplaat	inat
+gbif:2532395	Grijze vorkplaat	inat
+gbif:9400640	waaierbuisjeszwam	inat
+gbif:2521976	Knotszwammen	inat
+gbif:5244486	Bundelknotszwam	inat
+gbif:9117445	Gele knotszwam	inat
+gbif:2542720	Noordelijke buisjeszwam	inat
+gbif:2523508	Korsttrechtertje	inat
+gbif:7451789	Korrelhoed	inat
+gbif:5243525	Okergele korrelhoed	inat
+gbif:2512921	Variabele druppelzwam	inat
+gbif:3214437	Kalkkussen	inat
+gbif:5426027	Heksenboter	inat
+gbif:2522021	Sponstruffel	inat
+gbif:3345400	Papegaaizwammetje	inat
+gbif:3304469	Slijmwasplaat	inat
+gbif:8097905	Grauwe wasplaat	inat
+gbif:10523914	Spateltrilzwam	inat
+gbif:8824388	Spateltrilzwam	inat
+gbif:2593397	Rosse doolhoftruffel	inat
+gbif:2532154	Zaagplaat	inat
+gbif:2550371	Bruine anijszwam	inat
+gbif:8189348	Witte bundelridderzwam	inat
+gbif:2526024	Kleefparasol	inat
+gbif:9793586	Tengere kleefparasol	inat
+gbif:2537688	Streephoed	inat
+gbif:2537689	Breedplaatstreephoed	inat
+gbif:2536181	Lederster	inat
+gbif:2536182	Lederster	inat
+gbif:9128195	Gewoon varkensoor	inat
+gbif:5259242	Vroege bekerzwam	inat
+gbif:2528493	Egelzwammetje	inat
+gbif:9645698	Bruine trilzwam	inat
+gbif:7562246	Blozende stekelzwam	inat
+gbif:2521975	Takmos	inat
+gbif:8815567	Boomkussen	inat
+gbif:5425828	Zilveren boomkussen	inat
+gbif:9756029	Grondkorstzwam	inat
+gbif:2530818	Gladsporig pekzwammetje	gbif
+gbif:9055239	Blanke pronkridder	inat
+gbif:2536794	Wortelzwam	inat
+gbif:10691289	Witte kleefparasol	inat
+gbif:2521376	Schijnboleet	inat
+gbif:5238896	Grijze schijnboleet	inat
