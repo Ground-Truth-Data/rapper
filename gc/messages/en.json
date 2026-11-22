@@ -31,5 +31,32 @@
 	"gc_form_section": "Section {n} of {total}",
 	"gc_form_stamp_on_save": "Your location is stamped when you save",
 	"gc_form_gps_stamped": "GPS stamped",
-	"gc_form_not_in_contacts": "someone not in your contacts"
+	"gc_form_not_in_contacts": "someone not in your contacts",
+	"gc_form_search_contacts": "Search your contacts",
+	"gc_form_photo_where": "Where this photo is kept",
+	"gc_form_photo_note": "Only on this phone until you send it.",
+	"gc_form_opening": "Opening the form…",
+	"gc_plugin_untitled": "Untitled",
+	"gc_plugin_not_published": "not published",
+	"gc_plugin_replaced_by": "Replaced by {title}",
+	"gc_plugin_created": "Created {date}",
+	"gc_plugin_last_submitted": "Last submitted {when}",
+	"gc_plugin_fill_out": "Fill out",
+	"gc_plugin_fill_out_named": "Fill out {title}",
+	"gc_plugin_show_submissions": "Show submissions",
+	"gc_plugin_hide_submissions": "Hide submissions",
+	"gc_plugin_questions": [
+		{
+			"declarations": ["input count", "input shown", "local countPlural = count: plural"],
+			"selectors": ["countPlural"],
+			"match": { "countPlural=one": "{shown} question", "countPlural=*": "{shown} questions" }
+		}
+	],
+	"gc_plugin_submissions": [
+		{
+			"declarations": ["input count", "input shown", "local countPlural = count: plural"],
+			"selectors": ["countPlural"],
+			"match": { "countPlural=one": "{shown} submission", "countPlural=*": "{shown} submissions" }
+		}
+	]
 }

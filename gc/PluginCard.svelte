@@ -24,6 +24,8 @@
 	import IdentityPill from "./IdentityPill.svelte";
 	import RowShell from "./RowShell.svelte";
 	import { ago } from "./ago";
+	import { m as t } from "$parent/src/lib/paraglide/messages";
+	import { getLocale } from "$parent/src/lib/paraglide/runtime";
 
 	let { card, href, go, fold }: { card: PluginCardData; href: string; go: (href: string) => void; fold?: { open: boolean; toggle: () => void } } = $props();
 
@@ -34,13 +36,15 @@
 		pressing = key;
 		setTimeout(() => ((pressing = null), act()), 1000);
 	}
-	const created = (iso: string) => new Date(iso).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" });
-	const saved = (iso: string) => new Date(iso).toLocaleString(undefined, { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
-	const plural = (n: number, one: string) => `${n.toLocaleString("en-US")} ${n === 1 ? one : `${one}s`}`;
+	const created = (iso: string) => new Date(iso).toLocaleDateString(getLocale(), { day: "numeric", month: "short", year: "numeric" });
+	const saved = (iso: string) => new Date(iso).toLocaleString(getLocale(), { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
+	const num = (n: number) => n.toLocaleString(getLocale());
+	const submissions = (n: number) => t.gc_plugin_submissions({ count: n, shown: num(n) });
+	const title = $derived(card.title || t.gc_plugin_untitled());
 </script>
 
 <div class="split" class:whole={!fold}>
-	<RowShell title={card.title || "Untitled"} tier="top">
+	<RowShell {title} tier="top">
 		{#snippet lead()}
 			{#if fold}
 				<span class="rt-row__fold" class:rt-row__fold--shut={!fold.open} class:none={!card.answers}
@@ -55,7 +59,7 @@
 					class:pressed={pressing === "fold"}
 					role="button"
 					tabindex="0"
-					aria-label={fold.open ? "Hide submissions" : "Show submissions"}
+					aria-label={fold.open ? t.gc_plugin_hide_submissions() : t.gc_plugin_show_submissions()}
 					aria-expanded={fold.open}
 					aria-disabled={!card.answers}
 					onclick={(e) => (e.stopPropagation(), card.answers && press("fold", fold.toggle))}
@@ -68,35 +72,35 @@
 				class:pressed={pressing === "open"}
 				{href}
 				draggable="false"
-				aria-label="Fill out {card.title || 'Untitled'}"
+				aria-label={t.gc_plugin_fill_out_named({ title })}
 				onclick={(e) => (e.preventDefault(), e.stopPropagation(), press("open", () => go(href)))}
 				data-open
 			></a>
 		{/snippet}
 		{#snippet glyph()}
 			<img src={card.icon} alt="" crossorigin="anonymous" class="rt-row__glyph-img" class:grey={card.past} />
-			{#if card.answers}<span class="rt-count-badge" aria-label={plural(card.answers, "submission")} data-answers>{card.answers.toLocaleString("en-US")}</span>{/if}
+			{#if card.answers}<span class="rt-count-badge" aria-label={submissions(card.answers)} data-answers>{num(card.answers)}</span>{/if}
 		{/snippet}
 		{#snippet subtitle()}
-			{#if !card.created}<span class="rt-row__badge unpublished" data-unpublished>not published</span>{/if}
-			<span class="questions" data-questions>{plural(card.questions, "question")}</span>
+			{#if !card.created}<span class="rt-row__badge unpublished" data-unpublished>{t.gc_plugin_not_published()}</span>{/if}
+			<span class="questions" data-questions>{t.gc_plugin_questions({ count: card.questions, shown: num(card.questions) })}</span>
 			{#if card.replacedBy}
 				{@const to = card.replacedBy.href}
 				<!-- A span, not a link: the row is a button, and this sits above its tap zones. -->
 				<span class="replaced" role="link" tabindex="0" onclick={(e) => (e.stopPropagation(), go(to))} onkeydown={(e) => e.key === "Enter" && go(to)} data-replaced-by
-					>Replaced by {card.replacedBy.title || "Untitled"}</span
+					>{t.gc_plugin_replaced_by({ title: card.replacedBy.title || t.gc_plugin_untitled() })}</span
 				>
 			{/if}
 		{/snippet}
 		<span class="foot" data-foot>
 			<span class="facts"
-				><IdentityPill who={card.maker} />{#if card.created}<span class="fact" data-created>· Created {created(card.created)}</span><span class="fact" data-submissions
-						>· {plural(card.answers, "submission")}</span
-					>{/if}{#if card.lastAt}<span class="fact last" title="Last submitted {saved(card.lastAt)}" data-last>· {ago(card.lastAt)}</span>{/if}</span
+				><IdentityPill who={card.maker} />{#if card.created}<span class="fact" data-created>· {t.gc_plugin_created({ date: created(card.created) })}</span><span class="fact" data-submissions
+						>· {submissions(card.answers)}</span
+					>{/if}{#if card.lastAt}<span class="fact last" title={t.gc_plugin_last_submitted({ when: saved(card.lastAt) })} data-last>· {ago(card.lastAt)}</span>{/if}</span
 			>
 		</span>
 		{#snippet end()}
-			<span class="end" aria-hidden="true"><span class="fill-label">Fill out</span><span class="rt-row__cell rt-row__cell--chevron"><GoChevron /></span></span>
+			<span class="end" aria-hidden="true"><span class="fill-label">{t.gc_plugin_fill_out()}</span><span class="rt-row__cell rt-row__cell--chevron"><GoChevron /></span></span>
 		{/snippet}
 	</RowShell>
 </div>

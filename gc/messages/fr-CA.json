@@ -31,5 +31,32 @@
 	"gc_form_section": "Section {n} sur {total}",
 	"gc_form_stamp_on_save": "Votre position est notée à l'enregistrement",
 	"gc_form_gps_stamped": "Position GPS notée",
-	"gc_form_not_in_contacts": "quelqu'un hors de vos contacts"
+	"gc_form_not_in_contacts": "quelqu'un hors de vos contacts",
+	"gc_form_search_contacts": "Chercher dans vos contacts",
+	"gc_form_photo_where": "Où cette photo est gardée",
+	"gc_form_photo_note": "Seulement sur ce téléphone jusqu'à ce que vous l'envoyiez.",
+	"gc_form_opening": "Ouverture du formulaire…",
+	"gc_plugin_untitled": "Sans titre",
+	"gc_plugin_not_published": "non publié",
+	"gc_plugin_replaced_by": "Remplacé par {title}",
+	"gc_plugin_created": "Créé le {date}",
+	"gc_plugin_last_submitted": "Dernière réponse {when}",
+	"gc_plugin_fill_out": "Remplir",
+	"gc_plugin_fill_out_named": "Remplir {title}",
+	"gc_plugin_show_submissions": "Afficher les réponses",
+	"gc_plugin_hide_submissions": "Masquer les réponses",
+	"gc_plugin_questions": [
+		{
+			"declarations": ["input count", "input shown", "local countPlural = count: plural"],
+			"selectors": ["countPlural"],
+			"match": { "countPlural=one": "{shown} question", "countPlural=*": "{shown} questions" }
+		}
+	],
+	"gc_plugin_submissions": [
+		{
+			"declarations": ["input count", "input shown", "local countPlural = count: plural"],
+			"selectors": ["countPlural"],
+			"match": { "countPlural=one": "{shown} réponse", "countPlural=*": "{shown} réponses" }
+		}
+	]
 }
