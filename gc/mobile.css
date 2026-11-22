@@ -614,7 +614,8 @@ hr {
 			.rw,
 			.fault-card,
 			.fault-card--usual,
-			.bags-img-label
+			.bags-img-label,
+			.hrow
 		):hover {
 		background-color: color-mix(in srgb, var(--rt-yellow) 30%, transparent);
 		outline: 3px solid color-mix(in srgb, currentColor 9%, transparent);
