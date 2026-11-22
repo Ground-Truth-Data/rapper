@@ -37,7 +37,7 @@
 		"@testing-library/svelte": "^5.4.2",
 		"@types/node": "^24.8.1",
 		"happy-dom": "^21.0.4",
-		"svelte": "^5.57.0",
+		"svelte": "^5.57.3",
 		"svelte-check": "^4.1.4",
 		"tailwindcss": "^4.3.3",
 		"tailwindcss-animate": "^1.0.7",
