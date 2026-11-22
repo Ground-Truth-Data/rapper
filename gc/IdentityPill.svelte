@@ -21,7 +21,8 @@ let {
 const same = (a: Identity, b: Identity) => (a.self && b.self) || (a.key || b.key ? a.key === b.key : a.label === b.label);
 const marks = $derived.by(() => {
     const all = clobberBy && !editors.some((e) => same(e, clobberBy)) ? [clobberBy, ...editors] : [...editors];
-    return all.sort((a, b) => Number(same(b, who)) - Number(same(a, who)));
+    // A nameless author is no one (a file the old map import signed with): no pill, no pen.
+    return all.filter((e) => e.label).sort((a, b) => Number(same(b, who)) - Number(same(a, who)));
 });
 
 // A name cut short by its cell reads whole on a tap, in place; the tap is the pill's, not the row's under it.
@@ -46,7 +47,7 @@ function read(e: MouseEvent, label: string) {
     style:--id-c={p.color || null}
     title={p.label}>{label}</span
 >{/snippet}
-{#if !marks.some((e) => same(e, who))}{@render own(who)}{/if}
+{#if who.label && !marks.some((e) => same(e, who))}{@render own(who)}{/if}
 {#each marks as e (e.key ?? e.label)}
     {@const hammer = !!clobberBy && same(e, clobberBy)}
     <span class="id-mark" title={hammer ? m.gc_edit_replaced() : m.gc_edited_since_made()}

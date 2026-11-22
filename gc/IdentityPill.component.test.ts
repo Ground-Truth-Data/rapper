@@ -36,4 +36,12 @@ describe("IdentityPill", () => {
 		expect(c.querySelectorAll(".id-pill")).toHaveLength(1);
 		expect(c.querySelector(".id-pill")!.textContent).toBe("Me");
 	});
+
+	it("a nameless author draws nothing: no blank pill, no pen", () => {
+		const none = { label: "", color: "", self: false, picked: false };
+		expect(render(IdentityPill, { who: none }).container.querySelectorAll(".id-pill, .id-mark")).toHaveLength(0);
+		const c = render(IdentityPill, { who: pete, editors: [none] }).container;
+		expect([...c.querySelectorAll(".id-pill")].map((p) => p.textContent)).toEqual(["Pete"]);
+		expect(c.querySelector(".id-mark")).toBeNull();
+	});
 });
