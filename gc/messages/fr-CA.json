@@ -7,6 +7,7 @@
 	"gc_privacy_policy": "Politique de confidentialité",
 	"gc_search_clear": "Effacer",
 	"gc_edit_replaced": "Votre modification a été remplacée",
+	"gc_failed_try_again": "Ça n’a pas marché — réessayez",
 	"gc_edited_since_made": "Modifié depuis sa création",
 	"gc_mapbox_attribution_toggle": "Afficher ou masquer les crédits",
 	"gc_mapbox_fullscreen_enter": "Plein écran",

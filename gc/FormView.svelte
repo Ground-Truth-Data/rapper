@@ -5,6 +5,7 @@
 	import IdentityPill from './IdentityPill.svelte';
 	import Icon from './Icon.svelte';
 	import { loadSurvey } from './formSurvey';
+	import { plainly } from './plainly';
 	import arrow from '$rig/assets/arrowIconGold.webp';
 	import { m as t } from '$parent/src/lib/paraglide/messages';
 	import { getLocale } from '$parent/src/lib/paraglide/runtime';
@@ -68,7 +69,7 @@
 			path = from?.path.length ? from.path : [0];
 			opened = JSON.stringify({ data: m.data, path });
 			tick++;
-		}, (e) => (failed = e.message));
+		}, (e) => (failed = plainly('forms:open', e, t.gc_failed_try_again())));
 	});
 	// A form as it opened is not a change: an untouched one never becomes a draft.
 	let opened = '';
