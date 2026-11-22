@@ -1,0 +1,34 @@
+/* A quality plot's black-and-gold number plate: the map's plot pin, and the plot drawer's map preview. */
+.map-pin-marker.map-pin-plot {
+	/* DO NOT set position here — this selector's specificity (0,2,0) would
+	   override the renderer's own `.maplibregl-marker` (0,1,0) positioning and made
+	   the pin drift across the map on zoom. `.map-pin-plot__inner` is the
+	   status-dot cluster's positioning context instead. */
+	width: auto;
+	height: auto;
+	min-width: 17px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1.5px 5px;
+	background: #1a1a1a;
+	border: 1.25px solid #ffd700;
+	border-radius: 5.5px;
+	box-sizing: border-box;
+	overflow: visible;
+}
+.map-pin-plot .map-pin-plot__inner {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+.map-pin-plot__num {
+	font-family: sans-serif, sans-serif;
+	font-size: 10.5px;
+	font-weight: 700;
+	line-height: 1;
+	color: #ffd700;
+	pointer-events: none;
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.9);
+}
