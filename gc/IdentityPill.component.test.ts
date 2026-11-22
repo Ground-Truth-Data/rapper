@@ -21,19 +21,19 @@ describe("IdentityPill", () => {
 	});
 
 	it("a clobber is a hammer half joined to the editor's own pill, in their colour", () => {
-		const c = render(IdentityPill, { who: pete, editors: [{ who: pete, count: 2 }], clobberBy: pete }).container;
+		const c = render(IdentityPill, { who: pete, editors: [pete], clobberBy: pete }).container;
 		expect(c.querySelector(".id-mark-half--hammer")).not.toBeNull();
 		const pill = c.querySelector(".id-mark .id-pill")!;
-		expect(pill.textContent).toMatch(/^Pete\s×2$/);
+		expect(pill.textContent).toBe("Pete");
 		expect(pill.classList.contains("id-pill--picked")).toBe(true);
 		expect(c.querySelectorAll(".id-pill")).toHaveLength(1);
 	});
 
-	it("an owner who edited is one joined pen pill and its count, never two pills", () => {
-		const c = render(IdentityPill, { who: me, editors: [{ who: me, count: 3 }] }).container;
+	it("an owner who edited is one joined pen pill, never two, and never a count", () => {
+		const c = render(IdentityPill, { who: me, editors: [me] }).container;
 		expect(c.querySelector(".id-mark-half")).not.toBeNull();
 		expect(c.querySelector(".id-mark-half--hammer")).toBeNull();
 		expect(c.querySelectorAll(".id-pill")).toHaveLength(1);
-		expect(c.querySelector(".id-pill")!.textContent).toMatch(/^Me\s×3$/);
+		expect(c.querySelector(".id-pill")!.textContent).toBe("Me");
 	});
 });
