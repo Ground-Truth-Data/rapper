@@ -20,6 +20,7 @@
 <script lang="ts">
 import type { Snippet } from "svelte";
 import IdentityPill, { type Identity } from "$gc/IdentityPill.svelte";
+import SharedPill from "$gc/SharedPill.svelte";
 import Icon from "$gc/Icon.svelte";
 import Plaque from "./Plaque.svelte";
 
@@ -33,6 +34,8 @@ const {
 	clobberBy = null,
 	onMarks,
 	chip,
+	shared = null,
+	onShared,
 	trail,
 	onclick,
 	empty = false,
@@ -57,6 +60,9 @@ const {
 	onMarks?: () => void;
 	/** Sits after the date: the survey's shovel and planters. */
 	chip?: Snippet;
+	/** Shared by link, as the inbox row shows it: right of the owner. */
+	shared?: { n: number } | { via: string } | null;
+	onShared?: () => void;
 	/** Pushed to the far right of the meta line: the item's figure (trees, length, area). */
 	trail?: Snippet;
 	onclick?: (e: MouseEvent) => void;
@@ -95,7 +101,7 @@ function fit(el: HTMLElement, _label: string) {
 		{/if}
 		{#if onclick && !caret}<span class="name-tag-pen"><Icon name="pen" size={14} /></span>{/if}
 	</Plaque>
-	{#if date || who || chip || trail}
+	{#if date || who || chip || shared || trail}
 		<div class="name-tag-foot">
 			{#if date}<span class="name-tag-date">{date}</span>{/if}
 			{#if chip}{@render chip()}{/if}
@@ -103,6 +109,7 @@ function fit(el: HTMLElement, _label: string) {
 				{#if onMarks && (editors.length || clobberBy)}<button type="button" class="name-tag-marks" onclick={(e) => (e.stopPropagation(), onMarks())}><IdentityPill {who} {editors} {clobberBy} /></button>
 				{:else}<IdentityPill {who} {editors} {clobberBy} />{/if}
 			{/if}
+			{#if shared}<SharedPill {shared} onclick={onShared} />{/if}
 			{#if trail}<span class="name-tag-figure">{@render trail()}</span>{/if}
 		</div>
 	{/if}
