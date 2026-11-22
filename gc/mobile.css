@@ -420,8 +420,11 @@ hr {
 	border-radius: 99px;
 }
 
+/* A header row's title takes the room its buttons leave, never narrower than a word. */
 .rt-popover-title {
 	display: block;
+	flex: 1 1 auto;
+	min-width: min-content;
 	color: var(--rt-yellow);
 	font-family: var(--rt-font-display), sans-serif;
 	font-size: 1.15rem;
@@ -439,7 +442,7 @@ hr {
 .rt-popover-close,
 .rt-fire-popup .maplibregl-popup-close-button,
 .rt-hospital-popup .maplibregl-popup-close-button {
-	border: 2px solid #f2f3ea;
+	border: 1.5px solid #f2f3ea;
 	background:
 		url('$gc/assets/x_close_white.webp') center / 62% 62% no-repeat,
 		rgba(0, 0, 0, 0.28);
@@ -454,8 +457,8 @@ hr {
 }
 .rt-popover-close {
 	flex: 0 0 auto;
-	width: 30px;
-	height: 30px;
+	width: 28px;
+	height: 28px;
 	line-height: 1;
 	cursor: pointer;
 	display: flex;
@@ -469,7 +472,7 @@ hr {
 	display: none;
 }
 
-/* The header icon button: share, delete, close all share the box. */
+/* The header icon button: share, delete, close all share the box (.rt-popover-close matches it). */
 .rt-icon-btn {
 	flex: 0 0 auto;
 	width: 28px;
