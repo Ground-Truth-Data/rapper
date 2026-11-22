@@ -205,7 +205,7 @@
 			{#if v.description}<span class="muted">{v.description}</span>{/if}
 			{#if persons.has(v.q.name)}
 				{@const q = (find[v.q.id] ?? '').trim().toLowerCase()}
-				<input type="search" aria-label={v.title} placeholder="Search your contacts" bind:value={find[v.q.id]} />
+				<input type="search" aria-label={v.title} placeholder={t.gc_form_search_contacts()} bind:value={find[v.q.id]} />
 				<div class="people" data-people>
 					{#each people.filter((p) => !q || p.name.toLowerCase().includes(q)) as p (p.key)}
 						<button type="button" class="person" class:on={p.key === v.value} aria-pressed={p.key === v.value} onclick={() => set(v.q, p.key === v.value ? '' : p.key)} data-person={p.key}
@@ -247,9 +247,9 @@
 						>
 					{/if}
 				</label>
-				<button type="button" class="info" aria-label="Where this photo is kept" aria-expanded={!!told[v.q.id]} onclick={() => (told[v.q.id] = !told[v.q.id])} data-photo-info>i</button>
+				<button type="button" class="info" aria-label={t.gc_form_photo_where()} aria-expanded={!!told[v.q.id]} onclick={() => (told[v.q.id] = !told[v.q.id])} data-photo-info>i</button>
 				</div>
-				{#if told[v.q.id]}<span class="muted" data-photo-note>Only on this phone until you send it.</span>{/if}
+				{#if told[v.q.id]}<span class="muted" data-photo-note>{t.gc_form_photo_note()}</span>{/if}
 			{:else if v.type === 'paneldynamic'}
 				{#each v.panels as entry, i (entry.p.id)}
 					{@const shown = isOpen(entry, i, v.panels.length)}
@@ -283,7 +283,7 @@
 {#if failed}
 	<p class="muted">{failed}</p>
 {:else if !model || !page}
-	<p class="muted">Opening the form…</p>
+	<p class="muted">{t.gc_form_opening()}</p>
 {:else}
 	<form class="form" onsubmit={go} novalidate data-form>
 		{#if pages.length > 1}
