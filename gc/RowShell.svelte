@@ -254,13 +254,12 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
         flex: none;
         margin-left: auto;
         text-align: right;
-        font-family: var(--rt-font-body);
+        font-family: var(--rt-font-meta);
         font-size: 0.66rem;
         font-weight: 600;
-        color: var(--rt-row-when);
+        color: var(--rust);
         white-space: nowrap;
     }
-    .rt-row__when--fresh { color: var(--rt-row-when-fresh); }
     .rt-row__when--missing { color: var(--rt-row-sep); }
     /* Visually hidden, still read by screen readers. */
     .rt-row__sr {

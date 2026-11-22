@@ -97,7 +97,7 @@ function fit(el: HTMLElement, _label: string) {
 	</Plaque>
 	{#if date || who || chip || trail}
 		<div class="name-tag-foot">
-			{#if date}<span>{date}</span>{/if}
+			{#if date}<span class="name-tag-date">{date}</span>{/if}
 			{#if chip}{@render chip()}{/if}
 			{#if who}
 				{#if onMarks && (editors.length || clobberBy)}<button type="button" class="name-tag-marks" onclick={(e) => (e.stopPropagation(), onMarks())}><IdentityPill {who} {editors} {clobberBy} /></button>
@@ -164,6 +164,9 @@ function fit(el: HTMLElement, _label: string) {
 		line-height: 1;
 		color: var(--rt-fg);
 		white-space: nowrap;
+	}
+	.name-tag-date {
+		color: var(--rust);
 	}
 	.name-tag-foot :global(.id-pill) {
 		max-width: 96px;
