@@ -76,11 +76,11 @@ const AC_PER_MI2 = 640;
 
 const num = (n: number, d = 0) =>
 	n.toLocaleString(getLocale(), { minimumFractionDigits: d, maximumFractionDigits: d });
-// Fewer decimals as the number grows: 3.42 km, 15.6 km, 156 km · 0.42 ha, 3.1 ha, 156 ha.
-const scaled = (n: number) => num(n, n < 10 ? 2 : n < 100 ? 1 : 0);
+// 4.7 km, 12 km · 0.42 ha, 3.1 ha, 156 ha.
+const scaled = (n: number) => num(n, n < 10 ? 1 : 0);
 const scaledArea = (n: number) => num(n, n < 1 ? 2 : n < 10 ? 1 : 0);
 
-/** "847 m" / "3.42 km" or "560 ft" / "1.25 mi". */
+/** "847 m" / "4.7 km" / "12 km" or "560 ft" / "1.3 mi". The one spelling of every distance. */
 export function formatLength(metres: number): string {
 	if (value === "imperial") {
 		const mi = metres / M_PER_MI;

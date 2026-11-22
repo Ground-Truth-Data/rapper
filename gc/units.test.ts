@@ -13,8 +13,10 @@ describe("units", () => {
 	it("metric: m then km, m² then ha then km²", () => {
 		distance.value = "metric";
 		expect(formatLength(847.4)).toBe("847 m");
-		expect(formatLength(3420)).toBe("3.42 km");
+		expect(formatLength(3420)).toBe("3.4 km");
+		expect(formatLength(12_400)).toBe("12 km");
 		expect(formatLength(156_000)).toBe("156 km");
+		expect(formatLength(1_234_400)).toBe("1,234 km");
 		expect(formatArea(500)).toBe("500 m²");
 		expect(formatArea(31_000)).toBe("3.1 ha");
 		expect(formatArea(4200)).toBe("0.42 ha");
@@ -28,7 +30,8 @@ describe("units", () => {
 		areaUnit.value = "ac";
 		expect(distance.value).toBe("imperial");
 		expect(formatLength(100)).toBe("328 ft");
-		expect(formatLength(2011.68)).toBe("1.25 mi");
+		expect(formatLength(2011.68)).toBe("1.3 mi");
+		expect(formatLength(19_312)).toBe("12 mi");
 		expect(formatArea(300)).toBe("3,229 ft²");
 		expect(formatArea(31_160)).toBe("7.7 ac");
 		expect(formatArea(1.2e9)).toBe("463 mi²");
