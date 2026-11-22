@@ -1,10 +1,12 @@
 /** The build stops when a path climbs out of its repo, a child reaches outside itself, or an import's case is wrong. */
 
-import { existsSync, mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { pathToFileURL } from "node:url";
 import { beforeAll, expect, test } from "vitest";
 import { noEscapeHatch } from "./noEscapePlugin";
+import { workspaceRoot } from "./workspaceRoot";
 
 // A workspace: a parent repo, a child (it has lib/), and a package.
 let ws: string;
@@ -55,4 +57,27 @@ test.skipIf(!existsSync(tmpdir().toUpperCase()))("an import whose case differs f
 	expect(() => resolve("./shared.ts", a())).toThrow("IMPORT CASE DOES NOT MATCH DISK");
 	expect(() => resolve("./shared.ts?url", a())).toThrow("IMPORT CASE DOES NOT MATCH DISK");
 	expect(resolve("./Shared.ts", a())).toBeNull();
+});
+
+// A tab's worktree (`fetch/.wt/<tab>/<tier>`) links the siblings into the live workspace, and vite hands the guard
+// their real paths, so the guard must be given the workspace a config finds by search, not by its own position.
+test("a tab worktree's linked sibling may import itself; a child cloned alone still may not climb out", () => {
+	const fetch = mkdtempSync(join(tmpdir(), "noescape-tab-"));
+	writeFileSync(join(fetch, "package.json"), JSON.stringify({ workspaces: ["tier", "sib"] }));
+	for (const p of ["sib/lib/a.ts", "sib/lib/b.ts", "tier/src/x.ts", ".wt/t/tier/src/x.ts"]) {
+		mkdirSync(join(fetch, p, ".."), { recursive: true });
+		writeFileSync(join(fetch, p), "");
+	}
+	symlinkSync(join(fetch, "sib"), join(fetch, ".wt/t/sib"));
+	const tab = noEscapeHatch(workspaceRoot(pathToFileURL(join(fetch, ".wt/t/tier/vite.config.ts")).href));
+	const inTab = (source: string, importer: string) => (tab.resolveId as (s: string, i?: string) => unknown)(source, importer);
+	expect(inTab("./b.ts", join(fetch, "sib/lib/a.ts"))).toBeNull();
+	expect(inTab("../../sib/lib/a.ts", join(fetch, ".wt/t/tier/src/x.ts"))).toBeNull();
+
+	const alone = mkdtempSync(join(tmpdir(), "noescape-alone-"));
+	mkdirSync(join(alone, "child/lib"), { recursive: true });
+	const lone = noEscapeHatch(alone);
+	expect(() => (lone.resolveId as (s: string, i?: string) => unknown)("../../outside.ts", join(alone, "child/lib/x.ts"))).toThrow(
+		"A CHILD REACHED OUTSIDE ITSELF",
+	);
 });
