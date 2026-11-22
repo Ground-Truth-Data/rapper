@@ -464,16 +464,16 @@ hr {
 	display: none;
 }
 
-/* The 30px header icon button: share, delete, close all share the box. */
+/* The header icon button: share, delete, close all share the box. */
 .rt-icon-btn {
 	flex: 0 0 auto;
-	width: 30px;
-	height: 30px;
+	width: 28px;
+	height: 28px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	background: rgba(0, 0, 0, 0.28);
-	border: 2px solid var(--rt-border-subtle);
+	border: 1.5px solid var(--rt-border-subtle);
 	border-radius: 10px;
 	color: var(--rt-fg-muted);
 	cursor: pointer;
@@ -501,7 +501,7 @@ hr {
 }
 .rt-icon-btn--truck {
 	width: auto;
-	padding: 0 4px;
+	padding: 0 2px;
 	margin-left: auto;
 	border-color: var(--rt-yellow);
 }
