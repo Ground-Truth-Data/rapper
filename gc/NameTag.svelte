@@ -1,0 +1,149 @@
+<!--
+  NameTag — a title as every sheet and popover draws it: the name alone in the
+  steel plaque, the YYMMDD date and the owner's pill on the line beneath it,
+  OUTSIDE the plaque. The plaque is the tap target for renaming; the date and
+  the owner are facts about the row, not part of its name.
+
+  It FORMATS NOTHING. `date` arrives as six digits, minted from the row's
+  `createdAt` by `naming.ts` `dateTag`.
+
+  It WRITES NOTHING. `onclick` opens the caller's drawer; the caller owns the
+  store write.
+
+  An empty name renders as a DASH, not as nothing: a dash reads as an empty
+  slot and asks to be filled.
+
+  WHITE, not gold. Gold means "this is the commit"; a name is not a commit.
+
+  A long NAME steps down one size, then wraps; it is never cut.
+-->
+<script lang="ts">
+import type { Snippet } from "svelte";
+import IdentityPill, { type Identity } from "$gc/IdentityPill.svelte";
+import Icon from "$gc/Icon.svelte";
+import Plaque from "./Plaque.svelte";
+
+const {
+	name = "",
+	date = "",
+	placeholder = "—",
+	who,
+	editors = [],
+	clobberBy = null,
+	onMarks,
+	chip,
+	trail,
+	onclick,
+	empty = false,
+	caret = false,
+	dataPlaque,
+	ariaLabel,
+}: {
+	name?: string;
+	/** Six digits, YYMMDD. Already formatted — this component never formats. */
+	date?: string;
+	/** Stands in for an absent label — a dash, so the slot asks to be filled. */
+	placeholder?: string;
+	/** The owner: who made or sent it. Read-only, right of the date. */
+	who?: Identity | null;
+	/** Everyone who saved it again: one joined pen pill each. */
+	editors?: readonly Identity[];
+	/** Whose version beat yours: their joined pill wears the hammer. */
+	clobberBy?: Identity | null;
+	/** A tap on the pills: the sheet scrolls to its History. */
+	onMarks?: () => void;
+	/** Sits after the date: the survey's shovel and planters. */
+	chip?: Snippet;
+	/** Pushed to the far right of the date line — the route pill. */
+	trail?: Snippet;
+	onclick?: (e: MouseEvent) => void;
+	empty?: boolean;
+	caret?: boolean;
+	dataPlaque?: string;
+	ariaLabel?: string;
+} = $props();
+
+const label = $derived(name.trim());
+
+// One step, not a slide: a name that won't fit on one line drops to the
+// ledger's trees size (CacheLedger .cl-btn) and wraps from there.
+function fit(el: HTMLElement, _label: string) {
+	const run = () => {
+		el.style.whiteSpace = "nowrap";
+		el.style.fontSize = "";
+		const over = el.scrollWidth > el.clientWidth;
+		el.style.whiteSpace = "";
+		el.style.fontSize = over ? "1.05rem" : "";
+	};
+	run();
+	void document.fonts.ready.then(run);
+	// The update lands before the new text does.
+	return { update: () => requestAnimationFrame(run) };
+}
+</script>
+
+<div class="name-tag">
+	<Plaque class="plaque--name-tag" {onclick} {empty} {caret} {dataPlaque} {ariaLabel}>
+		{#if label}
+			<span class="name-tag-label" use:fit={label}>{label}</span>
+		{:else if placeholder}
+			<span class="name-tag-label">{placeholder}</span>
+		{/if}
+		{#if onclick && !caret}<span class="name-tag-pen"><Icon name="pen" size={14} /></span>{/if}
+	</Plaque>
+	{#if date || who || chip || trail}
+		<div class="name-tag-foot">
+			{#if date}<span>{date}</span>{/if}
+			{#if chip}{@render chip()}{/if}
+			{#if who}
+				{#if onMarks && (editors.length || clobberBy)}<button type="button" class="name-tag-marks" onclick={(e) => (e.stopPropagation(), onMarks())}><IdentityPill {who} {editors} {clobberBy} /></button>
+				{:else}<IdentityPill {who} {editors} {clobberBy} />{/if}
+			{/if}
+			{#if trail}{@render trail()}{/if}
+		</div>
+	{/if}
+</div>
+
+<style>
+	.name-tag {
+		flex: 1;
+		min-width: 0;
+		width: 100%;
+	}
+
+	.name-tag-label {
+		max-width: 100%;
+		font-family: var(--rt-font-display), sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+		line-height: 1;
+		letter-spacing: 0.03em;
+		color: var(--rt-fg);
+		text-align: left;
+		overflow-wrap: anywhere;
+		text-shadow: 0 1px 0 #000;
+	}
+
+	.name-tag-pen {
+		flex: none;
+		display: flex;
+		margin-left: auto;
+		padding-left: 8px;
+		color: #d6d3c4;
+	}
+
+	.name-tag-marks {
+		display: contents;
+		cursor: pointer;
+	}
+	.name-tag-foot {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 2px 8px;
+		margin-top: 4px;
+		font-family: var(--rt-font-display);
+		font-size: 14.5px;
+		color: var(--rust);
+	}
+</style>
