@@ -3,6 +3,8 @@
 	"gc_people_or_orgs": "Personnes ou organisations",
 	"gc_people": "Personnes",
 	"gc_orgs": "Organisations",
+	"gc_shared_count": "partagé · {n}",
+	"gc_shared_via": "Partagé avec {name}",
 	"gc_species": "Espèces",
 	"gc_privacy_policy": "Politique de confidentialité",
 	"gc_search_clear": "Effacer",
