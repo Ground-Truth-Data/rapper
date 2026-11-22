@@ -195,6 +195,11 @@
 	--gc-navbar-h: calc(
 		clamp(3.5625rem, 15cqw, 5.7rem) + 2px + max(env(safe-area-inset-bottom), 10px)
 	);
+	/* The closed map drawer shows its pullbar above the tab bar; the shovel art starts at the pad. */
+	--gc-pullbar-h: 4rem;
+	--gc-pullbar-pad: 1.7rem;
+	/* The shovel's top edge, from the screen's bottom (6px is ShovelHandle's lift): the map's bottom chrome stands on it. */
+	--gc-map-floor: calc(var(--gc-navbar-h) + var(--gc-pullbar-h) - var(--gc-pullbar-pad) + 6px);
 
 	/* ── Top nav bar ────────────────────────────────────────── */
 	/* Twin of --gc-navbar-h; TopBarMobile overwrites this on :root once measured — this is the pre-mount fallback. */
@@ -758,7 +763,7 @@ body.mobile-app [contenteditable] * {
 
 /* Right-aligned with the zoom pill: on the left the shovel artwork sits behind the logo. */
 .mobile-map-fill .maplibregl-ctrl-bottom-left {
-	bottom: calc(env(safe-area-inset-bottom) + 1.25rem + 56px + 15px + 6px) !important;
+	bottom: calc(var(--gc-map-floor) + 4px) !important;
 	left: auto !important;
 	right: 0.75rem !important;
 	padding: 0 !important;
@@ -773,7 +778,7 @@ body.mobile-app [contenteditable] * {
 	display: flex;
 	flex-direction: column-reverse;
 	align-items: flex-end;
-	bottom: calc(env(safe-area-inset-bottom) + 1.25rem + 56px + 15px + 70px);
+	bottom: calc(var(--gc-map-floor) + 68px);
 	right: 0.75rem;
 	left: auto;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
