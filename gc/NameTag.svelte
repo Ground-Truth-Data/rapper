@@ -1,7 +1,7 @@
 <!--
   NameTag — a title as every sheet and popover draws it: the name alone in the
-  steel plaque, the YYMMDD date and the owner's pill on the line beneath it,
-  OUTSIDE the plaque. The plaque is the tap target for renaming; the date and
+  steel plaque with its small icon, then the meta line beneath it, OUTSIDE the
+  plaque: the YYMMDD date, the owner's pill, and the figure at the far right. The plaque is the tap target for renaming; the date and
   the owner are facts about the row, not part of its name.
 
   It FORMATS NOTHING. `date` arrives as six digits, minted from the row's
@@ -24,6 +24,7 @@ import Icon from "$gc/Icon.svelte";
 import Plaque from "./Plaque.svelte";
 
 const {
+	art,
 	name = "",
 	date = "",
 	placeholder = "—",
@@ -39,6 +40,8 @@ const {
 	dataPlaque,
 	ariaLabel,
 }: {
+	/** The item's icon, small, left of the name inside the plaque. */
+	art?: Snippet;
 	name?: string;
 	/** Six digits, YYMMDD. Already formatted — this component never formats. */
 	date?: string;
@@ -54,7 +57,7 @@ const {
 	onMarks?: () => void;
 	/** Sits after the date: the survey's shovel and planters. */
 	chip?: Snippet;
-	/** Pushed to the far right of the date line — the route pill. */
+	/** Pushed to the far right of the meta line: the item's figure (trees, length, area). */
 	trail?: Snippet;
 	onclick?: (e: MouseEvent) => void;
 	empty?: boolean;
@@ -84,6 +87,7 @@ function fit(el: HTMLElement, _label: string) {
 
 <div class="name-tag">
 	<Plaque class="plaque--name-tag" {onclick} {empty} {caret} {dataPlaque} {ariaLabel}>
+		{#if art}<span class="name-tag-art">{@render art()}</span>{/if}
 		{#if label}
 			<span class="name-tag-label" use:fit={label}>{label}</span>
 		{:else if placeholder}
@@ -99,7 +103,7 @@ function fit(el: HTMLElement, _label: string) {
 				{#if onMarks && (editors.length || clobberBy)}<button type="button" class="name-tag-marks" onclick={(e) => (e.stopPropagation(), onMarks())}><IdentityPill {who} {editors} {clobberBy} /></button>
 				{:else}<IdentityPill {who} {editors} {clobberBy} />{/if}
 			{/if}
-			{#if trail}{@render trail()}{/if}
+			{#if trail}<span class="name-tag-figure">{@render trail()}</span>{/if}
 		</div>
 	{/if}
 </div>
@@ -136,14 +140,38 @@ function fit(el: HTMLElement, _label: string) {
 		display: contents;
 		cursor: pointer;
 	}
+	.name-tag-art {
+		flex: none;
+		display: flex;
+		align-items: center;
+		margin-right: 7px;
+	}
+	.name-tag-art :global(img) {
+		width: auto;
+		height: 22px;
+		max-width: 24px;
+		object-fit: contain;
+	}
+	/* Numbers white, joiners and units (`.unit`) sage. */
 	.name-tag-foot {
 		display: flex;
-		flex-wrap: wrap;
 		align-items: center;
-		gap: 2px 8px;
-		margin-top: 4px;
-		font-family: var(--rt-font-display);
-		font-size: 14.5px;
-		color: var(--rust);
+		gap: 7px;
+		margin-top: 7px;
+		font-family: var(--rt-font-meta);
+		font-size: 12px;
+		font-weight: 500;
+		line-height: 1;
+		color: var(--rt-fg);
+		white-space: nowrap;
+	}
+	.name-tag-foot :global(.id-pill) {
+		max-width: 96px;
+	}
+	.name-tag-figure {
+		margin-left: auto;
+	}
+	.name-tag-foot :global(.unit) {
+		color: var(--rt-sage);
 	}
 </style>

@@ -88,6 +88,15 @@
   font-display: swap;
 }
 
+/* Inter Medium, Latin only (OFL, interMedium.OFL.txt): the meta line under a name and dates, never body text. */
+@font-face {
+  font-family: 'Inter';
+  src: url('$gc/assets/interMedium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Chris's gold bubble alphabet, colour glyphs (built by gitEr/fancyFont). Loads only where .rt-fancy is used. */
 @font-face {
   font-family: 'ReTreever Fancy';

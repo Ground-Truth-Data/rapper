@@ -173,6 +173,7 @@
 	--rt-font-body:
 		system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 	--rt-font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+	--rt-font-meta: "Inter", var(--rt-font-body);
 
 	--rt-fs-title: 2rem;
 	--rt-fs-drawer: 1.65rem;
