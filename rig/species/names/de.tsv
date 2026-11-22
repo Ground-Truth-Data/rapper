@@ -1,0 +1,1270 @@
+id	name	source
+gbif:2684241	Kiefern	inat
+gbif:5285750	Küsten-Kiefer	inat
+gbif:5284982	Weymouth-Kiefer	inat
+gbif:5285053	Gelb-Kiefer	inat
+gbif:5285241	Weihrauch-Kiefer	inat
+gbif:5285635	Pech-Kiefer	inat
+gbif:5285067	Amerikanische Rot-Kiefer	inat
+gbif:5285091	Jerseykiefer	gbif
+gbif:5285816	Sumpf-Kiefer	inat
+gbif:5285777	Elliott-Kiefer	inat
+gbif:5285637	Waldkiefer	inat
+gbif:5285533	Banks-Kiefer	inat
+gbif:8892957	Jeffrey-Kiefer	inat
+gbif:5285621	Westliche Weymouth-Kiefer	inat
+gbif:5285183	Weißstämmige Kiefer	inat
+gbif:5285324	Fichtenkiefer	inat
+gbif:5285551	Biegsame Kiefer	inat
+gbif:5285727	Monterey-Kiefer	inat
+gbif:5284989	Zucker-Kiefer	inat
+gbif:5284809	Schwarzkiefer	inat
+gbif:5285113	Coulter-Kiefer	inat
+gbif:5285243	Kanarische Kiefer	inat
+gbif:5285604	Aleppo-Kiefer	inat
+gbif:5285385	Bergkiefer	inat
+gbif:5285799	Japanische Schwarzkiefer	inat
+gbif:5285165	Pinie	inat
+gbif:5285740	Karibische Kiefer	inat
+gbif:5285261	Montezuma-Kiefer	inat
+gbif:5285094	Arizonakiefer	inat
+gbif:5285710	Kalabrische Kiefer	inat
+gbif:5285104	Japanische Rotkiefer	inat
+gbif:5285074	Tränen-Kiefer	inat
+gbif:5285565	See-Kiefer	inat
+gbif:5284979	Korea-Kiefer	inat
+gbif:5285134	Zirbelkiefer	inat
+gbif:5285332	Spirke	inat
+gbif:5285079	Rumelische Kiefer	inat
+gbif:5285359	Chinesische Kiefer	inat
+gbif:5285084	Emodi-Kiefer	inat
+gbif:5284667	Sibirische Zirbelkiefer	inat
+gbif:5285824	Luzon-Kiefer	inat
+gbif:5285119	Merkus' Kiefer	inat
+gbif:5285203	Armands Kiefer	gbif
+gbif:7606064	Fichten	inat
+gbif:5284745	Weiß-Fichte	inat
+gbif:5284884	Gemeine Fichte	inat
+gbif:5284871	Stech-Fichte	inat
+gbif:5284717	Amerikanische Rot-Fichte	inat
+gbif:5284827	Sitka-Fichte	inat
+gbif:5284802	Schwarz-Fichte	inat
+gbif:5284917	Engelmann-Fichte	inat
+gbif:5284950	Serbische Fichte	inat
+gbif:5284794	Kaukasus-Fichte	inat
+gbif:5284765	Sibirische Fichte	inat
+gbif:5284798	Ajan-Fichte	inat
+gbif:5284834	Himalaja-Fichte	inat
+gbif:5284854	Koreafichte	inat
+gbif:5284862	Borsten-Fichte	inat
+gbif:5284814	Schrenks Fichte	inat
+gbif:5284880	Sikkim-Fichte	inat
+gbif:2685775	Douglasien	inat
+gbif:2685796	Gewöhnliche Douglasie	inat
+gbif:2685776	Großfrüchtige Douglasie	inat
+gbif:2684168	Thujen	inat
+gbif:2684178	Abendländischer Lebensbaum	inat
+gbif:2684171	Riesen-Lebensbaum	inat
+gbif:2686156	Lärchen	inat
+gbif:2686231	Ostamerikanische Lärche	inat
+gbif:2686270	Westamerikanische Lärche	inat
+gbif:2686212	Europäische Lärche	inat
+gbif:2686276	Sibirische Lärche	inat
+gbif:2686157	Japanische Lärche	inat
+gbif:2686170	Daurische Lärche	inat
+gbif:3040215	Amerikanische Zitterpappel	inat
+gbif:3040249	Zitterpappel	inat
+gbif:8527396	Hemlocktanne	gbif
+gbif:2687182	Kanadische Hemlocktanne	inat
+gbif:2687210	Westamerikanische Hemlocktanne	inat
+gbif:2687201	Berg-Hemlocktanne	inat
+gbif:2687227	Himalaya-Hemlocktanne	inat
+gbif:2684876	Tannen	inat
+gbif:2685383	Balsam-Tanne	inat
+gbif:2685580	Kolorado-Tanne	inat
+gbif:2685313	Felsengebirgs-Tanne	inat
+gbif:2685361	Küsten-Tanne	inat
+gbif:2685524	Purpur-Tanne	inat
+gbif:2685422	Pracht-Tanne	inat
+gbif:2685318	Fraser-Tanne	inat
+gbif:2685527	Heilige Tanne	inat
+gbif:2685308	Edel-Tanne	inat
+gbif:2685464	Spanische Tanne	inat
+gbif:2685552	Nordmann-Tanne	inat
+gbif:2685484	Weiß-Tanne	inat
+gbif:2685326	Griechische Tanne	inat
+gbif:2685628	Kilikische Tanne	inat
+gbif:2685437	Sachalin-Tanne	inat
+gbif:2685654	Sibirische Tanne	inat
+gbif:2685683	Pindrow-Tanne	inat
+gbif:2685619	Himalaya-Tanne	inat
+gbif:2875008	Birken	inat
+gbif:5332120	Papier-Birke	inat
+gbif:5331779	Gelb-Birke	inat
+gbif:5331532	Schwarz-Birke	inat
+gbif:5331916	Hänge-Birke	inat
+gbif:9118014	Moor-Birke	inat
+gbif:3040183	Pappeln	inat
+gbif:3040232	Kanadische Schwarz-Pappel	inat
+gbif:6362904	Westliche Balsam-Pappel	inat
+gbif:3040184	Balsam-Pappel	inat
+gbif:3040233	Silber-Pappel	inat
+gbif:3040227	Schwarz-Pappel	inat
+gbif:3040231	Birken-Pappel	inat
+gbif:3803716	Lorbeerblättrige Pappel	inat
+gbif:7874619	sibirische Balsam-Pappel	gbif
+gbif:3804846	Euphrat-Pappel	inat
+gbif:8190077	Kanadische Pappel	gbif
+gbif:3040185	Grau-Pappel	gbif
+gbif:5284278	Spießtanne	inat
+gbif:7493935	Eukalypten	inat
+gbif:3176787	Blauer Eukalyptus	inat
+gbif:11869920	Roter Eukalyptus	inat
+gbif:3176325	Regenbogenbaum	inat
+gbif:3177112	Rutenförmiger Eukalyptus	inat
+gbif:3176566	Riesen-Eukalyptus	inat
+gbif:2925649	Teakbaum	inat
+gbif:2978223	Akazien	inat
+gbif:2979000	Schwarzholz-Akazie	inat
+gbif:2978552	Weidenblatt-Akazie	inat
+gbif:2979775	Schwarze Akazie	gbif
+gbif:3071171	Amazonas-Parakautschukbaum	gbif
+gbif:5284237	Sicheltanne	inat
+gbif:2952066	Robinien	inat
+gbif:5352251	Gewöhnliche Robinie	inat
+gbif:2683848	Scheinzypressen	inat
+gbif:2683866	Lawsons Scheinzypresse	inat
+gbif:2683849	Hinoki-Scheinzypresse	inat
+gbif:2874875	Buchen	inat
+gbif:2882274	Amerikanische Buche	inat
+gbif:2882316	Rotbuche	inat
+gbif:2882360	Orient-Buche	inat
+gbif:2877951	Eichen	inat
+gbif:2880539	Roteiche	inat
+gbif:2879737	Amerikanische Weiß-Eiche	inat
+gbif:2878213	Großfrüchtige Eiche	inat
+gbif:8313153	Sumpf-Eiche	inat
+gbif:2878688	Stieleiche	inat
+gbif:2877959	Japanische Kastanien-Eiche	inat
+gbif:2879411	Korkeiche	inat
+gbif:2879098	Steineiche	inat
+gbif:2880580	Zerreiche	inat
+gbif:2879353	Japanische Kaiser-Eiche	inat
+gbif:2879685	Mongolische Eiche	inat
+gbif:7930013	Kastanienblättrige Eiche	inat
+gbif:2880130	Traubeneiche	inat
+gbif:2879787	Chinesische Korkeiche	inat
+gbif:2879175	Kermes-Eiche	inat
+gbif:2880808	Algerische Eiche	inat
+gbif:2881283	Flaumeiche	inat
+gbif:2881550	Rundblättrige Steineiche	inat
+gbif:2878826	Pyrenäen-Eiche	inat
+gbif:2881480	Portugiesische Eiche	inat
+gbif:2881010	Aleppo-Eiche	inat
+gbif:2878554	Persische Eiche	inat
+gbif:2876863	Immergrüne Japanische Eiche	inat
+gbif:3190483	Mahagoni	gbif
+gbif:3190484	Amerikanischer Mahagoni	gbif
+gbif:3190474	Niembaum	inat
+gbif:2968358	Palisander	inat
+gbif:2968532	ostindisches Rosenholz	gbif
+gbif:2968672	Rio-Palisander	gbif
+gbif:2891925	Kasuarinen	inat
+gbif:2891930	Schachtelhalmblättrige Kasuarine	inat
+gbif:7940744	Grevilleen	gbif
+gbif:2970418	Weißkopfmimose	inat
+gbif:2684854	Morgenländischer Lebensbaum	gbif
+gbif:2684855	Morgenländischer Lebensbaum	inat
+gbif:2685742	Zedern	inat
+gbif:5284698	Himalaya-Zeder	inat
+gbif:5284702	Atlas-Zeder	inat
+gbif:5284682	Libanon-Zeder	inat
+gbif:3189684	Salharzbaum	gbif
+gbif:2979265	Süße Akazie	inat
+gbif:7403310	Gelbrinden-Akazie	inat
+gbif:3974744	Arabische Gummi-Akazie	inat
+gbif:3974754	Karoo-Dorn	inat
+gbif:3977346	Gummiarabikumbaum	inat
+gbif:6710006	Schwarzdorn-Akazie	gbif
+gbif:3796190	Katechu-Akazie	gbif
+gbif:5360150	Apfelring Akazie	inat
+gbif:3190511	westindische Zeder	gbif
+gbif:5914287	Zedrachbaum	inat
+gbif:10225588	Zypressen	inat
+gbif:2684030	Mittelmeer-Zypresse	inat
+gbif:2683969	Arizonazypresse	gbif
+gbif:2684910	Araukarien	inat
+gbif:2684984	Chilenische Araukarie	inat
+gbif:2684969	Norfolk-Araukarie	inat
+gbif:2684996	Neuguinea-Araukarie	inat
+gbif:2684940	Brasilianische Araukarie	inat
+gbif:5418431	Zitroneneukalyptus	inat
+gbif:3170822	Blauglockenbaum	gbif
+gbif:3170823	Blauglockenbaum	inat
+gbif:2984510	Ulmen	inat
+gbif:5361877	Sibirische Ulme	inat
+gbif:5361865	Feldulme	inat
+gbif:5361866	Bergulme	inat
+gbif:7303616	Flatterulme	inat
+gbif:6035751	Saxaule	inat
+gbif:3759078	Saxaul	inat
+gbif:7673414	Weißer Saxaul	inat
+gbif:3039284	Sanddorne	inat
+gbif:3039285	Sanddorn	inat
+gbif:8307542	Öl-Teestrauch	gbif
+gbif:3723584	Chinesischer Guttaperchabaum	inat
+gbif:3152823	Amberbäume	inat
+gbif:3152824	Amerikanischer Amberbaum	inat
+gbif:3152860	Tulpenbäume	inat
+gbif:3152861	Tulpenbaum	inat
+gbif:3189834	Ahorne	inat
+gbif:3189883	Rot-Ahorn	inat
+gbif:3189866	Eschen-Ahorn	inat
+gbif:3189859	Zucker-Ahorn	inat
+gbif:3189846	Spitzahorn	inat
+gbif:3189837	Silber-Ahorn	inat
+gbif:3189835	Oregon-Ahorn	inat
+gbif:3189870	Berg-Ahorn	inat
+gbif:3189863	Feldahorn	inat
+gbif:3189843	Tatarischer Steppen-ahorn	inat
+gbif:7262958	Französischer Ahorn	inat
+gbif:7100278	Schneeball-Ahorn	inat
+gbif:2876099	Erlen	inat
+gbif:9148577	Grau-Erle	inat
+gbif:2876176	Rot-Erle	inat
+gbif:2876213	Schwarzerle	inat
+gbif:2876607	Herzblättrige Erle	inat
+gbif:3172323	Eschen	inat
+gbif:3172327	Weiß-Esche	inat
+gbif:3172348	Rot-Esche	inat
+gbif:3172358	Gemeine Esche	inat
+gbif:7325877	Schmalblättrige Esche	inat
+gbif:3172347	Manna-Esche	inat
+gbif:3054350	Walnüsse	inat
+gbif:3054357	Schwarznuss	inat
+gbif:3054368	Echte Walnuss	inat
+gbif:3020559	Kirsche	gbif
+gbif:3021850	Spätblühende Traubenkirsche	inat
+gbif:3020791	Vogelkirsche	inat
+gbif:3021496	Lorbeerkirsche	inat
+gbif:8149923	Pfirsich	inat
+gbif:3021730	Kirschpflaume	inat
+gbif:7931731	Pflaume	inat
+gbif:3021037	Gewöhnliche Traubenkirsche	inat
+gbif:3020871	Portugiesische Lorbeerkirsche	inat
+gbif:3022789	Felsenkirsche	inat
+gbif:3021120	Chinesische Pflaume	inat
+gbif:3023221	Schlehdorn	inat
+gbif:3022853	Rotes Stinkholz	inat
+gbif:3152041	Linden	inat
+gbif:3152047	Winterlinde	inat
+gbif:4259350	Silber-Linde	inat
+gbif:3152048	Sommerlinde	inat
+gbif:8187982	Kaukasische Linde	inat
+gbif:2875770	Hainbuchen	inat
+gbif:2875842	Amerikanische Hainbuche	inat
+gbif:2875818	Gemeine Hainbuche	inat
+gbif:2875780	Orientalische Hainbuche	inat
+gbif:2882140	Kastanien	inat
+gbif:5333237	Chinesische Kastanie	inat
+gbif:5333294	Edelkastanie	inat
+gbif:5333249	Japanische Kastanie	inat
+gbif:2683908	Mammutbaum	inat
+gbif:2683909	Küstenmammutbaum	inat
+gbif:2684119	Riesenmammutbäume	gbif
+gbif:2684120	Riesenmammutbaum	inat
+gbif:2683935	Weihrauchzedern	gbif
+gbif:2683936	Weihrauchzeder	inat
+gbif:2684190	Sumpfzypressen	gbif
+gbif:2684191	Echte Sumpfzypresse	inat
+gbif:8307747	Urweltmammutbaum	gbif
+gbif:5284231	Urweltmammutbaum	inat
+gbif:3075453	Mangos	inat
+gbif:3190638	Mango	inat
+gbif:2972897	Seidenbaum	inat
+gbif:2973215	Andamanen-Kokko	gbif
+gbif:3072953	Purgiernuß	gbif
+gbif:2984563	Brotfruchtbäume	inat
+gbif:2984573	Brotfruchtbaum	inat
+gbif:2984565	Jackfruchtbaum	inat
+gbif:2885828	Sternapfel	inat
+gbif:2735116	Kokospalmen	inat
+gbif:2735117	Kokospalme	inat
+gbif:3034046	Avocado	inat
+gbif:2874482	Melonenbäume	gbif
+gbif:2874484	Papaya	inat
+gbif:2928997	Nachtschatten	inat
+gbif:2930216	Tamarillo	inat
+gbif:2931469	Wollblütiger Nachtschatten	inat
+gbif:2930210	Queensland-Känguruapfel	gbif
+gbif:2975891	Kalahari-Weihnachtsbaum	inat
+gbif:3189387	Myrobalanen	inat
+gbif:3189394	Katappenbaum	inat
+gbif:3698958	Schwarzer Olivenbaum	inat
+gbif:3699548	echte Myrobalane	gbif
+gbif:3189390	belerische Myrobalane	gbif
+gbif:3699769	Fahlbaum	inat
+gbif:2975768	Tamarinde	gbif
+gbif:3172499	Palisanderholzbaum	inat
+gbif:2885158	Breiapfelbaum	inat
+gbif:2970763	Mesquiten	gbif
+gbif:5358460	Mesquite	gbif
+gbif:3187232	Guaven	inat
+gbif:5420380	Echte Guave	inat
+gbif:5420641	Erdbeer-Guave	gbif
+gbif:7587087	Straucherbse	inat
+gbif:3183840	Jambulbaum	inat
+gbif:3183534	Rosenapfel	inat
+gbif:3183335	Wasserjambuse	gbif
+gbif:3183002	Gewürznelkenbaum	inat
+gbif:8652576	Wasserbeerenbaum	inat
+gbif:3183278	Wasserbirne	inat
+gbif:3039423	Chinesische Jujube	inat
+gbif:3039424	filzblättrige Jujube	gbif
+gbif:3152213	Affenbrotbäume	inat
+gbif:5406695	Afrikanischer Affenbrotbaum	inat
+gbif:3170557	Kielkronen	inat
+gbif:3579089	Kronenblume	inat
+gbif:3054181	Meerrettichbaum	inat
+gbif:3190155	Zitruspflanzen	inat
+gbif:3190172	Mandarine	inat
+gbif:8077391	Bitterorangen	gbif
+gbif:3190164	Limette	gbif
+gbif:7647136	Pinochio Orange	gbif
+gbif:2984934	Kakaobäume	inat
+gbif:3152205	Kakaobaum	inat
+gbif:2951846	Condoribaum	gbif
+gbif:5356354	Johannisbrotbaum	inat
+gbif:2945830	Korallenbäume	inat
+gbif:5349719	Korallenbaum	inat
+gbif:2964820	Parkinsonien	gbif
+gbif:5357217	Jerusalemsdorn	inat
+gbif:5407273	Stachel-Annone	inat
+gbif:5407099	Zimtapfel	inat
+gbif:5407147	Cherimoya	inat
+gbif:5407123	Netz-Annone	inat
+gbif:2731881	Ölpalmen	inat
+gbif:2731882	Ölpalme	inat
+gbif:3175449	Myrtenheiden	inat
+gbif:5415832	Myrtenheide	gbif
+gbif:2962831	Camambilarinde	gbif
+gbif:2895315	Kaffee	inat
+gbif:2895345	Arabica-Kaffee	inat
+gbif:3152791	Tropeneibische	gbif
+gbif:3152795	Portiabaum	inat
+gbif:2956176	Flammenbaum	inat
+gbif:2732076	Dattelpalmen	inat
+gbif:5293177	Silber-Dattelpalme	inat
+gbif:3190641	Pfefferbäume	inat
+gbif:3660419	Brasilianischer Pfefferbaum	inat
+gbif:3190642	Peruanischer Pfefferbaum	inat
+gbif:3033987	Ceylonzimt	gbif
+gbif:9128079	Indisches Lorbeerblatt	gbif
+gbif:3033991	Campher	gbif
+gbif:3152143	Kolabäume	inat
+gbif:3189421	Mammiapfel	gbif
+gbif:5421126	Rambutan	inat
+gbif:9407103	Gurkenbäume	inat
+gbif:5406697	Kapokbaum	inat
+gbif:8688929	Florettseidenbaum	inat
+gbif:2965911	Indische Buche	inat
+gbif:2874863	Annattostrauch	inat
+gbif:2891785	Macadamianuß	gbif
+gbif:3084187	Feigenkaktus	inat
+gbif:5421368	Cashewbaum	inat
+gbif:2952935	Orchideenbäume	inat
+gbif:3190001	Litschi	gbif
+gbif:3188663	Granatäpfel	inat
+gbif:5420901	Granatapfel	inat
+gbif:2972960	Regenbaum	inat
+gbif:7649215	Lauch-Kordie	gbif
+gbif:5660325	Schleimbeerenbaum	inat
+gbif:3030169	Ebenholzbäume	gbif
+gbif:3032986	Persimone	gbif
+gbif:3032980	Lotuspflaume	inat
+gbif:4071204	Afrikanisches Ebenholz	inat
+gbif:2984545	Maulbeeren	inat
+gbif:5361886	Rote Maulbeere	inat
+gbif:2984588	Feigen	inat
+gbif:5361909	Echte Feige	inat
+gbif:5361932	Birkenfeige	inat
+gbif:7835333	Gummibaum	inat
+gbif:5570636	großblättrige Feige	gbif
+gbif:5361935	Heilige Feige	inat
+gbif:5361921	Eselsfeige	gbif
+gbif:6358688	Natal-Feige	gbif
+gbif:5569827	Besen-Feige	inat
+gbif:2950750	Heuschreckenbaum	gbif
+gbif:2684359	Wacholder	inat
+gbif:2684709	Gemeiner Wacholder	inat
+gbif:2684626	Griechischer Wacholder	inat
+gbif:2684528	Spanischer Wacholder	inat
+gbif:2684451	Stech-Wacholder	inat
+gbif:2684640	Phönizischer Wacholder	inat
+gbif:2684500	Ostafrikanischer Wacholder	inat
+gbif:2684584	Syrischer Wacholder	inat
+gbif:2736518	Betel-Palmen	inat
+gbif:2736531	Betelnuss-Palme	inat
+gbif:2963414	Kassien	inat
+gbif:5357108	Röhren-Kassie	inat
+gbif:5349333	Amerikanischer Drachenbaum	inat
+gbif:5349240	Dolfholz	inat
+gbif:5349317	afrikanischer Kinobaum	gbif
+gbif:3172573	Afrikanischer Tulpenbaum	gbif
+gbif:3172574	Afrikanischer Tulpenbaum	inat
+gbif:9531830	alexandrinischer Lorbeer	gbif
+gbif:3190008	Longanbaum	gbif
+gbif:5407583	Ylang-Ylangbaum	gbif
+gbif:3152229	Zibetbaum	inat
+gbif:3152230	Stinkfrucht	inat
+gbif:2886750	Karitébaum	inat
+gbif:3120641	Beifuss	inat
+gbif:5421115	Zachunbaum	gbif
+gbif:3083180	Paranußbaum	gbif
+gbif:5348890	Sand-Seringe	inat
+gbif:5381567	Stachelbeerbaum	gbif
+gbif:5381660	Amlabaum	inat
+gbif:2974567	Mopane	inat
+gbif:2959442	Gleditschie	gbif
+gbif:2959443	Lederhülsenbaum	inat
+gbif:3039576	Weiden	inat
+gbif:5372513	Silber-Weide	inat
+gbif:5372800	Purpur-Weide	inat
+gbif:5372605	Asch-Weide	inat
+gbif:5372952	Sal-Weide	inat
+gbif:5372914	Humboldt-Weide	inat
+gbif:5372933	Korb-Weide	inat
+gbif:5372934	Chinesische Baum-Weide	gbif
+gbif:3661030	Mangopflaume	gbif
+gbif:3190652	Götterbaum	gbif
+gbif:3190653	Götterbaum	inat
+gbif:2901235	Chinarindenbäume	inat
+gbif:11397237	Wolfsmilch	inat
+gbif:3069353	Bleistiftstrauch	inat
+gbif:3152840	Muskatnussbäume	inat
+gbif:5406817	Muskatnussbaum	inat
+gbif:7160810	Amarula	inat
+gbif:5361944	Papiermaulbeerbaum	inat
+gbif:3190450	Amerikanischer Balsam	inat
+gbif:2961150	Ohrenfruchtbaum	inat
+gbif:3190477	Lansibäume	inat
+gbif:2888195	Magnolien	inat
+gbif:3153099	Champaca	gbif
+gbif:3172244	Ölbäume	inat
+gbif:5415040	Olivenbaum	inat
+gbif:8404076	Schraubenbäume	inat
+gbif:2874694	Tamarisken	inat
+gbif:2874704	Tamariske	gbif
+gbif:8380575	Französische Tamariske	inat
+gbif:2874702	Afrikanische Tamariske	inat
+gbif:2684184	Sandarakbaum	inat
+gbif:3152705	Bisameibisch	inat
+gbif:8397331	Bengalische Quitten	inat
+gbif:5421195	Bengalische Quitte	inat
+gbif:3190513	Läuseholz	gbif
+gbif:3152078	Sternbüsche	inat
+gbif:8042537	Zweifarbiger Rosinenstrauch	inat
+gbif:8091875	Hopfenbuchen	gbif
+gbif:5332305	Europäische Hopfenbuche	inat
+gbif:3177662	Kirschmyrten	inat
+gbif:5416458	Surinam-Kirschmyrte	inat
+gbif:5416882	brasilianische Kirschmyrte	gbif
+gbif:5417616	Kirschmyrte	gbif
+gbif:2889785	Sandelholzbaum	gbif
+gbif:3012146	Ebereschen	inat
+gbif:3012167	Vogelbeere	inat
+gbif:2963568	Japanischer Schnurbaum	gbif
+gbif:2971189	Urteilsbaum	inat
+gbif:3084013	Kermesbeere	inat
+gbif:7309625	Zweihäusige Kermesbeere	inat
+gbif:2953141	Kamelfuss	inat
+gbif:3086528	Rote Mangrove	inat
+gbif:3152129	Stinkbäume	inat
+gbif:2925562	Mönchspfeffer	inat
+gbif:5358281	Schoten-Mahagoni	inat
+gbif:2925400	Schwarze Mangrove	inat
+gbif:2925403	Graue Mangrove	inat
+gbif:8090366	Zwerggeißklee	inat
+gbif:2875967	Haseln	inat
+gbif:2875979	Gemeine Hasel	inat
+gbif:2875968	Baum-Hasel	inat
+gbif:3169115	Spindelsträucher	inat
+gbif:3169131	Pfaffenhütchen	inat
+gbif:7931200	Dumpalme	gbif
+gbif:5339879	Nonibaum	inat
+gbif:8185443	Mobola	inat
+gbif:2985000	Guineapflaume	gbif
+gbif:2952775	Gelber Flammenbaum	gbif
+gbif:2943557	Gabungelbholz	gbif
+gbif:3172537	Rosa Trompetenbaum	inat
+gbif:5284418	Queensland-Kaurifichte	inat
+gbif:5414410	Teufelsbaum	gbif
+gbif:7262663	Upasbaum	inat
+gbif:7316860	Quebrachobaum	gbif
+gbif:2943830	Rhodesisches Teak	inat
+gbif:2984660	Brotnußbaum	gbif
+gbif:2984479	Zürgelbäume	inat
+gbif:2984492	Südlicher Zürgelbaum	inat
+gbif:5834428	Weisser Stinkholzbaum	inat
+gbif:3152542	Eibisch	inat
+gbif:3661151	Jhingangummi	gbif
+gbif:2874877	Scheinbuchen	inat
+gbif:2874907	Lenga-Südbuche	inat
+gbif:2874895	Coihue-Südbuche	inat
+gbif:2874982	Glänzende Südbuche	inat
+gbif:3152811	Platanen	inat
+gbif:3152820	Amerikanische Platane	inat
+gbif:3152816	Morgenländische Platane	inat
+gbif:2886244	Arganbaum	inat
+gbif:2882796	Erdbeerbäume	inat
+gbif:2882803	Westlicher Erdbeerbaum	inat
+gbif:4170901	Östlicher Erdbeerbaum	inat
+gbif:2705751	Bambus	inat
+gbif:7661971	gemeiner Bambus	gbif
+gbif:2705752	Bambus	gbif
+gbif:8234570	Malabarlackbaum	inat
+gbif:2738880	Fischschwanzpalmen	inat
+gbif:2888831	Meertraubenbaum	gbif
+gbif:3013395	Weißdorne	inat
+gbif:9220780	Eingriffeliger Weißdorn	inat
+gbif:8252683	Zweigriffeliger Weißdorn	inat
+gbif:3851310	houtniquas Essen	inat
+gbif:7426040	Blauer Murmelbaum	inat
+gbif:3920287	Chilenische Scheinulme	inat
+gbif:5380015	Sandbüchsenbaum	inat
+gbif:10792217	Stechpalmen	inat
+gbif:5414222	Europäische Stechpalme	inat
+gbif:2889755	Sternanis	gbif
+gbif:2988444	Lorbeer	gbif
+gbif:3034015	Echter Lorbeer	inat
+gbif:2874693	Basilikum	inat
+gbif:3190459	Pistazien	gbif
+gbif:3190583	Mastixstrauch	inat
+gbif:3190580	Terpentin-Pistazie	inat
+gbif:7363256	Klebsamen	inat
+gbif:2986239	Orangen-Klebsame	inat
+gbif:3071632	afrikanisches Mahagoni	gbif
+gbif:3189983	Waschnussbaum	gbif
+gbif:3189945	Macassaölbaum	gbif
+gbif:2984508	Taubenbaum	inat
+gbif:3851043	Wald-Mahagoni	inat
+gbif:3189801	Rosskastanien	inat
+gbif:3189815	Gewöhnliche Rosskastanie	inat
+gbif:8566446	Indische Rosskastanie	inat
+gbif:3076142	Braunes Stinkholz	inat
+gbif:3054191	Kaper	gbif
+gbif:2984472	Ameisenbäume	inat
+gbif:2984476	Trompetenbaum	gbif
+gbif:7155753	Zerberusbaum	inat
+gbif:2925347	Losbäume	inat
+gbif:2683206	Sagopalmfarne	inat
+gbif:10684721	Harzeiben	inat
+gbif:5286163	Rimu-Harzeibe	inat
+gbif:5383897	Malaysischer Rosenapfel	inat
+gbif:10779983	Tonkabohnenbaum	gbif
+gbif:3189907	Guajak	inat
+gbif:2964802	Kopalbaum	inat
+gbif:5370415	Kosobaum	inat
+gbif:3072641	blutendes Herz	gbif
+gbif:7837019	Tahitikastanie	gbif
+gbif:3188723	Kräuselmyrten	inat
+gbif:3188724	Königinblume	inat
+gbif:3082348	Paradiesnüsse	inat
+gbif:2733389	Livingstonpalmen	inat
+gbif:4923705	Seychellenpalme	gbif
+gbif:2731979	Seychellenpalme	inat
+gbif:3880529	Quallenbaum	gbif
+gbif:3880530	Quallenbaum	gbif
+gbif:3189990	Quenepa	gbif
+gbif:3185258	Eisenhölzer	gbif
+gbif:3185286	Südinsel-Eisenholz	gbif
+gbif:7362006	Balsambäume	gbif
+gbif:3152235	Wilder Kakaobaum	inat
+gbif:3874547	Braunes Elfenbeinholz	inat
+gbif:3874536	Rotes Elfenbeinholz	inat
+gbif:2687252	Kirscheiben	inat
+gbif:2687717	Patagonische Eibe	inat
+gbif:7360607	ostindischer Tintenbaum	gbif
+gbif:3125889	Siegesbeckie	gbif
+gbif:3169589	Brechnüsse	inat
+gbif:3054399	Chinesischer Talgbaum	inat
+gbif:2687616	Afrogelbhölzer	gbif
+gbif:2770879	Aloen	inat
+gbif:2925634	Zitronensträucher	inat
+gbif:3023817	Felsenbirnen	inat
+gbif:3023833	Kanadische Felsenbirne	inat
+gbif:3233900	Adlerholzbäume	gbif
+gbif:2732609	Alexandrapalme	gbif
+gbif:2733997	Echte Zuckerpalme	inat
+gbif:4162100	Queensland-Klebsame	inat
+gbif:2733060	Pfirsichpalme	inat
+gbif:3033893	Berberitzen	inat
+gbif:3033894	Gewöhnliche Berberitze	inat
+gbif:3152226	Asiatischer Kapokbaum	inat
+gbif:2733922	Palmyrapalmen	inat
+gbif:2733925	Äthiopische Palmyrapalme	inat
+gbif:3152191	Flaschenbäume	inat
+gbif:2958443	Caesalpinien	gbif
+gbif:3173353	Trauer-Zylinderputzer	gbif
+gbif:3172611	Trompetenbäume	inat
+gbif:3172612	Prächtiger Trompetenbaum	inat
+gbif:3169168	Baumwürger	gbif
+gbif:2734376	Bergpalmen	inat
+gbif:2736624	Zwergpalmen	inat
+gbif:2736625	Zwergpalme	inat
+gbif:5677150	Vetivergras	gbif
+gbif:3033512	Waldreben	inat
+gbif:3033558	Gewöhnliche Waldrebe	inat
+gbif:2956426	Blasensträucher	inat
+gbif:7844167	Gelber Blasenstrauch	inat
+gbif:2978171	Copaiva	gbif
+gbif:3013215	Spierling	inat
+gbif:3082226	Hartriegel	inat
+gbif:3082263	Kornelkirsche	inat
+gbif:8365953	Weißer Hartriegel	inat
+gbif:3082234	Roter Hartriegel	inat
+gbif:4031011	Maiglöckchenbaum	gbif
+gbif:8089532	Geißklee	inat
+gbif:5354656	Gemeiner Besenginster	inat
+gbif:5305277	blaue Flachslilie	gbif
+gbif:3172032	Fingerhüte	inat
+gbif:5559052	Dunkler Fingerhut	inat
+gbif:7124132	Chilenischer Feuerbusch	inat
+gbif:2882780	Heidekräuter	inat
+gbif:7373031	Vielblütige Heide	inat
+gbif:5293398	Kohlpalme	inat
+gbif:5293403	Jussarapalme	inat
+gbif:3039453	Faulbaum	gbif
+gbif:3039454	Faulbaum	inat
+gbif:2940025	Ginster	inat
+gbif:5347571	Behaarter Ginster	inat
+gbif:3036021	Efeu	inat
+gbif:8351737	Efeu	inat
+gbif:7314503	Schefflera	inat
+gbif:11008739	Großblättrige Schefflera	inat
+gbif:2928509	Prunkwinden	inat
+gbif:3190053	Blasenbaum	gbif
+gbif:5421180	Blasenesche	inat
+gbif:3234737	Goldregen	inat
+gbif:5356345	Gemeiner Goldregen	inat
+gbif:2927302	Lavendel	inat
+gbif:2927303	Schopflavendel	inat
+gbif:3172289	Liguster	inat
+gbif:3172300	Gewöhnlicher Liguster	inat
+gbif:2888645	Geißblätter	inat
+gbif:5334259	Rote Heckenkirsche	inat
+gbif:5334277	Wald-Geißblatt	inat
+gbif:7272699	Windendes Geißblatt	inat
+gbif:2984579	Milchorangenbaum	gbif
+gbif:2984583	Färbermaulbeerbaum	gbif
+gbif:3001068	Äpfel	inat
+gbif:3001244	Kulturapfel	inat
+gbif:3001509	Holzapfel	inat
+gbif:5668625	Gelber Trompetenbaum	gbif
+gbif:5294777	Morichepalme	gbif
+gbif:3031724	Mispel	gbif
+gbif:3031774	Echte Mispel	gbif
+gbif:7629955	Jasminbaum	inat
+gbif:2760990	Bananen	inat
+gbif:2762680	Banane	gbif
+gbif:3032317	Myrten	gbif
+gbif:3180085	Myrte	inat
+gbif:2738422	Nipapalme	inat
+gbif:3152238	Balsabäume	inat
+gbif:3152240	Balsabaum	inat
+gbif:9119360	Brasilholz	gbif
+gbif:3034108	Boldo	gbif
+gbif:7325888	Steinlinde	inat
+gbif:7325923	Breitblättrige Steinlinde	inat
+gbif:7325947	Schmalblättrige Steinlinde	inat
+gbif:2927450	Brandkraut	gbif
+gbif:3075433	Pfeffer	inat
+gbif:3086357	Pfefferstrauch	inat
+gbif:5284386	Steineiben	inat
+gbif:5285951	Breitblättrige Steineibe	inat
+gbif:2986532	Birnen	inat
+gbif:5362573	Kultur-Birne	inat
+gbif:5362786	Nashi-Birne	inat
+gbif:5362560	Mandelblättrige Birne	inat
+gbif:5362445	Wilder Birnbaum	gbif
+gbif:3029379	chilenischer Seifenbaum	gbif
+gbif:2965093	Gewöhnliche Retama	inat
+gbif:3039471	Kreuzdorn	inat
+gbif:3039491	Purgier-Kreuzdorn	inat
+gbif:6371424	Immergrüner Kreuzdorn	inat
+gbif:3190534	Sumach	gbif
+gbif:3190538	Essigbaum	inat
+gbif:2986095	Johannisbeeren	inat
+gbif:2986185	Stachelbeere	inat
+gbif:2986192	Schwarze Johannisbeere	inat
+gbif:8395064	Rosen	inat
+gbif:3003979	Kartoffel-Rose	inat
+gbif:3002461	Hundsrose	inat
+gbif:3002660	Immergrüne Rose	inat
+gbif:3007054	Feld-Rose	inat
+gbif:2892184	Färberröte	gbif
+gbif:2892347	Kletten-Krapp	inat
+gbif:2988638	Brombeeren	inat
+gbif:2993094	Himbeere	inat
+gbif:2888942	Ampfer	inat
+gbif:2888961	Schild-Ampfer	inat
+gbif:2769754	Mäusedorne	inat
+gbif:2769766	Stechender Mäusedorn	inat
+gbif:3190380	Rauten	inat
+gbif:2888721	Holunder	inat
+gbif:2888723	Roter Holunder	inat
+gbif:2888728	Schwarzer Holunder	inat
+gbif:3125925	Zypressenkraut	gbif
+gbif:3125933	Graues Heiligenkraut	inat
+gbif:3158673	Fächerblumen	inat
+gbif:8109416	Pfriemenginster	gbif
+gbif:5355395	Binsenginster	inat
+gbif:2891789	Feuerradbaum	gbif
+gbif:5293897	romanzoffianische Kokospalme	gbif
+gbif:7892576	Schneebeeren	inat
+gbif:8012439	Schneebeere	inat
+gbif:3172235	Flieder	inat
+gbif:5415039	Gemeiner Flieder	inat
+gbif:2684902	Eiben	inat
+gbif:5284517	Europäische Eibe	inat
+gbif:2926960	Thymiane	inat
+gbif:9410160	Elsbeere	inat
+gbif:2951953	Stechginster	inat
+gbif:2951984	Stechginster	inat
+gbif:2882813	Heidelbeeren	inat
+gbif:2882849	Amerikanische Heidelbeere	inat
+gbif:2882833	Heidelbeere	inat
+gbif:2888580	Schneeball	inat
+gbif:2888605	Gemeiner Schneeball	inat
+gbif:2888615	Wolliger Schneeball	inat
+gbif:2888585	Immergrüner Schneeball	inat
+gbif:2684137	Washingtonpalmen	inat
+gbif:5294595	Mexikanische Washingtonpalme	inat
+gbif:5294589	Kalifornische Washingtonpalme	inat
+gbif:2984531	Zelkoven	inat
+gbif:3054237	Hirtenbäume	gbif
+gbif:2883026	Rhododendren	inat
+gbif:9623860	Pfifferlinge	inat
+gbif:5249504	Echter Pfifferling	inat
+gbif:5249555	Violettschuppiger Pfifferling	inat
+gbif:8010163	Samtiger Pfifferling	inat
+gbif:5249496	Blasser Pfifferling	inat
+gbif:9226626	Grauer Leistling	gbif
+gbif:2527766	Ritterlinge	inat
+gbif:5241808	Gemeiner Erd-Ritterling	inat
+gbif:5241784	Bärtiger Ritterling	inat
+gbif:3324883	Grünling	inat
+gbif:3324249	Seifen-Ritterling	inat
+gbif:5241764	Falscher Krokodil-Ritterling	inat
+gbif:5241793	Gelbblättriger Ritterling	inat
+gbif:5241860	Schwarzfaseriger Ritterling	inat
+gbif:5241729	Grüngelber Ritterling	inat
+gbif:5241789	Getropfter Ritterling	inat
+gbif:8897119	Gemeiner Schwefel-Ritterling	inat
+gbif:5241767	Pappel-Ritterling	inat
+gbif:5241858	Feinschuppiger Ritterling	inat
+gbif:5241749	Strohblasser Ritterling	inat
+gbif:7242238	Schwarzschuppiger Erd-Ritterling	inat
+gbif:5241832	Bitterer Eichen-Ritterling	gbif
+gbif:5241733	Rötender Erdritterling	inat
+gbif:2594649	Käppchen-Morchel	inat
+gbif:2594626	Hohe Morchel	gbif
+gbif:8287374	Dickröhrlinge	inat
+gbif:5954958	Gemeiner Steinpilz	inat
+gbif:5954949	Kiefern-Steinpilz	inat
+gbif:5954691	Sommer-Steinpilz	inat
+gbif:5954908	Falscher Königsröhrling	gbif
+gbif:8733688	Bronze-Röhrling	inat
+gbif:2554706	Genabelter Stoppelpilz	inat
+gbif:2554716	Semmel-Stoppelpilz	inat
+gbif:3368245	Weißlicher Stoppelpilz	inat
+gbif:2544165	Rotgelber Stoppelpilz	inat
+gbif:2521421	Kraterellen	inat
+gbif:2554536	Trompetenpfifferling	inat
+gbif:8871787	Starkriechender Trompetenpfifferling	inat
+gbif:2554662	Totentrompete	inat
+gbif:2594602	Speise-Morchel	inat
+gbif:8071344	Graue Speisemorchel	inat
+gbif:3495613	Steppen-Morchel	inat
+gbif:2550232	Glucken	inat
+gbif:2550247	Krause Glucke	inat
+gbif:8282501	Trüffel	gbif
+gbif:7364443	Sommer-Trüffel	inat
+gbif:5258468	Perigord-Trüffel	gbif
+gbif:5258456	Piemont-Trüffel	gbif
+gbif:5258471	Gekröse-Trüffel	gbif
+gbif:5258463	Weißliche Trüffel	inat
+gbif:5258455	Winter-Trüffel	gbif
+gbif:5499497	Ölsporige Trüffel	gbif
+gbif:5258460	Großsporige Trüffel	gbif
+gbif:2532156	Milchlinge	inat
+gbif:7240044	Indigo-Reizker	inat
+gbif:5248629	edel-reizker	inat
+gbif:5248684	Rotbrauner Milchling	inat
+gbif:8813286	Kampfer-Milchling	inat
+gbif:5248664	Flaumiger Milchling	inat
+gbif:7925734	Fichten-Reizker	inat
+gbif:5248616	Eichenmilchling	inat
+gbif:5248610	Goldflüssiger Milchling	inat
+gbif:8881331	Grubiger Milchling	inat
+gbif:8122710	Birkenreizker	inat
+gbif:5248788	Lachs-Reizker	inat
+gbif:5248714	Rosascheckiger Milchling	inat
+gbif:9016531	Milder Milchling	inat
+gbif:8959060	Wimpern-Milchling	gbif
+gbif:5248643	Schöner Zonen-Milchling	inat
+gbif:9125990	Hasel-Milchling	inat
+gbif:5248801	Nordischer Milchling	inat
+gbif:9186214	Süßlicher Milchling	inat
+gbif:5248648	Weinroter Kiefern-Reizker	inat
+gbif:5248649	Spangrüner Kiefern-Reizker	inat
+gbif:2542160	Schwefelporlinge	inat
+gbif:9072021	Gemeiner Schwefelporling	inat
+gbif:2540800	Laubporling	inat
+gbif:2518610	Seitlinge	inat
+gbif:2526530	Austernseitling	inat
+gbif:2526548	Lungen-Seitling	inat
+gbif:2526504	Zitronenseitling	inat
+gbif:2526564	Berindeter Seitling	inat
+gbif:2526599	Rosenseitling	inat
+gbif:7830030	Rillstieliger Seitling	inat
+gbif:9075265	Brauner Kräuter-Seitling	inat
+gbif:2526779	Tintlinge	inat
+gbif:7987658	Schopf-Tintling	inat
+gbif:2536689	Großer Ring-Tintling	gbif
+gbif:2526021	Hallimasche	inat
+gbif:2536891	Honiggelber Hallimasch	inat
+gbif:2536899	Dunkler Hallimasch	inat
+gbif:2536058	Riesenbovist	inat
+gbif:2536054	Violetter Stäubling	inat
+gbif:2537743	Shiitake-Pilz	gbif
+gbif:2560562	Chinesischer Raupenpilz	inat
+gbif:5249271	Judasohr	inat
+gbif:5249297	Gezonter Ohrlappenpilz	inat
+gbif:7939704	Zitterlinge	inat
+gbif:11945016	Goldgelber Zitterling	inat
+gbif:5237434	Silberohr	inat
+gbif:2530192	Scheidlinge	inat
+gbif:5241399	Wolliger Scheidling	inat
+gbif:5241445	Dunkelstreifiger Scheidling	gbif
+gbif:2518646	Champignons	inat
+gbif:5243458	Wiesen-Champignon	inat
+gbif:5243429	Riesen-Champignon	inat
+gbif:5243403	Schaf-Egerling	inat
+gbif:5243374	Stadt-Champignon	inat
+gbif:5243506	Perlhuhnegerling	inat
+gbif:8365581	Dünnfleischiger Anis-Egerling	inat
+gbif:5243392	Großschuppiger Salzwiesen-Champignon	inat
+gbif:5243447	Zucht-Champignon	inat
+gbif:8108291	Kleiner Wald-Champignon	inat
+gbif:5243460	Brasilianischer Mandel-Champignon	inat
+gbif:5455910	Schiefknolliger Anisegerling	inat
+gbif:8353373	Weißflockiger Blut-Champignon	inat
+gbif:5243354	Triften-Zwerg-Champignon	inat
+gbif:5243473	Dunkelfaseriger Champignon	inat
+gbif:5243433	Kupferbrauner Champignon	inat
+gbif:5243489	Scheiden-Champignon	inat
+gbif:5243507	Gegürtelter Champignon	inat
+gbif:5243420	Braunscheckiger Champignon	inat
+gbif:3336440	Großsporiger Egerling	gbif
+gbif:5244571	Stachelbärte	inat
+gbif:5248508	Igel-Stachelbart	inat
+gbif:5248532	Ästiger Stachelbart	inat
+gbif:5248527	Tannen-Stachelbart	gbif
+gbif:2594601	Morcheln	inat
+gbif:5259057	Runzel-Verpel	inat
+gbif:5499531	Fingerhut-Verpel	inat
+gbif:5238786	Schweinsohr	inat
+gbif:2521435	Braunsporstachelinge	inat
+gbif:5238865	Habichtspilz	inat
+gbif:8936224	Maipilz	inat
+gbif:2532282	Rötelritterlinge	inat
+gbif:5242033	Lavendelfarbener Rötelritterling	inat
+gbif:5242069	Graubräunlicher Rötelritterling	inat
+gbif:5242048	Violetter Rötelritterling	gbif
+gbif:5242070	Lilastieliger Rötelritterling	gbif
+gbif:5242097	Schmutziger Röteltrichterling	gbif
+gbif:5242039	Raslingsähnlicher Rötelritterlg.	gbif
+gbif:5242058	Veilchen-Rötelritterling	gbif
+gbif:2532098	Echte Trichterlinge	inat
+gbif:2531146	Ockerbrauner Trichterling	inat
+gbif:9186073	Mönchskopf	inat
+gbif:2530661	Raslinge	inat
+gbif:9173236	Büscheliger Rasling	inat
+gbif:9113338	Ulmenrasling	inat
+gbif:2531729	Wurzel-Möhrling	gbif
+gbif:8250249	Anhängsel-Röhrling	inat
+gbif:7617313	Königs-Röhrling	inat
+gbif:2524722	Braunvioletter Steinpilz	gbif
+gbif:7832732	Maronen-Röhrling	inat
+gbif:7240529	Rotfußröhrlinge	inat
+gbif:2519413	Echter Rotfußröhrling	inat
+gbif:7691787	Zellers Rotfußröhrling	inat
+gbif:7885351	Dünnstieliger Rotfußröhrling	inat
+gbif:2519224	Filzröhrlinge	inat
+gbif:2519457	Ziegenlippe	inat
+gbif:7816100	Brauner Filzröhrling	inat
+gbif:8208185	Flockenstieliger Hexen-Röhrling	gbif
+gbif:2519844	Gallenröhrlinge	gbif
+gbif:2524910	Gemeiner Gallenröhrling	inat
+gbif:9133361	Hasenröhrling	inat
+gbif:2524265	Kornblumenröhrling	inat
+gbif:9225326	Gemeiner Strubbelkopfröhrling	inat
+gbif:2520104	Raufüße	inat
+gbif:9141390	Gemeiner Birkenpilz	inat
+gbif:2524513	Laubwald-Rotkappe	inat
+gbif:2524503	Moor-Birkenpilz	inat
+gbif:2524490	Birken-Rotkappe	inat
+gbif:2524528	Nadelwald-Rotkappe	inat
+gbif:7414997	Schmierröhrlinge	inat
+gbif:7596307	Weinroter Schuppen-Röhrling	inat
+gbif:5239846	Douglasien-Röhrling	inat
+gbif:8146046	Körnchen-Röhrling	inat
+gbif:5239894	Kurzstieliger Schmierröhrling	gbif
+gbif:7777157	Butterpilz	inat
+gbif:5239864	Gold-Röhrling	inat
+gbif:5239925	Elfenbeinröhrling	inat
+gbif:9104622	Ringloser Butterpilz	inat
+gbif:5239851	Hohlfuß-Röhrling	inat
+gbif:7623986	Kuh-Röhrling	inat
+gbif:5239873	Grauer Lärchen-Röhrling	inat
+gbif:9043861	Sand-Röhrling	inat
+gbif:5239920	Zirben-Röhrling	inat
+gbif:8290708	Tannen-Schmierröhrling	gbif
+gbif:2595441	Elegante Wüstentrüffel	gbif
+gbif:2524228	Rötliche Wurzeltrüffel	inat
+gbif:2524248	Gelbliche Wurzeltrüffel	inat
+gbif:2551150	Brätling	inat
+gbif:7719797	Pfeffermilchling	inat
+gbif:2551071	Wolliger Milchling	inat
+gbif:2551169	Täublinge	inat
+gbif:2551356	Roter Herings-Täubling	inat
+gbif:2551213	Kirschroter Speitäubling	inat
+gbif:2551254	Wechselfarbiger Spei-Täubling	inat
+gbif:2551542	Frauen-Täubling	inat
+gbif:2551201	Apfel-Täubling	inat
+gbif:3359736	Blutroter Täubling	inat
+gbif:2551173	Grasgrüner Täubling	inat
+gbif:2551479	Orangeroter Graustiel-Täubling	inat
+gbif:2551457	Kratzender Kamm-Täubling	inat
+gbif:2551299	Gelber Graustieltäubling	inat
+gbif:2551470	Purpurschwarzer Täubling	inat
+gbif:2551443	Menthol-Schwarztäubling	inat
+gbif:2551415	Speisetäubling	inat
+gbif:2551447	Stinktäubling	inat
+gbif:9561742	Rotstieliger Leder-Täubling	inat
+gbif:2551558	Stachelbeer-Täubling	inat
+gbif:9223923	Rauchbrauner Schwärz-Täubling	inat
+gbif:2551191	Dichtblättriger Schwärz-Täubling	inat
+gbif:2551423	Grüngefelderter Täubling	inat
+gbif:2551331	Gemeiner Weiß-Täubling	inat
+gbif:2551419	Ockergelber Täubling	inat
+gbif:8894724	Brauner Ledertäubling	inat
+gbif:2551203	Bluttäubling	gbif
+gbif:2551388	Goldtäubling	inat
+gbif:2551597	Grüner Speisetäubling	inat
+gbif:2551274	Zitronenblättriger Täubling	inat
+gbif:2551392	Wechselfarbiger Dotter-Täubling	inat
+gbif:2551426	Schmalblättriger Weiß-Täubling	inat
+gbif:2551231	Violettstieliger Täubling	inat
+gbif:2551318	Glänzender Ledertäubling	gbif
+gbif:9075447	Graubrauner Täubling	gbif
+gbif:2551233	Schöner Samttäubling	inat
+gbif:2551504	Lederstiel-Täubling	inat
+gbif:2551206	Blutroter Leder-Täubling	gbif
+gbif:2551176	Kleiner Rosa-Täubling	inat
+gbif:2536706	Riesenschirmlinge	inat
+gbif:8914748	Gemeiner Riesenschirmling	inat
+gbif:2536733	Ackerschirmpilz	inat
+gbif:2536707	Zitzen-Riesenschirmling	inat
+gbif:6005964	Wulstlinge	inat
+gbif:7496350	Perlpilz	inat
+gbif:7765582	Rotbrauner Scheidenstreifling	inat
+gbif:5240282	Orangegelber Scheidenstreifling	inat
+gbif:5240213	Riesen-Scheidenstreifling	inat
+gbif:5240269	Kaiserling	inat
+gbif:5240306	Grauer Scheidenstreifling	gbif
+gbif:5240292	Narzissengelber Wulstling	gbif
+gbif:2526826	Dachpilze	inat
+gbif:7446067	Rehbrauner Dachpilz	inat
+gbif:5241354	Schwarzschneidiger Dachpilz	inat
+gbif:5241254	Scharlachroter Dachpilz	inat
+gbif:5241259	Löwengelber Dachpilz	inat
+gbif:5241314	Weißer Dachpilz	gbif
+gbif:2530595	Termitenpilze	gbif
+gbif:2530611	Termitenpilz	inat
+gbif:2526677	Lacktrichterlinge	inat
+gbif:2530926	Rötlicher Lacktrichterling	inat
+gbif:2530983	Violetter Lacktrichterling	inat
+gbif:2530973	Zweifarbiger Lacktrichterling	inat
+gbif:2530966	Braunroter Lacktrichterling	inat
+gbif:2529580	Spaltblättlinge	inat
+gbif:5241128	Gemeiner Spaltblättling	inat
+gbif:2526678	Schwindlinge	inat
+gbif:2537250	Nelken-Schwindling	inat
+gbif:2526827	Samtfußrüblinge	inat
+gbif:3341441	Gemeiner Samtfußrübling	inat
+gbif:9367003	Stäublinge	inat
+gbif:5243258	Flaschen-Stäubling	inat
+gbif:5453425	Abblätternder Stäubling	inat
+gbif:5243244	Wiesen-Stäubling	inat
+gbif:5243243	Bräunlicher Stäubling	inat
+gbif:5243279	Beutelstäubling	inat
+gbif:5243210	Stinkender Stäubling	inat
+gbif:9441377	Boviste	inat
+gbif:2535193	Bleigrauer Bovist	inat
+gbif:2535211	Zwerg-Bovist	inat
+gbif:10852503	Birnen-Stäubling	inat
+gbif:2519188	Trichterlinge	inat
+gbif:2531072	Nebelgrauer Trichterling	inat
+gbif:2531124	Grüner Anis-Trichterling	gbif
+gbif:2539197	Großer Mehl-Räsling	inat
+gbif:2531012	Ochsenzunge	inat
+gbif:2521377	Lorcheln	inat
+gbif:2594776	Langstielige Becherlorchel	inat
+gbif:2594756	Hochgerippte Becher-Lorchel	inat
+gbif:2594716	Elastische Lorchel	inat
+gbif:2594765	Grubenlorchel	inat
+gbif:2525706	Schnecklinge	inat
+gbif:9053531	Elfenbein-Schneckling	inat
+gbif:2538788	Goldzahn-Schneckling	inat
+gbif:2538807	Geflecktblättriger Schneckling	inat
+gbif:2538799	Rasiger Purpur-Schneckling	inat
+gbif:3344741	Beschleierter Purpur-Schneckling	gbif
+gbif:2538727	Wohlriechender Schneckling	inat
+gbif:2538784	Natternstieliger Schneckling	inat
+gbif:2538720	Rußbrauner Schneckling	inat
+gbif:2538714	Orange-Schneckling	inat
+gbif:2538774	Lärchen-Schneckling	inat
+gbif:2538736	Großer Kiefernschneckling	inat
+gbif:2538716	Mehlstiel-Schneckling	inat
+gbif:2538718	Trockener Schneckling	inat
+gbif:2534558	Glimmertintlinge	inat
+gbif:2534578	Gemeiner Glimmertintling	inat
+gbif:2534625	Gesäter Tintling	inat
+gbif:2524960	Schleierlinge	inat
+gbif:7844497	Weißvioletter Dickfuß	inat
+gbif:2529415	Reifpilz	inat
+gbif:8802917	Geschmückter Gürtelfuß	inat
+gbif:7476637	Blaustiel-Schleimfuß	inat
+gbif:12012261	Aprikosen-Wasserkopf	inat
+gbif:7379140	Schleiereule	gbif
+gbif:2529531	Violettroter Klumpfuß	gbif
+gbif:2528781	Weißgestiefelter Schleimkopf	gbif
+gbif:2528818	Langstieliger Schleimfuß	gbif
+gbif:2529520	Blasser Schleimkopf	gbif
+gbif:2529265	Blutroter Klumpfuß	gbif
+gbif:5898337	Erdigriechender Schleimkopf	gbif
+gbif:2530002	Rötlinge	inat
+gbif:3345846	Schild-Rötling	inat
+gbif:2539763	Blauer Rötling	gbif
+gbif:2539389	Voreilender Rötling	gbif
+gbif:2521461	Korallen	inat
+gbif:5238602	Schönfarbige Koralle	gbif
+gbif:5238663	Dreifarbige Koralle	inat
+gbif:5238654	Schwefelgelbe Koralle	gbif
+gbif:5238642	Goldgelbe Koralle	inat
+gbif:7486196	Hahnenkamm	gbif
+gbif:5238647	Gelbbräunende Koralle	gbif
+gbif:5238688	Blutrotfleckende Koralle	gbif
+gbif:8869949	Steife Koralle	gbif
+gbif:5238581	Grünspitzige Koralle	gbif
+gbif:2551762	Schafporlinge	gbif
+gbif:2551823	Schaf-Porling	inat
+gbif:2524961	Gelbfüße	inat
+gbif:2524996	Kupferroter Gelbfuß	inat
+gbif:2538864	Keulenfuß-Trichterling	inat
+gbif:12008655	Behangener Faserling	inat
+gbif:2540196	Keulenpilze	inat
+gbif:5249883	Kammförmiger Keulenpilz	inat
+gbif:5249808	Runzeliger Keulenpilz	inat
+gbif:5249860	Graue Koralle	inat
+gbif:5447198	Violetter Keulenpilz	inat
+gbif:7244096	Ellerlinge	inat
+gbif:3345381	Jungfern-Ellerling	inat
+gbif:3291564	Orangefarbener Wiesen-Ellerling	inat
+gbif:2526675	Sägeblättlinge	inat
+gbif:7542962	Weitlöcheriger Stielporling	inat
+gbif:9154166	Getigerter Sägeblättling	inat
+gbif:2529999	Egerlingsschirmlinge	inat
+gbif:2535875	Rosablättriger Schirmpilz	gbif
+gbif:2535788	Jungfern-Schirmling	gbif
+gbif:2538146	Rosasporrüblinge	inat
+gbif:9217873	Kastanienroter Rübling	inat
+gbif:3321179	Kerbblättriger Rübling	gbif
+gbif:5244501	Wurmförmiges Keulchen	inat
+gbif:2521401	Abgestutzte Riesenkeule	inat
+gbif:2521391	Herkules-Riesenkeule	inat
+gbif:2521384	Sibirische Herkuleskeule	gbif
+gbif:12092733	Brennender Rübling	inat
+gbif:11993337	Knopfstieliger Rübling	inat
+gbif:9713443	Ringloser Hallimasch	inat
+gbif:2525056	Erdsterne	inat
+gbif:2554367	Halskrausen-Erdstern	inat
+gbif:2554355	Gewimperter Erdstern	inat
+gbif:2593331	Giftlorcheln	gbif
+gbif:5258510	Frühjahrs-Giftlorchel	inat
+gbif:5258509	Bischofsmütze	gbif
+gbif:2525560	Afterleistlinge	inat
+gbif:2525710	Falscher Pfifferling	inat
+gbif:5955261	Helmlinge	inat
+gbif:2527219	Rettich-Helmling	inat
+gbif:4911710	Olivgelber Helmling	gbif
+gbif:8689071	Laubholz-Knäueling	inat
+gbif:2581823	Kelchbecherlinge	inat
+gbif:8156721	Scharlachroter Kelchbecherling	inat
+gbif:2550493	Verzweigte Becherkoralle	inat
+gbif:2523631	Baumschwämme	inat
+gbif:2542395	Rotrandiger Baumschwamm	inat
+gbif:2543474	Apothekerschwamm	gbif
+gbif:12081600	Kastanienbrauner Becherling	inat
+gbif:2529618	Weichritterlinge	inat
+gbif:5242142	Gemeiner Weichritterling	inat
+gbif:5242168	Kurzstieliger Weichritterling	gbif
+gbif:8849982	Rillstieliger Weichritterling	gbif
+gbif:8191932	Reihiger Klumpfuß	inat
+gbif:2526774	Faserlinge und Mürblinge	inat
+gbif:2534836	Wässriger Mürbling	inat
+gbif:2527828	Ackerlinge	inat
+gbif:9050242	Trockener Ackerling	inat
+gbif:9151391	Hohlstieliger Ackerling	inat
+gbif:3268912	Grünsporschirmlinge	gbif
+gbif:5243168	Grünblättriger Schirmpilz	inat
+gbif:5955395	Gemeiner Safranschirmling	inat
+gbif:2607519	Rentierflechten	inat
+gbif:2607712	Weiße Büschelstrauchflechte	inat
+gbif:2527585	Zwergrüblinge	inat
+gbif:5242740	Gemeiner Falten-Tintling	inat
+gbif:5242754	Struppiger Tintling	inat
+gbif:5242778	Spitzbuckliger Falten-Tintling	gbif
+gbif:2527854	Flämmlinge	inat
+gbif:8972210	Erlengrübling	inat
+gbif:2528519	Fälblinge	inat
+gbif:2533062	Dunkelscheibiger Fälbling	inat
+gbif:7894497	Büscheliger Fälbling	gbif
+gbif:2523318	Saftlinge	inat
+gbif:2538595	Pfifferlings-Saftling	inat
+gbif:2538524	Kegeliger Saftling	inat
+gbif:2538445	Kirschroter Saftling	inat
+gbif:2538552	Granatroter Saftling	inat
+gbif:7672956	Großer Kegel-Saftling	inat
+gbif:2535536	Faltenschirmlinge	inat
+gbif:2535581	Zwiebelfüßiger Faltenschirmling	inat
+gbif:2540761	Riesenporling	inat
+gbif:7865386	Wabenporling	inat
+gbif:9129313	Schuppiger Sägeblättling	inat
+gbif:2548894	Harziger Sägeblättling	inat
+gbif:2528397	Schüpplinge	inat
+gbif:2534102	Goldfell-Schüppling	inat
+gbif:2534205	Sparriger Schüppling	inat
+gbif:2534085	Schleimiger Schüppling	inat
+gbif:9091857	Tonweißer Schüppling	inat
+gbif:2534112	Weißflockiger Schüppling	gbif
+gbif:9154129	Kohlen-Schüppling	gbif
+gbif:11200098	Stielporlinge	inat
+gbif:5246840	Eichhase	inat
+gbif:7365370	Schuppiger Porling	gbif
+gbif:2594999	Kronenbecherling	inat
+gbif:2531616	Ockerbrauner Schuppenwulstling	gbif
+gbif:2519084	Trameten	inat
+gbif:2548311	Schmetterlingstramete	inat
+gbif:9227816	Nördlicher Zinnoberschwamm	inat
+gbif:2548374	Ockerfarbene Tramete	inat
+gbif:2519062	Violettporlinge	inat
+gbif:2600611	Nabelflechten	inat
+gbif:2533397	Schwefelköpfe	inat
+gbif:2533424	Ziegelroter Schwefelkopf	inat
+gbif:2513794	Warzenpilze	inat
+gbif:10828425	Hasen-Stäubling	gbif
+gbif:2519220	Lackporlinge	inat
+gbif:2549730	Glänzender Lackporling	inat
+gbif:2533959	Stockschwämmchen	inat
+gbif:2533962	Gemeines Stockschwämmchen	inat
+gbif:8329645	Großer Scheidling	inat
+gbif:2527767	Blasssporrüblinge	inat
+gbif:5243756	Waldfreund-Rübling	inat
+gbif:5243758	Spindeliger Rübling	inat
+gbif:3314876	Gemeine Stinkmorchel	inat
+gbif:2535532	Wüsten-Tintlingsstäubling	gbif
+gbif:5249353	Gallertiger Zitterzahn	inat
+gbif:3355021	Netzstieliger Hexen-Röhrling	inat
+gbif:5258678	Gemeiner Orangebecherling	inat
+gbif:2524936	Kartoffelboviste	inat
+gbif:5239982	Dickschaliger Kartoffelbovist	inat
+gbif:5239959	Braunwarziger Hartbovist	inat
+gbif:2532720	Riesen-Krempentrichterling	inat
+gbif:5239766	Gemeiner Wetterstern	inat
+gbif:9156243	Pfeffer-Röhrling	inat
+gbif:7242432	Stachelschirmlinge	gbif
+gbif:5243011	Spitzschuppiger Stachel-Schirmling	inat
+gbif:2525026	Schmierlinge	inat
+gbif:2525027	Großer Schmierling	inat
+gbif:2525039	Fleckender Lärchen-Schmierling	inat
+gbif:2537418	Echter Knoblauchschwindling	inat
+gbif:11011338	Gelbstieliger Muschelseitling	inat
+gbif:9056826	Olivgelber Holzritterling	inat
+gbif:2531814	Purpurfilziger Holzritterling	inat
+gbif:2551821	Semmel-Porling	inat
+gbif:2523872	Purpurnes Zystidenkeulchen	inat
+gbif:8203051	Schönfuß-Röhrling	inat
+gbif:7550396	Bitterschwamm	inat
+gbif:2512969	Pfriemförmiger Hörnling	inat
+gbif:9134585	Klebriger Hörnling	inat
+gbif:2526680	Stummelfüßchen	inat
+gbif:5240984	Gerieftes Stummelfüßchen	inat
+gbif:5240943	Gallertfleischiges Stummelfüßchen	inat
+gbif:2526256	Trichterförmiger Muscheling	inat
+gbif:7686337	Schokoladenbrauner Faserling	inat
+gbif:8060178	Blutroter Filzröhrling	inat
+gbif:5242798	Tränender Saumpilz	inat
+gbif:2535486	Gelbschuppiger Wollstiel-Schirmling	inat
+gbif:2535456	Wolliggestiefelter Schirmling	inat
+gbif:2530577	Gemeiner Holztrichterling	inat
+gbif:2521516	Kremplinge	inat
+gbif:5240002	Verkahlender Krempling	inat
+gbif:2538000	Ohrförmiger Seitling	inat
+gbif:2524797	Düsterer Röhrling	inat
+gbif:11159309	Träuschlinge	inat
+gbif:2533347	Riesen-Träuschling	inat
+gbif:2525650	Holzkremplinge	inat
+gbif:7693097	Samtfuß-Holzkrempling	inat
+gbif:12054660	Purpurfleckender Klumpfuß	inat
+gbif:2527302	Geselliger Glöckchennabeling	inat
+gbif:3301120	Asiatischer Schuppenröhrling	gbif
+gbif:2552020	Bergporling	inat
+gbif:2532395	Rötender Wachstrichterling	inat
+gbif:9400640	Löwengelber Porling	inat
+gbif:2521976	Wiesenkeulen	inat
+gbif:5244486	Spindelförmige Wiesenkeule	inat
+gbif:9117445	Goldgelbe Wiesenkeule	inat
+gbif:2542720	Nordischer Porling	inat
+gbif:7451789	Körnchenschirmlinge	inat
+gbif:5243525	Amiant-Körnchenschirmling	inat
+gbif:9049960	Galerttränen	inat
+gbif:2512921	Riesen-Gallertträne	inat
+gbif:5426027	Gelbe Lohblüte	inat
+gbif:2522022	Kleinkammerige Morcheltrüffel	gbif
+gbif:2538832	Schleimsaftlinge	inat
+gbif:3345400	Papageiensaftling	inat
+gbif:3304469	Zäher Saftling	gbif
+gbif:8097905	Grauer Saftling	inat
+gbif:8824388	Fleischroter Gallerttrichter	inat
+gbif:2593397	Rotbraune Rasentrüffel	gbif
+gbif:2532154	Zählinge	inat
+gbif:2550371	Aniszähling	inat
+gbif:5241698	Knolliger Schleierritterling	inat
+gbif:8189348	Weißer Rasling	inat
+gbif:2526024	Schleimschirmlinge	gbif
+gbif:2537689	Breitblättriger Rübling	inat
+gbif:2536182	Sternstäubling	inat
+gbif:9128195	Eselsohr	inat
+gbif:8766080	Echte Becherlinge	inat
+gbif:5259242	Blasenbecherling	inat
+gbif:9645698	Rotbrauner Zitterling	inat
+gbif:2522127	Duftstachelinge	inat
+gbif:2521975	Astflechte	inat
+gbif:5425828	Stäublings-Schleimpilz	inat
+gbif:9055239	Gegürtelter Schönkopf	inat
+gbif:10691289	Glänzender Schleimschirmling	inat
+gbif:5238896	Schwarzweißer Rußporling	gbif
+gbif:2524119	Blätterröhrlinge	inat

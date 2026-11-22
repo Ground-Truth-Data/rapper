@@ -1,0 +1,426 @@
+id	name	source
+gbif:2684241	Pins	inat
+gbif:5285053	Pi Ponderosa	gbif
+gbif:5285067	pi roig americà	inat
+gbif:5285637	pi roig	inat
+gbif:5285183	Pi d'escorça blanca	gbif
+gbif:5285551	Pi Limber	gbif
+gbif:5285727	Pi insigne	inat
+gbif:5284809	Pinassa	inat
+gbif:5285243	Pi canari	inat
+gbif:5285604	Pi Blanc	inat
+gbif:5285385	Pi negre	inat
+gbif:5285165	pi pinyer	inat
+gbif:5285710	Pi de Turquia	inat
+gbif:5285074	Pi de l'Himàlaia	gbif
+gbif:5285565	pinastre	inat
+gbif:5284979	Pi de Corea	gbif
+gbif:5285332	Pi negre	inat
+gbif:5285079	Pi de Macedònia	gbif
+gbif:5284667	Pi de Sibèria	gbif
+gbif:7606064	Pícea	gbif
+gbif:5284884	avet roig	inat
+gbif:5284871	Pícea pungent	gbif
+gbif:5284917	Pícea d'Engelmann	gbif
+gbif:2685796	Avet de Douglas	inat
+gbif:2686212	làrix	inat
+gbif:3040215	Trèmol americà	inat
+gbif:3040249	Trèmol	inat
+gbif:2684876	Avets	inat
+gbif:2685464	Pinsap	inat
+gbif:2685552	Avet del Caucas	inat
+gbif:2685484	avet	inat
+gbif:2875008	Bedolls	inat
+gbif:5331916	bedoll comú	inat
+gbif:9118014	Bedoll pubescent	inat
+gbif:3040232	Carolina	inat
+gbif:3040233	Àlber	inat
+gbif:3040227	Pollancre	inat
+gbif:7493935	Eucaliptus	inat
+gbif:3176787	eucaliptus blau	inat
+gbif:11869920	Eucaliptus bord	inat
+gbif:2978223	Acàcia	gbif
+gbif:2978552	mimosa blava	inat
+gbif:5284237	Cedre japonès	inat
+gbif:5352251	Acàcia borda	inat
+gbif:2874875	Faig	gbif
+gbif:2882316	faig	inat
+gbif:2877951	Alzines i roures	inat
+gbif:2879737	Roure blanc americà	gbif
+gbif:2878688	roure pènol	inat
+gbif:2879411	Alzina surera	inat
+gbif:2879098	Alzina	inat
+gbif:2880580	Roure turc	inat
+gbif:2880130	Roure de fulla gran	inat
+gbif:2879175	garric	inat
+gbif:2880808	Roure africà	inat
+gbif:2881283	roure martinenc	inat
+gbif:2881550	carrasca	inat
+gbif:2878826	reboll	inat
+gbif:2881480	Roure de fulla petita	inat
+gbif:2891932	Casuarina de Cunningham	inat
+gbif:2970418	Aromer blanc	inat
+gbif:2684855	Tuia oriental	inat
+gbif:2685742	Cedre	inat
+gbif:5284698	cedre de l'Himàlaia	inat
+gbif:5284702	Cedre de l'Atles	inat
+gbif:7403310	Acàcia d'escorça groga	gbif
+gbif:3796190	Arbre del catxú	gbif
+gbif:5914287	Mèlia	inat
+gbif:10225588	Xiprer	gbif
+gbif:2684030	Xiprer	inat
+gbif:2684910	Araucària	gbif
+gbif:2684984	Araucària de Xile	gbif
+gbif:3170822	Paulònies	inat
+gbif:3170823	Paulònia	inat
+gbif:2984510	Om	gbif
+gbif:5361877	Om de Sibèria	inat
+gbif:5361865	Om	inat
+gbif:5361866	oma	inat
+gbif:3759078	Saxaul negre	gbif
+gbif:7673414	Saxaul blanc	gbif
+gbif:3039285	Arç groc	inat
+gbif:3152823	Liquidàmbars	inat
+gbif:3152824	Liquidàmbar americà	inat
+gbif:3152861	tuliper de Virgínia	inat
+gbif:3189834	Aurons	inat
+gbif:3189883	Auró roig	inat
+gbif:3189866	Auró americà	inat
+gbif:3189859	Auró de sucre	inat
+gbif:3189846	Erable	inat
+gbif:3189837	Auró argentat	inat
+gbif:3189870	Fals plàtan	inat
+gbif:3189863	auró blanc	inat
+gbif:7262958	Auró negre	inat
+gbif:7100278	blada	inat
+gbif:2876213	vern	inat
+gbif:3172323	Freixes	inat
+gbif:3172327	Freixe blanc	inat
+gbif:3172358	Freixe de fulla gran	inat
+gbif:7325877	Freixe de fulla petita	inat
+gbif:3172347	freixe de flor	inat
+gbif:3054368	noguera	inat
+gbif:3020559	Pruneres i ametllers	inat
+gbif:3020791	cirer	inat
+gbif:3021496	Llorer-cirer	inat
+gbif:8149923	Presseguer	inat
+gbif:3021730	Mirabolà	inat
+gbif:7931731	Prunera	inat
+gbif:3021037	cirerer bord	inat
+gbif:3022789	cirerer de Santa Llúcia	inat
+gbif:3023221	Aranyoner	inat
+gbif:3152041	til·lers	inat
+gbif:3152047	Til·ler de fulla petita	inat
+gbif:4259350	Til·ler argentat	inat
+gbif:3152048	Til·ler de fulla gran	inat
+gbif:2875770	Carpí	gbif
+gbif:2875818	Carpí	inat
+gbif:5333294	Castanyer	inat
+gbif:2684120	Sequoia vermella	gbif
+gbif:2683936	Calocedre de Califòrnia	inat
+gbif:5284231	Secoya de l'alba	gbif
+gbif:2984573	Arbre del pa	gbif
+gbif:2735117	Cocoter	inat
+gbif:3034046	Alvocater	inat
+gbif:2874484	papaier	inat
+gbif:3189394	Ametller índic	gbif
+gbif:3172499	xicranda	inat
+gbif:3039423	ginjoler	inat
+gbif:3039424	Ginjoler de l'Índia	gbif
+gbif:3190155	Cítrics	inat
+gbif:8077391	Taronger agre	gbif
+gbif:5356354	garrofer	inat
+gbif:5357217	Parquinsònia	inat
+gbif:5407147	Xirimoier	inat
+gbif:2956176	Delònix	gbif
+gbif:3660419	Pebrer del Brasil	gbif
+gbif:3190642	Fals pebrer	inat
+gbif:9128079	Malabathrum	gbif
+gbif:5421368	Anacard	gbif
+gbif:5420901	Magraner	inat
+gbif:3032986	Persimó	inat
+gbif:2984545	Moreres	inat
+gbif:2984588	Figueres i ficus	inat
+gbif:5361909	figuera	inat
+gbif:7835333	Ficus de cautxú	inat
+gbif:2684709	ginebró	inat
+gbif:2684528	Savina turífera	inat
+gbif:2684451	càdec	inat
+gbif:2684640	savina	inat
+gbif:3172574	Arbre de les tulipes	gbif
+gbif:5381660	Amla	inat
+gbif:2959443	acàcia de tres punxes	inat
+gbif:3039576	Salzes	inat
+gbif:5372513	Salze blanc	inat
+gbif:5372800	Saulic	inat
+gbif:5372952	gatsaule	inat
+gbif:3190653	ailant	inat
+gbif:11397237	lleteresa	inat
+gbif:5361944	Morera de paper	inat
+gbif:2888195	Magnòlies	inat
+gbif:5415040	Olivera	inat
+gbif:2874694	Tamariu	inat
+gbif:8380575	Tamariu gàl·lic	inat
+gbif:2874702	Tamariu africà	inat
+gbif:5332305	Òstria	gbif
+gbif:3012146	Moixeres i serveres	inat
+gbif:3012167	moixera de guilla	inat
+gbif:7309625	Bellaombra	inat
+gbif:5352512	Tipuana	inat
+gbif:2925562	Aloc	inat
+gbif:2875967	Avellaner	gbif
+gbif:2875979	avellaner	inat
+gbif:2875968	Avellaner turc	gbif
+gbif:3169115	Evònim	gbif
+gbif:3169131	Boneter	inat
+gbif:7316860	Quebratxo blanc	gbif
+gbif:2943830	Teca africana	gbif
+gbif:2984492	lledoner	inat
+gbif:3152811	Plataners	inat
+gbif:3152820	Plàtan americà	inat
+gbif:3152816	Plàtan oriental	inat
+gbif:2882796	Arboços	inat
+gbif:2882803	arboç	inat
+gbif:4170901	arboç grec	inat
+gbif:7661971	bambú gros	inat
+gbif:2705752	Bambusa balcooa	inat
+gbif:3013395	arços	inat
+gbif:9220780	arç blanc	inat
+gbif:8252683	espinalb centreeuropeu	inat
+gbif:3013739	Atzeroler	inat
+gbif:10792217	Grèvols	inat
+gbif:5414222	grèvol	inat
+gbif:3034015	Llorer	inat
+gbif:3190583	Llentiscle	inat
+gbif:3190580	Banya de cabra	inat
+gbif:3189801	Castanyers bords	inat
+gbif:3189815	Castanyer d'Índia comú	inat
+gbif:4923705	Coco de mar	gbif
+gbif:2770879	Àloe	inat
+gbif:3033893	Coralet	gbif
+gbif:3033894	Coralet	gbif
+gbif:2736625	margalló	inat
+gbif:3033558	Vidalba	inat
+gbif:7844167	Espantallops	inat
+gbif:3013215	Servera	inat
+gbif:3082263	Corneller mascle	gbif
+gbif:3082234	sanguinyol	inat
+gbif:5354656	gódua	inat
+gbif:4145704	Bambú de Ceilan	gbif
+gbif:5559052	Manxiuleta	inat
+gbif:2882780	Brucs	inat
+gbif:7373031	Bruc d'hivern	inat
+gbif:3039454	fràngula	inat
+gbif:5347571	ginestola pilosa	gbif
+gbif:3036021	Heura	gbif
+gbif:8351737	heura	inat
+gbif:2928509	Campanetes	inat
+gbif:5421180	sapinde de la Xina	inat
+gbif:3234737	Laburn	gbif
+gbif:5356345	Banús fals	gbif
+gbif:2927302	Espígol	gbif
+gbif:2927303	Cap d'ase	inat
+gbif:3172300	olivereta	inat
+gbif:2888645	Lligaboscos i xuclamels	inat
+gbif:5334259	xuclamel santjoaner	inat
+gbif:5334277	Xuclamel atlàntic	inat
+gbif:7272699	Lligabosc mediterrani	inat
+gbif:3001244	Pomera	inat
+gbif:3001509	Pomera silvestre	inat
+gbif:3032317	Murta	gbif
+gbif:3180085	Murtra	inat
+gbif:7325923	Aladern de fulla ampla	inat
+gbif:7325947	aladern de fulla estreta	inat
+gbif:3887383	Candelera	inat
+gbif:2986532	Pera	gbif
+gbif:5362573	Perera	inat
+gbif:5362560	Perelloner	inat
+gbif:2965093	Ginesta vimenera	inat
+gbif:3039491	Espina-cervina	inat
+gbif:6371424	Aladern	inat
+gbif:7867604	arçot oleoide	inat
+gbif:6371380	arçot	inat
+gbif:2986095	riber	inat
+gbif:2986185	Riber espinós	inat
+gbif:2986192	Riber negre	gbif
+gbif:8395064	Roses	inat
+gbif:3002461	Gavarra	inat
+gbif:3002660	Englantiner	inat
+gbif:2892347	Rogeta	inat
+gbif:2988638	Esbarzers i parents	inat
+gbif:2993094	gerdera	inat
+gbif:2888942	Agrelles	inat
+gbif:2888961	Badola	inat
+gbif:2769766	galzeran	inat
+gbif:3832875	Ruda de fulla estreta	inat
+gbif:2888723	Saüc racemós	inat
+gbif:2888728	sauquer	inat
+gbif:3125933	espernallac	inat
+gbif:8109416	Ginesta	gbif
+gbif:5355395	Ginesta	inat
+gbif:5415039	Lilà	inat
+gbif:5284517	teix	inat
+gbif:2926960	Farigola	gbif
+gbif:9410160	moixera de pastor	inat
+gbif:2951984	Gatosa europea	inat
+gbif:2882833	Nabiu	inat
+gbif:2888580	Viburn	gbif
+gbif:2888605	Aliguer	inat
+gbif:2888615	tortellatge	inat
+gbif:2888585	Marfull	inat
+gbif:5294595	Washingtònia de Mèxic	inat
+gbif:5294589	Washingtònia	inat
+gbif:2883026	Rododendre	gbif
+gbif:9623860	Rossinyols	inat
+gbif:5249504	Vaqueta	inat
+gbif:5241808	fredolic	inat
+gbif:3324883	Verderol	inat
+gbif:3324249	Tricoloma saponaci	inat
+gbif:5241860	Fredolic gros	inat
+gbif:8287374	surencs	gbif
+gbif:5954958	Cep	inat
+gbif:5954949	Sureny	inat
+gbif:5954691	cep d'estiu	gbif
+gbif:5954908	Guilleries	gbif
+gbif:8733688	Siureny	inat
+gbif:7601434	mataparent de peu vermell	gbif
+gbif:2513763	Llengües de bou	inat
+gbif:2554716	llémena	inat
+gbif:3368245	Llengua de bou blanca	inat
+gbif:2544165	Llengua de bou vermellosa	inat
+gbif:2521421	Trompetes	inat
+gbif:2554536	Fals camagroc	inat
+gbif:8871787	camagroc	inat
+gbif:2554662	Trompeta de la mort	inat
+gbif:2594602	múrgola	gbif
+gbif:2550247	Greixa	inat
+gbif:8282501	Tòfona	gbif
+gbif:5258468	Tòfona negra	gbif
+gbif:5248629	pinetell	inat
+gbif:5248610	Pinetell bord	inat
+gbif:8881331	Pinetell bord	gbif
+gbif:8122710	Cabra de beç	inat
+gbif:5248788	Pinetell d'avet	inat
+gbif:5248714	Pebràs lleter de riberada	gbif
+gbif:5248643	enganyapastors	gbif
+gbif:9125990	Bolet de cabra	gbif
+gbif:5248648	Esclata-sang	inat
+gbif:9072021	gírgola groga	gbif
+gbif:2540800	Gírgola de castanyer	inat
+gbif:2518610	orellanas	gbif
+gbif:2526530	Orellana	inat
+gbif:2526504	Orellana groga	inat
+gbif:2526564	alsinoyas	gbif
+gbif:7830030	Gírgola de corn	inat
+gbif:9075265	Gírgola de panical	inat
+gbif:7987658	Pixacà barbut	inat
+gbif:2536891	Cama-sec de soca	inat
+gbif:2536899	Alzinoi esquamós	inat
+gbif:2536058	Pet de llop gegant	inat
+gbif:2537743	Xiitake	inat
+gbif:2560562	Capçat d'hivern	inat
+gbif:5249271	Orella de Judes	inat
+gbif:5249297	Orella mesentèrica	inat
+gbif:11945016	Tremel·la	inat
+gbif:5237434	Tremolosa blanca	inat
+gbif:5243458	Camperol	inat
+gbif:5243403	Bola de neu	inat
+gbif:5243374	Camperol	inat
+gbif:8365581	bola de neu anisada	gbif
+gbif:5243447	Xampinyó	inat
+gbif:8108291	rubiol de sang	gbif
+gbif:5243460	Rubiol d’ametlla	inat
+gbif:5248508	bolet carner	gbif
+gbif:2594601	Múrgoles	inat
+gbif:5238865	sabatera d'escames	inat
+gbif:8936224	Moixernó	inat
+gbif:9186073	Candela de bruc	inat
+gbif:2519413	Mataparent clivellat	inat
+gbif:2519457	Mataparent vellutat	inat
+gbif:2524910	Mataparent amarg	gbif
+gbif:9133361	Sureny castany	gbif
+gbif:2524265	mataparent groc	gbif
+gbif:9225326	mataparent d´escames	gbif
+gbif:9141390	Albereny	inat
+gbif:2524513	Tremolí	inat
+gbif:7414997	Mollerics	inat
+gbif:8146046	Molleric granellut	inat
+gbif:7777157	Pinetell de calceta	inat
+gbif:9104622	Molleric	inat
+gbif:2551356	Crualga vinosa	inat
+gbif:2551213	Cualbra	gbif
+gbif:2551254	Escaldabec fràgil	inat
+gbif:2551542	Llora	inat
+gbif:3359736	Escaldabec vermell	inat
+gbif:2551415	Llora groga	inat
+gbif:2551558	puagra	gbif
+gbif:2551423	Llora verda	inat
+gbif:2551331	pebrás	gbif
+gbif:8894724	rogeta	gbif
+gbif:2551203	Marieta	inat
+gbif:2551388	Cualbra regera	inat
+gbif:2551597	llora	gbif
+gbif:2551274	crualga morada	gbif
+gbif:2551426	Pebràs verdós	inat
+gbif:2551318	llora o cualbra llora	gbif
+gbif:8914748	Apagallums	inat
+gbif:7765582	pentinella	gbif
+gbif:5240269	Ou de reig	inat
+gbif:5240306	Pentinella	gbif
+gbif:5241128	Ventall de branca	inat
+gbif:2537250	camasec	inat
+gbif:5243258	Pet de llop	inat
+gbif:2535193	esclatabufa plumbia	gbif
+gbif:2531072	Bromosa	inat
+gbif:2539197	moixernó blanc	gbif
+gbif:9053531	llenegall blanc	gbif
+gbif:2538807	Escarlet vermell	inat
+gbif:2538727	mocosa flairosa	gbif
+gbif:2538784	llenega negre	gbif
+gbif:2538736	Llenega	inat
+gbif:2538718	escarlet blanc	gbif
+gbif:2524960	delupo del hydrocibe	gbif
+gbif:2529265	orellana de poll	gbif
+gbif:3345846	bolet de ginesta	gbif
+gbif:5238663	peu de rata bord	inat
+gbif:5238654	Manetes de coliflor	inat
+gbif:5238642	peu de rata groc	inat
+gbif:8869949	peu de rata estret	gbif
+gbif:2524996	Bec de perdiu	inat
+gbif:12008655	Satirel·la blanca	inat
+gbif:5249860	peu de rata gris	inat
+gbif:2521401	bossa truncata	gbif
+gbif:2521391	bossa	gbif
+gbif:2554367	estrelleta	gbif
+gbif:2554355	estrelleta	gbif
+gbif:5258510	Bolet de greix	inat
+gbif:2525710	fals rossinyol	gbif
+gbif:8689071	pano concoide	gbif
+gbif:8156721	cassoleta vermella	inat
+gbif:2542395	Bolet d'esca marginat	inat
+gbif:12081600	Cassoleta bruna	inat
+gbif:5243168	Cogomella verdejant	inat
+gbif:5955395	Apagallums de cama blanca	gbif
+gbif:5242740	Bolet de tinta	inat
+gbif:8972210	Bolet livi	gbif
+gbif:2538524	pixaconill	inat
+gbif:2540761	gamarús	gbif
+gbif:2594999	Cassoleta Blava	inat
+gbif:2548311	bolet de soca de colors	inat
+gbif:2549730	pipa	inat
+gbif:8329645	Volvariel·la	inat
+gbif:5243756	Col·líbia driòfila	inat
+gbif:3314876	ou del diable	inat
+gbif:5258678	Cassoleta taronja	gbif
+gbif:5239982	pota de cavall groga	gbif
+gbif:5239959	Pota de cavall	inat
+gbif:5239766	Estrelleta	inat
+gbif:9156243	molleric pebrer	gbif
+gbif:2525027	cama de perdiu mocosa	gbif
+gbif:8203051	Mataparent amarg	gbif
+gbif:8060178	Mataparent vermellós	inat
+gbif:2535456	cogomina clipiada	gbif
+gbif:5240002	Paxil	inat
+gbif:2524797	boletó-escamoso	gbif
+gbif:8824388	Cresta de gall	inat
+gbif:2524464	Socarret	gbif

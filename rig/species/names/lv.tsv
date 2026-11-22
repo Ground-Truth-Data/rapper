@@ -1,0 +1,409 @@
+id	name	source
+gbif:2684241	Priedes	inat
+gbif:5285637	Parastā priede	inat
+gbif:7606064	Egles	gbif
+gbif:5284745	Kanādas egle	inat
+gbif:5284884	Parastā egle	inat
+gbif:5284871	Asā egle	inat
+gbif:2685775	Duglāzijas	inat
+gbif:2684178	Rietumu tūja	inat
+gbif:2686156	Lapegles	gbif
+gbif:2686212	Eiropas lapegle	inat
+gbif:3040249	Parastā apse	inat
+gbif:2684876	Baltegles	gbif
+gbif:5331916	Āra bērzs	inat
+gbif:9118014	Purva bērzs	inat
+gbif:3040183	Apses	gbif
+gbif:3040233	Baltā apse	inat
+gbif:3040227	Meln	inat
+gbif:2978223	Akācijas	gbif
+gbif:5352251	Baltā robīnija	inat
+gbif:2882316	Parastais dižskābardis	inat
+gbif:2882360	Kaukāza dižskābardis	gbif
+gbif:2877951	Ozoli	gbif
+gbif:2880539	Sarkanais ozols	inat
+gbif:2879737	Baltais ozols	gbif
+gbif:2878688	Parastais ozols	inat
+gbif:2880130	Klinšu ozols	gbif
+gbif:2684855	Austrumu tūja	inat
+gbif:5284698	Himalaju ciedrs	gbif
+gbif:2684910	Araukārijas	gbif
+gbif:2684984	Čīles araukārija	gbif
+gbif:2684969	Dažādlapu araukārija	gbif
+gbif:2984510	Gobas	inat
+gbif:5361866	Parastā goba	inat
+gbif:7303616	Parastā vīksna	inat
+gbif:3039285	Pabērzu smiltsērkšķis	inat
+gbif:3189834	Kļavas	gbif
+gbif:3189883	Sarkanā kļava	gbif
+gbif:3189866	Ošlapu kļava	inat
+gbif:3189859	Cukura kļava	gbif
+gbif:3189846	Parastā kļava	inat
+gbif:3189837	Sudrabkļava	gbif
+gbif:3189870	Kalnu kļava	inat
+gbif:3189863	Lauku kļava	inat
+gbif:3189843	Tatārijas kļava	gbif
+gbif:2876099	Alkšņi	gbif
+gbif:9148577	Baltalksnis	inat
+gbif:2876213	Melnalksnis	inat
+gbif:3172358	Parastais osis	inat
+gbif:3172347	Mannas osis	inat
+gbif:3054368	Īstais riekstkoks	gbif
+gbif:3020791	Saldais ķirsis	gbif
+gbif:3021730	Ķiršveida plūme	inat
+gbif:7931731	Mājas plūme	gbif
+gbif:3021037	Parastā ieva	inat
+gbif:3023221	Ērkšķu plūme	inat
+gbif:3152041	Liepas	inat
+gbif:3152047	Parastā liepa	inat
+gbif:2875818	Parastais skābardis	inat
+gbif:5333294	ēdamā kastaņa	gbif
+gbif:2683909	Mūžzaļā sekvoja	gbif
+gbif:2984565	Džefrūts	inat
+gbif:3190155	Citrusaugi	gbif
+gbif:5421367	Anakardijas	gbif
+gbif:5421368	Rietumu anakardija (Indijas rieksti)	gbif
+gbif:5420901	Parastais granātābols	gbif
+gbif:2984545	Zīdkoki	gbif
+gbif:5361886	Sarkanais zīdkoks	gbif
+gbif:2984588	gumijkoki	gbif
+gbif:7835333	Kaučuka gumijkoks	gbif
+gbif:2684359	Kadiķi	gbif
+gbif:2684709	Parastais kadiķis	inat
+gbif:3152229	Duriāns	gbif
+gbif:3039576	Vītoli	inat
+gbif:5372513	Baltais vītols	inat
+gbif:5372605	pelēkais kārkls	inat
+gbif:5372952	Parastā blīgzna	inat
+gbif:5372933	Klūdziņu kārkls	inat
+gbif:2888195	magnolijas	gbif
+gbif:5415040	Olīvkoks	gbif
+gbif:2687884	Ginki	inat
+gbif:3012146	Parastais pīlādzis	inat
+gbif:3012167	Parastais pīlādzis	inat
+gbif:2875979	Parastā lazda	inat
+gbif:3169131	Eiropas segliņš	inat
+gbif:3013395	Vilkābeles	inat
+gbif:8252683	divirbulu krustabele	gbif
+gbif:3189815	Parastā zirgkastaņa	inat
+gbif:2770879	Alvejas	inat
+gbif:3033894	Parastā bārbele	inat
+gbif:3033558	Vīnlapu mežvītenis	gbif
+gbif:3082263	Parastais kizils	inat
+gbif:3172032	Uzpirkstītes	inat
+gbif:3039454	Parastais krūklis	inat
+gbif:8351737	Parastā efeja	inat
+gbif:3172300	Parastais ligustrs	inat
+gbif:2888645	Sausserži	inat
+gbif:5334259	Parastais sausserdis	inat
+gbif:3001244	ābolu	inat
+gbif:2986532	Bumbieres	gbif
+gbif:3190538	Parastais etiķkoks	inat
+gbif:2986095	Jāņogas	gbif
+gbif:2986185	Nokarenā ērkšķoga	inat
+gbif:2986192	Melnā upene	inat
+gbif:8395064	Rozes	gbif
+gbif:3003979	Krokainā roze	inat
+gbif:3002461	Suņu roze	inat
+gbif:2988638	Kazenes	inat
+gbif:2993094	Meža avene	inat
+gbif:2888942	Skābenes	inat
+gbif:2888721	Plūškoki	gbif
+gbif:2888723	Sarkanais plūškoks	inat
+gbif:2888728	Melnais plūškoks	inat
+gbif:8012439	Strauta sniegoga	inat
+gbif:5415039	Parastais ceriņš	inat
+gbif:2684902	Īves	inat
+gbif:5284517	Parastā īve	inat
+gbif:2926960	Mārsili	gbif
+gbif:2882833	Mellene	inat
+gbif:2888605	Parastā irbene	inat
+gbif:2888615	Vilnainā irbene	inat
+gbif:5249504	Parastā gailene	inat
+gbif:5249555	Ametista gailene	inat
+gbif:5249496	Bālā gailene	inat
+gbif:2527766	Pūkaines	inat
+gbif:5241808	Zemes pūkaine	inat
+gbif:5241784	Govju pūkaine	inat
+gbif:3324883	Parastā smiltene	inat
+gbif:3324249	Ziepju pūkaine	inat
+gbif:5241793	Dzeltenbrūnā pūkaine	inat
+gbif:5241860	Pelēkā pūkaine	inat
+gbif:5241789	Lāsainā pūkaine	inat
+gbif:8897119	Sēra pūkaine	inat
+gbif:5241858	Sīkzvīņu pūkaine	inat
+gbif:8287374	Bekas	inat
+gbif:5954958	Egļu baravika	inat
+gbif:5954949	Priežu baravika	inat
+gbif:5954691	Vasaras baravika	inat
+gbif:2554706	Piltuves kliņģerene	inat
+gbif:2554716	Dzeltenā kliņģerene	inat
+gbif:2544165	Rūsganā kliņģerene	inat
+gbif:2554536	Sekstainā gailene	inat
+gbif:8871787	Zeltkāta gailene	inat
+gbif:2554662	Rudens taurene	inat
+gbif:2550247	Krokainā kazbārde	inat
+gbif:2532156	Pienaines	inat
+gbif:5248629	Priežu rudmiese	inat
+gbif:5248684	Alksnene	inat
+gbif:8813286	Kampara pienaine	inat
+gbif:5248664	Bālais vilnītis	inat
+gbif:7925734	Egļu rudmiese	inat
+gbif:8881331	Eglene	inat
+gbif:8122710	Parastais vilnītis	inat
+gbif:5248714	Apšu pienaine	inat
+gbif:9016531	Maigā pienaine	inat
+gbif:8959060	Saldūksne	inat
+gbif:9125990	Dedzinošā pienaine	inat
+gbif:5248801	Parastā pienaine	inat
+gbif:9072021	Parastā sērpiepe	inat
+gbif:2540800	Daivainā čemurene	inat
+gbif:2518610	Sānauses	inat
+gbif:2526530	Austeru sānause	inat
+gbif:2526548	Dzeltējošā sānause	inat
+gbif:2526564	Ozolu sānause	inat
+gbif:7830030	Rievainā sānause	inat
+gbif:2526779	Tintenes	inat
+gbif:7987658	Porcelāna tintene	inat
+gbif:2536891	Parastā celmene	inat
+gbif:2536899	Tumšā celmene	inat
+gbif:2536058	Milzu apaļpūpēdis	inat
+gbif:5249297	Parastā ausaine	inat
+gbif:11945016	Dzeltenā receklene	inat
+gbif:5241399	Zīdainā makstaine	inat
+gbif:2518646	Atmatenes	inat
+gbif:5243458	Lauka atmatene	inat
+gbif:5243429	Cildenā atmatene	inat
+gbif:5243403	Tīruma atmatene	inat
+gbif:5243374	Pilsētas atmatene	inat
+gbif:8365581	Dzeltējošā atmatene	inat
+gbif:5243392	Bernāra atmatene	inat
+gbif:8108291	Meža atmatene	inat
+gbif:5248532	Koraļļu dižadatene	inat
+gbif:5259057	parastais ķēvpups	inat
+gbif:5238786	Violetā cūkause	inat
+gbif:5238865	Parastā vēršmēlene	inat
+gbif:8936224	Maija auzene	inat
+gbif:2532282	Aplocenes	inat
+gbif:5242033	Zilganā aplocene	inat
+gbif:5242069	Raibā aplocene	inat
+gbif:2531146	Parastā piltuvene	inat
+gbif:9186073	Dzeltenpelēkā piltuvene	inat
+gbif:9173236	Brūnā čemurpūkaine	inat
+gbif:9113338	Gobu kokpūkaine	inat
+gbif:8250249	Vārpstkāta beka	inat
+gbif:7832732	Lāču samtbeka	inat
+gbif:2519413	Raibā samtbeka	inat
+gbif:2519457	Kazu samtbeka	inat
+gbif:7816100	Kastaņbrūnā samtbeka	inat
+gbif:2524910	Parastā žultsbeka	inat
+gbif:9133361	Kastaņu smilšbeka	inat
+gbif:2524265	Rudzupuķu smilšbeka	inat
+gbif:9225326	Melnā zvīņbeka	inat
+gbif:2520104	Lācīši	inat
+gbif:9141390	Parastā bērzubeka	inat
+gbif:2524513	Parastā apšubeka	inat
+gbif:2524503	Purva bērzubeka	inat
+gbif:2524490	Dzeltenbrūnā apšubeka	inat
+gbif:2524528	Sila lācītis	inat
+gbif:8146046	Graudainā sviestbeka	inat
+gbif:7777157	Parastā sviestbeka	inat
+gbif:5239864	zeltainā sviestbeka	inat
+gbif:5239925	Gaišā sviestbeka	inat
+gbif:5239851	Dobkāta sviestbeka	inat
+gbif:7623986	Govju sviestbeka	inat
+gbif:5239873	Lipīgā sviestbeka	inat
+gbif:9043861	Priežu sviestbeka	inat
+gbif:2524228	Iesārtais jumjupūpēdis	inat
+gbif:2524248	Iedzeltenais jumjupūpēdis	inat
+gbif:2551150	Saldā krimilde	inat
+gbif:7719797	Piparu krimilde	inat
+gbif:2551071	Samtainā krimilde	inat
+gbif:2551169	Bērzlapes	inat
+gbif:2551356	Siļķu bērzlape	inat
+gbif:2551213	Sīvā bērzlape	inat
+gbif:2551254	Trauslā bērzlape	inat
+gbif:2551542	Violetzaļā bērzlape	inat
+gbif:2551201	Purva bērzlape	inat
+gbif:3359736	Asinssarkanā bērzlape	inat
+gbif:2551173	Zilzaļā bērzlape	inat
+gbif:2551479	Mainīgā bērzlape	inat
+gbif:2551457	Ķemmveida bērzlape	inat
+gbif:2551299	Dzeltenā bērzlape	inat
+gbif:2551470	Purpurmelnganā bērzlape	inat
+gbif:2551443	Melnbaltā bērzlape	inat
+gbif:2551415	Plankumainā bērzlape	inat
+gbif:2551447	Smirdīgā bērzlape	inat
+gbif:2551558	Kelē bērzlape	inat
+gbif:9223923	Tumšā bērzlape	inat
+gbif:2551191	Ciešlapiņu bērzlape	inat
+gbif:2551423	Zaļā bērzlape	inat
+gbif:2551331	Baltā bērzlape	inat
+gbif:2551419	Okerdzeltenā bērzlape	inat
+gbif:2551388	Zeltainā bērzlape	inat
+gbif:2551274	Zeltasaru bērzlape	inat
+gbif:2551426	Mentola bērzlape	inat
+gbif:2536706	Dižsardzenes	inat
+gbif:8914748	Lielā dižsardzene	inat
+gbif:6005964	Mušmires	inat
+gbif:7496350	Sarkstošā mušmire	inat
+gbif:7765582	Dzeltenbrūnā makstsēne	inat
+gbif:5240282	Oranžā makstsēne	inat
+gbif:5240213	Čūskādas makstsēne	inat
+gbif:7446067	Briežu jumtene	inat
+gbif:5241354	Melnskropstu jumtene	inat
+gbif:5241254	Oranžā jumtene	inat
+gbif:5241259	Lauvu jumtene	inat
+gbif:2530926	Sārtā bērzlapene	inat
+gbif:2530983	Ametista bērzlapene	inat
+gbif:2530973	Divkrāsu bērzlapene	inat
+gbif:2530966	Lielā bērzlapene	inat
+gbif:5241128	Parastā skaldlapīte	inat
+gbif:2537250	Pļavas vītene	inat
+gbif:3341441	Samtainā ziemene	inat
+gbif:9367003	Pūpēži	inat
+gbif:5243258	Kārpainais pūpēdis	inat
+gbif:5453425	Plaisājošais pūpēdis	inat
+gbif:5243244	Pļavu pūpēdis	inat
+gbif:5243243	Brūnais pūpēdis	inat
+gbif:5243279	Kātainais zaķpūpēdis	inat
+gbif:5243210	Smirdošais pūpēdis	inat
+gbif:2535193	Svinpelēkais pūpēdītis	inat
+gbif:10852503	Bumbieru pūpēdis	inat
+gbif:2531072	Dūmainā piltuvene	inat
+gbif:2539197	Zīdainā plūmene	inat
+gbif:9072989	Aknenes	inat
+gbif:2531012	Parastā aknene	inat
+gbif:2594776	Garkāta rumpucis	inat
+gbif:2594756	Kausa rumpucis	inat
+gbif:2594716	Elastīgais rumpucis	inat
+gbif:2594765	Dobais rumpucis	inat
+gbif:2538788	Zeltpārslu gliemezene	inat
+gbif:2538799	Iesārtā gliemezene	inat
+gbif:2538727	Smaržīgā gliemezene	inat
+gbif:2538784	Olīvbaltā gliemezene	inat
+gbif:2538720	Biezlapīšu gliemezene	inat
+gbif:2534578	Vizuļojošā tintene	inat
+gbif:2534625	Dižbara tintene	inat
+gbif:2524960	Tīmeklenes	inat
+gbif:7844497	Baltvioletā tīmeklene	inat
+gbif:2529415	Cirtainā čigānene	inat
+gbif:8802917	Sarkanjoslu tīmeklene	inat
+gbif:7476637	Pavalku tīmeklene	inat
+gbif:3345846	Vairoga sārtlapīte	inat
+gbif:7486196	Ķekarainā korallene	inat
+gbif:8869949	Stāvā korallene	gbif
+gbif:2551823	Parastā aitupiepe	inat
+gbif:2524996	Lipīgā dzeltenpēdene	inat
+gbif:2538864	Biezkāta piltuvene	inat
+gbif:12008655	Kandola spīgulīte	inat
+gbif:5249883	Sekstainā vārpstene	inat
+gbif:5249808	Krokainā vārpstene	inat
+gbif:5249860	Pelēkā vārpstene	inat
+gbif:3345381	Sniegbaltā biezlapīte	inat
+gbif:3291564	Pļavas biezlapīte	inat
+gbif:7542962	Arkas kātiņpiepe	inat
+gbif:9154166	Tīģeru sīkstene	inat
+gbif:9217873	Sviesta vērdiņsēne	inat
+gbif:5244501	Trauslā vālene	inat
+gbif:2521401	Nošķeltā dižvālene	inat
+gbif:2521391	Milzu dižvālene	inat
+gbif:12092733	Zābakotā vērdiņsēne	inat
+gbif:11993337	Kopaugošā vērdiņsēne	inat
+gbif:2525056	Zemeszvaigznes	inat
+gbif:2554367	Biezstaru zemeszvaigzne	inat
+gbif:2554355	Skropstainā zemeszvaigzne	inat
+gbif:5258510	Parastā bisīte	inat
+gbif:2525710	Dzeltensārtā negailene	inat
+gbif:5955261	Sēntiņas	inat
+gbif:2527219	Dzidrā sēntiņa	inat
+gbif:8689071	Bērzu kamolene	inat
+gbif:2581823	Agrenes	inat
+gbif:8156721	Košā agrene	inat
+gbif:2550456	Lapkoku svečtursēne	inat
+gbif:2550493	Lapkoku svečtursēne	inat
+gbif:2542395	Parastā apmalpiepe	inat
+gbif:5242142	Parastā melnbaltene	inat
+gbif:2526774	Spīgulīte	inat
+gbif:2534836	Ūdeņainā spīgulīte	inat
+gbif:9050242	Puslodes tīrumene	inat
+gbif:5955395	Sarkstošā dižsardzene	inat
+gbif:2607519	Kladonijas	inat
+gbif:5242740	Pelēkā tintene	inat
+gbif:8972210	Alkšņu zobiņbeka	inat
+gbif:2533062	Brūnvidus bārkstmale	inat
+gbif:2538524	Smailā stiklene	inat
+gbif:2538445	Šarlaksarkanā stiklene	inat
+gbif:2538552	Sarkanā stiklene	inat
+gbif:7672956	Melnējošā stiklene	inat
+gbif:9129313	Zvīņainā sīkstene	inat
+gbif:2534102	Zeltainā zvīņene	inat
+gbif:2534205	Spurainā zvīņene	inat
+gbif:2534085	Gļotainā zvīņene	inat
+gbif:9091857	Mālubālā zvīņene	inat
+gbif:5246840	Čemurainā kātiņpiepe	inat
+gbif:2548311	Raibā tauriņpiepe	inat
+gbif:9227816	Parastā cinobrpiepe	inat
+gbif:2548374	Dzeltenā tauriņpiepe	inat
+gbif:2533424	Ķieģeļsarkanā sērsēne	inat
+gbif:2549730	Lakas plakanpiepe	inat
+gbif:2533962	Mainīgā pacelmene	inat
+gbif:8329645	Gļotgalvainā makstaine	inat
+gbif:5243756	Nobiru vērdiņsēne	inat
+gbif:3314876	Parastie zemestauki	inat
+gbif:5249353	Adatreceklene	inat
+gbif:3355021	Raganu beka	inat
+gbif:5258678	Zeltainā aleirija (oranžā spulgaine)	inat
+gbif:5239982	Parastais cietpūpēdis	inat
+gbif:2532720	Milzu baltmietene	inat
+gbif:9156243	Piparu rubīnbeka	inat
+gbif:8114489	Rudkāta vērdiņsēne	inat
+gbif:5243011	Smailzvīņu saulsardzene	inat
+gbif:2525027	Eglaines zeltkāte	inat
+gbif:2537418	Ķiplpku vītene	inat
+gbif:11011338	Vēlā pundurkamolene	inat
+gbif:9056826	Krāšņā vistene	inat
+gbif:2531814	Parastā vistene	inat
+gbif:2551821	Kopaugošā aitupiepe	inat
+gbif:8203051	Resnkāta beka	inat
+gbif:7550396	Sakņkāta beka	inat
+gbif:2512969	Ragveidīgā zaraine	inat
+gbif:9134585	Lipīgā zaraine	inat
+gbif:5240984	Plakanā sēdene	inat
+gbif:5240943	Mīkstā sēdene	inat
+gbif:2526256	Vainaglapu gliemežnīcene	inat
+gbif:7686337	Kakaobrūnā spīgulīte	inat
+gbif:8060178	Sarkanā samtbeka	inat
+gbif:5242798	Samtainā spīgulīte	inat
+gbif:2535456	Vairoga saulsardzene	inat
+gbif:2530577	Baltā kokpiltuvene	inat
+gbif:2521516	Mietenes	inat
+gbif:5240002	Kailā mietene	inat
+gbif:2538000	Mirdzošā karotene	inat
+gbif:2524797	Raupjā tumšbeka	inat
+gbif:11159309	Virpainītes	inat
+gbif:7693097	Samtainā mietene	inat
+gbif:2527302	Zvaniņu sausdobīte	inat
+gbif:2552020	Kalnu bondarcevija	inat
+gbif:2532395	Kuprainā gailenīte	inat
+gbif:9400640	Mainīgā kātiņpiepe	inat
+gbif:5244486	Zeltainā vārpstenīte	inat
+gbif:9117445	Dzeltenīgā vārpstenīte	inat
+gbif:2542720	Ziemeļu klimakociste	inat
+gbif:5243525	Dzeltenā graudcepurīte	inat
+gbif:2512921	Vēdekļa galertene	inat
+gbif:3214437	ragansviests	inat
+gbif:5426027	Parastais ragansviests	inat
+gbif:3345400	Zaļā stiklene	inat
+gbif:3304469	Virsāja stiklene	inat
+gbif:8824388	Rumpuču skrimslene	inat
+gbif:2550371	Karotes sīkstenīte	inat
+gbif:5241698	Gumainā balttīmeklene	inat
+gbif:8189348	Baltā čemurpūkaine	inat
+gbif:2537689	Platlapiņu dāldersēne	inat
+gbif:9128195	Ēzeļu ausene	inat
+gbif:9645698	Brūnā receklene	inat
+gbif:7562246	Sarkstošā bankera	inat
+gbif:2521975	Ramalīnas	inat
+gbif:10691289	Lipīgā gļotaine	inat
+gbif:2593184	Baltā cūktrifele	inat

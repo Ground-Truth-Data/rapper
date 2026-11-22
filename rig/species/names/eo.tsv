@@ -1,0 +1,181 @@
+id	name	source
+gbif:5285777	Eliot-pino	gbif
+gbif:5285533	Banks-pino	gbif
+gbif:5285621	Arĝenta pino	gbif
+gbif:5285727	Kalifornia pino	gbif
+gbif:5285243	Kanaria pino	gbif
+gbif:5285511	Glatafolia pino	gbif
+gbif:5285740	Kariba pino	gbif
+gbif:5285710	Malgrandazia pino	gbif
+gbif:5285074	Valiĥ-pino	gbif
+gbif:5285084	Roksburg-pino	gbif
+gbif:5284667	Siberia pino	gbif
+gbif:5285824	Ĥasi-pino	gbif
+gbif:5285783	Junana pino	gbif
+gbif:7606064	Piceo	gbif
+gbif:5284765	Siberia piceo	gbif
+gbif:2685775	Pseŭdocugo	gbif
+gbif:2685796	Menzies-pseŭdocugo	gbif
+gbif:2684178	Okcidenta tujo	gbif
+gbif:2686156	Lariko	gbif
+gbif:2686231	Orienta lariko	gbif
+gbif:2686270	Okcidenta lariko	gbif
+gbif:2686212	Eŭropa lariko	gbif
+gbif:3040215	Ŝajntremola poplo	gbif
+gbif:3040249	Tremolo	gbif
+gbif:8527396	Cugo	gbif
+gbif:2687182	Orienta cugo	gbif
+gbif:2687210	Okcidenta cugo	gbif
+gbif:2684876	Abio	gbif
+gbif:2685383	Balzama abio	gbif
+gbif:2685552	Kaŭkaza abio	gbif
+gbif:2685484	Blanka abio	gbif
+gbif:2685326	Greka abio	gbif
+gbif:2685628	Kilikia abio	gbif
+gbif:5331779	Alegana betulo	gbif
+gbif:5331916	Penda betulo	gbif
+gbif:9118014	Lanuga betulo	gbif
+gbif:7493935	Eŭkalipto	gbif
+gbif:3176772	Tuart-eŭkalipto	gbif
+gbif:2925649	Granda tektono	gbif
+gbif:3071171	Kaŭĉukarbo	gbif
+gbif:2683915	Sugio	gbif
+gbif:5284237	Sugio	gbif
+gbif:2952066	Robinio	gbif
+gbif:5352251	Blanka robinio	gbif
+gbif:2683848	Kamecipariso	gbif
+gbif:2874875	Fago	gbif
+gbif:2882274	Grandfolia fago	gbif
+gbif:2882316	Eŭropa fago	gbif
+gbif:2882360	Orienta fago	gbif
+gbif:2877951	Kverko	gbif
+gbif:2880539	Ruĝa kverko	gbif
+gbif:2880130	Tigfolia kverko	gbif
+gbif:2879175	Kirmesa kverko	gbif
+gbif:3190484	Grandfolia svitenio	gbif
+gbif:3190474	Hinda azadiraĥto	gbif
+gbif:7107974	Brazila cedro	gbif
+gbif:5914287	Bida melio	gbif
+gbif:2684030	Mediteranea cipreso	gbif
+gbif:2684910	Araŭkario	gbif
+gbif:2684984	Ĉilia araŭkario	gbif
+gbif:2684969	Norfolkinsula araŭkario	gbif
+gbif:3170823	Ĉina paŭlovnio	gbif
+gbif:5361865	Glata ulmo	gbif
+gbif:7303616	Longtiga ulmo	gbif
+gbif:3759078	Nigra saksaulo	gbif
+gbif:3039284	Hipofeo	gbif
+gbif:3039285	Ramnoida hipofeo	gbif
+gbif:3189634	Kamelio	gbif
+gbif:3152861	Tulipa liriodendro	gbif
+gbif:3189866	Manitoba acero	gbif
+gbif:3189859	Sukeracero	gbif
+gbif:3189846	Plataneca acero	gbif
+gbif:3189837	Arĝenta acero	gbif
+gbif:3189870	Sikomora acero	gbif
+gbif:3189863	Kampa acero	gbif
+gbif:2876213	Nigra alno	gbif
+gbif:2876131	Anda alno	gbif
+gbif:3172323	Frakseno	gbif
+gbif:3172358	Ordinara frakseno	gbif
+gbif:3054350	Juglando	gbif
+gbif:3054368	Reĝa juglando	gbif
+gbif:3020559	Prunuso	gbif
+gbif:3020791	Ĉerizarbo	gbif
+gbif:3152041	Tilio	inat
+gbif:3152047	Etfolia tilio	inat
+gbif:2875770	Karpeno	gbif
+gbif:2875818	Eŭropa karpeno	gbif
+gbif:2875780	Orienta karpeno	gbif
+gbif:2882140	Kaŝtanarbo	gbif
+gbif:5333294	Ordinara kastaneo	gbif
+gbif:2683908	Sekvojo	gbif
+gbif:2683909	Sekvojo	gbif
+gbif:2684119	Sekvojadendro	gbif
+gbif:2684120	Sekvojadendro	gbif
+gbif:5284231	Metasekvojo	gbif
+gbif:3075453	Mangifero	gbif
+gbif:2984573	Panarbo	gbif
+gbif:2735117	Kokoso	gbif
+gbif:2928997	Solano	gbif
+gbif:3189387	Terminalio	gbif
+gbif:3029010	Sizigio	gbif
+gbif:3152213	Baobabo	gbif
+gbif:3190155	Citrusoj	inat
+gbif:8077391	Bigaradujo	gbif
+gbif:5407147	Ĉerimolio	gbif
+gbif:3175449	Melaleŭko	gbif
+gbif:2895315	Kafarbo	gbif
+gbif:2895345	Araba kofeo	gbif
+gbif:2732076	Daktilpalmo	gbif
+gbif:5421368	Akaĵuo	gbif
+gbif:3188663	Granato	gbif
+gbif:5420901	Granato	gbif
+gbif:2984588	Fikuso	gbif
+gbif:2684500	Altkreska junipero	gbif
+gbif:2959443	Kristodorna glediĉio	gbif
+gbif:3039576	Saliko	gbif
+gbif:3190652	Ailanto	gbif
+gbif:11397237	Eŭforbio	gbif
+gbif:3152840	Muskato	gbif
+gbif:7160810	Marula arbo	gbif
+gbif:3190446	Bursero	gbif
+gbif:2986357	Kombreto	gbif
+gbif:5415040	Olivarbo	inat
+gbif:2684184	Tetraklino	gbif
+gbif:3012146	Sorpujo	gbif
+gbif:2925556	Vitekso	gbif
+gbif:2968148	Afzelio	gbif
+gbif:2875968	Turkia korilo	gbif
+gbif:2685008	Agatido	gbif
+gbif:7316860	Kebraĉa aspidospermao	gbif
+gbif:2984660	Majaa brosimo	gbif
+gbif:2874877	Notofago	gbif
+gbif:2882796	Arbuto	gbif
+gbif:2882803	Okcidenta arbuto	gbif
+gbif:4170901	Orienta arbuto	gbif
+gbif:3013395	Kratago	gbif
+gbif:8252683	Dustilusa kratago	gbif
+gbif:3190017	Dodoneo	gbif
+gbif:10792217	Ilekso	gbif
+gbif:3034015	Laŭro	gbif
+gbif:3189815	Hipokastano	gbif
+gbif:3033893	Berberiso	gbif
+gbif:2874861	Bombako	gbif
+gbif:3152226	Hinda bombako	inat
+gbif:4073451	Savana bombako	gbif
+gbif:2736625	Kameropso	gbif
+gbif:3082226	Kornuso	gbif
+gbif:3082263	Karneca kornuso	gbif
+gbif:2882780	Eriko	gbif
+gbif:3039454	Frangolo	gbif
+gbif:3234737	Orpluvo	gbif
+gbif:5356345	Orpluvo	gbif
+gbif:2888645	Lonicero	gbif
+gbif:3001068	Pomarboj	inat
+gbif:3001244	pomo	inat
+gbif:2986532	Piro	gbif
+gbif:3190534	Sumako	gbif
+gbif:2986095	Ribo	gbif
+gbif:2986185	Groso	gbif
+gbif:2986192	Nigra ribo	gbif
+gbif:8395064	Rozoj	inat
+gbif:3002461	Hundorozo	gbif
+gbif:2988638	Rubuso	gbif
+gbif:2769754	Rusko	gbif
+gbif:2769766	Pika rusko	gbif
+gbif:2888721	Sambuko	gbif
+gbif:2958901	Soforo	gbif
+gbif:8109416	Spartio	gbif
+gbif:5355395	Spartio	gbif
+gbif:5415039	Ordinara siringo	gbif
+gbif:2926960	Timiano	gbif
+gbif:2951953	Ulekso	gbif
+gbif:2882813	Vakcinio	gbif
+gbif:2888605	Opulo	gbif
+gbif:2888585	Laŭro-viburno	gbif
+gbif:9623860	Kantarelo	gbif
+gbif:5954691	Somera boleto	gbif
+gbif:8282501	Trufo	gbif
+gbif:8914748	Granda sunombrelfungo	gbif
+gbif:2549730	Sigelvaksa fungo	gbif
