@@ -2,6 +2,12 @@
 /** A person as every surface draws them. `picked`: the book owner chose this
  *  colour (filled); otherwise it was handed out on arrival (dashed outline). */
 export type Identity = { label: string; color: string; self: boolean; picked: boolean; key?: string };
+
+/** One person once: the same key (a folded twin resolves to its person's), the self, or a keyless label. */
+export const samePerson = (a: Identity, b: Identity) => (a.self && b.self) || (a.key || b.key ? a.key === b.key : a.label === b.label);
+
+/** Pills for a list, each person once, keyed `(w.key ?? w.label)`: two people may share a name, never a key. */
+export const onePerPerson = (ws: readonly Identity[]): Identity[] => ws.filter((w, i) => ws.findIndex((o) => samePerson(o, w)) === i);
 </script>
 
 <script lang="ts">
@@ -17,13 +23,10 @@ let {
     clobberBy = null,
 }: { who: Identity; editors?: readonly Identity[]; clobberBy?: Identity | null } = $props();
 
-// Keyless people match by label, as the #each below keys them; otherwise one person draws twice and the each throws.
-const same = (a: Identity, b: Identity) => (a.self && b.self) || (a.key || b.key ? a.key === b.key : a.label === b.label);
-const marks = $derived.by(() => {
-    const all = clobberBy && !editors.some((e) => same(e, clobberBy)) ? [clobberBy, ...editors] : [...editors];
-    // A nameless author is no one (a file the old map import signed with): no pill, no pen.
-    return all.filter((e) => e.label).sort((a, b) => Number(same(b, who)) - Number(same(a, who)));
-});
+// A nameless author is no one (a file the old map import signed with): no pill, no pen.
+const marks = $derived(
+    onePerPerson((clobberBy ? [clobberBy, ...editors] : editors).filter((e) => e.label)).sort((a, b) => Number(samePerson(b, who)) - Number(samePerson(a, who))),
+);
 
 // A name cut short by its cell reads whole on a tap, in place; the tap is the pill's, not the row's under it.
 const full = new SvelteSet<string>();
@@ -47,9 +50,9 @@ function read(e: MouseEvent, label: string) {
     style:--id-c={p.color || null}
     title={p.label}>{label}</span
 >{/snippet}
-{#if who.label && !marks.some((e) => same(e, who))}{@render own(who)}{/if}
+{#if who.label && !marks.some((e) => samePerson(e, who))}{@render own(who)}{/if}
 {#each marks as e (e.key ?? e.label)}
-    {@const hammer = !!clobberBy && same(e, clobberBy)}
+    {@const hammer = !!clobberBy && samePerson(e, clobberBy)}
     <span class="id-mark" title={hammer ? m.gc_edit_replaced() : m.gc_edited_since_made()}
         ><span class="id-mark-half" class:id-mark-half--hammer={hammer}><Icon name={hammer ? "hammer" : "pen"} size={hammer ? 11 : 9} stroke={2.2} /></span
         >{@render own(e)}</span

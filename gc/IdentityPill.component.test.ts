@@ -2,7 +2,7 @@
 // The person, then one joined pill per editor: a pen half for their saves, a hammer half for a clobber.
 import { render } from "@testing-library/svelte";
 import { describe, expect, it } from "vitest";
-import IdentityPill from "./IdentityPill.svelte";
+import IdentityPill, { onePerPerson } from "./IdentityPill.svelte";
 
 const pete = { label: "Pete", color: "#c33", self: false, picked: true };
 const me = { label: "Me", color: "", self: true, picked: true };
@@ -35,6 +35,15 @@ describe("IdentityPill", () => {
 		expect(c.querySelector(".id-mark-half--hammer")).toBeNull();
 		expect(c.querySelectorAll(".id-pill")).toHaveLength(1);
 		expect(c.querySelector(".id-pill")!.textContent).toBe("Me");
+	});
+
+	// Names repeat (twins, a shared alias); a list keyed on the name threw each_key_duplicate and blanked the screen.
+	it("two people with one name draw two pills; one person listed twice (a folded twin) draws one", () => {
+		const mikeA = { label: "Mike", color: "", self: false, picked: false, key: "p-a" };
+		const mikeB = { ...mikeA, key: "p-b" };
+		const c = render(IdentityPill, { who: pete, editors: [mikeA, mikeB, { ...mikeA }] }).container;
+		expect([...c.querySelectorAll(".id-mark .id-pill")].map((p) => p.textContent)).toEqual(["Mike", "Mike"]);
+		expect(onePerPerson([mikeA, mikeB, { ...mikeA }, { label: "Kim", color: "", self: false, picked: false }]).map((w) => w.key ?? w.label)).toEqual(["p-a", "p-b", "Kim"]);
 	});
 
 	it("a nameless author draws nothing: no blank pill, no pen", () => {
