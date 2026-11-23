@@ -95,3 +95,27 @@ describe("an undefined option never reaches Mapbox as a key", () => {
         expect("zoom" in opts).toBe(false);
     });
 });
+
+// Chris's ruler recentres itself after hours of use: in dev, every camera move names the code that asked for it.
+describe("in dev, each camera move logs who asked", () => {
+    const callerOfTest = () => {
+        const log = vi.spyOn(console, "info").mockImplementation(() => {});
+        return {
+            lines: () => log.mock.calls.map((c) => String(c[0])),
+            done: () => log.mockRestore(),
+        };
+    };
+    it.each([
+        ["flyTo", (m: FitArg) => safeFlyTo(m, { center: [1, 2] })],
+        ["easeTo", (m: FitArg) => safeEaseTo(m, { zoom: 3 })],
+        ["jumpTo", (m: FitArg) => safeJumpTo(m, { zoom: 3 })],
+        ["fitBounds", (m: FitArg) => safeFitBounds(m, SW, NE)],
+    ] as const)("%s names this test file, not safeMap", (fn, move) => {
+        const c = callerOfTest();
+        move(makeMap() as unknown as FitArg);
+        const lines = c.lines().filter((l) => l.startsWith("[camera]"));
+        c.done();
+        expect(lines).toHaveLength(1);
+        expect(lines[0]).toMatch(new RegExp(`^\\[camera\\] ${fn} ← .*safeMap\\.test\\.ts:\\d+`));
+    });
+});
