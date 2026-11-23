@@ -225,7 +225,8 @@ $effect(() => {
 		prog = p;
 		if (p >= 1 && !locked) {
 			locked = true;
-			navigator.vibrate?.(12);
+			// A lesson's scripted drag locks it too; before any tap the browser refuses the buzz with a console error.
+			if (navigator.userActivation?.hasBeenActive) navigator.vibrate?.(12);
 		}
 		if (p < 1) locked = false;
 		raf = requestAnimationFrame(draw);
