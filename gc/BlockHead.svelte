@@ -1,12 +1,12 @@
 <!-- The block a sheet is on, drawn the same on deliver, allocated and the cache audit: its icon across two lines,
-  the name alone in the steel plaque (a tap unpicks it), "ha @ rate/ha" beside the tree total, and the sheet's own
-  sums lined up under that total. The date and the owner live in the block's drawer. It formats nothing. -->
-<script lang="ts" module>
-export type Sum = { k: string; v: string; tone?: "rose" | "teal" | "ok"; minus?: boolean; tree?: boolean; rule?: boolean };
-</script>
+  the name alone in the steel plaque (a tap unpicks it), and line 2 saying where the total came from. Worked out,
+  it reads "ha × rate/ha = total" on the right; allocated on purpose, "ha @ rate/ha" sits dimmed at the left and the
+  word allocated stands beside the total, so the allocated number never takes the worked-out spot. A rust rule,
+  then the sheet's own sums under the total. The date and the owner live in the block's drawer. It formats nothing. -->
 
 <script lang="ts">
 import Plaque from "./Plaque.svelte";
+import SumLines, { type Sum } from "./SumLines.svelte";
 import TreeGlyph from "./TreeGlyph.svelte";
 import { areaLabel } from "./units.svelte";
 
@@ -17,6 +17,7 @@ let {
 	ha,
 	rate,
 	total,
+	allocated,
 	sums = [],
 	onUnpick,
 	onSums,
@@ -29,6 +30,8 @@ let {
 	ha: string;
 	rate: string;
 	total: string;
+	/** The word for a total allocated on purpose; absent, the total is the area at its rate. */
+	allocated?: string;
 	sums?: Sum[];
 	onUnpick: () => void;
 	/** A tap on the sums: the sheet's own breakdown. */
@@ -42,24 +45,21 @@ let {
 		<Plaque class="bh-plaque" onclick={onUnpick} ariaLabel={unpickLabel}>
 			<span class="bh-name">{name}</span>
 		</Plaque>
-		<div class="bh-meta">
-			<span class="bh-rate">{ha}<span class="u">{` ${areaLabel()} @ `}</span>{rate}<span class="u">/{areaLabel()}</span></span>
-			<span class="bh-tot"><TreeGlyph />{total}</span>
+		<div class="bh-meta" class:on-purpose={allocated}>
+			{#if allocated}
+				<span class="bh-rate">{ha}<span class="u">{` ${areaLabel()} @ `}</span>{rate}<span class="u">/{areaLabel()}</span></span>
+				<span class="bh-end"><span class="bh-alloc">{allocated}</span><span class="bh-tot"><TreeGlyph />{total}</span></span>
+			{:else}
+				<span class="bh-rate">{ha}<span class="u">{` ${areaLabel()} × `}</span>{rate}<span class="u">/{areaLabel()} =</span></span>
+				<span class="bh-tot"><TreeGlyph />{total}</span>
+			{/if}
 		</div>
 	</div>
 </div>
-{#snippet lines()}
-	{#each sums as s (s.k)}
-		{#if s.rule}<i class="bh-rule"></i>{/if}
-		<span class="bh-l">
-			<span class="bh-k">{s.k}</span>
-			<span class="bh-v {s.tone ?? ''}">{#if s.minus}<span class="bh-minus">−</span>{/if}{#if s.tree}<span class="bh-tree"><TreeGlyph /></span>{/if}{s.v}</span>
-		</span>
-	{/each}
-{/snippet}
+<i class="bh-line"></i>
 {#if sums.length}
-	{#if onSums}<button type="button" class="bh-sums" onclick={onSums}>{@render lines()}</button>
-	{:else}<div class="bh-sums">{@render lines()}</div>{/if}
+	{#if onSums}<button type="button" class="bh-sums" onclick={onSums}><SumLines {sums} /></button>
+	{:else}<div class="bh-sums"><SumLines {sums} /></div>{/if}
 {/if}
 
 <style>
@@ -101,13 +101,21 @@ let {
 	.bh-sums {
 		padding-right: 12px;
 	}
+	/* One height for both cases, so the header sits the same on every sheet. */
 	.bh-meta {
+		height: 22px;
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: flex-end;
 		gap: 8px;
 		padding-left: 4px;
 		white-space: nowrap;
+	}
+	.bh-meta.on-purpose {
+		justify-content: space-between;
+	}
+	.on-purpose .bh-rate {
+		opacity: 0.85;
 	}
 	.bh-rate {
 		font: 500 12px/1 var(--rt-font-meta);
@@ -116,69 +124,40 @@ let {
 	.bh-rate .u {
 		color: var(--rt-sage);
 	}
-	.bh-tot,
-	.bh-v {
+	.bh-end {
+		display: flex;
+		align-items: baseline;
+		gap: 8px;
+	}
+	.bh-alloc {
+		font: 14px/1 var(--rt-font-display);
+		color: var(--rust);
+	}
+	.bh-tot {
 		display: flex;
 		align-items: center;
 		gap: 4px;
-		font-family: var(--rt-font-display);
+		font: 20px/1 var(--rt-font-display);
 		color: var(--rt-fg);
 	}
-	.bh-tot {
-		font-size: 24px;
-		line-height: 1;
-	}
-	/* The tree stays white beside a coloured number. */
-	.bh-tree {
-		display: contents;
-		color: var(--rt-fg);
+	.bh-line {
+		display: block;
+		height: 2px;
+		margin: 8px 0 0;
+		border-radius: 2px;
+		background: var(--rust);
 	}
 	.bh-sums {
 		display: flex;
 		flex-direction: column;
 		align-items: stretch;
-		gap: 2px;
 		width: 100%;
-		margin: 8px 0 0;
+		margin: 6px 0 0;
 		border: 0;
 		background: none;
 		cursor: pointer;
 	}
 	div.bh-sums {
 		cursor: default;
-	}
-	.bh-l {
-		display: flex;
-		justify-content: flex-end;
-		align-items: baseline;
-		gap: 10px;
-	}
-	.bh-k {
-		font: 16px/1.2 var(--rt-font-display);
-		color: var(--rust);
-	}
-	.bh-v {
-		justify-content: flex-end;
-		min-width: 118px;
-		font-size: 22px;
-		line-height: 1.2;
-	}
-	.bh-minus {
-		font-size: 20px;
-		color: var(--rt-sage);
-	}
-	.bh-rule {
-		align-self: flex-end;
-		width: 150px;
-		border-top: var(--rule-edge);
-	}
-	.bh-v.rose {
-		color: var(--rt-rose);
-	}
-	.bh-v.teal {
-		color: var(--rt-q704-over);
-	}
-	.bh-v.ok {
-		color: #8dd84e;
 	}
 </style>
