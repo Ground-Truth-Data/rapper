@@ -375,23 +375,28 @@
   border-radius: 0.5rem !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
 }
-/* Credits: a faded white ⓘ that opens one faded line, at most 160×26, on no backing: legal, never loud. */
+/* Credits: one line on a see-through dark pill, at most 160×26, that reads over water, land and photo. No gold. */
 .mapboxgl-ctrl.mapboxgl-ctrl-attrib,
 .maplibregl-ctrl.maplibregl-ctrl-attrib {
-  background: transparent !important;
-  color: rgba(255, 255, 255, 0.4) !important;
+  background: rgba(0, 0, 0, 0.45) !important;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.85) !important;
   border-radius: 11px;
   font-family: "Inter", sans-serif;
-  font-size: 10px;
+  font-size: 9px;
   line-height: 1.4;
   padding: 2px 8px !important;
+  max-width: 160px;
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 .mapboxgl-ctrl-attrib.mapboxgl-compact,
 .maplibregl-ctrl-attrib.maplibregl-compact {
-  background: transparent !important;
-  border: none;
   /* MapLibre sets #000 at the same weight. */
-  color: rgba(255, 255, 255, 0.4) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
   font-size: 10px;
   line-height: 1.4;
   min-height: 0 !important;
@@ -437,7 +442,7 @@
   width: 20px !important;
   height: 20px !important;
   background-color: transparent !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23fff' fill-opacity='.4' fill-rule='evenodd'%3E%3Cpath d='M4 10a6 6 0 1 0 12 0 6 6 0 1 0-12 0m5-3a1 1 0 1 0 2 0 1 1 0 1 0-2 0m0 3a1 1 0 1 1 2 0v3a1 1 0 1 1-2 0'/%3E%3C/svg%3E") !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23fff' fill-opacity='.85' fill-rule='evenodd'%3E%3Cpath d='M4 10a6 6 0 1 0 12 0 6 6 0 1 0-12 0m5-3a1 1 0 1 0 2 0 1 1 0 1 0-2 0m0 3a1 1 0 1 1 2 0v3a1 1 0 1 1-2 0'/%3E%3C/svg%3E") !important;
   box-shadow: none !important;
 }
 .mapboxgl-ctrl-attrib-button:focus-visible,
