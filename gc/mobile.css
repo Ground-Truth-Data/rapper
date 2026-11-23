@@ -200,6 +200,8 @@
 	--gc-pullbar-pad: 1.7rem;
 	/* The shovel's top edge, from the screen's bottom (6px is ShovelHandle's lift): the map's bottom chrome stands on it. */
 	--gc-map-floor: calc(var(--gc-navbar-h) + var(--gc-pullbar-h) - var(--gc-pullbar-pad) + 6px);
+	/* The shovel art's width (ShovelHandle); the credits find its blade by it. */
+	--gc-shovel-w: min(88cqw, 23.75rem);
 
 	/* ── Top nav bar ────────────────────────────────────────── */
 	/* Twin of --gc-navbar-h; TopBarMobile overwrites this on :root once measured — this is the pre-mount fallback. */
@@ -765,12 +767,10 @@ body.mobile-app [contenteditable] * {
 }
 
 
-/* Right-aligned with the zoom pill: on the left the shovel artwork sits behind the logo. */
-.mobile-map-fill .maplibregl-ctrl-bottom-left {
-	bottom: calc(var(--gc-map-floor) + 4px) !important;
-	left: auto !important;
-	right: 0.75rem !important;
-	padding: 0 !important;
+@container (min-width: 700px) {
+	.mobile-map-fill {
+		--gc-shovel-w: min(88cqw, 25.25rem);
+	}
 }
 .mobile-map-fill .maplibregl-ctrl-logo {
 	opacity: 0.5;
@@ -914,8 +914,7 @@ body.demo-map-fullbleed .bottom-nav {
 .mobile-map-fill .drawer-scrim,
 .mobile-map-fill .draw-strip,
 .mobile-map-fill .maplibregl-ctrl-top-right,
-.mobile-map-fill .maplibregl-ctrl-bottom-right,
-.mobile-map-fill .maplibregl-ctrl-bottom-left {
+.mobile-map-fill .maplibregl-ctrl-bottom-right {
 	transition: opacity 220ms ease;
 }
 
@@ -937,8 +936,7 @@ body.map-only .mobile-map-fill .shovel-handle,
 body.map-only .mobile-map-fill .drawer-scrim,
 body.map-only .mobile-map-fill .draw-strip,
 body.map-only .mobile-map-fill .maplibregl-ctrl-top-right,
-body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-right,
-body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-left {
+body.map-only .mobile-map-fill .maplibregl-ctrl-bottom-right {
 	opacity: 0;
 	pointer-events: none;
 }
