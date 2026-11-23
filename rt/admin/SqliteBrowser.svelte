@@ -136,7 +136,7 @@ $effect(() => {
 	db.tableCounts().then(setTableCounts, (e) => (err = String(e?.message ?? e)));
 });
 
-// `table` comes from the URL, so navigation is the trigger. replaceState would
+// `table` comes from the URL, so navigation is the trigger. A shallow goto would
 // change the address without re-running this.
 $effect(() => {
 	const name = table;

@@ -151,11 +151,40 @@ const schemaKeys = [...schemaSrc.matchAll(KEY_LINE)].map((m) => m[1]);
 const bitwardenKeys = [...schemaSrc.matchAll(/^(\w+)=bitwarden\(/gm)].map((m) => m[1]);
 if (schemaKeys.length === 0) fail(`${SCHEMA} declares no keys — this proves nothing.`);
 
-// varlock audit scans process.env and import.meta.env only, never SvelteKit's: src/env.ts's
-// defineEnvVars keys and the $app/env/public|private reads.
-const envReads = built.filter((src) => src.includes("defineEnvVars(") || src.includes("$app/env/")).flatMap((src) => [
-	...(src.includes("defineEnvVars(") ? [...src.matchAll(/^\s*([A-Za-z_]\w*):\s*\{/gm)].map((m) => m[1]) : []),
-	...[...src.matchAll(/(?<![\w.$])env\.([A-Za-z_]\w*)/g)].map((m) => m[1]),
+// SvelteKit serves only what src/env.ts declares, and types only a literal object, so the
+// schema is copied in as one. A PUBLIC_ name is always required: the build inlines it, and built
+// empty the site ships broken. Any other name is required only where the schema marks it so.
+const defaultRequired = /@defaultRequired=true\b/.test(schemaSrc);
+let marks = "";
+const declared = [];
+for (const line of schemaSrc.split("\n")) {
+	if (line.startsWith("#")) {
+		marks += line;
+		continue;
+	}
+	const key = /^([A-Za-z_]\w*)=/.exec(line)?.[1];
+	if (key && !/@internal\b/.test(marks)) {
+		const required = key.startsWith(BROWSER_PREFIX) || /@required\b/.test(marks) || (defaultRequired && !/@optional\b/.test(marks));
+		const opts = [...(key.startsWith(BROWSER_PREFIX) ? ["public: true", "static: true"] : []), ...(required ? [] : ["schema: optional"])];
+		declared.push(`\t${key}: {${opts.length ? ` ${opts.join(", ")} ` : ""}},`);
+	}
+	marks = "";
+}
+const kitEnv = `// Written from ${SCHEMA} by rapper/scripts/envFromBitwarden.mjs on every dev run and build. Hand edits are overwritten.
+import { defineEnvVars } from "@sveltejs/kit/env";
+
+const optional = (value: string | undefined) => value;
+
+export const variables = defineEnvVars({
+${declared.join("\n")}
+});
+`;
+if (!existsSync("src/env.ts") || readFileSync("src/env.ts", "utf8") !== kitEnv) writeFileSync("src/env.ts", kitEnv);
+
+// varlock audit scans process.env and import.meta.env only, never $app/env; and a build
+// reads a name src/env.ts lacks as undefined without a word.
+const envReads = built.filter((src) => src.includes("$app/env/")).flatMap((src) => [
+	...[...src.matchAll(/(?<![\w.$])env\.([A-Z]\w*)/g)].map((m) => m[1]),
 	...[...src.matchAll(/import\s*\{([^}]*)\}\s*from\s*["']\$app\/env\/(?:public|private)["']/g)].flatMap((m) =>
 		m[1].split(",").map((s) => s.trim().split(/\s+as\s+/)[0]).filter(Boolean),
 	),
