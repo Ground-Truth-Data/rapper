@@ -5,6 +5,9 @@ import { createRawSnippet } from "svelte";
 import { expect, it } from "vitest";
 import NameTag from "./NameTag.svelte";
 
+// NameTag re-fits the name once fonts load; rapper's own run has no document.fonts.
+Object.defineProperty(document, "fonts", { configurable: true, value: { ready: Promise.resolve() } });
+
 it("puts the icon outside the plaque, on its left", () => {
 	const art = createRawSnippet(() => ({ render: () => `<img src="x.webp" alt="" />` }));
 	const { container } = render(NameTag, { name: "Pickerel point", date: "261122", art });
