@@ -375,20 +375,20 @@
   border-radius: 0.5rem !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
 }
-/* Credits: one line on a see-through dark pill, at most 160×26, that reads over water, land and photo. No gold. */
+/* Credits: one line on a see-through dark pill, at most 220×26, that reads over water, land and photo. No gold. */
 .mapboxgl-ctrl.mapboxgl-ctrl-attrib,
 .maplibregl-ctrl.maplibregl-ctrl-attrib {
   background: rgba(0, 0, 0, 0.45) !important;
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   color: rgba(255, 255, 255, 0.85) !important;
-  border-radius: 11px;
+  border-radius: 12px;
   font-family: "Inter", sans-serif;
-  font-size: 9px;
-  line-height: 1.4;
-  padding: 2px 8px !important;
-  max-width: 160px;
+  font-size: 13px;
+  line-height: 20px;
+  padding: 1px 9px !important;
+  max-width: 220px;
   white-space: nowrap;
   overflow-x: auto;
   scrollbar-width: none;
