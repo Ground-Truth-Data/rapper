@@ -5,11 +5,11 @@ import type { Plugin } from "vite";
 // Rule: inside the repo, `../` is ordinary; leaving the repo is allowed ONLY through an alias ($parent/siblings, $rig …); node_modules/virtual modules are exempt.
 // ⚠️ Case must match exactly what readdir reports, never just whether the file opens — APFS is case-insensitive so a wrong-case import 200s locally and 404s on Vercel's Linux build.
 
-// Does this path exist with EXACTLY this spelling?
-function exactCase(abs: string): boolean {
+// Is every segment from `from` down spelled as on disk? Never from `/`: a listing of a crowded $TMPDIR costs seconds.
+function exactCase(abs: string, from: string): boolean {
 	if (!existsSync(abs)) return false;
-	let cur = resolve(sep);
-	for (const seg of relative(sep, abs).split(sep)) {
+	let cur = from;
+	for (const seg of relative(from, abs).split(sep)) {
 		if (!seg) continue;
 		let names: string[];
 		try {
@@ -82,7 +82,7 @@ export function noEscapeHatch(repoRoot: string): Plugin {
 			}
 
 			// CHARGE 2: is the spelling right?
-			if (/\.[a-z0-9]+$/i.test(target) && existsSync(target) && !exactCase(target)) {
+			if (/\.[a-z0-9]+$/i.test(target) && existsSync(target) && !exactCase(target, target.startsWith(root + sep) ? root : dirname(target))) {
 				throw new Error(
 					`\n\n  IMPORT CASE DOES NOT MATCH DISK — build stopped.\n\n` +
 						`    in:     ${relative(root, importer)}\n` +

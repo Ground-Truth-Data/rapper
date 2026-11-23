@@ -1,7 +1,7 @@
 <!--
-  NameTag — a title as every sheet and popover draws it: the name alone in the
-  steel plaque with its small icon, then the meta line beneath it, OUTSIDE the
-  plaque: the YYMMDD date, the owner's pill, and the figure at the far right. The plaque is the tap target for renaming; the date and
+  NameTag — a title as every sheet and popover draws it: the item's icon, then
+  the name alone in the steel plaque, then the meta line beneath both, OUTSIDE
+  the plaque: the YYMMDD date, the owner's pill, and the figure at the far right. The plaque is the tap target for renaming; the date and
   the owner are facts about the row, not part of its name.
 
   It FORMATS NOTHING. `date` arrives as six digits, minted from the row's
@@ -43,7 +43,7 @@ const {
 	dataPlaque,
 	ariaLabel,
 }: {
-	/** The item's icon, small, left of the name inside the plaque. */
+	/** The item's icon, outside the plaque on its left, about the plaque's height. */
 	art?: Snippet;
 	name?: string;
 	/** Six digits, YYMMDD. Already formatted — this component never formats. */
@@ -92,8 +92,9 @@ function fit(el: HTMLElement, _label: string) {
 </script>
 
 <div class="name-tag">
+	<div class="name-tag-row">
+	{#if art}<span class="name-tag-art">{@render art()}</span>{/if}
 	<Plaque class="plaque--name-tag" {onclick} {empty} {caret} {dataPlaque} {ariaLabel}>
-		{#if art}<span class="name-tag-art">{@render art()}</span>{/if}
 		{#if label}
 			<span class="name-tag-label" use:fit={label}>{label}</span>
 		{:else if placeholder}
@@ -101,6 +102,7 @@ function fit(el: HTMLElement, _label: string) {
 		{/if}
 		{#if onclick && !caret}<span class="name-tag-pen"><Icon name="pen" size={14} /></span>{/if}
 	</Plaque>
+	</div>
 	{#if date || who || chip || shared || trail}
 		<div class="name-tag-foot">
 			{#if date}<span class="name-tag-date">{date}</span>{/if}
@@ -147,16 +149,24 @@ function fit(el: HTMLElement, _label: string) {
 		display: contents;
 		cursor: pointer;
 	}
+	.name-tag-row {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+	.name-tag-row > :global(.plaque-trigger) {
+		flex: 1;
+		min-width: 0;
+	}
 	.name-tag-art {
 		flex: none;
 		display: flex;
 		align-items: center;
-		margin-right: 7px;
 	}
-	.name-tag-art :global(img) {
+	.name-tag-art :global(:is(img, svg)) {
 		width: auto;
-		height: 22px;
-		max-width: 24px;
+		height: 36px;
+		max-width: 40px;
 		object-fit: contain;
 	}
 	/* Numbers white, joiners and units (`.unit`) sage. */
@@ -175,8 +185,15 @@ function fit(el: HTMLElement, _label: string) {
 	.name-tag-date {
 		color: var(--rust);
 	}
+	/* A long name gives way, down to its first letters, so the figure is never pushed past the edge. */
 	.name-tag-foot :global(.id-pill) {
+		flex: 0 1 auto;
+		min-width: 2.5em;
 		max-width: 96px;
+	}
+	.name-tag-foot :global(.id-mark) {
+		flex: 0 1 auto;
+		min-width: 4em;
 	}
 	.name-tag-figure {
 		margin-left: auto;

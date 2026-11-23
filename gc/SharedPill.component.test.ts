@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-// Shared by me is a black pill with a blue cloud; shared with me through a parent is the bare outline cloud, so the two never read alike.
+// Shared by me is a sky pill with a white cloud; shared with me through a parent is the bare outline cloud, so the two never read alike.
 import { cleanup, render } from "@testing-library/svelte";
 import { afterEach, expect, it } from "vitest";
 import SharedPill from "./SharedPill.svelte";

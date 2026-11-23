@@ -126,8 +126,15 @@ if (bws.error?.code === "ENOENT") {
 	}
 	for (const s of vault) {
 		if (named(s.key)) {
-			// The note is the secret's documentation; an at-sign in it would read as a decorator.
-			const note = (s.note ?? "").replace(/\s+/g, " ").replaceAll("@", "at ").trim();
+			// The note is the secret's documentation; an at-sign in it would read as a decorator. A key ID line
+			// stays in the vault: this file is committed.
+			const note = (s.note ?? "")
+				.split("\n")
+				.filter((line) => !/key id\s*:/i.test(line))
+				.join(" ")
+				.replace(/\s+/g, " ")
+				.replaceAll("@", "at ")
+				.trim();
 			if (note) block.push(`# ${note}`);
 			block.push(`# @auditIgnore${s.key.startsWith(BROWSER_PREFIX) ? "" : " @sensitive"}`);
 			block.push(`${s.key}=bitwarden("${s.id}")`);

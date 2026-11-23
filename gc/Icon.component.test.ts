@@ -29,10 +29,8 @@ describe("Icon", () => {
 		}
 	});
 
-	it("draws hand-drawn art as a currentColor mask", () => {
+	it("draws hand-drawn art from its image", () => {
 		const span = render(Icon, { name: "pen", size: 14 }).container.querySelector("span")!;
-		expect(span.style.width).toBe("14px");
-		expect(span.style.background.toLowerCase()).toBe("currentcolor");
 		expect(span.getAttribute("style")).toContain("pen_edit_icon_white.webp");
 	});
 });

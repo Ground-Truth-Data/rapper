@@ -375,22 +375,28 @@
   border-radius: 0.5rem !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
 }
-/* Credits: a gold ⓘ that opens a dark strip, never the white box the renderers ship — open-for-good too (MapTiler's photos). */
+/* Credits: one line on a see-through dark pill, at most 220×26, that reads over water, land and photo. No gold. */
 .mapboxgl-ctrl.mapboxgl-ctrl-attrib,
 .maplibregl-ctrl.maplibregl-ctrl-attrib {
-  background: rgba(0, 0, 0, 0.6) !important;
-  color: rgba(255, 255, 255, 0.85) !important;
-  border-radius: 11px;
-  font-size: 10px;
-  line-height: 1.4;
-  padding: 2px 8px !important;
+  background: rgba(0, 0, 0, 0.45) !important;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #b0b0b0 !important;
+  border-radius: 12px;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  line-height: 20px;
+  padding: 1px 9px !important;
+  max-width: 220px;
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 .mapboxgl-ctrl-attrib.mapboxgl-compact,
 .maplibregl-ctrl-attrib.maplibregl-compact {
-  background: rgba(0, 0, 0, 0.6) !important;
-  border: 1px solid rgba(255, 215, 0, 0.5);
   /* MapLibre sets #000 at the same weight. */
-  color: rgba(255, 255, 255, 0.85) !important;
+  color: #b0b0b0 !important;
   font-size: 10px;
   line-height: 1.4;
   min-height: 0 !important;
@@ -401,19 +407,33 @@
 }
 .mapboxgl-ctrl-attrib.mapboxgl-compact-show,
 .maplibregl-ctrl-attrib.maplibregl-compact-show {
+  box-sizing: border-box !important;
   width: auto;
-  height: auto;
-  max-width: min(18rem, calc(100vw - 2rem));
-  padding: 3px 10px 3px 26px !important;
+  height: 26px;
+  max-width: 160px;
+  padding: 0 6px 0 22px !important;
+  border-radius: 13px !important;
+  font-size: 9px;
+}
+/* One line; a longer credit scrolls sideways rather than wrapping or losing words. */
+.mapboxgl-ctrl-attrib.mapboxgl-compact-show .mapboxgl-ctrl-attrib-inner,
+.maplibregl-ctrl-attrib.maplibregl-compact-show .maplibregl-ctrl-attrib-inner {
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  line-height: 24px;
+}
+.mapboxgl-ctrl-attrib.mapboxgl-compact-show .mapboxgl-ctrl-attrib-button,
+.maplibregl-ctrl-attrib.maplibregl-compact-show .maplibregl-ctrl-attrib-button {
+  top: 2px !important;
 }
 .mapboxgl-ctrl-attrib a,
 .maplibregl-ctrl-attrib a {
   color: inherit !important;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 .mapboxgl-ctrl-attrib a:hover,
 .maplibregl-ctrl-attrib a:hover {
-  color: #ffd700 !important;
   text-decoration: underline;
 }
 .mapboxgl-ctrl-attrib-button,
@@ -422,7 +442,7 @@
   width: 20px !important;
   height: 20px !important;
   background-color: transparent !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23ffd700' fill-rule='evenodd'%3E%3Cpath d='M4 10a6 6 0 1 0 12 0 6 6 0 1 0-12 0m5-3a1 1 0 1 0 2 0 1 1 0 1 0-2 0m0 3a1 1 0 1 1 2 0v3a1 1 0 1 1-2 0'/%3E%3C/svg%3E") !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23fff' fill-opacity='.85' fill-rule='evenodd'%3E%3Cpath d='M4 10a6 6 0 1 0 12 0 6 6 0 1 0-12 0m5-3a1 1 0 1 0 2 0 1 1 0 1 0-2 0m0 3a1 1 0 1 1 2 0v3a1 1 0 1 1-2 0'/%3E%3C/svg%3E") !important;
   box-shadow: none !important;
 }
 .mapboxgl-ctrl-attrib-button:focus-visible,

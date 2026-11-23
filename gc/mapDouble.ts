@@ -48,6 +48,7 @@ export function mapDouble(box: LngLatBox = { w: -119.3, s: 50.2, e: -119.2, n: 5
 		removeLayer: (id: string) => void layers.splice(layers.findIndex((l) => l.id === id) >>> 0, 1),
 		setPaintProperty: (id: string, p: string, v: unknown) => void ((paint[id] ??= {})[p] = v),
 		setLayoutProperty: (id: string, p: string, v: unknown) => void ((layout[id] ??= {})[p] = v),
+		getLayoutProperty: (id: string, p: string) => layout[id]?.[p],
 		setFilter: (id: string, f: unknown) => void (filters[id] = f),
 		setFeatureState: (t: { source: string; id: number | string }, s: Record<string, unknown>) =>
 			void featureState.set(`${t.source}:${t.id}`, { ...featureState.get(`${t.source}:${t.id}`), ...s }),

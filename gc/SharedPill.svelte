@@ -24,7 +24,7 @@
 	onclick={tap}
 	onkeydown={(e) => (e.key === " " || e.key === "Enter") && (e.preventDefault(), tap(e))}
 >
-	<Icon name="cloud" size={14} fill={"n" in shared ? "currentColor" : "none"} stroke={"n" in shared ? 0 : 2.4} />
+	<Icon name="cloud" size={"n" in shared ? 12 : 14} fill={"n" in shared ? "currentColor" : "none"} stroke={"n" in shared ? 0 : 2.4} />
 </span>
 
 <style>
@@ -39,17 +39,26 @@
 		/* Over a row's tap halves, or the pill on a map with rows inside never hears a tap. */
 		z-index: 2;
 	}
+	/* The same box as IdentityPill's, so it sits level with the "you" beside it. */
 	.rt-shared--own {
-		height: 1.15rem;
-		padding: 0 0.45rem;
+		height: 1rem;
+		padding: 0 0.35rem;
+		box-sizing: border-box;
+		border: 1.5px solid var(--palette-sky);
 		border-radius: 999px;
-		border: 1px solid var(--palette-sky);
-		background: #000;
+		background: var(--palette-sky);
+		color: #fff;
+		-webkit-tap-highlight-color: transparent;
 	}
-	/* 44px tap target on a pill 18px tall. */
+	/* The same pill however it's touched: theme.css dims and shrinks every pressed button. */
+	.rt-shared--own:active {
+		filter: none;
+		transform: none;
+	}
+	/* 44px tap target, whichever form. */
 	.rt-shared::after {
 		content: "";
 		position: absolute;
-		inset: -13px -4px;
+		inset: -14px -4px;
 	}
 </style>

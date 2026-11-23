@@ -76,6 +76,7 @@ function ensureCleanCamera(
         reportRejection("ensureCleanCamera", "no fallback center available");
         return false;
     }
+    moved("jumpTo (NaN reset)");
     map.jumpTo({ center: target, zoom: targetZoom });
     return true;
 }
@@ -85,6 +86,13 @@ function present<T extends object>(opts: T): Record<string, unknown> {
     return Object.fromEntries(
         Object.entries(opts).filter(([, v]) => v !== undefined),
     );
+}
+
+// Dev only: an unasked camera move (Chris's ruler, after hours of use) names its caller in the console.
+function moved(method: string): void {
+    if (!import.meta.env.DEV) return;
+    const caller = new Error().stack?.split("\n").slice(1).find((l) => !/safeMap\.ts/.test(l))?.trim();
+    console.info(`[camera] ${method} ← ${caller ?? "?"}`);
 }
 
 function reportRejection(method: string, reason: string): void {
@@ -123,6 +131,7 @@ export function safeFlyTo(map: CameraMap, opts: SafeFlyToOptions): void {
     }
     if (!ensureCleanCamera(map, opts.center, opts.zoom)) return;
 
+    moved("flyTo");
     map.stop();
     map.flyTo(present(opts));
 }
@@ -184,6 +193,7 @@ export function safeFitBounds(
     }
     if (!ensureCleanCamera(map, sw)) return;
 
+    moved("fitBounds");
     map.stop();
     // Never fitBounds itself: it hands its padding to the camera, which keeps it
     // and shoves every later flyTo/offset off-centre, so the padding's
@@ -223,6 +233,7 @@ export function safeJumpTo(map: CameraMap, opts: SafeJumpToOptions): void {
         reportRejection("jumpTo", "zoom is not finite");
         return;
     }
+    moved("jumpTo");
     map.jumpTo(present(opts));
 }
 
@@ -253,6 +264,7 @@ export function safeEaseTo(map: CameraMap, opts: SafeEaseToOptions): void {
     if (!ensureCleanCamera(map, opts.center, opts.zoom)) return;
 
     map.stop();
+    moved("easeTo");
     map.easeTo(present(opts));
 }
 

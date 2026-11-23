@@ -47,6 +47,30 @@ function stripNonCode(src: string): string {
 		);
 }
 
+/** `file`'s raw camera calls as `  <path>:<line>  .<method>(`, or none when the guard does not look at it. */
+export function rawCameraCalls(file: string, workspaceRoot: string): string[] {
+	if (SKIP.test(file) || ALLOWED.test(file)) return [];
+	if (!/\.(?:ts|svelte)$/.test(file)) return [];
+	let src: string;
+	try {
+		src = readFileSync(file, "utf8");
+	} catch {
+		return [];
+	}
+	if (!CAMERA_METHODS.some((m) => src.includes(`.${m}`))) return [];
+
+	const lines = src.split("\n");
+	const found: string[] = [];
+	stripNonCode(src)
+		.split("\n")
+		.forEach((line, i) => {
+			for (const m of line.matchAll(CALL)) {
+				if (!hasEscape(lines, i)) found.push(`  ${relative(workspaceRoot, file)}:${i + 1}  .${m[1]}(`);
+			}
+		});
+	return found;
+}
+
 export function noRawCamera(workspaceRoot: string): Plugin {
 	const violations: string[] = [];
 
@@ -55,36 +79,9 @@ export function noRawCamera(workspaceRoot: string): Plugin {
 		apply: "build",
 		enforce: "pre",
 
-		transform(code, id) {
-			const file = id.split("?")[0];
-			if (SKIP.test(file) || ALLOWED.test(file)) return null;
-			if (!/\.(?:ts|svelte)$/.test(file)) return null;
-			if (!CAMERA_METHODS.some((m) => code.includes(`.${m}`))) return null;
-
-			// From disk: `code` may be post-transform, where line numbers no longer match the file.
-			let src: string;
-			try {
-				src = readFileSync(file, "utf8");
-			} catch {
-				return null;
-			}
-
-			const lines = src.split("\n");
-			const scan = stripNonCode(src).split("\n");
-
-			scan.forEach((line, i) => {
-				CALL.lastIndex = 0;
-				let m: RegExpExecArray | null = CALL.exec(line);
-				while (m !== null) {
-					if (!hasEscape(lines, i)) {
-						violations.push(
-							`  ${relative(workspaceRoot, file)}:${i + 1}  .${m[1]}(`,
-						);
-					}
-					m = CALL.exec(line);
-				}
-			});
-
+		// From disk, not `code`: post-transform line numbers no longer match the file.
+		transform(_code, id) {
+			violations.push(...rawCameraCalls(id.split("?")[0]!, workspaceRoot));
 			return null;
 		},
 

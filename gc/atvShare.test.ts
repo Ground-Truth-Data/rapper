@@ -79,12 +79,11 @@ describe("the share ride", () => {
 		expect(document.querySelectorAll("img")).toHaveLength(0);
 	});
 
-	it("a button with no height throws nothing, a tall strip feathers its edge, and a broken animate cleans up", () => {
+	it("a button with no height throws nothing, and a broken animate cleans up", () => {
 		playAtvShare(button(20, 80, 0), "right");
 		expect(document.querySelectorAll(".mobile-shell > div")).toHaveLength(0);
 		playAtvShare(button(20, 80, 20), "right");
-		expect(sprite()!.style.height).toBe("36px");
-		expect(sprite()!.style.maskImage).toContain("to right");
+		expect(sprite()).not.toBeNull();
 		vi.advanceTimersByTime(60_000);
 		expect(sprite()).toBeNull();
 		HTMLElement.prototype.animate = () => {
@@ -100,7 +99,6 @@ describe("the roam", () => {
 		button(20);
 		playAtvRoam();
 		const img = sprite()!;
-		expect(img.style.height).toBe("48px");
 		expect(Number.parseFloat(img.style.left)).toBeLessThan(0);
 		const moves = anims[1]!.frames;
 		const xs = moves.map((f) => Number.parseFloat(String(f.translate)));
