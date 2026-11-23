@@ -12,7 +12,7 @@ it("my link is the pill, the cloud alone, its count in the label", () => {
 	expect(pill.classList.contains("rt-shared--own")).toBe(true);
 	expect(pill.textContent!.trim()).toBe("");
 	expect(pill.getAttribute("aria-label")).toBe("shared · 3");
-	expect(pill.querySelector("svg")?.getAttribute("width"), "Chris's badge: an 18 px cloud").toBe("18");
+	expect(pill.querySelector("svg")?.getAttribute("width"), "the cloud at the you pill's cap height").toBe("12");
 });
 
 it("shared through a parent is the bare cloud, no pill", () => {
