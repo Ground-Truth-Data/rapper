@@ -24,7 +24,7 @@
 	onclick={tap}
 	onkeydown={(e) => (e.key === " " || e.key === "Enter") && (e.preventDefault(), tap(e))}
 >
-	<Icon name="cloud" size={14} fill={"n" in shared ? "currentColor" : "none"} stroke={"n" in shared ? 0 : 2.4} />
+	<Icon name="cloud" size={"n" in shared ? 18 : 14} fill={"n" in shared ? "currentColor" : "none"} stroke={"n" in shared ? 0 : 2.4} />
 </span>
 
 <style>
@@ -40,16 +40,16 @@
 		z-index: 2;
 	}
 	.rt-shared--own {
-		height: 1.15rem;
-		padding: 0 0.45rem;
+		width: 46px;
+		height: 24px;
 		border-radius: 999px;
-		border: 1px solid var(--palette-sky);
-		background: #000;
+		background: var(--palette-sky);
+		color: #fff;
 	}
-	/* 44px tap target on a pill 18px tall. */
+	/* 44px tap target, whichever form. */
 	.rt-shared::after {
 		content: "";
 		position: absolute;
-		inset: -13px -4px;
+		inset: -10px -4px;
 	}
 </style>
