@@ -31,6 +31,7 @@ beforeEach(() => {
 	vi.spyOn(performance, "now").mockImplementation(() => now);
 	HTMLCanvasElement.prototype.getContext = (() => ({ clearRect: vi.fn(), drawImage: drawn })) as never;
 	Object.defineProperty(navigator, "vibrate", { configurable: true, value: vi.fn() });
+	Object.defineProperty(navigator, "userActivation", { configurable: true, value: { hasBeenActive: true } });
 });
 afterEach(() => {
 	cleanup();
