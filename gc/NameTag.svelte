@@ -185,8 +185,15 @@ function fit(el: HTMLElement, _label: string) {
 	.name-tag-date {
 		color: var(--rust);
 	}
+	/* A long name gives way, down to its first letters, so the figure is never pushed past the edge. */
 	.name-tag-foot :global(.id-pill) {
+		flex: 0 1 auto;
+		min-width: 2.5em;
 		max-width: 96px;
+	}
+	.name-tag-foot :global(.id-mark) {
+		flex: 0 1 auto;
+		min-width: 4em;
 	}
 	.name-tag-figure {
 		margin-left: auto;
