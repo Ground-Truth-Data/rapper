@@ -381,8 +381,8 @@
   background: rgba(0, 0, 0, 0.45) !important;
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #b0b0b0 !important;
   border-radius: 12px;
   font-family: "Inter", sans-serif;
   font-size: 13px;
@@ -396,7 +396,7 @@
 .mapboxgl-ctrl-attrib.mapboxgl-compact,
 .maplibregl-ctrl-attrib.maplibregl-compact {
   /* MapLibre sets #000 at the same weight. */
-  color: rgba(255, 255, 255, 0.85) !important;
+  color: #b0b0b0 !important;
   font-size: 10px;
   line-height: 1.4;
   min-height: 0 !important;
