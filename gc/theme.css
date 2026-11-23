@@ -375,12 +375,13 @@
   border-radius: 0.5rem !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
 }
-/* Credits: a gold ⓘ that opens a dark strip, never the white box the renderers ship — open-for-good too (MapTiler's photos). */
+/* Credits: a gold ⓘ that opens one dark line, at most 160×26, never the white box the renderers ship. */
 .mapboxgl-ctrl.mapboxgl-ctrl-attrib,
 .maplibregl-ctrl.maplibregl-ctrl-attrib {
   background: rgba(0, 0, 0, 0.6) !important;
   color: rgba(255, 255, 255, 0.85) !important;
   border-radius: 11px;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   line-height: 1.4;
   padding: 2px 8px !important;
@@ -401,10 +402,25 @@
 }
 .mapboxgl-ctrl-attrib.mapboxgl-compact-show,
 .maplibregl-ctrl-attrib.maplibregl-compact-show {
+  box-sizing: border-box !important;
   width: auto;
-  height: auto;
-  max-width: min(18rem, calc(100vw - 2rem));
-  padding: 3px 10px 3px 26px !important;
+  height: 26px;
+  max-width: 160px;
+  padding: 0 6px 0 22px !important;
+  border-radius: 13px !important;
+  font-size: 9px;
+}
+/* One line; a longer credit scrolls sideways rather than wrapping or losing words. */
+.mapboxgl-ctrl-attrib.mapboxgl-compact-show .mapboxgl-ctrl-attrib-inner,
+.maplibregl-ctrl-attrib.maplibregl-compact-show .maplibregl-ctrl-attrib-inner {
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  line-height: 24px;
+}
+.mapboxgl-ctrl-attrib.mapboxgl-compact-show .mapboxgl-ctrl-attrib-button,
+.maplibregl-ctrl-attrib.maplibregl-compact-show .maplibregl-ctrl-attrib-button {
+  top: 2px !important;
 }
 .mapboxgl-ctrl-attrib a,
 .maplibregl-ctrl-attrib a {
