@@ -70,12 +70,11 @@ const hidden = $derived(hiddenFromParams(page.url.searchParams, columns));
 const cols = $derived(visibleColumns(columns, hidden));
 
 function setHidden(next: string[]) {
-	const u = new URL(page.url);
+	const u = new URL(page.url.href);
 	hiddenToParams(u.searchParams, next, columns);
 	goto(u.pathname + u.search, {
-		keepFocus: true,
-		noScroll: true,
-		replaceState: true,
+		reset: false,
+		replace: true,
 	});
 }
 
@@ -103,24 +102,24 @@ const rowOffset = $derived(pageIndex * pageSize);
 const shown = $derived(matched.slice(rowOffset, rowOffset + pageSize));
 
 const pageHref = (n: number) => {
-	const u = new URL(page.url);
+	const u = new URL(page.url.href);
 	if (n <= 0) u.searchParams.delete("page");
 	else u.searchParams.set("page", String(n));
 	return u.pathname + u.search;
 };
 
 function setPageSize(size: number) {
-	const u = new URL(page.url);
+	const u = new URL(page.url.href);
 	u.searchParams.set("size", String(size));
 	u.searchParams.delete("page");
-	goto(u.pathname + u.search, { keepFocus: true, noScroll: true });
+	goto(u.pathname + u.search, { reset: false });
 }
 
 // Page 3 of the table is not page 3 of the matches.
 function onFilter(v: string) {
 	filter = v;
 	if (pageIndex === 0) return;
-	goto(pageHref(0), { keepFocus: true, noScroll: true, replaceState: true });
+	goto(pageHref(0), { reset: false, replace: true });
 }
 
 async function load(name: string) {

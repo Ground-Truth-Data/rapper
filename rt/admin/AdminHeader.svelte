@@ -14,7 +14,7 @@
   a parent-level fallback.
 -->
 <script lang="ts">
-import { dev } from "$app/environment";
+import { dev } from "$app/env";
 import { goto } from "$app/navigation";
 import { onMount } from "svelte";
 import { lastTool, rememberTool } from "./lastTool";
@@ -100,10 +100,10 @@ const site = $derived(page.url.searchParams.get(SITE_PARAM) ?? "");
 
 function pickProject(e: Event) {
 	const v = (e.currentTarget as HTMLSelectElement).value;
-	const url = new URL(page.url);
+	const url = new URL(page.url.href);
 	if (v) url.searchParams.set(SITE_PARAM, v);
 	else url.searchParams.delete(SITE_PARAM);
-	goto(`${url.pathname}${url.search}`, { keepFocus: true });
+	goto(`${url.pathname}${url.search}`, { reset: false });
 }
 
 // Every Foundr pill carries the picked site so it survives the walk; `scopedToSite` only dims.
@@ -174,7 +174,7 @@ $effect(() => {
  */
 const DEFAULT_VIEW = "cards";
 const viewIsActive = (href: string): boolean => {
-	const link = new URL(href, page.url);
+	const link = new URL(href, page.url.href);
 	if (link.pathname !== page.url.pathname) return false;
 	const want = link.searchParams.get("view") ?? DEFAULT_VIEW;
 	return (page.url.searchParams.get("view") ?? DEFAULT_VIEW) === want;

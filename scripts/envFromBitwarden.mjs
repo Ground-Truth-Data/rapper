@@ -62,10 +62,10 @@ if (!existsSync(SCHEMA)) {
 let schemaSrc = readFileSync(SCHEMA, "utf8");
 
 // The folders whose source may name a secret this repo must resolve: itself,
-// plus the children its svelte.config.js serves — they read the parent's .env.
+// plus the children its vite.config.ts serves — they read the parent's .env.
 const roots = ["."];
-if (existsSync("svelte.config.js")) {
-	for (const [, child] of readFileSync("svelte.config.js", "utf8").matchAll(/\$parent\/siblings\/(\w+)"/g)) {
+if (existsSync("vite.config.ts")) {
+	for (const [, child] of readFileSync("vite.config.ts", "utf8").matchAll(/\$parent\/siblings\/(\w+)"/g)) {
 		if (existsSync(path.join("..", child))) roots.push(path.join("..", child));
 	}
 }
@@ -151,16 +151,18 @@ const schemaKeys = [...schemaSrc.matchAll(KEY_LINE)].map((m) => m[1]);
 const bitwardenKeys = [...schemaSrc.matchAll(/^(\w+)=bitwarden\(/gm)].map((m) => m[1]);
 if (schemaKeys.length === 0) fail(`${SCHEMA} declares no keys — this proves nothing.`);
 
-// varlock audit scans process.env and import.meta.env only, never SvelteKit's $env reads.
-const envReads = built.filter((src) => src.includes("$env/")).flatMap((src) => [
+// varlock audit scans process.env and import.meta.env only, never SvelteKit's: src/env.ts's
+// defineEnvVars keys and the $app/env/public|private reads.
+const envReads = built.filter((src) => src.includes("defineEnvVars(") || src.includes("$app/env/")).flatMap((src) => [
+	...(src.includes("defineEnvVars(") ? [...src.matchAll(/^\s*([A-Za-z_]\w*):\s*\{/gm)].map((m) => m[1]) : []),
 	...[...src.matchAll(/(?<![\w.$])env\.([A-Za-z_]\w*)/g)].map((m) => m[1]),
-	...[...src.matchAll(/import\s*\{([^}]*)\}\s*from\s*["']\$env\/static\/\w+["']/g)].flatMap((m) =>
+	...[...src.matchAll(/import\s*\{([^}]*)\}\s*from\s*["']\$app\/env\/(?:public|private)["']/g)].flatMap((m) =>
 		m[1].split(",").map((s) => s.trim().split(/\s+as\s+/)[0]).filter(Boolean),
 	),
 ]);
 const undeclared = [...new Set(envReads)].filter((k) => !schemaKeys.includes(k));
 if (undeclared.length) {
-	fail(`code reads ${undeclared.join(", ")} through $env, and the vault has no such name. Fix the spelling, or Chris creates it in Bitwarden.`);
+	fail(`code reads ${undeclared.join(", ")} through $app/env, and the vault has no such name. Fix the spelling, or Chris creates it in Bitwarden.`);
 }
 
 const load = varlock(["load", "--format", "json"]);

@@ -1,5 +1,8 @@
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
+import adapterStatic from "@sveltejs/adapter-static";
+import adapterVercel from "@sveltejs/adapter-vercel";
 import { sveltekit } from "@sveltejs/kit/vite";
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { svelteTesting } from "@testing-library/svelte/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { existsSync, readFileSync } from "node:fs";
@@ -10,13 +13,48 @@ import { noRawCamera } from "./src/lib/guards/noRawCameraPlugin.ts";
 import { workspaceRoot } from "./src/lib/guards/workspaceRoot.ts";
 import { pdfjsWasm } from "./src/lib/vite/pdfjsWasmPlugin.ts";
 import { CHILDREN, childByRepo, mountPath } from "./rig/childRegistry.ts";
-import { mountedChild } from "./scripts/mounted.mjs";
+import { kitFiles, mountedChild } from "./scripts/mounted.mjs";
 
 const LOCALES: string[] = JSON.parse(
 	readFileSync(new URL("./project.inlang/settings.json", import.meta.url), "utf8"),
 ).locales;
 
 const mountedChildRepo = (): string | undefined => mountedChild();
+
+const isCapacitor = process.env.BUILD_TARGET === "cap";
+
+const kit = sveltekit({
+	preprocess: vitePreprocess(),
+	adapter: isCapacitor
+		? adapterStatic({
+				pages: "build-cap",
+				assets: "build-cap",
+				fallback: "index.html",
+				precompress: false,
+				strict: false,
+			})
+		: adapterVercel({ runtime: "nodejs24.x" }),
+	// No `$generated` here and no `#lib` in package.json, on purpose: a child reaching for
+	// ReTreever's private side must fail to build here (childBoundary.test.ts).
+	alias: {
+		// The `../` lives here, never in an import — noEscapePlugin rejects a raw climb.
+		"$parent/siblings": "../",
+		"$parent/siblings/*": "../*",
+
+		// Each tier points $parent at ITSELF, so a child's `$parent/…` lands in whichever tier is serving.
+		$parent: ".",
+		"$parent/*": "./*",
+
+		// The shared tree; keep in sync with ReTreever's vite.config.ts, which points these at ../rapper/.
+		$rig: "./rig",
+		"$rig/*": "./rig/*",
+		$gc: "./gc",
+		"$gc/*": "./gc/*",
+		$rt: "./rt",
+		"$rt/*": "./rt/*",
+	},
+	files: kitFiles(),
+});
 
 // The scaffold's one child, or every non-tier record in the workspace checkout.
 function mountedChildRepos(): string[] {
@@ -86,7 +124,7 @@ export default defineConfig(({ command }) => {
 // bundle; and on the sibling checkout existing, because a scaffold is a dev
 // build with exactly one tier.
 const hasSiblingParent = existsSync(
-	fileURLToPath(new URL("../ReTreever/svelte.config.js", import.meta.url)),
+	fileURLToPath(new URL("../ReTreever/vite.config.ts", import.meta.url)),
 );
 
 const dev = command === "serve" && hasSiblingParent;
@@ -133,7 +171,7 @@ return {
 			// No locale in the URL here: an RT child's localizeHref() must leave /who as /who, not /fr-CA/who.
 			urlPatterns: [{ pattern: "/:path(.*)?", localized: LOCALES.map((l) => [l, "/:path(.*)?"]) }],
 		}),
-		sveltekit(),
+		kit,
 		svelteTesting(),
 	],
 

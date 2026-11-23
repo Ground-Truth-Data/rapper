@@ -53,7 +53,7 @@ no framework and no `node_modules`. It has nothing to `npm run dev` on its own;
 rapper is what makes it runnable.
 
 A dressed child serves its own `routes/` directly: `mounted.json` names the
-component, and `svelte.config.js` derives `kit.files` (`routes/`, `params/`,
+component, and `vite.config.ts` derives `files` (`routes/`, `params.ts`,
 `hooks.ts`) from it, so there is one route tree and no forwarding pages to
 drift. The git checkout of rapper is different: its own `src/routes/`
 re-exports every component's pages at once, for developing them side by
@@ -64,7 +64,7 @@ logo arrive as props, so a component names no product.
 
 ### Why the child is a SIBLING
 
-`svelte.config.js` declares `"$parent/siblings": "../"`, so a child must sit
+`vite.config.ts` declares `"$parent/siblings": "../"`, so a child must sit
 one level up from rapper. Nest it and `../` points at the wrong folder and
 every import inside it fails. In the development workspace both parents and
 every child are members of one npm workspace with one `node_modules`.
@@ -93,7 +93,7 @@ The guards discover children by **shape** — any folder containing `lib/` and
 2. **A child never imports another child** except where ReTreever's
    `childBoundary.test.ts` declares the edge (`DECLARED_CHILD_DEPS`). Two
    children that import each other freely are one child wearing two folders.
-3. **A child never touches `$lib` / `$tinyStore` / `$mobRoutes`.** That is
+3. **A child never touches `#lib` / `$tinyStore` / `$mobRoutes`.** That is
    ReTreever's proprietary side.
 4. **A child is SELF-CONTAINED.** There is no shared middle folder. A helper two
    children both need is duplicated in each.
@@ -116,9 +116,10 @@ fail.
 
 ### The real wall is an ABSENCE
 
-Rule 3 is not a runtime check. It is `svelte.config.js` defining **no `$lib`
-and no `$generated` alias**. A child that reaches for the private parent fails
-to **build**, here, on your machine. Do NOT add `$lib` or `$generated` back to
+Rule 3 is not a runtime check. It is `package.json` declaring **no `#lib`**
+and `vite.config.ts` defining **no `$generated` alias**. A child that reaches
+for the private parent fails to **build**, here, on your machine. Do NOT add
+`#lib` or `$generated` to
 make an import resolve — that is the one change that quietly re-couples a
 child to code it will never ship with.
 

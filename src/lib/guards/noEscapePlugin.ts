@@ -2,7 +2,7 @@ import { existsSync, readdirSync } from "node:fs";
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import type { Plugin } from "vite";
 
-// Rule: inside the repo, `../` is ordinary; leaving the repo is allowed ONLY through an alias ($parent/siblings, $lib …); node_modules/virtual modules are exempt.
+// Rule: inside the repo, `../` is ordinary; leaving the repo is allowed ONLY through an alias ($parent/siblings, $rig …); node_modules/virtual modules are exempt.
 // ⚠️ Case must match exactly what readdir reports, never just whether the file opens — APFS is case-insensitive so a wrong-case import 200s locally and 404s on Vercel's Linux build.
 
 // Does this path exist with EXACTLY this spelling?
@@ -76,7 +76,7 @@ export function noEscapeHatch(repoRoot: string): Plugin {
 								`  repoint. A raw ../../ climb hardcodes today's folder layout\n` +
 								`  into a source file, and it breaks silently the next time\n` +
 								`  anything moves.\n\n` +
-								`  Use $parent/siblings/<child>/... (svelte.config.js kit.alias), or\n` +
+								`  Use $parent/siblings/<child>/... (vite.config.ts alias), or\n` +
 								`  move the file inside the repo.\n`),
 				);
 			}

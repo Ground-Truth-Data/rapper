@@ -27,7 +27,7 @@ export function hasBottomBar(url: RouteInput): boolean {
 // URL is the only signal that crosses into an embedded document.
 export const EMBED_PARAM = "embed";
 
-export type RouteInput = string | URL;
+export type RouteInput = string | { pathname: string; searchParams: Pick<URLSearchParams, "get"> };
 
 export const isEmbedded = (url: RouteInput): boolean =>
 	typeof url !== "string" && url.searchParams.get(EMBED_PARAM) === "1";
