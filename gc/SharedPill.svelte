@@ -48,6 +48,12 @@
 		border-radius: 999px;
 		background: var(--palette-sky);
 		color: #fff;
+		-webkit-tap-highlight-color: transparent;
+	}
+	/* The same pill however it's touched: theme.css dims and shrinks every pressed button. */
+	.rt-shared--own:active {
+		filter: none;
+		transform: none;
 	}
 	/* 44px tap target, whichever form. */
 	.rt-shared::after {
