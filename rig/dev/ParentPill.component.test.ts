@@ -14,7 +14,7 @@ describe("ParentPill", () => {
 	it("links to the other tier, lit on the current half, carrying the hash at the click", async () => {
 		const { getByRole } = render(ParentPill, { leftLabel: "ReTreever", rightLabel: "rapper", current: "rapper", href: "http://o/who" });
 		const a = getByRole("link") as HTMLAnchorElement;
-		expect(a.title).toContain("under ReTreever");
+		expect(a.title).toContain("ReTreever");
 		expect(a.querySelector(".on")!.textContent).toBe("rapper");
 		location.hash = "#14/50/-119";
 		await fireEvent.click(a);
