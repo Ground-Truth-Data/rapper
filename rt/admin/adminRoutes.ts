@@ -299,6 +299,7 @@ const RETREEVER_ENTITIES = [
 	"OrganizationTable",
 	"ProjectTable",
 	"ClaimTable",
+	"ClaimCandidateTable",
 	"StakeholderTable",
 	"PlatformTable",
 	"LandTable",
