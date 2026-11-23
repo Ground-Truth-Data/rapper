@@ -1,8 +1,8 @@
 <!-- ⓘ beside a heading: a tap opens a short note under it, a tap anywhere else shuts it.
   `text` is paragraphs; *word* is gold, [label](href) a link. The note spans the
-  nearest positioned ancestor, so this wrapper stays unpositioned. -->
+  nearest positioned ancestor, so this wrapper stays unpositioned. With `href` it is a link instead. -->
 <script lang="ts">
-let { label, text }: { label: string; text: string[] } = $props();
+let { label, text = [], href }: { label: string; text?: string[]; href?: string } = $props();
 
 let open = $state(false);
 let btn = $state<HTMLButtonElement>();
@@ -17,9 +17,9 @@ function toggle() {
 
 <svelte:window onpointerdown={(e) => { if (open && !(e.target as Element).closest?.(".info-tip, .info-btn")) open = false; }} />
 
-<button bind:this={btn} type="button" class="info-btn" aria-label={label} aria-expanded={open} onclick={toggle}>
-	<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9.5" /><path d="M12 11v6" /><circle cx="12" cy="7.5" r="0.6" fill="currentColor" /></svg>
-</button>
+{#snippet i()}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9.5" /><path d="M12 11v6" /><circle cx="12" cy="7.5" r="0.6" fill="currentColor" /></svg>{/snippet}
+{#if href}<a class="info-btn" {href} aria-label={label}>{@render i()}</a>
+{:else}<button bind:this={btn} type="button" class="info-btn" aria-label={label} aria-expanded={open} onclick={toggle}>{@render i()}</button>{/if}
 {#if open}
 	<div class="info-tip" role="dialog" aria-label={label} style:top="{at.top}px" style:--arrow="{at.arrow}px">
 		{#each text as p, i (i)}
