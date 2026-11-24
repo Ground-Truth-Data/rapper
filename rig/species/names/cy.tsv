@@ -172,7 +172,18 @@ gbif:2888585	Gwifwrnwydd y Gaeaf	gbif
 gbif:5249504	Siantrel	gbif
 gbif:8010163	Siantrel Melyngoch	gbif
 gbif:5241808	Marchog Llwyd	gbif
+gbif:5241784	Marchog Cennog	gbif
+gbif:3324883	Marchog Melyn	gbif
+gbif:3324249	Marchog Sebonllyd	gbif
+gbif:5241793	Marchog Bedw	gbif
 gbif:5241860	Marchog Penhuddygl	gbif
+gbif:5241729	Marchog Twyllodrus	gbif
+gbif:5241789	Marchog Gludiog	gbif
+gbif:8897119	Marchog Drewllyd	gbif
+gbif:5241767	Marchog Poplys	gbif
+gbif:5241858	Marchog Pinwydd	gbif
+gbif:5241749	Marchog Gwyn	gbif
+gbif:7242238	Marchog Cennog Tywyll	gbif
 gbif:5241820	Marchog Sbeislyd	gbif
 gbif:2594649	morel lled rydd	gbif
 gbif:2594626	Morel Du	gbif
@@ -191,23 +202,47 @@ gbif:5258468	Cloronen Ffrengig	gbif
 gbif:5248629	Cap Llaeth Saffrwm	gbif
 gbif:5248684	Cap Llaeth Coch	gbif
 gbif:8813286	Cap Llaeth Cyri	gbif
+gbif:5248664	Cap Llaeth Barfog	gbif
 gbif:7925734	Cap Llaeth Saffrwm Ffug	gbif
+gbif:5248616	Cap Llaeth y Derw	gbif
+gbif:5248610	Cap Llaeth Sudd Melyn	gbif
+gbif:8881331	Cap Llaeth Smotiog	gbif
+gbif:8122710	cap llaeth gwlanog	gbif
+gbif:9016531	Cap Llaeth Melyngoch	gbif
 gbif:8959060	Cap Llaeth Gweflog	gbif
+gbif:9125990	Cap Llaeth Tanbaid	gbif
+gbif:9186214	Cap Llaeth Merfaidd	gbif
 gbif:9072021	Ysgwydd Felen	gbif
 gbif:2540800	Iar y Coed	gbif
 gbif:2526530	Wystrysen y Coed	gbif
+gbif:2526548	Wystrysen Welw	gbif
+gbif:2526564	Wystrysen y Derw	gbif
+gbif:7830030	wystrysen ymganghennol	gbif
 gbif:7987658	Cap Inc Aflêr	gbif
+gbif:2536689	Cap Inc y Domen	gbif
 gbif:2536891	Ffwng Melog	gbif
 gbif:2536899	Ffwng Melog Tywyll	gbif
 gbif:2536058	Coden Fwg Enfawr	gbif
 gbif:5249271	Clustiau'r Ysgaw	gbif
+gbif:5249297	Clustiau'r Llwyfen	gbif
+gbif:11945016	Ymenydd yr Eithin	gbif
+gbif:5241399	Tagell Rosliw Sidanaidd	gbif
 gbif:5243458	Madarch y Maes	gbif
+gbif:5243429	Caws Cennog y Coed	gbif
+gbif:5243403	Caws Ceffyl	gbif
+gbif:5243374	Madarch Palmentydd	gbif
+gbif:8365581	Madarch y Coed	gbif
+gbif:5243392	Madarch Hallt	gbif
 gbif:5243447	Madarch Meithrin	gbif
+gbif:8108291	Madarch Gwridog y Coed	gbif
+gbif:3336440	Madarch Mawr y Maes	gbif
 gbif:5248508	Pigau Barfog	gbif
 gbif:5248532	Pigau Cwrel	gbif
+gbif:5499531	Morel Pen Bys	gbif
 gbif:5238786	Clust Mochyn	gbif
 gbif:8936224	Pengrwm Calan Mai	gbif
 gbif:5242048	Coes Las y Coed	gbif
+gbif:5242058	Coes Las Bêr	gbif
 gbif:9186073	twmffat	gbif
 gbif:9173236	Pengrwm Glystyrog	gbif
 gbif:9113338	Gele'r Llwyf	gbif
@@ -215,6 +250,7 @@ gbif:8250249	cap tyllog derw	gbif
 gbif:7617313	cap tyllog brenhinol	gbif
 gbif:7832732	cap tyllog gwinau cleisiog	gbif
 gbif:2519457	cap tyllog melfedaidd	gbif
+gbif:2524910	Cap Tyllog Chwerw	gbif
 gbif:9133361	Boled Castan	gbif
 gbif:2524265	Boled Penlas	gbif
 gbif:9225326	Hen Ŵr y Coed	gbif
@@ -226,16 +262,205 @@ gbif:2524528	Cap Tyllog Cadno	gbif
 gbif:8146046	Boled Diferol	gbif
 gbif:7777157	Boled Llithrig	gbif
 gbif:5239864	Boled Llarwydd	gbif
+gbif:5239925	Boled Gwyn Llithrig	gbif
 gbif:5239851	Boled Ceugoes	gbif
 gbif:7623986	Boled yr Ych	gbif
+gbif:5239873	Boled Gludiog	gbif
 gbif:9043861	Boled Melfed	gbif
+gbif:2524248	Ffug-Gloren Felen	gbif
 gbif:2551150	cap llaeth pysgod	gbif
 gbif:2551356	Tegyll Brau Cranc	gbif
+gbif:2551213	Tegyll Brau Cyfoglyd	gbif
+gbif:2551254	Tegyll Brau Bregys	gbif
 gbif:2551542	Tegyll Brau Dulas	gbif
 gbif:2551173	Tegyll Brau Gwyrdd	gbif
 gbif:2551479	Tegyll Brau Pen Copor	gbif
 gbif:2551299	Tegyll Brau Melyn y Gors	gbif
+gbif:2551470	Tegyll Brau Porffor	gbif
 gbif:2551415	Tegyll Brau Bwytadwy	gbif
+gbif:2551447	Tegyll Brau Drewllyd	gbif
+gbif:9561742	Tegyll Brau Olewydd	gbif
+gbif:2551558	Tegyll Brau Ffrwythaidd	gbif
+gbif:9223923	Tegyll Brau Parddu	gbif
+gbif:2551191	Tegyll Brau Tagellog	gbif
 gbif:2551423	Tegyll Brau Craciog	gbif
 gbif:2551331	Tegyll Brau Llaethwyn	gbif
+gbif:2551419	Tegyll Brau Melyn	gbif
 gbif:8894724	Tegyll Brau Blas Cnau	gbif
+gbif:2551203	Tegyll Brau Gwaedlyd	gbif
+gbif:2551388	Tegyll Brau Eurog	gbif
+gbif:2551597	Tegyll Brau Seimlyd	gbif
+gbif:2551274	Tegyll Brau Fioled	gbif
+gbif:2551392	Tegyll Brau Euraidd	gbif
+gbif:2551426	Tegyll Brau Rhesen Las	gbif
+gbif:9089269	Tegyll Brau Disglair	gbif
+gbif:2551231	Tegyll Brau Melfed	gbif
+gbif:2551504	Tegyll Brau Gludiog	gbif
+gbif:2551240	Tegyll Brau Gwridog	gbif
+gbif:2551176	Tegyll Brau Bychan	gbif
+gbif:8914748	Ambarelo'r Bwgan	gbif
+gbif:2536707	Parasol Main	gbif
+gbif:7496350	Amanita Wridog	gbif
+gbif:7765582	Amanita Winau	gbif
+gbif:5240282	Amanita Benfelen	gbif
+gbif:5240213	Amanita Croen Neidr	gbif
+gbif:5240269	Amanita croen neidr	gbif
+gbif:5240306	Grisét	gbif
+gbif:5240292	Amanita Emog	gbif
+gbif:7446067	Tarian Carw	gbif
+gbif:5241354	Tarian Ymyl Ddu	gbif
+gbif:5241259	Tarian Felenllwyd	gbif
+gbif:5241314	Tarian Welw	gbif
+gbif:2530926	Twyllwr Gloyw	gbif
+gbif:2530983	Twyllwr Piws	gbif
+gbif:2530973	Twyllwr Deuliw	gbif
+gbif:2530966	Twyllwr Cennog	gbif
+gbif:5241128	Crawen Dyllog	gbif
+gbif:2537250	Madarch Cylch	gbif
+gbif:3341441	Coesyn Melfed	gbif
+gbif:5243258	Coden Fwg Gyffredin	gbif
+gbif:5243244	Coden Fwg y Ddôl	gbif
+gbif:5243279	Coden Fwg Pen Pastwn	gbif
+gbif:5243210	Coden Fwg Dywyll	gbif
+gbif:2535193	Coden Fwg Lwyd	gbif
+gbif:10852503	coden fwg berffurf	gbif
+gbif:2531072	Twmffat	gbif
+gbif:2531124	Twmffat	gbif
+gbif:2539197	Cap Melinydd	gbif
+gbif:2531012	Tafod Bustach	gbif
+gbif:2594776	Coesyn Llwydwyrdd	gbif
+gbif:2594756	Coesyn Rhychog Gwinau	gbif
+gbif:2594716	Coesyn Ystwyth	gbif
+gbif:2594765	Coesyn Rhychog Du	gbif
+gbif:9053531	Cap Cŵyr Ifori	gbif
+gbif:2538788	Cap Cŵyr Eurfrith	gbif
+gbif:2538807	Cap Cŵyr Brithbinc	gbif
+gbif:2538799	Cap Cŵyr Strempiog	gbif
+gbif:2538727	Cap Cŵyr Almon	gbif
+gbif:2538720	Cap Cŵyr Bwaog	gbif
+gbif:2538714	Cap Cŵyr Gwridog	gbif
+gbif:2538774	Cap Cŵyr Llarwydd	gbif
+gbif:2538716	Cap Cŵyr y Coed	gbif
+gbif:2538718	Cap Cŵyr Afloyw	gbif
+gbif:2534578	Cap Inc Gloyw	gbif
+gbif:2534625	Cap Inc Clystyrog	gbif
+gbif:2529415	Cap Gweog Llwydrewog	gbif
+gbif:8802917	Cap Gweog Cylchog	gbif
+gbif:7476637	Cap Gweog Glasgylchog	gbif
+gbif:7379140	Cap Gweog Cawraidd	gbif
+gbif:5898337	cap gweog amryliw	gbif
+gbif:3345846	Tagell Binc Darianog	gbif
+gbif:2539763	Tagell Binc Fawr Las	gbif
+gbif:2539389	Tagell Binc Ebrill	gbif
+gbif:5238663	Cwrel Pinc	gbif
+gbif:7486196	Cwrel Rosso	gbif
+gbif:8869949	Cwrel Unionsyth	gbif
+gbif:2524996	Spigyn Coprog	gbif
+gbif:2538864	Troed Clwb	gbif
+gbif:5249883	Cwrel Cribog	gbif
+gbif:5249808	Pastwn Crych	gbif
+gbif:5249860	Cwrel Llwyd	gbif
+gbif:3291564	cap cwyr y ddôl	gbif
+gbif:9154166	Tegyll Danheddog Brych	gbif
+gbif:2535875	Pertyn Gwyn	gbif
+gbif:9217873	Cap Menyn	gbif
+gbif:3321179	Coes Wydn Ddanheddog	gbif
+gbif:5244501	Gwerthyd Wen	gbif
+gbif:2521401	Pastwn Cwta	gbif
+gbif:2521391	Pastwn y Cawr	gbif
+gbif:9713443	ffwng melog di-gylch	gbif
+gbif:2554367	Seren Ddaear Dorchog	gbif
+gbif:2554355	Seren Ddaear Ddigoes	gbif
+gbif:5258510	Morel Ffug	gbif
+gbif:5258509	Morel Ffug Codog	gbif
+gbif:5258515	Morel Ffug Amrywiol	gbif
+gbif:2525710	Siantrel Ffug	gbif
+gbif:2527219	Bonet Lelog	gbif
+gbif:8689071	Cragen Lelog	gbif
+gbif:8156721	coron borffor	gbif
+gbif:2542395	Carn Pinwydd	gbif
+gbif:12081600	clust mochyn	gbif
+gbif:5242142	Marchfilwr Moel	gbif
+gbif:5242168	Marchfilwr Byrgoes	gbif
+gbif:8191932	cap gweog troedwyrdd	gbif
+gbif:2534836	Coesyn Brau'r Bonion	gbif
+gbif:9108597	pengrwn garlantog	gbif
+gbif:9050242	Cap Maes Cyffredin	gbif
+gbif:5243168	Ffug Barasol	gbif
+gbif:5955395	parasol cennog	gbif
+gbif:5242740	Cap Inc	gbif
+gbif:5242778	Cap Inc Pigfain	gbif
+gbif:8972210	Boled Gwern	gbif
+gbif:2533062	Crwst Llenog	gbif
+gbif:2538595	Cap Cŵyr Melyn	gbif
+gbif:2538524	Cap Cŵyr Duol	gbif
+gbif:2538445	Cap Cŵyr Coch	gbif
+gbif:2538552	Cap Cŵyr Rhuddgoch	gbif
+gbif:2540761	Ysgwydd Fawr	gbif
+gbif:9129313	Tegyll Cennog	gbif
+gbif:2548894	Tegyll Danheddog Gludiog	gbif
+gbif:2534102	Cap Cennog Euraidd	gbif
+gbif:2534205	Cap Cennog Blewog	gbif
+gbif:5246840	Cyfrwy Wmbelog	gbif
+gbif:2594999	Cwpan Coron Fioled	gbif
+gbif:2548311	Cwnffon Twrci	gbif
+gbif:2533424	Torth Goch	gbif
+gbif:10828425	coden fwg fanfraith	gbif
+gbif:2549730	Ysgwydd Gloyw	gbif
+gbif:2533962	Siobyn Coed Bacsiog	gbif
+gbif:8329645	tagell rosliw ben gludiog	gbif
+gbif:5243756	Coeswydn y Derw	gbif
+gbif:5243758	Coeswydn Gwerthyd	gbif
+gbif:3314876	Cingroen	gbif
+gbif:5249353	Tafod Jeli	gbif
+gbif:3355021	cap tyllog llwydfelyn	gbif
+gbif:5258678	Croen Oren	gbif
+gbif:5239982	Coden Euraid	gbif
+gbif:5239959	Coden Ddafadennog	gbif
+gbif:2532720	twmffat	gbif
+gbif:5239766	Seren Dywydd	gbif
+gbif:9156243	Cap Tyllog Poeth	gbif
+gbif:5243011	Pertyn Brych	gbif
+gbif:2525027	Spigyn Gludiog	gbif
+gbif:2525039	Spigyn Llarwydd	gbif
+gbif:2537081	cap porslen	gbif
+gbif:2537418	Llewyg y Bwgan	gbif
+gbif:9056826	Eirin Sych a Chwstard	gbif
+gbif:2531814	Eirin a Chwstard	gbif
+gbif:8203051	cap tyllog chwerw	gbif
+gbif:7550396	cap tyllog gwreiddiog	gbif
+gbif:2512969	Corn Carw Bach	gbif
+gbif:9134585	Corn Carw Melyn	gbif
+gbif:5240984	Corwystrysen Wastad	gbif
+gbif:5240943	Corwystrysen Feddal	gbif
+gbif:8060178	cap tyllog rhuddem	gbif
+gbif:5242798	Dagrau'r Weddw	gbif
+gbif:2535486	Pertyn Bonfelyn	gbif
+gbif:2535456	Pertyn Tarian	gbif
+gbif:2530577	Wystrysen Flodiog	gbif
+gbif:5240002	Cantel Mewndro Brown	gbif
+gbif:2535253	Capan Aur	gbif
+gbif:2538000	Esgyll Angel	gbif
+gbif:2524797	Cap Tyllog Tywyll	gbif
+gbif:2533347	Pengrwn Gwingoch	gbif
+gbif:7693097	Cantel Mewndro Melfed	gbif
+gbif:12054660	cap gweog cleisiol	gbif
+gbif:2527302	Corn Pinc	gbif
+gbif:2532395	Crwbi	gbif
+gbif:5244486	Gwerthyd Aur	gbif
+gbif:9117445	Pastwn Melyn	gbif
+gbif:5243525	Cap Blodiog Priddlyd	gbif
+gbif:2512921	Smotiau Jeli Melynfrown	gbif
+gbif:3345400	Cap Cŵyr y Parot	gbif
+gbif:3304469	Cap Cŵyr y Rhosydd	gbif
+gbif:8097905	Cap Cŵyr Llysnafeddog	gbif
+gbif:8824388	Clustiau Pinc	gbif
+gbif:2593397	Cloren Blyg Goch	gbif
+gbif:2550371	Cocosen Anis	gbif
+gbif:5241698	Cap Gweog Gwyn	gbif
+gbif:8189348	pengrwm wen	gbif
+gbif:2537689	Hegl Gwyngareog	gbif
+gbif:9128195	Clust Ysgyfarnog	gbif
+gbif:5259242	Cwpan y Domen	gbif
+gbif:10691289	cap llysnafedd diferol	gbif
+gbif:2524062	Cawell Gwyn	gbif

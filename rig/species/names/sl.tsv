@@ -263,8 +263,21 @@ gbif:8010163	žametna lisička	inat
 gbif:5249496	pobeljena lisička	inat
 gbif:2527766	kolobarnice	inat
 gbif:5241808	prstena kolobarnica	inat
+gbif:5241784	kocasta kolobarnica	inat
+gbif:3324883	zelenkasta kolobarnica	inat
+gbif:3324249	milnata kolobarnica	inat
 gbif:5241764	krokodilja kolobarnica	inat
+gbif:5241793	rumenolistna kolobarnica	inat
 gbif:5241860	zimska kolobarnica	inat
+gbif:5241729	vretenasta kolobarnica	inat
+gbif:5241789	lepljiva kolobarnica	inat
+gbif:8897119	krastačja kolobarnica	inat
+gbif:5241767	topolova kolobarnica	inat
+gbif:5241858	mekinasta kolobarnica	inat
+gbif:5241749	bela kolobarnica	inat
+gbif:7242238	črnoluska kolobarnica	inat
+gbif:5241832	sluzasta kolobarnica	inat
+gbif:5241733	žarolistna kolobarnica	inat
 gbif:8426492	zastirni smrček	inat
 gbif:2594649	šilasti smrček	inat
 gbif:2594626	visoki smrček	inat
@@ -291,6 +304,7 @@ gbif:2550242	žličasti glivec	inat
 gbif:2550247	borov glivec	inat
 gbif:8282501	gomoljike	inat
 gbif:7364443	toploljubna gomoljika	inat
+gbif:7900498	rdečkasta gomoljika	inat
 gbif:5258468	perigordska gomoljika	inat
 gbif:5258456	bela gomoljika	inat
 gbif:5258455	zimska gomoljika	inat
@@ -298,9 +312,18 @@ gbif:2532156	mlečnice	inat
 gbif:5248629	užitna sirovka	inat
 gbif:5248684	rdečerjava mlečnica	inat
 gbif:8813286	kafrna mlečnica	inat
+gbif:5248664	barjanska mlečnica	inat
 gbif:7925734	smrekova sirovka	inat
+gbif:5248616	hrastova mlečnica	inat
+gbif:5248610	zlatosočna mlečnica	inat
+gbif:8881331	jamičasta mlečnica	inat
+gbif:8122710	kosmata mlečnica	inat
 gbif:5248788	lososova sirovka	inat
+gbif:5248714	spodvita mlečnica	inat
+gbif:9016531	oranžna mlečnica	inat
+gbif:5248643	kolobarčasta mlečnica	inat
 gbif:5248801	nordijska mlečnica	inat
+gbif:9186214	sladkasta mlečnica	inat
 gbif:5248648	krvosočna sirovka	inat
 gbif:5248649	navadna sirovka	inat
 gbif:2542160	lepoluknjičarji	inat
@@ -309,6 +332,11 @@ gbif:2540799	zraščenke	inat
 gbif:2540800	velika zraščenka	inat
 gbif:2518610	ostrigarji	inat
 gbif:2526530	Bukov ostrigar	inat
+gbif:2526548	poletni ostrigar	inat
+gbif:2526504	citronasti ostrigar	inat
+gbif:2526564	hrastov ostrigar	inat
+gbif:7830030	trobljasti ostrigar	inat
+gbif:9075265	možinin ostrigar	inat
 gbif:2526779	tintnice	inat
 gbif:7987658	velika tintnica	inat
 gbif:2526021	mraznice	inat
@@ -320,18 +348,33 @@ gbif:2537730	nazobčanci	inat
 gbif:2537743	užitni nazobčanec	inat
 gbif:2560546	glavatniki	inat
 gbif:7984308	uhljevke	inat
+gbif:5249290	sočna uhljevka	inat
 gbif:5249271	bezgova uhljevka	inat
+gbif:5249297	brestova uhljevka	inat
 gbif:7939704	drhtavke	inat
+gbif:11945016	rumena drhtavka	inat
 gbif:5237434	bela drhtavka	inat
+gbif:5241399	svilasta nožničarka	inat
 gbif:2518646	kukmaki	inat
 gbif:5243458	travniški kukmak	inat
+gbif:5243429	veličastni kukmak	inat
+gbif:5243403	poljski kukmak	inat
+gbif:5243374	mestni kukmak	inat
+gbif:8365581	hostni kukmak	inat
 gbif:5243447	dvotrosni kukmak	inat
+gbif:8108291	gozdni kukmak	inat
+gbif:5455910	odsekanodniščni kukmak	inat
+gbif:5243354	tratni kukmak	inat
+gbif:5243507	opasani kukmak	inat
+gbif:5243420	smrdeči kukmak	inat
 gbif:5244571	bradovci	inat
 gbif:5248508	resasti bradovec	inat
 gbif:5248532	koralasti bradovec	inat
+gbif:5248546	medvedji bradovec	inat
 gbif:2594601	smrčki	inat
 gbif:5259065	smrčkovci	inat
 gbif:5259057	češki smrčkovec	inat
+gbif:5499531	koničasti smrčkovec	inat
 gbif:2521977	žilolistke	inat
 gbif:5238786	čokata žilolistka	inat
 gbif:2521435	ježevci	inat
@@ -339,6 +382,8 @@ gbif:5238865	rjavi ježevec	inat
 gbif:2530483	lepoglavke	inat
 gbif:8936224	majniška lepoglavka	inat
 gbif:2532282	kolesnice	inat
+gbif:5242033	bledovijoličasta kolesnica	inat
+gbif:5242069	rebrava kolesnica	inat
 gbif:2532098	lijevke	inat
 gbif:2531146	rjavkasta lijevka	inat
 gbif:9186073	pozna lijevka	inat
@@ -357,11 +402,13 @@ gbif:7240529	polstenci	inat
 gbif:2519413	rdečebetni polstenec	inat
 gbif:2519224	polstenke	inat
 gbif:2519457	navadna polstenka	inat
+gbif:7816100	datljeva polstenka	inat
 gbif:7730499	novogobani	inat
 gbif:8208185	žametasti goban	gbif
 gbif:7934296	cevarji	inat
 gbif:2519406	zlatopori	inat
 gbif:2519844	grenivci	inat
+gbif:2524910	žolčasti grenivec	inat
 gbif:2524262	bledotrosniki	inat
 gbif:9133361	rjavi bledotrosnik	inat
 gbif:2524265	modreči bledotrosnik	inat
@@ -377,159 +424,387 @@ gbif:7414997	lupljivke	inat
 gbif:8146046	ovčarska lupljivka	inat
 gbif:7777157	maslena lupljivka	inat
 gbif:5239864	maslena lupljivka	inat
+gbif:5239925	bela lupljivka	inat
 gbif:9104622	brezobročna lupljivka	inat
 gbif:5239851	votlobetni gobanček	inat
 gbif:7623986	prožna lupljivka	inat
+gbif:5239873	siva lupljivka	inat
 gbif:9043861	peščena lupljivka	inat
 gbif:2524218	koreninke	inat
 gbif:2524228	rožnata koreninka	inat
+gbif:2524248	rumeneča koreninka	inat
 gbif:6009534	mlečniki	inat
 gbif:2551150	sočni mlečnik	inat
 gbif:7719797	poprov mlečnik	inat
+gbif:2551071	polsteni mlečnik	inat
 gbif:2551169	golobice	inat
 gbif:7240188	kratkobetna golobica	inat
 gbif:2551356	slanikova golobica	inat
+gbif:2551213	bljuvna golobica	inat
 gbif:2551542	modrikasta golobica	inat
 gbif:2551201	jagodna golobica	inat
+gbif:3359736	češnjasta golobica	inat
 gbif:2551173	zelena golobica	inat
 gbif:2551479	siveča golobica	inat
+gbif:2551457	rjavobetna golobica	inat
 gbif:2551299	rumena golobica	inat
+gbif:2551470	škrlatna golobica	inat
+gbif:2551443	črnjava golobica	inat
 gbif:2551415	užitna golobica	inat
+gbif:2551447	smrdljiva golobica	inat
+gbif:9561742	olivna golobica	inat
+gbif:2551558	Queletova golobica	inat
+gbif:9223923	osmojena golobica	inat
+gbif:2551191	gostolistna golobica	inat
 gbif:2551423	zelenkasta golobica	inat
 gbif:2551331	modrolistna golobica	inat
+gbif:2551419	okrasta golobica	inat
 gbif:8894724	usnjata golobica	inat
+gbif:2551203	češnjeva golobica	inat
+gbif:2551388	zlatolistna golobica	inat
+gbif:2551597	rjavozelena golobica	inat
+gbif:2551274	drobljiva golobica	inat
+gbif:2551392	marelična golobica	inat
+gbif:2551426	ozkolistna golobica	inat
+gbif:9089269	bleščava golobica	inat
+gbif:2551231	vijoličnobetna golobica	inat
+gbif:2551318	ustrojena golobica	inat
+gbif:2551233	vabljiva golobica	inat
+gbif:2551504	lepljiva golobica	inat
+gbif:2551176	drobcena golobica	inat
 gbif:2536706	dežniki	inat
+gbif:8914748	orjaški dežnik	inat
+gbif:2536733	poljski dežnik	inat
+gbif:2536707	grbičasti dežnik	inat
+gbif:3339783	beli dežnik	inat
 gbif:6005964	mušnice	inat
+gbif:7496350	rdečkasta mušnica	inat
+gbif:7765582	rjavi lupinar	inat
+gbif:5240282	oranžni lupinar	inat
+gbif:5240213	pozlačeni lupinar	inat
+gbif:5240269	knežja mušnica	inat
 gbif:2526826	ščitovke	inat
+gbif:7446067	jelenova ščitovka	inat
+gbif:5241354	črnoroba ščitovka	inat
+gbif:5241254	prelestna ščitovka	inat
+gbif:5241259	rumena ščitovka	inat
+gbif:5241314	bela ščitovka	inat
 gbif:2526677	bledivke	inat
+gbif:2530926	rdečkasta bledivka	inat
+gbif:2530983	vijoličasta bledivka	inat
+gbif:2530973	dvobarvna bledivka	inat
+gbif:2530966	mekinasta bledivka	inat
 gbif:2529580	cepilistke	inat
+gbif:5241128	navadna cepilistka	inat
 gbif:2526678	sehlice	inat
+gbif:2537250	dišeča sehlíca	inat
 gbif:2526827	panjevke	inat
+gbif:3341441	zimska panjevka	inat
 gbif:9367003	prašnice	inat
+gbif:5243258	betičasta prašnica	inat
+gbif:5453425	jajčasta prašnica	inat
+gbif:5243244	travniška prašnica	inat
+gbif:5243243	iglična prašnica	inat
+gbif:5243279	visoka prašnica	inat
+gbif:5243210	smrdeča prašnica	inat
 gbif:9441377	kadilčki	inat
+gbif:2535193	sivokožni kadilček	inat
+gbif:2535211	mali kadilček	inat
 gbif:10676978	prašničarke	inat
+gbif:10852503	hruškasta prašnica	inat
 gbif:2519188	livke	inat
+gbif:2531072	poprhnjena livka	inat
+gbif:2531160	vonjasta livka	inat
 gbif:8691923	mokarice	inat
+gbif:2539197	navadna mokarica	inat
 gbif:9072989	cevače	inat
+gbif:2531012	jetrasta cevača	inat
 gbif:2521377	loputarji	inat
+gbif:2594776	visoki loputar	inat
+gbif:2594756	pomladni loputar	inat
+gbif:2594716	prožni loputar	inat
+gbif:2594765	jamičasti loputar	inat
 gbif:2525706	polževke	inat
+gbif:9053531	bela polževka	inat
+gbif:2538788	zlatozoba polževka	inat
+gbif:2538807	zajetna polževka	inat
+gbif:2538799	pordečela polževka	inat
+gbif:2538727	dišeča polževka	inat
+gbif:2538784	olivnobela polževka	inat
+gbif:2538720	švedska polževka	inat
+gbif:2538714	breskvobarvna polževka	inat
+gbif:2538774	macesnova polževka	inat
+gbif:2538736	sluzasta polževka	inat
+gbif:2538716	grmovnata polževka	inat
 gbif:2534558	tintovci	inat
+gbif:2534578	sljudnati tintovec	inat
+gbif:2534625	razsejani tintovec	inat
 gbif:2524960	koprenke	inat
+gbif:7844497	grbičasta koprenka	inat
+gbif:2529415	pšenična koprenka	inat
+gbif:8802917	pasasta koprenka	inat
+gbif:7476637	mazava koprenka	inat
+gbif:2528978	lepljiva koprenka	inat
 gbif:2530002	rdečelistke	inat
+gbif:3345846	užitna rdečelistka	inat
+gbif:2539763	modrikasta rdečelistka	inat
+gbif:2539389	aprilska rdečelistka	inat
 gbif:2521461	grive	inat
+gbif:5238602	prelestna griva	inat
+gbif:5238663	lepa griva	inat
+gbif:5238654	rumena griva	inat
+gbif:5238642	zlata griva	inat
+gbif:7486196	rdeča griva	inat
+gbif:5238688	krvobetna griva	inat
+gbif:8869949	čopičasta griva	gbif
+gbif:2551823	ovčji mesnatovec	inat
 gbif:2524961	polžarji	inat
+gbif:2524996	bakrenasti polžar	inat
+gbif:2538864	betičasta livkarica	inat
 gbif:11203266	kandolovke	inat
+gbif:12008655	zbledela kandolovka	inat
 gbif:2540196	grivače	inat
+gbif:5249883	koralasta grivača	inat
+gbif:5249808	brazdasta grivača	inat
+gbif:5249860	siva grivača	inat
 gbif:7244096	tratnice	inat
+gbif:3345381	deviška tratnica	inat
+gbif:3291564	travniška tratnica	inat
 gbif:2526675	strnjenke	inat
+gbif:7542962	rombasta strnjenka	inat
+gbif:9154166	tigrasta strnjenka	inat
 gbif:2529999	kukmakovci	inat
 gbif:2538146	korenarke	inat
+gbif:9217873	žaltava korenarka	inat
+gbif:3321179	spotegnjena korenarka	inat
 gbif:9091779	kijevke	inat
+gbif:5244501	krhka kijevka	inat
 gbif:2521383	kijci	inat
+gbif:2521401	odsekani kijec	inat
+gbif:2521391	veliki kijec	inat
 gbif:2531845	pakorenovke	inat
+gbif:12092733	pekoča pakorenovka	inat
+gbif:11993337	šopasta pakorenovka	inat
 gbif:9726177	štorovci	inat
+gbif:9713443	dobov štorovec	inat
 gbif:2525056	zvezdice	inat
+gbif:2554367	ovratniška zvezdica	inat
+gbif:2554355	resasta zvezdica	inat
 gbif:2593331	hrčki	inat
+gbif:5258510	pomladanski hrček	inat
 gbif:2525560	lisičkovci	inat
+gbif:2525710	divji lisičkovec	inat
 gbif:5955261	čeladice	inat
+gbif:2527219	redkvičasta čeladica	inat
+gbif:4911710	žveplenoroba čeladica	inat
 gbif:2526010	širokolistke	inat
+gbif:8689071	školjkasti strnjenec	inat
 gbif:2581823	čašice	inat
+gbif:8156721	škrlatna čašica	inat
 gbif:2550456	grmulje	inat
+gbif:2550493	cvetoča grmulja	inat
 gbif:7243095	topolovke	inat
 gbif:2523631	kresilače	inat
+gbif:2542395	smrekova kresilača	inat
+gbif:2543474	lekarniška macesnovka	gbif
 gbif:2524413	dedki	inat
+gbif:3354045	Gabrov ded	inat
 gbif:11239960	skledičarke	inat
+gbif:12081600	rjavkasta skledičarka	inat
 gbif:2529618	gostolistke	inat
+gbif:5242142	navadna gostolistka	inat
+gbif:5242168	kratkobetna gostolistka	inat
+gbif:8849982	črtasta gostolistka	inat
 gbif:7244444	sluzarke	inat
+gbif:8191932	kolobarniška koprenka	inat
 gbif:2526774	črnivke	inat
+gbif:2534836	prosojna črnivka	inat
 gbif:2526775	gologlavke	inat
 gbif:2527828	njivnice	inat
+gbif:9050242	luskobetna njivnica	inat
 gbif:2519998	zvitoluknjičarji	inat
 gbif:3268912	zelenolistke	inat
+gbif:5243168	dežnikasta zelenolistka	inat
+gbif:5955395	rdečeča zelenolistka	inat
 gbif:2527585	korenovke	inat
 gbif:2534316	tintovke	inat
+gbif:5242740	prava tintovka	inat
+gbif:5242754	gnojiščna tintovka	inat
+gbif:3333955	rumeneča venčnica	inat
 gbif:2518609	voskocevke	inat
 gbif:2527854	plamenke	inat
+gbif:8972210	navadni jelšar	inat
 gbif:2528519	medlenke	inat
 gbif:2523318	vlažnice	inat
+gbif:2538595	lijakasta vlažnica	inat
+gbif:2538524	koničasta vlažnica	inat
+gbif:2538445	škrlatna vlažnica	inat
+gbif:2538552	velika vlažnica	inat
+gbif:7672956	črneča vlažnica	inat
 gbif:2537903	sočnokorenovke	inat
 gbif:2535536	dežnikovci	inat
+gbif:2535581	čebulasti dežnikovec	inat
 gbif:2540760	velezraščenke	inat
+gbif:2540761	črneča velezraščenka	inat
 gbif:8145379	novostrnjenke	inat
+gbif:7865386	satjasta novostrnjenka	inat
 gbif:8312950	nazobčanke	inat
+gbif:9129313	luskata nazobčanka	inat
+gbif:2548894	smolasta nazobčanka	inat
 gbif:2528397	luskinarji	inat
+gbif:2534205	hrapavi luskinar	inat
+gbif:2534085	sluzasti luskinar	inat
+gbif:9091857	bledi luskinar	inat
+gbif:2534112	spolzki luskinar	inat
 gbif:11200098	luknjičarji	inat
+gbif:5246840	razvejani luknjičar	inat
 gbif:2594998	ćaše	inat
+gbif:2594999	venčasta čaša	inat
 gbif:2518415	štrlinke	inat
 gbif:2531603	luskomušnice	inat
 gbif:2519084	ploskocevke	inat
+gbif:2548311	pisana ploskocevka	inat
+gbif:9227816	cinobrasti drobnoluknjičar	inat
+gbif:2548374	kolobarjasta ploskocevka	inat
 gbif:2519062	apnenke	inat
 gbif:2518649	sirovci	inat
 gbif:2513349	sneti	inat
 gbif:2533397	žveplenjača	inat
+gbif:2533424	opečna žveplenjača	inat
 gbif:2513794	rože	inat
 gbif:2519220	pološčenke	inat
+gbif:2549730	svetlikava pološčenka	inat
 gbif:2533959	štorovke	inat
+gbif:2533962	mala štorovka	inat
 gbif:8005891	nožničarji	inat
+gbif:8329645	veliki nožničar	inat
 gbif:2527767	korenovci	inat
+gbif:5243756	vitki korenovec	inat
+gbif:5243758	hrastov korenovec	inat
 gbif:2524102	mavrahovci	inat
+gbif:3314876	smrdljivi mavrahovec	inat
 gbif:2523243	ledenke	inat
+gbif:5249353	navadna ledenka	inat
 gbif:7240504	lupljivci	inat
+gbif:3355021	svinjski lupljivec	inat
 gbif:2581719	latvice	inat
+gbif:5258678	oranžna latvica	inat
 gbif:2524936	trdokožnice	inat
+gbif:5239982	navadna trdokožnica	inat
+gbif:5239959	bradavičasta trdokožnica	inat
+gbif:2532720	orjaški velepodvihanec	inat
 gbif:2525061	zvezdeži	inat
+gbif:5239766	vlagomerni zvezdež	inat
 gbif:2524865	bakrenopori	inat
+gbif:9156243	pekoči bakrenopor	inat
 gbif:7895591	koničarji	inat
+gbif:8114489	kopučasti koničar	inat
+gbif:5243011	hrapava trnovka	inat
 gbif:2525026	slinarji	inat
+gbif:2525027	veliki slinar	inat
+gbif:2525039	pegasti slinar	inat
 gbif:2537417	česnovke	inat
+gbif:2537418	začimbna česnovka	inat
 gbif:3318847	zgručevke	inat
+gbif:11011338	pozna zgručevka	inat
 gbif:2531807	trhlenke	inat
+gbif:9056826	lična trhlenka	inat
+gbif:2531814	rdečkasta trhlenka	inat
+gbif:2551821	zraščena mesnatovka	inat
 gbif:8417032	črvičevke	inat
 gbif:8399317	postavneži	inat
+gbif:8203051	leponogi goban	inat
+gbif:7550396	grenki postavnež	inat
 gbif:2512968	rožički	inat
+gbif:2512969	rogasti rožički	inat
+gbif:9134585	lepljivi rožički	inat
 gbif:2526680	postrančice	inat
+gbif:5240984	sploščena postrančica	inat
+gbif:5240943	zdrizasta postrančica	inat
 gbif:2526255	ostrigovci	inat
+gbif:2526256	razprti ostrigovec	inat
 gbif:3268970	črnjavke	inat
+gbif:7686337	datljeva črnjavka	inat
 gbif:7778366	vrtnikovci	inat
+gbif:8060178	rdeči vrtnikovec	inat
 gbif:2534671	črnivci	inat
+gbif:5242798	kosmati črnivec	inat
 gbif:9227295	dežnički	inat
+gbif:2535486	rumenoluski dežniček	inat
+gbif:2535456	obuti dežniček	inat
 gbif:2530576	livače	inat
+gbif:2530577	lesna livača	inat
 gbif:2521516	podvihanke	inat
+gbif:5240002	navadna podvihanka	inat
 gbif:2530482	školjkarice	inat
+gbif:2538000	zleknjena školjkarica	inat
 gbif:7240441	porfirniki	inat
+gbif:2524797	navadni porfirnik	inat
 gbif:11159309	strniščnice	inat
+gbif:2533347	kukmakova strniščnica	inat
 gbif:2525650	podvihanci	inat
+gbif:7693097	žametni podvihanec	inat
 gbif:2526708	trebušarke	inat
+gbif:12054660	škrlateča trebušarka	inat
 gbif:2527268	zvončnice	inat
+gbif:2527302	pomladna zvončnica	inat
 gbif:2542159	bondarčevke	inat
+gbif:2552027	berkeleyeva bondarčevka	inat
+gbif:2552020	gorska bondarčevka	inat
 gbif:2523874	pokrivači	inat
 gbif:11620437	koprenarji	inat
+gbif:12011663	zelenkasti koprenar	inat
 gbif:2532393	lisičkarice	inat
+gbif:2532395	lijasta lisičkarica	inat
 gbif:7240748	satovničarji	inat
+gbif:9400640	raznolični satovničar	inat
 gbif:2521976	grivuše	inat
+gbif:5244486	vretenasta grivuša	inat
+gbif:9117445	rumena grivuša	inat
 gbif:2542719	poroznice	inat
+gbif:2542720	severnjaška poroznica	inat
 gbif:2532412	livčki	inat
 gbif:2523508	párožice	inat
+gbif:5243525	rjava zrnovka	inat
 gbif:9049960	solzovke	inat
+gbif:2512921	pahljačasta solzovka	inat
 gbif:3214437	cveti	inat
+gbif:5426027	čreslov cvet	inat
 gbif:2522021	trebuhovke	inat
 gbif:2519216	zlatolistke	inat
 gbif:2538832	vlažničarke	inat
+gbif:3345400	papagajska vlažničarka	inat
+gbif:3304469	spolzka vlažničarka	inat
+gbif:8097905	orošena vlažničarka	inat
 gbif:10523914	drhtavci	inat
+gbif:8824388	uhati drhtavež	inat
+gbif:2593397	tulasnov gomoljkar	inat
 gbif:2518613	rašpovci	inat
 gbif:2532154	žilavke	inat
+gbif:2550371	janeževa žilavka	inat
 gbif:2531301	belotrosniki	inat
+gbif:5241698	koprenasti belotrosnik	inat
+gbif:8189348	bela svetloglavka	inat
+gbif:9793586	okusna spolzenka	inat
 gbif:2537688	velekorenovke	inat
+gbif:2537689	širokolistna velekorenovka	inat
 gbif:2593788	ušesa	inat
+gbif:9128195	oslovsko uho	inat
 gbif:8766080	skledice	inat
+gbif:5259242	mehurjasta skledica	inat
 gbif:7241701	grmovke	inat
 gbif:2528493	sehlički	inat
 gbif:2518397	drhtavčice	inat
+gbif:9645698	listasta drhtavčica	inat
 gbif:2522127	plutozobi	inat
+gbif:7562246	borov plutozob	inat
 gbif:2531624	listarji	inat
 gbif:2523918	rožice	inat
+gbif:5425828	cvetačasta prašilka	inat
 gbif:2530750	sivolistke	inat
 gbif:2546261	večnoluknjičarke	inat
 gbif:2521376	gobanovci	inat
+gbif:5238896	črni gobanovec	inat
 gbif:2593180	prstenice	inat
 gbif:2524119	prekatniki	inat
+gbif:2524464	rdeči prekatnik	inat

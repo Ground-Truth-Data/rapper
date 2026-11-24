@@ -658,8 +658,20 @@ gbif:8010163	Pieprznik pomarańczowy	inat
 gbif:5249496	Pieprznik blady	inat
 gbif:2527766	Gąska	inat
 gbif:5241808	gąska ziemistoblaszkowa	inat
+gbif:5241784	Gąska krowia	inat
+gbif:3324883	Gąska zielonka	inat
+gbif:3324249	Gąska mydlana	inat
+gbif:5241793	Gąska żółtobrunatna	inat
 gbif:5241860	Gąska niekształtna	inat
+gbif:5241729	Gąska zielonożółta	inat
+gbif:5241789	Gąska kroplistobrzega	inat
+gbif:8897119	Gąska siarkowa	inat
+gbif:5241767	Gąska topolowa	inat
+gbif:5241858	Gąska dachówkowata	inat
+gbif:5241749	Gąska biaława	inat
+gbif:7242238	Gąska czarnołuskowa	inat
 gbif:5241820	Gąska sosnowa	inat
+gbif:5241733	Gąska czerwieniejąca	inat
 gbif:8426492	Smardz parastożkowaty	inat
 gbif:2594649	smardz półwolny	inat
 gbif:2594626	Smardz wyniosły	inat
@@ -687,8 +699,18 @@ gbif:2532156	Mleczaj	inat
 gbif:5248629	mleczaj rydz	inat
 gbif:5248684	Mleczaj rudy	inat
 gbif:8813286	Mleczaj kamforowy	inat
+gbif:5248664	Mleczaj omszony	inat
 gbif:7925734	Mleczaj świerkowy	inat
+gbif:5248616	Mleczaj dębowy	inat
+gbif:5248610	Mleczaj złocisty	inat
+gbif:8881331	Mleczaj dołkowany	inat
+gbif:8122710	Mleczaj wełnianka	inat
 gbif:5248788	Mleczaj jodłowy	inat
+gbif:5248714	Mleczaj różowoblaszkowy	inat
+gbif:9016531	Mleczaj pomarańczowy	inat
+gbif:5248643	mleczaj pręgowany	inat
+gbif:9125990	Mleczaj leszczynowy	inat
+gbif:9186214	Mleczaj bukowy	inat
 gbif:5248648	mleczaj czerwieniejący	inat
 gbif:5248649	Mleczaj zmienny	inat
 gbif:2542160	Żółciak	inat
@@ -696,6 +718,10 @@ gbif:9072021	Żółciak siarkowy	inat
 gbif:2540800	Żagwica listkowata	inat
 gbif:2518610	Boczniak	inat
 gbif:2526530	Boczniak ostrygowaty	inat
+gbif:2526548	Boczniak łyżkowaty	inat
+gbif:2526564	Boczniak białożółty	inat
+gbif:2526599	boczniak różowy	inat
+gbif:7830030	Boczniak rowkowanotrzonowy	inat
 gbif:2526779	Czernidłak	inat
 gbif:7987658	Czernidłak kołpakowaty	inat
 gbif:2526021	Opieńka	inat
@@ -703,22 +729,38 @@ gbif:2536891	Opieńka miodowa	inat
 gbif:2536899	Opieńka ciemna	inat
 gbif:9330501	Czasznica	inat
 gbif:2536058	Czasznica olbrzymia	inat
+gbif:2536054	Czasznica miskowata	inat
 gbif:2537730	Twardnik	inat
 gbif:2537743	Twardnik japoński	inat
 gbif:7984308	Uszak	inat
+gbif:7351381	Uszak gęstowłosy	inat
 gbif:5249271	Uszak Bzowy	inat
+gbif:5249297	Uszak skórnikowaty	inat
 gbif:7939704	Trzęsak	inat
+gbif:11945016	Trzęsak pomarańczowożółty	inat
 gbif:5237434	Trzęsak morszczynowaty	inat
+gbif:5241399	Pochwiak jedwabnikowy	inat
 gbif:2518646	Pieczarka	inat
 gbif:5243458	Pieczarka łąkowa	inat
+gbif:5243429	Pieczarka okazała	inat
+gbif:5243403	Pieczarka biaława	inat
+gbif:5243374	Pieczarka miejska	inat
+gbif:5243506	pieczarka płaska	inat
+gbif:8365581	Pieczarka bulwiasta	inat
 gbif:5243447	Pieczarka dwuzarodnikowa	inat
+gbif:8108291	Pieczarka leśna	inat
+gbif:5455910	Pieczarka bulwiasta	gbif
 gbif:5244571	soplówka	inat
 gbif:5248508	Soplówka jeżowata	inat
 gbif:5248532	Soplówka bukowa	inat
 gbif:2594601	smardz	inat
 gbif:5259057	Naparstniczka czeska	inat
+gbif:5499531	Naparstniczka stożkowata	inat
 gbif:5238865	sarniak świerkowy	inat
 gbif:8936224	Gęśnica wiosenna	inat
+gbif:3347420	gęśnica indyjska	inat
+gbif:5242033	Gąsówka bladoniebieskawa	inat
+gbif:5242069	Gąsówka szarobrązowa	inat
 gbif:2532098	Lejkogłówka	inat
 gbif:2531146	Lejkówka żółtobrązowa	inat
 gbif:9186073	lejkówka okazała	inat
@@ -734,8 +776,10 @@ gbif:7832732	Podgrzybek brunatny	inat
 gbif:2519413	Podgrzybek złotopory	inat
 gbif:2519224	podgrzybek	inat
 gbif:2519457	Podgrzybek zajączek	inat
+gbif:7816100	podgrzybek grubosiatkowany	inat
 gbif:7730499	krasnoborowik	inat
 gbif:2519406	Złotoborowik	inat
+gbif:2524910	Goryczak żółciowy	inat
 gbif:9133361	piaskowiec kasztanowaty	inat
 gbif:2524265	Piaskowiec modrzak	inat
 gbif:2524323	szyszkowiec	inat
@@ -752,94 +796,291 @@ gbif:5239846	Maślak daglezjowy	inat
 gbif:8146046	Maślak ziarnisty	inat
 gbif:7777157	Maślak zwyczajny	inat
 gbif:5239864	Maślak żółty	inat
+gbif:5239925	maślak wejmutkowy	inat
 gbif:9104622	maślak rdzawobrązowy	inat
 gbif:5239851	Maślak dęty	inat
 gbif:7623986	Maślak sitarz	inat
+gbif:5239873	Maślak lepki	inat
 gbif:9043861	Maślak pstry	inat
 gbif:6009534	Mleczajowiec	inat
 gbif:2551150	Mleczajowiec smaczny	inat
 gbif:7719797	Mleczajowiec biel	inat
+gbif:2551071	Mleczajowiec chrząstka	inat
 gbif:2551169	Gołąbek	inat
 gbif:2551356	Gołąbek śledziowy	inat
+gbif:2551213	Gołąbek wymiotny	inat
+gbif:2551254	Gołąbek kruchy	inat
 gbif:2551542	Gołąbek zielonawofioletowy	inat
 gbif:2551201	Gołąbek błotny	inat
+gbif:3359736	Gołąbek krwisty	inat
 gbif:2551173	Gołąbek białozielonawy	inat
 gbif:2551479	Gołąbek płowiejący	inat
+gbif:2551457	Gołąbek przykry	inat
 gbif:2551299	Gołąbek jasnożółty	inat
+gbif:2551470	Gołąbek ciemnopurpurowy	inat
+gbif:2551443	Gołąbek białoczarny	inat
 gbif:2551415	Gołąbek wyborny	inat
+gbif:2551447	gołąbek śmierdzący	inat
+gbif:9561742	Gołąbek oliwkowy	inat
+gbif:2551558	Gołąbek agrestowy	inat
+gbif:9223923	Gołąbek podpalany	inat
+gbif:2551191	Gołąbek gęstoblaszkowy	inat
 gbif:2551423	Gołąbek zielonawy	inat
 gbif:2551331	Gołąbek smaczny	inat
+gbif:2551419	Gołąbek brudnożółty	inat
 gbif:8894724	Gołąbek słodkawy	inat
+gbif:2551203	Gołąbek krwisty	inat
+gbif:2551388	Gołąbek złotawy	inat
+gbif:2551597	Gołąbek oliwkowozielony	inat
+gbif:2551274	Gołąbek czerwonofioletowy	inat
+gbif:2551392	Gołąbek zmiennobarwny	inat
+gbif:2551426	Gołąbek wąskoblaszkowy	inat
+gbif:9089269	Gołąbek lśniący	inat
+gbif:2551231	Gołąbek fiołkowonogi	inat
+gbif:2551318	Gołąbek cukrówka	inat
+gbif:9075447	Gołąbek rdzawoszary	inat
+gbif:2551233	Gołąbek powabny	inat
+gbif:2551504	Gołąbek lepki	inat
 gbif:2536706	Czubajka	inat
+gbif:8914748	Czubajka kania	inat
+gbif:2536733	czubajka białotrzonowa	inat
+gbif:2536707	Czubajka sutkowata	inat
 gbif:6005964	Muchomor	inat
+gbif:7496350	Muchomor czerwieniejący	inat
+gbif:7765582	Muchomor rdzawobrązowy	inat
+gbif:5240282	Muchomor żółtawy	inat
+gbif:5240213	Muchomor złotawy	inat
+gbif:5240269	Muchomor cesarski	inat
+gbif:5240292	Muchomor narcyzowy	gbif
 gbif:2526826	Drobnołuszczak	inat
+gbif:7446067	Drobnołuszczak jeleni	inat
+gbif:5241354	Drobnołuszczak czarnoostrzowy	inat
+gbif:5241254	drobnołuszczak pomarańczowoczerwony	inat
+gbif:5241259	Drobnołuszczak żółtawy	inat
 gbif:2526677	Lakówka	inat
+gbif:2530926	Lakówka pospolita	inat
+gbif:2530983	Lakówka ametystowa	inat
+gbif:2530973	Lakówka dwubarwna	inat
+gbif:2530966	Lakówka okazała	inat
 gbif:2529580	Rozszczepka	inat
+gbif:5241128	Rozszczepka pospolita	inat
 gbif:2526678	twardzioszek	gbif
+gbif:2537250	Twardzioszek przydrożny	inat
 gbif:2526827	Płomiennica	inat
+gbif:3341441	Płomiennica zimowa	inat
 gbif:9367003	Purchawka	inat
+gbif:5243258	Purchawka chropowata	inat
+gbif:5453425	purchawka łuszcząca	inat
+gbif:5243244	Purchaweczka spłaszczona	inat
+gbif:5243243	Purchawka brunatna	inat
+gbif:5243279	Purchawka fiolowata	inat
+gbif:5243210	purchawka czarniawa	inat
+gbif:2535193	Kurzawka ołowiana	inat
+gbif:10852503	Purchawka gruszkowata	inat
 gbif:2519188	Lejkówka	inat
+gbif:2531072	Lejkówka szarawa	inat
 gbif:8691923	Bruzdniczek	inat
+gbif:2539197	Bruzdniczek największy	inat
 gbif:9072989	Ozorek	inat
+gbif:2531012	Ozorek dębowy	inat
+gbif:2594776	Piestrzyca popielata	inat
+gbif:2594756	Piestrzyca pucharowata	inat
+gbif:2594765	Piestrzyca zatokowata	inat
 gbif:2525706	Wodnicha	inat
+gbif:9053531	Wodnicha biała	inat
+gbif:2538788	Wodnicha złocista	inat
+gbif:2538799	wodnicha zaróżowiona	inat
+gbif:2538714	Wodnicha pomarańczowa	inat
+gbif:2534578	Czernidłak Błyszczący	inat
+gbif:2534625	Czernidłak gromadny	inat
 gbif:2524960	Zasłonak	inat
+gbif:7844497	zasłonak białofioletowy	inat
+gbif:2529415	Płachetka zwyczajna	inat
+gbif:8802917	Zasłonak osłonięty	inat
 gbif:2530002	Dzwonkówka	inat
+gbif:3345846	Dzwonkówka tarczowata	inat
+gbif:2539763	Dzwonkówka szarofioletowa	gbif
+gbif:2539389	Dzwonkówka kwietniowa	inat
 gbif:2521461	Koralówka	inat
+gbif:5238663	koralówka strojna	inat
+gbif:5238654	Koralówka żółta	inat
+gbif:7486196	koralówka czerwonowierzchołkowa	inat
+gbif:8869949	Koralówka sztywna	gbif
+gbif:2551823	naziemek białawy	inat
+gbif:2524996	Klejek czerwonawy	inat
+gbif:2538864	Białolejkówka buławotrzonowa	inat
+gbif:12008655	Kruchaweczka zaroślowa	inat
 gbif:2540196	Goździeńczyk	inat
+gbif:5249883	Goździeńczyk grzebieniasty	inat
+gbif:5249808	goździeńczyk pomarszczony	inat
+gbif:5249860	goździeńczyk popielaty	inat
+gbif:3345381	Kopułka śnieżna	inat
+gbif:3291564	Kopułka łąkowa	inat
 gbif:2526675	Twardziak	inat
+gbif:7542962	Twardziak włosistobrzegi	inat
+gbif:9154166	Twardziak tygrysi	inat
 gbif:2529999	Pieczareczka	inat
 gbif:2538146	Monetnica	inat
+gbif:9217873	Monetnica maślana	inat
 gbif:9091779	goździeniec	inat
+gbif:5244501	Goździeniec robakowaty	inat
 gbif:2521383	buławka	inat
+gbif:2521391	Buławka pałeczkowata	inat
+gbif:12092733	Łysostopek cierpki	inat
+gbif:11993337	Łysostopek pozrastany	inat
+gbif:9713443	Opieńka bezpierścieniowa	inat
 gbif:2525056	Gwiazdosz	inat
+gbif:2554367	Gwiazdosz potrójny	inat
+gbif:2554355	Gwiazdosz frędzelkowany	inat
 gbif:2593331	piestrzenica	inat
+gbif:5258510	Piestrzenica kasztanowata	inat
 gbif:2525560	Lisówka	inat
+gbif:2525710	Lisówka pomarańczowa	inat
 gbif:5955261	Grzybówka	inat
+gbif:2527219	Grzybówka fioletowawa	inat
 gbif:7850509	Łyczak	inat
+gbif:8689071	Łyczak muszlowy	inat
 gbif:2581823	Czarka	inat
+gbif:8156721	Czarka szkarłatna	inat
 gbif:2550456	świecznik	inat
+gbif:2550493	Świecznik rozgałęziony	inat
 gbif:2523631	Pniarek	inat
+gbif:2542395	Pniarek obrzeżony	inat
+gbif:2543474	Modrzewnik lekarski	gbif
 gbif:2524413	Koźlarek	inat
+gbif:12081600	Kustrzebka brunatna	inat
 gbif:2529618	Ciemnobiałka	inat
+gbif:5242142	Ciemnobiałka ciemna	inat
 gbif:2526774	Kruchaweczka	inat
+gbif:2534836	Kruchaweczka Namakająca	inat
 gbif:2526775	Łysiczka	inat
 gbif:2527828	Polówka	inat
+gbif:9050242	Polówka półkulista	inat
+gbif:5243168	Sinoblaszek trujący	inat
+gbif:5955395	czubajnik czerwieniejący	inat
 gbif:2607519	Chrobotek	inat
+gbif:2607712	Chrobotek alpejski	inat
+gbif:5242740	Czernidłak pospolity	inat
+gbif:5242754	czernidłówka szarawa	inat
 gbif:2518609	klejoporek	inat
 gbif:2527854	Łysak	inat
 gbif:2524677	Lejkoporek	inat
+gbif:8972210	Lejkoporek olszowy	inat
 gbif:2528519	Włośnianka	inat
+gbif:2533062	Włośnianka brunatna	inat
 gbif:2523318	Wilgotnica	inat
+gbif:2538595	Wilgotnica lejkowata	inat
+gbif:2538524	Wilgotnica czerniejąca	inat
+gbif:2538445	Wilgotnica szkarłatna	inat
+gbif:2538552	Wilgotnica karminowa	inat
+gbif:7672956	wilgotnica czerniejąca	inat
+gbif:2540761	Wachlarzowiec olbrzymi	inat
 gbif:8145379	żagiewka	inat
+gbif:7865386	Żagiewka wielkopora	inat
+gbif:9129313	Twardoskórzak łuskowaty	inat
+gbif:2548894	Twardoskórzak lepki	inat
 gbif:2528397	Łuskwiak	inat
+gbif:2534102	Łuskwiak złotawy	inat
+gbif:2534205	Łuskwiak nastroszony	inat
+gbif:2534085	Łuskwiak tłustawy	inat
+gbif:9091857	Łuskwiak śluzowaty	inat
 gbif:11200098	Żagiew	inat
+gbif:5246840	Żagiew wielogłowa	inat
+gbif:2594999	Koronica ozdobna	inat
 gbif:2519084	Wrośniak	inat
+gbif:2548311	Wrośniak różnobarwny	inat
+gbif:9227816	Gęstoporek cynobrowy	inat
+gbif:2548374	Wrośniak strefowany	inat
 gbif:2519062	Niszczyk	inat
 gbif:2600611	Kruszownica	inat
 gbif:2533397	Maślanka	inat
+gbif:2533424	Maślanka ceglasta	inat
 gbif:2513794	Kutnerka	inat
 gbif:2519220	Lakownica	inat
+gbif:2549730	Lakownica żółtawa	inat
+gbif:2533962	Łuskwiak zmienny	inat
+gbif:8329645	Pochwiak okazały	inat
+gbif:5243756	Łysostopek pospolity	inat
+gbif:5243758	łysostopek wrzecionowatotrzonowy	inat
+gbif:3314876	Sromotnik smrodliwy	inat
+gbif:5249353	Galaretek kolczasty	inat
 gbif:7240504	modroborowik	inat
+gbif:3355021	Modroborowik ponury	inat
 gbif:2581719	Dzieżka	inat
+gbif:5258678	Dzieżka pomarańczowa	inat
 gbif:2524936	Tęgoskór	inat
+gbif:5239982	Tęgoskór cytrynowy	inat
+gbif:5239959	Tęgoskór brodawkowany	inat
+gbif:2532720	białokrowiak okazały	inat
+gbif:5239766	Promieniak wilgociomierz	inat
 gbif:2524865	Maślaczek	inat
+gbif:9156243	Maślaczek pieprzowy	inat
+gbif:5243011	Czubajka ostrołuskowata	inat
+gbif:2525027	klejówka świerkowa	inat
+gbif:2537418	Twardzioszek czosnaczek	inat
+gbif:11011338	Łycznik późny	inat
+gbif:9056826	Rycerzyk oliwkowożółty	inat
+gbif:2531814	Rycerzyk czerwonozłoty	inat
+gbif:9673363	rycerzyk złoty	inat
+gbif:2551821	naziemek ceglasty	inat
+gbif:2523872	Goździenica purpurowa	inat
 gbif:8399317	gorzkoborowik	inat
+gbif:8203051	Gorzkoborowik żółtopory	inat
+gbif:7550396	Gorzkoborowik korzeniasty	inat
 gbif:2512968	Pięknoróg	inat
+gbif:2512969	Pięknoróg szydłowaty	inat
+gbif:9134585	Pięknoróg największy	inat
+gbif:5240984	Ciżmówka płaska	inat
+gbif:5240943	Ciżmówka miękka	inat
+gbif:2526256	bocznianka brązowawa	inat
+gbif:7686337	Kruchaweczka gładka	inat
 gbif:7778366	parkogrzybek	inat
+gbif:8060178	Parkogrzybek czerwonawy	inat
 gbif:2534671	kruchawica	inat
+gbif:5242798	kruchawica aksamitna	inat
 gbif:9227295	Czubajeczka	inat
+gbif:2535486	Czubajeczka brzuchatozarodnikowa	inat
+gbif:2535456	Czubajeczka tarczowata	inat
+gbif:2530577	Lejkownica nadrzewna	inat
 gbif:2521516	Krowiak	inat
+gbif:5240002	Krowiak podwinięty	inat
 gbif:2530482	bokówka	inat
+gbif:2538000	Bokówka biała	inat
 gbif:7240441	grzybiec	inat
+gbif:2524797	Grzybiec purpurowozarodnikowy	inat
 gbif:11159309	Pierścieniak	inat
+gbif:2533347	Pierścieniak uprawny	inat
 gbif:2525650	Ponurnik	inat
+gbif:7693097	Ponurnik aksamitny	inat
+gbif:12054660	zasłonak purpurowiejący	inat
 gbif:2527268	pępowniczka	inat
+gbif:2527302	pępowniczka dzwonkowata	inat
 gbif:2524832	Złociec	inat
 gbif:2523874	Włókniczek	inat
+gbif:2532395	Pieprzniczka szarawa	inat
+gbif:9400640	Żagwiak zmienny	inat
+gbif:2542720	Gąbkowiec północny	inat
+gbif:5243525	Ziarnówka ochrowożółta	inat
+gbif:2512921	łzawnik złocistozarodnikowy	inat
 gbif:3214437	wykwit	inat
+gbif:5426027	Wykwit piankowaty	inat
+gbif:3345400	Wilgotniczka papuzia	inat
+gbif:8097905	wilgotniczka szarawa	inat
+gbif:8824388	Płomyczka galaretowata	inat
+gbif:2550371	Twardówka anyżkowa	inat
+gbif:5241698	białozasłonak bulwiasty	inat
+gbif:8189348	Kępkowiec białawy	inat
+gbif:2537689	Pieniążnica szerokoblaszkowa	inat
+gbif:2536182	grzybogwiazd skórzasty	inat
+gbif:9128195	Uchówka ośla	inat
 gbif:8766080	Kustrzebka	inat
+gbif:5259242	kustrzebka pęcherzykowata	inat
+gbif:9645698	trzęsak listkowaty	inat
 gbif:2522127	Korkoząb	inat
+gbif:7562246	Kolcownica sosnowa	inat
 gbif:2524692	złotak	inat
 gbif:2521975	Odnożyca	inat
 gbif:8815567	samotek	inat
+gbif:5425828	Samotek zmienny	inat
 gbif:2524119	Poroblaszek	inat
+gbif:2524464	poroblaszek żółtoczerwony	inat

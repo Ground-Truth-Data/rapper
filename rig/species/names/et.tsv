@@ -347,7 +347,13 @@ gbif:5249504	harilik kukeseen	inat
 gbif:5249496	Kahvatu kukeseen	inat
 gbif:2527766	heinikud	inat
 gbif:5241808	maaheinik	inat
+gbif:5241784	Habeheinik	inat
+gbif:3324883	hobuheinik	inat
+gbif:3324249	Seepheinik	inat
+gbif:5241793	Kollakaspruun heinik	inat
 gbif:5241860	Triibuline heinik	inat
+gbif:8897119	Väävelheinik	inat
+gbif:5241858	Soomusheinik	inat
 gbif:2594620	hõrk mürkel	inat
 gbif:2594649	tava-kellukmürkel	inat
 gbif:8287374	kivipuravikud	inat
@@ -370,15 +376,31 @@ gbif:2532156	riisikad	inat
 gbif:5248629	porgandriisikas	inat
 gbif:5248684	männiriisikas	inat
 gbif:8813286	kamperriisikas	inat
+gbif:5248664	kreem riisikas	inat
 gbif:7925734	kuuseriisikas	inat
+gbif:5248616	tammeriisikas	inat
+gbif:5248610	kuldpiimane riisikas	inat
+gbif:8881331	kollariisikas	inat
+gbif:8122710	kaseriisikas	inat
+gbif:5248714	roosa riisikas	inat
+gbif:9016531	oranž riisikas	inat
 gbif:8959060	valge riisikas	inat
+gbif:5248643	vöötriisikas	inat
+gbif:9125990	tuliriisikas	inat
 gbif:5248801	tavariisikas	inat
+gbif:9186214	mahe riisikas	inat
 gbif:5248648	veririisikas	inat
 gbif:5248649	verkjas riisikas	inat
 gbif:2542160	vääveltorikud	inat
 gbif:9072021	vääveltorik	inat
 gbif:2518610	servikud	inat
 gbif:2526530	austerservik	inat
+gbif:2526548	kopsservik	inat
+gbif:2526504	kuldservik	inat
+gbif:2526564	loorservik	inat
+gbif:2526599	roosa servik	inat
+gbif:7830030	trompetservik	inat
+gbif:9075265	kuningservik	inat
 gbif:2526779	tindikud	inat
 gbif:7987658	soomustindik	inat
 gbif:2526021	külmaseened	inat
@@ -387,13 +409,20 @@ gbif:2536899	Tõmmu külmaseen	inat
 gbif:9330501	hiidmunad	inat
 gbif:2536058	hiidmuna	inat
 gbif:7984308	kõrvtarrikud	inat
+gbif:11945016	kollane kõhrik	inat
+gbif:5241399	Puidu-tupplehik	inat
 gbif:2518646	šampinjonid	inat
 gbif:5243458	arušampinjon	inat
+gbif:5243403	aasšampinjon	inat
+gbif:5243374	linnašampinjon	inat
+gbif:8365581	Metsšampinjon	inat
 gbif:5243447	aedšampinjon	inat
+gbif:8108291	Soomusšampinjon	inat
 gbif:5248532	harunev korallnarmik	inat
 gbif:2594601	mürklid	inat
 gbif:5259065	sõrmkübarseened	inat
 gbif:5259057	kurrel	inat
+gbif:5499531	harilik sõrmkübarseen	inat
 gbif:2521977	vurrikud	inat
 gbif:5238786	vurrik	inat
 gbif:2521435	põdramokad	inat
@@ -408,6 +437,7 @@ gbif:2531729	hiidloorik	inat
 gbif:7832732	pruun sametpuravik	inat
 gbif:2519413	Punajalg-sametpuravik	inat
 gbif:2519457	rohekas sametpuravik	inat
+gbif:2524910	sapipuravik	inat
 gbif:2524323	soomuspuravikud	inat
 gbif:9225326	soomuspuravik	inat
 gbif:2520104	Puravikud	inat
@@ -424,58 +454,217 @@ gbif:5239864	kuldtatik	inat
 gbif:9104622	roosa tatik	inat
 gbif:5239851	lehise-õõspuravik	inat
 gbif:7623986	lehmatatik	inat
+gbif:5239873	lehisetatik	inat
 gbif:9043861	liivtatik	inat
 gbif:2524228	punakas juurepähkel	inat
 gbif:7719797	piparriisikas	inat
+gbif:2551071	rädiriisikas	inat
 gbif:2551169	pilvikud	inat
 gbif:2551356	ere pilvik	inat
+gbif:2551213	kirbe pilvik	inat
+gbif:2551254	habras pilvik	inat
 gbif:2551542	siniroheline pilvik	inat
 gbif:2551201	soopilvik	inat
+gbif:3359736	verev pilvik	inat
 gbif:2551173	kasepilvik	inat
 gbif:2551479	tuhmuv pilvik	inat
+gbif:2551457	Kammpilvik	inat
 gbif:2551299	kollane pilvik	inat
+gbif:2551470	punane pilvik	inat
+gbif:2551443	mustvalge pilvik	inat
 gbif:2551415	mage pilvik	inat
+gbif:2551447	haisev pilvik	inat
+gbif:9561742	oliivpilvik	inat
+gbif:2551558	kuusepilvik	inat
+gbif:9223923	mustjas pilvik	inat
+gbif:2551191	tihedalehine pilvik	inat
 gbif:2551423	areoolpilvik	inat
 gbif:2551331	kuiv pilvik	inat
+gbif:2551419	paatjas pilvik	inat
 gbif:8894724	pruun pilvik	inat
+gbif:2551388	kuldpilvik	inat
+gbif:2551274	safranpilvik	inat
+gbif:2551392	rebupilvik	inat
+gbif:2551426	rohelehine pilvik	inat
+gbif:2551231	lillajalg-pilvik	inat
+gbif:9075447	hõimpilvik	inat
+gbif:8914748	suur sirmik	inat
+gbif:2536733	Sametsirmik	inat
+gbif:2536707	Kühmsirmik	inat
 gbif:6005964	kärbseseened	inat
+gbif:7496350	roosa kärbseseen	inat
+gbif:7765582	kollakaspruun kärbseseen	inat
+gbif:5240282	oranž kärbseseen	inat
+gbif:5240269	Caesari kärbseseen	inat
+gbif:7446067	Põdranapsik	inat
+gbif:5241354	mustserv-napsik	inat
+gbif:2530926	Lakkrupik	inat
+gbif:2530983	Ametüstrupik	inat
+gbif:2530973	Sinilamell-rupik	inat
+gbif:2530966	Soomusrupik	inat
+gbif:5241128	lõhislehik	inat
 gbif:2526678	nööbikud	inat
+gbif:2537250	aasnööbik	inat
 gbif:2526827	sametkõrgesed	inat
+gbif:3341441	puidu-sametkõrges	inat
 gbif:9367003	murumunad	inat
+gbif:5243258	harilik murumuna	inat
+gbif:5243244	aas-murumuna	inat
+gbif:5243243	pruunikas murumuna	inat
+gbif:5243279	sihvakas murukarikas	inat
+gbif:2535193	Tinahall maamuna	inat
+gbif:10852503	pirn-murumuna	inat
+gbif:2531072	Udulehtrik	inat
 gbif:8691923	Harmik	gbif
+gbif:2539197	Tavaharmik	inat
+gbif:2531012	maksak	inat
+gbif:2594716	Sile helvell	inat
+gbif:2594765	Tume helvell	inat
 gbif:2525706	limanutid	inat
+gbif:2538788	ebe-limanutt	inat
+gbif:2538807	Pilvik-limanutt	inat
+gbif:2538799	Punetav limanutt	inat
+gbif:2538727	Lõhnav limanutt	inat
+gbif:2538784	Oliiv-limanutt	inat
+gbif:2538720	Kitse-limanutt	inat
+gbif:2538718	Kuiv limanutt	inat
+gbif:2534578	sätendav tindik	inat
+gbif:2534625	seltsiv tindik	inat
 gbif:2524960	Vöödikud	inat
+gbif:7844497	valkjas vöödik	inat
+gbif:2529415	kitsemampel	inat
+gbif:8802917	Rõngasvöödik	inat
+gbif:7476637	Sinijalg-vöödik	inat
 gbif:2530002	Punalehik	gbif
+gbif:3345846	Kilp-punalehik	inat
+gbif:2539763	Bloxami punalehik	inat
+gbif:2539389	aprilli punalehik	inat
 gbif:2521461	harikud	inat
+gbif:5238642	kuldharik	inat
+gbif:8869949	sirge harik	gbif
+gbif:2551823	harilik lambaseenik	inat
 gbif:2524961	männiliimikud	inat
+gbif:2524996	männiliimik	inat
+gbif:2538864	Nuijalg-lehtrik	inat
+gbif:12008655	Valge psatürell	inat
+gbif:5249883	harjakas klavuliina	inat
+gbif:5249860	hall klavuliina	inat
+gbif:5447198	ametüst-klavuliina	inat
+gbif:3345381	Nitt-võlvnutt	inat
+gbif:3291564	aas-võlvnutt	inat
 gbif:2526675	hammaslehikud	inat
 gbif:2529999	ebašampinjonid	inat
+gbif:9217873	Või-punakõrges	inat
+gbif:3321179	Keerd-punakõrges	inat
+gbif:2521401	Tömp tõlvharik	inat
+gbif:2521391	Suur tõlvharik	inat
+gbif:12092733	Kirbe metskõrges	inat
+gbif:11993337	Kobar-metskõrges	inat
+gbif:9713443	tamme-külmaseen	inat
 gbif:2525056	maatähed	inat
+gbif:2554367	kausjas maatäht	inat
+gbif:2554355	ripsmeline maatäht	inat
 gbif:2593331	kogritsad	inat
+gbif:5258510	kevadkogrits	inat
 gbif:2525560	kukeseenikud	inat
+gbif:2525710	kuld-kukeseenik	inat
+gbif:2527219	Lilla mütsik	inat
+gbif:8689071	Kase-hammaslehik	inat
 gbif:2581823	Karikseened	inat
+gbif:8156721	verev karikseen	inat
+gbif:2550493	kroonharik	inat
 gbif:2523631	käsnakud	inat
+gbif:2542395	kännupess	inat
+gbif:5242142	harilik kühmik	inat
+gbif:5242168	Lühijalg-kühmik	inat
+gbif:8849982	Vagujalg-kühmik	inat
 gbif:2527828	põldseened	inat
+gbif:9050242	Poolkerajas põldseen	inat
+gbif:2533227	soo-põldseen	inat
+gbif:5243168	roheeoseline ebasirmik	inat
+gbif:5955395	Safransirmik	inat
 gbif:2607519	porosamblikud	inat
+gbif:2607712	alpi põdrasamblik	inat
 gbif:2534316	tindikud	inat
+gbif:5242740	voldiline tindik	inat
+gbif:5242754	juurtindik	inat
 gbif:2518609	tarrikud	inat
 gbif:2527854	tulinutid	inat
+gbif:8972210	Lepapuravik	inat
+gbif:2533062	Kiudhebel	inat
+gbif:2538524	kuhik-vesinutt	inat
+gbif:2538445	Veri-vesinutt	inat
+gbif:2538552	hiid-vesinutt	inat
+gbif:9129313	Kollane hammaslehik	inat
 gbif:2528397	mamplid	inat
+gbif:2534102	roostekollane mampel	inat
+gbif:2534205	soomusmampel	inat
+gbif:9091857	valkjas mampel	inat
+gbif:2534112	punapruun mampel	inat
+gbif:2534290	jaapani mampel	inat
+gbif:5246840	Põõsastorik	inat
 gbif:2594998	kroonliudikud	inat
+gbif:2594999	kroonliudik	inat
 gbif:2519084	tagelid	inat
+gbif:9227816	punapoorik	inat
+gbif:2548374	vööt-tagel	inat
 gbif:2519062	kõbjukid	inat
 gbif:2600611	Kõrvsamblikud	inat
 gbif:2533397	kollanutid	inat
+gbif:2533424	tellispunane kollanutt	inat
 gbif:2513794	lehternahkised	inat
+gbif:2533962	harilik kännumampel	inat
+gbif:8329645	Suur tupplehik	inat
+gbif:5243756	harilik metskõrges	inat
+gbif:3314876	harilik tanuseen	inat
+gbif:5249353	üdik	inat
+gbif:3355021	tamme-kivipuravik	inat
 gbif:2581719	punaliudikud	inat
+gbif:5258678	suur punaliudik	inat
+gbif:5239982	harilik murukera	inat
+gbif:5239959	jalukas murukera	inat
+gbif:2532720	hiid-lehtervahelik	inat
 gbif:2524865	pipartatikud	inat
+gbif:9156243	pipartatik	inat
+gbif:8114489	Kimp-metskõrges	inat
+gbif:5243011	Püramiid-soomussirmik	inat
 gbif:2525026	liimikud	inat
+gbif:2525027	pihkane liimik	inat
+gbif:2537418	Küüslauk-nööbik	inat
+gbif:11011338	tigupanell	inat
+gbif:9056826	Kuld-puiduheinik	inat
+gbif:2531814	Punakas puiduheinik	inat
+gbif:8203051	Mõhk-kivipuravik	gbif
+gbif:7550396	mõru kivipuravik	inat
 gbif:2512968	sarvikud	inat
+gbif:2512969	väike sarvik	inat
+gbif:9134585	suur sarvik	inat
 gbif:2526680	pleurotellid	inat
+gbif:5240984	haava-pisiservik	inat
+gbif:5242798	Piparpsatürell	inat
+gbif:2535456	Villjalg-harisirmik	inat
 gbif:2521516	vahelikud	inat
+gbif:5240002	tavavahelik	inat
 gbif:11159309	värvikud	inat
+gbif:2533347	hiidvärvik	inat
+gbif:7693097	sametvahelik	inat
+gbif:2527302	kelluk-nabaseen	inat
 gbif:2532393	kantarellikud	inat
+gbif:2532395	kühmkantarellik	inat
 gbif:2514221	viltroosted	inat
+gbif:5243525	Kollane pisisirmik	inat
+gbif:5426027	puugipask	inat
+gbif:3345400	Papagoi-limavesinutt	inat
+gbif:8824388	lehterüdik	inat
+gbif:2550371	aniislentinell	inat
+gbif:5241698	ebavöödik	inat
+gbif:8189348	valge kobarheinik	inat
+gbif:2537689	Hiidkõrges	inat
+gbif:2536182	hõlmikmuna	inat
 gbif:2528493	soomusnööbikud	inat
+gbif:9645698	Pruun kõhrik	inat
+gbif:7562246	pruunikas mütsnarmik	inat
 gbif:2531624	kuldkülikud	inat
 gbif:2521975	rihmsamblikud	inat
+gbif:10691289	Laus-limaloorik	inat
+gbif:5238896	must hundiseenik	inat
