@@ -693,9 +693,22 @@ gbif:8010163	orange kantarell	inat
 gbif:5249496	blek kantarell	inat
 gbif:2527766	musseroner	inat
 gbif:5241808	jordmusseron	inat
+gbif:5241784	skäggmusseron	inat
+gbif:3324883	riddarmusseron	inat
+gbif:3324249	såpmusseron	inat
 gbif:5241764	kejsarmusseron	gbif
+gbif:5241793	fläckmusseron	inat
 gbif:5241860	streckmusseron	inat
+gbif:5241729	sydlig kantmusseron	gbif
+gbif:5241789	droppmusseron	inat
+gbif:8897119	svavelmusseron	gbif
+gbif:5241767	poppelmusseron	inat
+gbif:5241858	fjällmusseron	inat
+gbif:5241749	honungsmusseron	gbif
+gbif:7242238	svartfjällig musseron	inat
+gbif:5241832	mjölmusseron	inat
 gbif:5241820	goliatmusseron	inat
+gbif:5241733	rodnande musseron	inat
 gbif:2594649	hättmurkla	inat
 gbif:8287374	ädelsoppar	inat
 gbif:5954958	Karljohansvamp	inat
@@ -718,24 +731,42 @@ gbif:2550232	blomkålssvampar	inat
 gbif:2550247	blomkålssvamp	inat
 gbif:8282501	ädeltryfflar	inat
 gbif:7364443	sommartryffel	inat
+gbif:7900498	rödbrun tryffel	inat
 gbif:5258468	Perigordtryffel	gbif
 gbif:5258471	bagnolitryffel	inat
 gbif:2532156	riskor	inat
 gbif:5248629	läcker riska	inat
 gbif:5248684	pepparriska	inat
 gbif:8813286	kamferriska	inat
+gbif:5248664	blek skäggriska	inat
 gbif:7925734	blodriska	inat
+gbif:5248616	ekriska	inat
+gbif:5248610	gulmjölkig ekriska	inat
+gbif:8881331	svavelriska	inat
+gbif:8122710	skäggriska	inat
 gbif:5248788	laxfärgad blodriska	gbif
+gbif:5248714	fläckriska	inat
+gbif:9016531	brandriska	inat
 gbif:8959060	alabasterriska	inat
+gbif:5248643	zonriska	inat
+gbif:9125990	hasselriska	inat
 gbif:5248801	skogsriska	inat
+gbif:9186214	sötriska	inat
 gbif:5248648	vinriska	inat
 gbif:5248649	grönfläckig vinriska	inat
+gbif:5248670	svartriska	gbif
 gbif:9072021	Svavelticka	inat
 gbif:2540800	korallticka	inat
 gbif:2518610	Ostronmusslingar	inat
 gbif:2526530	ostronmussling	inat
+gbif:2526548	blek ostronmussling	inat
+gbif:2526504	citronmussling	inat
+gbif:2526564	ringmussling	inat
+gbif:2526599	rosa ostronmussling	gbif
+gbif:9075265	kungsmussling	gbif
 gbif:2526779	bläcksvampar	inat
 gbif:7987658	fjällig bläcksvamp	inat
+gbif:2536689	stor ringbläcksvamp	inat
 gbif:2526021	honungsskivlingar	inat
 gbif:2536891	sydlig honungsskivling	inat
 gbif:2536899	mörkfjällig honungsskivling	inat
@@ -744,22 +775,41 @@ gbif:2536058	jätteröksvamp	inat
 gbif:2537743	shiitake	inat
 gbif:7984308	geléöron	inat
 gbif:5249271	Judasöra	inat
+gbif:5249297	svartöra	inat
+gbif:11945016	Gullkrös	inat
 gbif:2530192	slidskivlingar	inat
+gbif:5241399	silkesslidskivling	inat
 gbif:5241445	halmslidskivling	inat
 gbif:2518646	champinjoner	inat
 gbif:5243458	ängschampinjon	inat
+gbif:5243429	kungschampinjon	inat
+gbif:5243403	snöbollschampinjon	inat
+gbif:5243374	vägchampinjon	inat
+gbif:8365581	knölchampinjon	inat
+gbif:5243392	Strandängschampinjon	inat
 gbif:5243447	trädgårdschampinjon	inat
+gbif:8108291	skogschampinjon	inat
+gbif:8353373	Vit blodchampinjon	inat
+gbif:5243354	Rödskivlig dvärgchampinjon	inat
+gbif:5243433	Kopparchampinjon	inat
+gbif:5243507	brunfjällig champinjon	inat
+gbif:5243420	luktchampinjon	inat
+gbif:3336440	alvarchampinjon	gbif
 gbif:5244571	koralltaggsvampar	inat
 gbif:5248508	igelkottstaggsvamp	inat
 gbif:5248532	koralltaggsvamp	inat
 gbif:2594601	toppmurklor	inat
 gbif:5259065	klockmurklor	gbif
 gbif:5259057	vindlad klockmurkla	inat
+gbif:5499531	klockmurkla	inat
 gbif:5238786	violgubbe	inat
 gbif:5238865	fjällig taggsvamp	inat
 gbif:8936224	vårmusseron	inat
+gbif:5242069	ängsmusseron	inat
 gbif:5242048	blåmusseron	gbif
 gbif:5242097	violmusseron	gbif
+gbif:5242039	knipptrattskivling	inat
+gbif:5242058	irismusseron	gbif
 gbif:2531146	sommartrattskivling	inat
 gbif:9186073	häggtrattskivling	inat
 gbif:9173236	mörk tuvskivling	inat
@@ -774,9 +824,11 @@ gbif:7240529	rutsoppar	gbif
 gbif:2519413	rutsopp	inat
 gbif:2519224	sammetssoppar	gbif
 gbif:2519457	sammetssopp	inat
+gbif:7816100	vitköttig sammetssopp	gbif
 gbif:8208185	blodsopp	gbif
 gbif:2519406	gyllensoppar	gbif
 gbif:2519844	gallsoppar	inat
+gbif:2524910	gallsopp	inat
 gbif:9133361	kastanjesopp	inat
 gbif:2524265	blåsopp	inat
 gbif:2524323	fjällsoppar	inat
@@ -791,99 +843,335 @@ gbif:7414997	Slemsoppar	inat
 gbif:8146046	grynsopp	inat
 gbif:7777157	smörsopp	inat
 gbif:5239864	lärksopp	inat
+gbif:5239925	elfenbenssopp	inat
 gbif:9104622	mörk grynsopp	inat
 gbif:5239851	hålsopp	inat
 gbif:7623986	örsopp	inat
+gbif:5239873	grå lärksopp	inat
 gbif:9043861	sandsopp	inat
 gbif:2524218	hartryfflar	gbif
 gbif:2524228	rodnande hartryffel	inat
+gbif:2524248	gulbrun hartryffel	inat
 gbif:2551150	mandelriska	inat
 gbif:7719797	slät vitriska	inat
+gbif:2551071	luden vitriska	inat
 gbif:2551169	kremlor	inat
 gbif:2551356	sillkremla	inat
+gbif:2551213	giftkremla	inat
+gbif:2551254	skörkremla	inat
 gbif:2551542	brokkremla	inat
 gbif:2551201	storkremla	inat
+gbif:3359736	blodkremla	inat
 gbif:2551173	grönkremla	inat
 gbif:2551479	tegelkremla	inat
+gbif:2551457	mild kamkremla	inat
 gbif:2551299	gulkremla	inat
+gbif:2551470	purpurkremla	inat
+gbif:2551443	gråsvart kremla	inat
 gbif:2551415	kantkremla	inat
+gbif:2551447	stinkkremla	inat
+gbif:9561742	rödfotad läderkremla	inat
+gbif:2551558	krusbärskremla	inat
+gbif:9223923	svedkremla	inat
+gbif:2551191	tätskivig svedkremla	inat
 gbif:2551423	rutkremla	inat
 gbif:2551331	trattkremla	inat
+gbif:2551419	senapskremla	inat
 gbif:8894724	mandelkremla	inat
+gbif:2551388	guldkremla	inat
+gbif:2551597	gaffelkremla	inat
+gbif:2551274	tårkremla	inat
+gbif:2551392	äggkremla	inat
+gbif:2551426	tätskivig trattkremla	inat
+gbif:9089269	åderkremla	inat
+gbif:2551231	violfotskremla	inat
+gbif:2551318	vitfotad läderkremla	inat
+gbif:9075447	nässelkremla	inat
+gbif:2551504	klibbkremla	inat
+gbif:9734401	grön äggkremla	gbif
+gbif:2551176	liten rosenkremla	inat
 gbif:2536706	parasollskivlingar	inat
+gbif:8914748	stolt fjällskivling	inat
+gbif:2536733	fnasig fjällskivling	inat
+gbif:2536707	puckelfjällskivling	inat
 gbif:6005964	Flugsvampar	inat
+gbif:7496350	rodnande flugsvamp	inat
+gbif:7765582	brun kamskivling	inat
+gbif:5240282	orange kamskivling	inat
+gbif:5240213	jättekamskivling	inat
+gbif:5240306	grå kamskivling	gbif
+gbif:5240292	gul flugsvamp	gbif
 gbif:2526826	sköldingar	inat
+gbif:7446067	hjortskölding	inat
+gbif:5241354	svarteggad skölding	inat
+gbif:5241254	rödskölding	inat
+gbif:5241259	gulskölding	inat
+gbif:5241314	vitskölding	inat
+gbif:2530926	laxskivling	inat
+gbif:2530983	ametistskivling	inat
+gbif:2530973	tvåfärgad laxskivling	inat
+gbif:2530966	stor laxskivling	inat
 gbif:2529580	klyvblad (släktet)	inat
+gbif:5241128	klyvblad	inat
 gbif:2526678	broskingar	inat
+gbif:2537250	nejlikbrosking	inat
 gbif:2526827	vinterskivlingar	gbif
+gbif:3341441	Vinterskivling	inat
 gbif:9367003	por-röksvampar	inat
+gbif:5243258	Vårtig röksvamp	inat
+gbif:5243244	ängsröksvamp	inat
+gbif:5243243	umbraröksvamp	inat
+gbif:5243279	långfotad röksvamp	inat
+gbif:5243210	mörk röksvamp	inat
 gbif:9441377	äggsvampar	inat
+gbif:2535193	blygrå äggsvamp	inat
+gbif:2535211	sydlig dvärgäggsvamp	inat
+gbif:10852503	gyttrad röksvamp	inat
 gbif:2519188	trattskivlingar	inat
+gbif:2531072	pudrad trattskivling	inat
+gbif:2531124	grön trattskivling	gbif
 gbif:8691923	mjölskivlingar	inat
+gbif:2539197	mjölskivling	inat
+gbif:2531012	Oxtungsvamp	inat
 gbif:2521377	hattmurklor	gbif
+gbif:2594776	liten skålmurkla	inat
+gbif:2594756	pokalmurkla	inat
+gbif:2594765	svart hattmurkla	inat
 gbif:2525706	skogsvaxskivlingar	inat
+gbif:9053531	elfenbensvaxskivling	inat
+gbif:2538788	gulprickig vaxskivling	inat
+gbif:2538807	kremlevaxskivling	inat
+gbif:2538799	besk vaxskivling	inat
+gbif:3344741	slöjvaxskivling	inat
+gbif:2538727	doftvaxskivling	inat
+gbif:2538784	olivvaxskivling	inat
+gbif:2538720	sotvaxskivling	inat
+gbif:2538714	rosa vaxskivling	inat
+gbif:2538774	lärkvaxskivling	inat
+gbif:2538736	tallvaxskivling	inat
+gbif:2538716	höstvaxskivling	inat
+gbif:2538718	gräddvaxskivling	inat
+gbif:2534578	glitterbläcksvamp	inat
+gbif:2534625	stubbläcksvamp	inat
 gbif:2524960	spindlingar	inat
+gbif:7844497	blekviolett spindling	inat
+gbif:2529415	rimskivling	inat
+gbif:8802917	rödbandad spindling	inat
+gbif:7476637	violettfotad slemspindling	inat
+gbif:12012261	aprikosspindling	inat
+gbif:7379140	jättespindling	gbif
+gbif:2529531	slottsspindling	gbif
+gbif:2528781	vitkransad spindling	gbif
+gbif:2528818	rynkad spindelskivling	gbif
+gbif:2529520	föränderlig spindelskivling	gbif
+gbif:5898337	kantspindling	gbif
 gbif:2530002	rödlingar	inat
+gbif:3345846	mörkrödling	inat
+gbif:2539763	blårödling	inat
+gbif:2539389	majrödling	inat
+gbif:8899985	vitfotad blårödling	gbif
 gbif:2521461	korallfingersvampar	inat
+gbif:5238602	praktfingersvamp	inat
+gbif:5238663	Lömsk fingersvamp	inat
+gbif:7486196	druvfingersvamp	inat
+gbif:5238688	fläckfingersvamp	inat
+gbif:8869949	rak fingersvamp	gbif
+gbif:5238581	gröntoppig fingersvamp	gbif
 gbif:2551762	fårtickor	inat
+gbif:2551823	fårticka	inat
 gbif:2524961	rabarbersvampar	gbif
+gbif:2524996	rabarbersvamp	inat
+gbif:2538864	klubbtrattskivling	inat
+gbif:12008655	vitspröding	inat
+gbif:5249883	kamfingersvamp	inat
+gbif:5249808	rynkig fingersvamp	inat
+gbif:5249860	grå fingersvamp	inat
 gbif:7244096	ängsvaxskivlingar	gbif
+gbif:3345381	vit vaxskivling	inat
+gbif:3291564	ängsvaxskivling	inat
+gbif:9154166	tigermussling	inat
 gbif:2529999	spånskivlingar	inat
+gbif:2535875	champinjonfjällskivling	gbif
+gbif:2535788	fjällig spånskivling	gbif
+gbif:9217873	mörk nagelskivling	inat
+gbif:3321179	sågnagelskivling	inat
 gbif:9091779	fingersvampar	gbif
+gbif:5244501	maskfingersvamp	inat
 gbif:2521383	klubbsvampar	gbif
+gbif:2521401	flattoppad klubbsvamp	inat
+gbif:2521391	stor klubbsvamp	inat
+gbif:2521384	storsporig klubbsvamp	inat
+gbif:12092733	brännagelskivling	inat
+gbif:11993337	brosknagelskivling	inat
 gbif:2525056	jordstjärnesläktet	gbif
+gbif:2554367	Kragjordstjärna	gbif
+gbif:2554355	fransig jordstjärna	inat
 gbif:2593331	stenmurklor	inat
+gbif:5258510	Stenmurkla	inat
+gbif:5258509	biskopsmössa	gbif
+gbif:5258515	lömsk biskopsmössa	gbif
 gbif:2525560	narrkantareller	inat
+gbif:2525710	Narrkantarell	inat
 gbif:5955261	hättor	inat
+gbif:2527219	rättikhätta	inat
+gbif:4911710	grågul hätta	gbif
+gbif:8689071	broskmussling	inat
 gbif:2581823	scharlakansskålar	gbif
+gbif:8156721	scharlakansvårskål	inat
+gbif:2550493	kandelabersvamp	inat
+gbif:2542395	Klibbticka	inat
+gbif:12081600	brunskål	inat
+gbif:5242142	mörkmusseron	inat
+gbif:5242168	lågmusseron	inat
+gbif:8849982	isabellmusseron	inat
+gbif:8191932	strimspindling	inat
 gbif:2526774	sprödingar	inat
+gbif:2534836	kastanjespröding	inat
 gbif:2526775	slätskivlingar	inat
 gbif:2527828	åkerskivlingar	inat
+gbif:9050242	gul åkerskivling	inat
+gbif:9151391	låg åkerskivling	inat
+gbif:5243168	giftfjällskivling	gbif
+gbif:5955395	rodnande fjällskivling	inat
 gbif:2607519	Bägarlavar	inat
+gbif:2607712	fönsterlav	inat
+gbif:5242740	grå bläcksvamp	inat
+gbif:5242754	dyngbläcksvamp	inat
+gbif:5242778	puckelbläcksvamp	inat
 gbif:2532110	flockskivlingar	gbif
+gbif:3333955	flockskivling	inat
 gbif:2527854	bitterskivlingar	inat
 gbif:2524677	alsoppar	gbif
+gbif:8972210	alsopp	inat
 gbif:2528519	fränskivlingar	inat
+gbif:2533062	diskfränskivling	inat
 gbif:2523318	hagvaxingar	inat
+gbif:2538595	kantarellvaxskivling	inat
+gbif:2538524	toppvaxskivling	inat
+gbif:2538445	blodvaxskivling	inat
+gbif:2538552	scharlakansvaxskivling	inat
 gbif:2535536	veckskivlingar	inat
+gbif:2535581	knölveckskivling	inat
+gbif:2540761	jätteticka	inat
+gbif:9129313	syllsvamp	inat
 gbif:2565599	praktsköldlavar	inat
 gbif:2528397	tofsskivlingar	inat
+gbif:2534205	fjällig tofsskivling	inat
+gbif:2534085	slemmig tofsskivling	inat
+gbif:9091857	slemflamskivling	inat
+gbif:2534112	rödbrun slemflamskivling	inat
+gbif:5246840	grenticka	inat
+gbif:2594999	kronskål	inat
 gbif:2531603	knölfotingar	inat
 gbif:2519084	lädertickor	inat
+gbif:2548311	Sidenticka	inat
+gbif:9227816	Cinnoberticka	inat
+gbif:2548374	Zonticka	inat
 gbif:2519062	violtickor	inat
 gbif:2600611	navellavar	inat
 gbif:9587051	kalkstenslavar	inat
 gbif:2533397	slöjskivlingar	inat
+gbif:2533424	tegelröd slöjskivling	inat
 gbif:2513794	vårtöron	inat
 gbif:2519220	lacktickor	inat
+gbif:2549730	lackticka	inat
 gbif:2533959	stubbskivlingar	inat
+gbif:2533962	föränderlig tofsskivling	inat
+gbif:8329645	vit slidskivling	inat
+gbif:5243756	blek nagelskivling	inat
+gbif:5243758	räfflad nagelskivling	inat
 gbif:2524102	stinksvampar	gbif
+gbif:3314876	stinksvamp	inat
+gbif:5249353	gelétagging	inat
+gbif:3355021	eldsopp	inat
 gbif:2581719	mönjeskålar	inat
+gbif:5258678	mönjeskål	inat
+gbif:5239982	Gul rottryffel	inat
+gbif:5239959	knottrig rottryffel	inat
+gbif:2532720	jättetrattskivling	inat
 gbif:2525061	väderspåstjärnor	gbif
 gbif:2524865	pepparsoppar	gbif
+gbif:9156243	pepparsopp	inat
+gbif:8114489	tuvnagelskivling	inat
+gbif:5243011	spärrfjällskivling	inat
 gbif:2525026	slemskivlingar	inat
+gbif:2525027	Citronslemskivling	inat
+gbif:2525039	lärkslemskivling	inat
+gbif:2537081	porslinsskivling	gbif
+gbif:2537418	lökbrosking	inat
+gbif:11011338	grönmussling	inat
+gbif:9056826	Stubbmusseron	inat
+gbif:2531814	prickmusseron	inat
+gbif:2551821	brödticka	inat
+gbif:2523872	luddfingersvamp	inat
 gbif:8399317	skönsoppar	gbif
+gbif:8203051	bittersopp	inat
+gbif:7550396	rotsopp	inat
 gbif:2512968	gullhorn	inat
+gbif:2512969	gullpigg	inat
+gbif:9134585	gullhorn	inat
 gbif:2526680	mjukmusslingar	inat
+gbif:5240943	mjukmussling	inat
 gbif:2526255	gelémusslingar	inat
+gbif:2526256	spadmussling	inat
+gbif:7686337	dadelbrun sprödskivling	gbif
+gbif:8060178	rödsopp	inat
 gbif:2534671	tårsprödingar	gbif
+gbif:5242798	tårspröding	inat
 gbif:9227295	fjällskivlingar	inat
+gbif:2535486	gulflockig fjällskivling	inat
+gbif:2535456	spenslig fjällskivling	inat
+gbif:2530577	vedtrattskivling	gbif
 gbif:2521516	pluggskivlingar	inat
+gbif:5240002	pluggskivling	inat
+gbif:2538000	öronmussling	inat
+gbif:2524797	dystersopp	inat
 gbif:11159309	kragskivlingar	inat
+gbif:2533347	jättekragskivling	inat
 gbif:2525650	källarkantareller	gbif
+gbif:7693097	Sammetsfotad pluggskivling	inat
+gbif:12054660	blånande lökspindling	inat
 gbif:2527268	rostnavlingar	inat
+gbif:2527302	stubbrostnavling	inat
 gbif:2524832	stubbsoppar	gbif
+gbif:12011663	grönkantad spindling	inat
+gbif:2532395	fläckkantarell	inat
+gbif:9400640	strumpticka	inat
 gbif:2521976	hagfingersvampar	inat
+gbif:5244486	svavelgul fingersvamp	inat
+gbif:9117445	vridfingersvamp	inat
+gbif:2542720	Trådticka	inat
 gbif:7451789	grynskivlingar	inat
+gbif:5243525	ockragul grynskivling	inat
 gbif:9049960	vedplättar	inat
 gbif:3214437	trollsmör	gbif
+gbif:5426027	Trollsmör	inat
 gbif:2522021	håltryfflar	inat
+gbif:3345400	papegojvaxskivling	inat
+gbif:3304469	broskvaxskivling	inat
+gbif:8097905	grå vaxskivling	inat
+gbif:8824388	gelétratting	inat
 gbif:2593381	vecktryfflar	inat
+gbif:2593397	vecktryffel	inat
+gbif:8031042	rotnagelskivling	gbif
+gbif:2550371	trattmussling	inat
+gbif:5241698	bleksporig spindling	inat
+gbif:8189348	vit tuvskivling	inat
 gbif:2526024	klibbskivlingar	gbif
+gbif:2537689	strecknagelskivling	inat
+gbif:2536182	läderboll	inat
 gbif:2593788	haröron	inat
+gbif:9128195	stort haröra	inat
 gbif:8766080	storskålar	inat
+gbif:5259242	kompostskål	inat
 gbif:2528493	tofsskrälingar	gbif
+gbif:9645698	brunkrös	inat
 gbif:2522127	lädertaggsvampar	inat
+gbif:7562246	talltaggsvamp	inat
 gbif:2521975	brosklavar	inat
+gbif:5425828	sotägg	inat
+gbif:9055239	rotmusseron	inat
+gbif:10691289	slemmig klibbskivling	inat
 gbif:2521376	gråtickor	inat
+gbif:5238896	grangråticka	inat
 gbif:2524119	skivsoppar	inat

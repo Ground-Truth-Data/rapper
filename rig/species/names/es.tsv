@@ -966,6 +966,7 @@ gbif:5249599	Anacate rojo	inat
 gbif:5249504	Rebozuelo	inat
 gbif:9226626	trompeta de los muertos cenicienta	gbif
 gbif:5241808	Negrillo	inat
+gbif:3324883	Hongo canario	inat
 gbif:5241741	Ocote	inat
 gbif:3495681	Morilla rubia	inat
 gbif:8287374	Hongos cemitas o pambazos	inat
@@ -975,7 +976,9 @@ gbif:6015633	Cemita blanca	inat
 gbif:5954949	Hongo pambazo	inat
 gbif:5954691	boleto reticulado	gbif
 gbif:8733688	Hongo negro	inat
+gbif:7601434	Pie rojo	gbif
 gbif:2561802	Oreja de puerco	inat
+gbif:3448956	Oreja de puerco negra	inat
 gbif:2554716	Lengua de gato	gbif
 gbif:2544165	Lengua de gato	gbif
 gbif:2521421	Trompetas	inat
@@ -992,13 +995,28 @@ gbif:8293722	Gorra de caramelo	inat
 gbif:5248629	enchilado	inat
 gbif:5248684	lactario rojizo	gbif
 gbif:8813286	lactario alcanforado	gbif
+gbif:5248616	lactario de los robles	gbif
+gbif:5248610	Hongo tapa de leche	inat
+gbif:8881331	lactario escrobiculoso	gbif
 gbif:5248788	Enchilado de monte	inat
+gbif:5248714	lactario blanco del chopo	gbif
+gbif:9016531	lactario anaranjado	gbif
+gbif:5248643	Lactario zonado	gbif
+gbif:9125990	lactario de leche ardiente	gbif
+gbif:9186214	lactario dulciamargo	gbif
 gbif:5248648	esnegorri	gbif
 gbif:9072021	Pollo del bosque	inat
 gbif:6016762	Hongo repisa azufre	inat
 gbif:2540800	licia	gbif
+gbif:3362882	gargal	inat
 gbif:2518610	Setas	inat
 gbif:2526530	Gírgola Común	inat
+gbif:2526548	Hongo pulmón	inat
+gbif:2526504	Hongo ostra dorado	inat
+gbif:2526564	pleuroto del roble	gbif
+gbif:2526599	Seta rosa	inat
+gbif:9075265	Seta de cardo	inat
+gbif:2526472	Hongo cazahuate	inat
 gbif:2526779	Matacandiles de tinta	inat
 gbif:7987658	Matacandil	inat
 gbif:2526021	Hongos de miel	inat
@@ -1006,16 +1024,29 @@ gbif:2536891	Hongo cazahuate	inat
 gbif:2536899	Hongo de Miel	inat
 gbif:9330501	Polveras	inat
 gbif:2536058	bejín grande	inat
+gbif:2536054	Patarata	inat
 gbif:2537743	Shiitake	inat
 gbif:7984308	Hongos de oreja	inat
+gbif:5249290	Oreja de Chancho	inat
+gbif:7351381	Oreja de viejita	inat
+gbif:5245860	Orejas de viejita	inat
 gbif:5249271	Oreja de Judas	inat
 gbif:7939704	Hongos gelatina	inat
+gbif:11945016	Tremella	inat
 gbif:5237434	Hongo temblón de nieve	inat
 gbif:2530192	Hongos de laminillas rosas	inat
+gbif:5241399	Hongo de seda de laminillas rosas	inat
 gbif:5241445	volvaria de volvais	gbif
 gbif:2518646	Champiñones	inat
 gbif:5243458	champiñón de prado	inat
+gbif:5243429	Hongo mazayel	inat
+gbif:5243403	Bola de nieve	inat
+gbif:5243374	Champiñón de doble anillo	inat
+gbif:5243506	Champiñón	inat
+gbif:5243396	Champiñón color vino	inat
+gbif:8365581	champiñón anillado	gbif
 gbif:5243447	Champiñón de monte	inat
+gbif:8108291	Godorniz	inat
 gbif:5248508	Hongo melena de león	inat
 gbif:2594601	Bolsitas de borrego	inat
 gbif:3495648	colmenilla de bosque	inat
@@ -1028,10 +1059,13 @@ gbif:2531146	Tejamanilero	inat
 gbif:9186073	Cabeza de fraile	inat
 gbif:2530661	Clavitos	inat
 gbif:9173236	Hongo clavito	inat
+gbif:7919198	Loyo	inat
 gbif:2524920	Boletal del Monte	inat
 gbif:7832732	Boleto bayo	inat
 gbif:2519413	Boleto de carne amarilla	inat
 gbif:2519457	Boleto aterciopelado	inat
+gbif:9662175	Hongo de esponja	inat
+gbif:2524910	Boleto amargo	gbif
 gbif:9133361	boleto castaño	gbif
 gbif:2524265	camaleón azul	gbif
 gbif:9225326	hongo viejo del bosque	inat
@@ -1045,49 +1079,200 @@ gbif:7777157	Babosillo	inat
 gbif:5239864	boleto amarillo anillado	gbif
 gbif:2524218	trufa	gbif
 gbif:2524228	Criadilla rosada	inat
+gbif:2524248	criadilla amarillenta	gbif
 gbif:2551169	Rúsulas	inat
 gbif:7240188	Trompa de puerco	inat
 gbif:2551356	Rúsula Vinosa	inat
+gbif:2551254	cualbra vermella	gbif
 gbif:2551542	Carbonera	inat
+gbif:3359736	Rúsula Sanguínea	inat
 gbif:2551173	rúsulalor cardenillo	gbif
+gbif:9630232	Sangre de toro	inat
 gbif:2551415	Rúsula comestible	inat
+gbif:2551447	Rusula fétida	gbif
+gbif:9561742	rúsula oliva	gbif
+gbif:2551558	rúsula de Quélet	gbif
+gbif:2551191	Rúsula oscura de láminas apretadas	gbif
 gbif:2551423	Gorro verde	inat
 gbif:2551331	Rúsula blanca	gbif
+gbif:2551419	Russula blanco-ocrácea	gbif
+gbif:2551388	rúsula de láminas doradas	gbif
+gbif:2551274	Rúsula acre	inat
+gbif:2551426	rusula de láminas verdosas	gbif
+gbif:2551231	rúsula de pié violeta	gbif
+gbif:2551318	Hongo santiaguero	inat
+gbif:2551233	rúsula morada bonita	gbif
+gbif:2551176	rúsula diminuta	gbif
 gbif:2536706	Matacandiles y parasoles	inat
+gbif:8914748	Hongo de codorniz	inat
+gbif:2536733	galanperna erdizuritu	gbif
+gbif:2536707	lepiota amamelonada	gbif
 gbif:6005964	Amanitas	inat
+gbif:5240273	Amanita amarilla	inat
+gbif:7496350	Amanita rojiza	inat
+gbif:7765582	Amanita Enfundada	inat
+gbif:5452448	Hongo matamoscas de primavera	inat
+gbif:5240282	amanita enfundada	gbif
+gbif:5240269	Yema de huevo	inat
+gbif:5240306	Amanita enfundada	gbif
+gbif:7446067	plúteo cervino	inat
+gbif:5241354	plúteon láminas marginadas de negro	gbif
+gbif:5241259	Plúteo amarillo	gbif
+gbif:5241314	plúteo blanco	gbif
+gbif:2530926	Hongo agrio	inat
+gbif:2530983	Hongo violeta	inat
+gbif:2530973	Agrios	inat
+gbif:5241128	Nanacate	inat
 gbif:2526678	Hongos paracaídas y rehiletes	inat
+gbif:2537250	senderuela	inat
+gbif:3341441	Hongo de Invierno	inat
 gbif:9367003	Bejines o pedos de lobo	inat
+gbif:5243258	Pedo de coyote	inat
+gbif:5243244	cuesco de lobo	gbif
+gbif:5243243	Bejin blando	gbif
+gbif:5243210	Pedo de lobo	inat
 gbif:9441377	Bejines	inat
+gbif:2535193	Cuesco de lobo	inat
 gbif:10676978	hongo pera	inat
+gbif:10852503	hongo pera	inat
+gbif:2531072	Hongo embudo nublado	inat
+gbif:2539197	Molinera	gbif
 gbif:9072989	Lengua de vaca	inat
+gbif:2531012	Hongo bistec	inat
 gbif:2521377	Gachupines	inat
+gbif:2594716	Hongo oreja de ratón	inat
+gbif:2594765	Hongo chipotle	inat
+gbif:9053531	mocosa blanca	gbif
+gbif:2538788	higróforo de dientes dorados	gbif
+gbif:2538807	Hongo carnita	inat
+gbif:2538727	mocosa perfumada	gbif
+gbif:2538784	Higróforo oliváceo-blanco	gbif
+gbif:2538720	higróforo blanquinegro	gbif
+gbif:2538736	Llanega negra	inat
+gbif:2538716	higróforo de los arbustos	gbif
+gbif:2534578	Tapón de tinta brillante	inat
+gbif:2534625	Sombrillitas	inat
+gbif:7379140	Cortinario notable	gbif
+gbif:2529531	cortinaria roja olivácea	gbif
+gbif:2528818	cortinaria elevada	gbif
+gbif:2529520	cortinaria abundante	gbif
+gbif:3345846	Hongo de encino	inat
 gbif:2521461	Escobetillas	inat
+gbif:5238663	clavaria elegante	gbif
+gbif:5238654	Changle	inat
+gbif:5238642	cresta de gallo	gbif
+gbif:7486196	Hongo pata de pájaro	inat
+gbif:8869949	Mano de santo	gbif
+gbif:2524996	pata de perdiz	inat
 gbif:7523802	Hongos de panal	inat
+gbif:2538864	Hongos chivitos	inat
+gbif:5249883	hongo patas de pájaro	inat
+gbif:5249808	Clavito	inat
+gbif:5249860	clavaria cenicienta	gbif
+gbif:2545315	Sombrerito bailador	inat
+gbif:9154166	lentino atigrado	gbif
+gbif:9217873	Clavitos	inat
 gbif:2521521	Cornetas	inat
+gbif:2522009	Corneta	inat
+gbif:2521401	oreja de padre	inat
+gbif:2521391	Mano de mortero	gbif
 gbif:2531845	Hongos paracaídas	inat
+gbif:12189304	Hongo paracaídas	inat
+gbif:9713443	Hongo de miel	inat
 gbif:2525056	Estrellas de tierra	inat
+gbif:2554367	estrella de tierra	inat
+gbif:5258510	Falsa colmenilla	inat
+gbif:5497469	Chicharrón de monte	inat
+gbif:2525710	Enchilado	inat
 gbif:5955261	Hongos bonete	inat
+gbif:2527219	Micena pura	inat
+gbif:8156721	Copa escarlata	inat
+gbif:2550493	Hongo coral coronado	inat
 gbif:2580226	Digueñes s.l.	inat
+gbif:2580227	Llao Llao	inat
+gbif:2580237	Dihueñe mohoso del ñirre	inat
+gbif:2580245	Pan de Indio	inat
+gbif:2580236	Digüeñe	inat
 gbif:2523631	Hongos de repisa	inat
+gbif:2542395	Hongo de oyamel	inat
+gbif:12081600	Peziza parda	inat
 gbif:2526774	Hongos de tallo quebradizo	inat
 gbif:2526775	Hongos alucinógenos	inat
+gbif:9050242	Hongo gorra de campo	inat
+gbif:2524851	Hongo piña	inat
 gbif:3268912	Hongos parasol	inat
+gbif:5243168	Parasol verde	inat
+gbif:5955395	Sombrilla lanuda	inat
 gbif:2607519	Líquenes de tasa	inat
+gbif:5242740	Hongo entintado	inat
+gbif:8972210	Boleto lívido	gbif
+gbif:2533062	hebeloma de centro pardo	gbif
+gbif:2538524	Hongo cono de cera	inat
+gbif:2538445	higróforo purpúreo	gbif
+gbif:2538552	Higroforo rojo	gbif
+gbif:7672956	higróforo cónico ennegreciente	gbif
 gbif:2537903	Hongos de leche	inat
 gbif:2535536	Hongos blancos	inat
+gbif:2540761	Políporo gigante	gbif
 gbif:2565599	Líquenes verdes	inat
 gbif:2528397	Sombreros escamosos	inat
+gbif:2534102	foliota dorada	gbif
+gbif:2534205	foliota escamosa	gbif
+gbif:9091857	foliota flexible	gbif
+gbif:9154129	foliota de las carboneras	gbif
+gbif:5246840	poliporo umbelado	gbif
+gbif:7365370	políporo escamoso	gbif
 gbif:2519084	Hongos de repisa	inat
+gbif:2548311	Cola de pavo	inat
+gbif:9227816	Hongo cinabrio de repisa	inat
+gbif:2548276	Hongo de repisa	inat
 gbif:2519062	Políporos Dentados	inat
 gbif:2533397	Hongos azufrosos y parientes	inat
 gbif:2519220	Hongos de repisa	inat
+gbif:7241318	Hongo de barniz del abeto	inat
+gbif:2549730	Reishi	inat
+gbif:2533962	Foliota cambiante	gbif
 gbif:2524102	Hongos falo	inat
+gbif:3314876	falo hediondo	inat
+gbif:2524108	Velo de Novia	inat
 gbif:2535527	Soldaditos	inat
+gbif:2535532	Soldadito	inat
+gbif:5249353	hidno gelatinoso	gbif
+gbif:5258678	Cáscara de naranja	inat
 gbif:2524936	Hongos bola de tierra	inat
+gbif:5239982	Escleroderma amarilla	gbif
+gbif:5239766	Hongo estrellita	inat
+gbif:9156243	Boleto pimentero	inat
+gbif:5243011	Hongo pecoso	inat
+gbif:2525027	cama de perdiu mocosa	gbif
+gbif:2525039	gomfidio manado	gbif
+gbif:2531814	Hongo pelirrojo	inat
+gbif:8203051	Pie rojo amargo	gbif
+gbif:2512969	Cuernecillo gelatinoso	inat
 gbif:2594928	Hongos copa de vino	inat
+gbif:2594936	Hongo de copa rosada	inat
+gbif:5240943	Hongo jalea crepé	inat
+gbif:7686337	Hongo castaño	inat
 gbif:2534671	Hongos llorones	inat
+gbif:2535456	Lepiota en escudo	gbif
+gbif:5240002	Paxilo enrollado	gbif
+gbif:2525079	Hongo del fresno	inat
+gbif:2532395	Hongo campanita	inat
+gbif:5244486	Hongo coral amarillo	inat
+gbif:5446508	Hongo coral chino rojizo	inat
 gbif:2514221	Royas de pinos y encinos	inat
+gbif:3374334	Roya agalladora de conos de pino	inat
 gbif:2544245	Trompetas de Monte	inat
+gbif:5243525	cistoderma amiantina	gbif
 gbif:9049960	Hongos gelatina	inat
+gbif:2512921	Hongo gelatina naranja	inat
+gbif:12257826	Hongo gelatina naranja	gbif
+gbif:8824388	Lengua de lobo	inat
+gbif:12266698	Hongo roseta	inat
+gbif:2550371	lentinelo anisado	gbif
+gbif:5241698	Cortinario de esporas blancas	gbif
 gbif:2526024	Limacelas	inat
 gbif:7241701	Hongos coral	inat
+gbif:5425828	Caca de Luna	inat
+gbif:10691289	Limacela babosa	inat
+gbif:5238896	mariner	gbif
