@@ -18,6 +18,21 @@
 		"noEmit": true,
 		"moduleResolution": "bundler",
 		"allowImportingTsExtensions": true,
-		"lib": ["esnext", "DOM", "DOM.Iterable"]
+		"lib": ["esnext", "DOM", "DOM.Iterable"],
+		// The one alias table; vite.config.ts reads it (src/lib/vite/kitAlias.ts). The `../` lives here, never in an
+		// import: noEscapePlugin rejects a raw climb. Each tier points $parent at ITSELF, so a child's `$parent/…`
+		// lands in whichever tier is serving. The shared tree: keep in sync with ReTreever's, which says ../rapper/.
+		"paths": {
+			"$parent/siblings": ["../"],
+			"$parent/siblings/*": ["../*"],
+			"$parent": ["."],
+			"$parent/*": ["./*"],
+			"$rig": ["./rig"],
+			"$rig/*": ["./rig/*"],
+			"$gc": ["./gc"],
+			"$gc/*": ["./gc/*"],
+			"$rt": ["./rt"],
+			"$rt/*": ["./rt/*"]
+		}
 	}
 }
