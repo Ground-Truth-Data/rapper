@@ -1,18 +1,22 @@
 <!-- A sheet's sums, right-aligned on one edge: rust labels, white numbers, a sage − or = before them, a short rule
   where `rule` asks. The block header's stack and an opened seedlot card draw the same lines. -->
 <script lang="ts" module>
-export type Sum = { k: string; v: string; tone?: "rose" | "teal" | "ok"; minus?: boolean; eq?: boolean; tree?: boolean; rule?: boolean };
+import type { Identity } from "./IdentityPill.svelte";
+/** `who`: the one person a line's number is theirs alone. */
+export type Sum = { k: string; v: string; who?: Identity; tone?: "rose" | "teal" | "ok"; minus?: boolean; eq?: boolean; tree?: boolean; rule?: boolean };
 </script>
 
 <script lang="ts">
+import IdentityPill from "./IdentityPill.svelte";
 import TreeGlyph from "./TreeGlyph.svelte";
 
 let { sums }: { sums: Sum[] } = $props();
 </script>
 
-{#each sums as s (s.k)}
+{#each sums as s (s.k + (s.who ? (s.who.key ?? s.who.label) : ""))}
 	{#if s.rule}<i class="bh-rule"></i>{/if}
 	<span class="bh-l">
+		{#if s.who}<span class="bh-who"><IdentityPill who={s.who} /></span>{/if}
 		<span class="bh-k">{s.k}</span>
 		<span class="bh-v {s.tone ?? ''}">{#if s.minus}<span class="bh-op">−</span>{/if}{#if s.eq}<span class="bh-op">=</span>{/if}{#if s.tree}<span class="bh-tree"><TreeGlyph /></span>{/if}{s.v}</span>
 	</span>
@@ -24,6 +28,10 @@ let { sums }: { sums: Sum[] } = $props();
 		justify-content: flex-end;
 		align-items: baseline;
 		gap: 10px;
+	}
+	.bh-who {
+		align-self: center;
+		margin-right: -4px;
 	}
 	.bh-k {
 		font: 14px/1.25 var(--rt-font-display);
