@@ -1409,21 +1409,8 @@ gbif:8010163	Kuriatko oranžové	inat
 gbif:5249496	kuriatko bledé	inat
 gbif:2527766	čírovka	inat
 gbif:5241808	čírovka zemná	inat
-gbif:5241784	čírovka škridlicovitá	inat
-gbif:3324883	čírovka zelenkastá	inat
-gbif:3324249	čírovka mydlová	inat
 gbif:5241764	čírovka krokodília	inat
-gbif:5241793	čírovka plavohnedá	inat
 gbif:5241860	čírovka sivá	inat
-gbif:5241729	čírovka zelenohnedastá	inat
-gbif:5241789	čírovka mäsitá	inat
-gbif:8897119	čírovka sírovožltá	inat
-gbif:5241767	čírovka topoľová	inat
-gbif:5241858	čírovka šupinkatá	inat
-gbif:5241749	čírovka biela	inat
-gbif:7242238	čírovka čiernošupinatá	inat
-gbif:5241832	čírovka slizká	inat
-gbif:5241733	čírovka červenejúca	inat
 gbif:2594624	smrčok černastorebrový	inat
 gbif:2594649	smrčok hybridný	inat
 gbif:2594626	smrčok vysoký	inat
@@ -1431,7 +1418,6 @@ gbif:8287374	hríb	inat
 gbif:5954958	hríb smrekový	inat
 gbif:5954949	hríb sosnový	inat
 gbif:5954691	hríb dubový	inat
-gbif:5954908	hríb	inat
 gbif:8733688	hríb bronzový	inat
 gbif:7805465	hubožer	inat
 gbif:2513763	jelenka	inat
@@ -1448,7 +1434,6 @@ gbif:2550232	kučierka	inat
 gbif:2550247	kučierka veľká	inat
 gbif:8282501	hľuzovka	inat
 gbif:7364443	hľuzovka letná	inat
-gbif:7900498	hľuzovka ryšavá	inat
 gbif:5258468	hľuzovka čierna	inat
 gbif:5258456	hľuzovka belavá	inat
 gbif:5258471	hľuzovka vhĺbená	inat
@@ -1459,20 +1444,10 @@ gbif:2532156	rýdzik	inat
 gbif:5248629	rýdzik pravý	inat
 gbif:5248684	rýdzik ryšavý	inat
 gbif:8813286	rýdzik gáfrový	inat
-gbif:5248664	rýdzik chĺpkatý	inat
 gbif:7925734	rýdzik smrekový	inat
-gbif:5248616	rýdzik dubový	inat
-gbif:5248610	rýdzik žltomliečny	inat
-gbif:8881331	rýdzik rapavý	inat
-gbif:8122710	rýdzik kravský	inat
 gbif:5248788	rýdzik jedľový	inat
-gbif:5248714	rýdzik osikový	inat
-gbif:9016531	rýdzik pomarančový	inat
 gbif:8959060	rýdzik riasnatý	inat
-gbif:5248643	rýdzik pásikavý	inat
-gbif:9125990	rýdzik lieskový	inat
 gbif:5248801	rýdzik severský	inat
-gbif:9186214	rýdzik sladkastý	inat
 gbif:5248648	rýdzik krvavý	inat
 gbif:5248649	rýdzik oranžovokrvavý	inat
 gbif:2542160	sírovec	inat
@@ -1480,47 +1455,24 @@ gbif:9072021	Sírovec obyčajný	inat
 gbif:2540800	trsovnica lupeňovitá	inat
 gbif:2518610	hliva	inat
 gbif:2526530	Hliva ustricovitá	inat
-gbif:2526548	hliva buková	inat
-gbif:2526504	hliva lievikovitá citrónová	inat
-gbif:2526564	Hliva dubová	inat
-gbif:2526599	hliva lososovoružová	inat
-gbif:7830030	hliva lievikovitá	inat
-gbif:9075265	hliva kotúčová	inat
 gbif:7987658	hnojník obyčajný	inat
-gbif:2536689	hnojník smetiskový	inat
 gbif:2526021	podpňovka	inat
 gbif:2536891	podpňovka obyčajná	inat
 gbif:2536899	podpňovka smreková	inat
 gbif:9330501	rozpadavec	inat
 gbif:2536058	vatovec obrovský	inat
-gbif:2536054	rozpadavec krehký	inat
 gbif:2537730	húževnatec	inat
 gbif:2537743	húževnatec jedlý	inat
 gbif:2560546	žezlovka	inat
 gbif:7984308	uchovec	inat
 gbif:5249271	Uchovec bazový	inat
-gbif:5249297	uchovka pásikavá	inat
 gbif:7939704	rôsolovka	inat
-gbif:11945016	rôsolovka zlatožltá	inat
 gbif:5237434	rôsolovka striebristá	inat
 gbif:2530192	pošvovec	inat
-gbif:5241399	Pošvovec stromový	inat
 gbif:5241445	pošvovec čiernovláknitý	inat
 gbif:2518646	pečiarka	inat
 gbif:5243458	pečiarka poľná	inat
-gbif:5243429	pečiarka obrovská	inat
-gbif:5243403	pečiarka ovčia	inat
-gbif:5243374	pečiarka obyčajná	inat
-gbif:8365581	pečiarka hájová	inat
-gbif:5243392	pečiarka smradľavá	inat
 gbif:5243447	pečiarka dvojvýtrusná	inat
-gbif:8108291	pečiarka lesná	inat
-gbif:8353373	pečiarka Benešova	inat
-gbif:5243354	pečiarka malá	inat
-gbif:5243473	pečiarka pavučinatá	inat
-gbif:5243433	pečiarka	inat
-gbif:5243507	pečiarka parenisková	inat
-gbif:5243420	pečiarka hnedoškvrnitá	inat
 gbif:5244571	koralovec	inat
 gbif:5248508	koralovec ježovitý	inat
 gbif:5248532	Koralovec bukový	inat
@@ -1528,14 +1480,12 @@ gbif:3493005	čiernohľuzovka kartuziánska	inat
 gbif:2594601	smrčok	inat
 gbif:5259065	smrčkovec	inat
 gbif:5259057	smrčkovec český	inat
-gbif:5499531	smrčkovec náprstkovitý	inat
 gbif:5238786	lievikovec kyjakovitý	inat
 gbif:2521435	jelenkovec	inat
 gbif:5238865	jelenkovec škridlicovitý	inat
 gbif:2530483	čírovnica	inat
 gbif:8936224	čírovnica májová	inat
 gbif:2532282	pôvabnica	inat
-gbif:5242033	pôvabnica sinavá	inat
 gbif:2531146	strmuľka lievikovitá	inat
 gbif:9186073	strmuľka veľká	inat
 gbif:2530661	strmulec	inat
@@ -1549,11 +1499,8 @@ gbif:7832732	suchohríb hnedý	inat
 gbif:7240529	suchohríb	inat
 gbif:2519413	suchohríb žltomäsový	inat
 gbif:2519457	suchohríb plstnatý	inat
-gbif:7816100	suchohríb červenohnedý	inat
 gbif:2519406	zlatohríb	inat
-gbif:12219829	hríb	inat
 gbif:2519844	podhríb	inat
-gbif:2524910	podhríb žlčový	inat
 gbif:2524262	hríbnik	inat
 gbif:9133361	hríbnik gaštanovohnedý	inat
 gbif:2524265	hríbnik modrejúci	inat
@@ -1569,348 +1516,114 @@ gbif:5239846	masliak duglaskový	inat
 gbif:8146046	masliak zrnitý	inat
 gbif:7777157	masliak obyčajný	inat
 gbif:5239864	Masliak smrekovcový	inat
-gbif:5239925	masliak biely	inat
 gbif:9104622	masliak kopcový	inat
 gbif:5239851	hríbovec dutohlúbikový	inat
 gbif:7623986	masliak kravský	inat
-gbif:5239873	masliak lepkavý	inat
 gbif:9043861	masliak strakatý	inat
-gbif:5239920	masliak limbový	inat
 gbif:2524218	koreňovec	inat
 gbif:2524228	koreňovec červený	inat
-gbif:2524248	koreňovec žltkastý	inat
 gbif:2551150	Rýdzik surovičkový	inat
 gbif:7719797	Rýdzik korenistý	inat
-gbif:2551071	rýdzik plstnatý	inat
 gbif:2551169	plávka	inat
 gbif:2551356	plávka vínovočervená	inat
-gbif:2551213	plávka škodlivá	inat
-gbif:2551254	plávka krehká	inat
 gbif:2551542	plávka modrastá	inat
 gbif:2551201	plávka jahodovočervená	inat
 gbif:2551173	plávka trávovozelená	inat
 gbif:2551479	plávka odfarbená	inat
-gbif:2551457	plávka vráskavá	inat
 gbif:2551299	plávka chrómovožltá	inat
-gbif:2551443	plávka čiernobiela	inat
 gbif:2551415	plávka mandľová	inat
-gbif:2551447	plávka smradľavá	inat
-gbif:9561742	plávka olivová	inat
-gbif:2551558	plávka Quéletova	inat
-gbif:9223923	plávka počerná	inat
-gbif:2551191	plávka hustolupeňová	inat
 gbif:2551423	plávka zelenkastá	inat
 gbif:2551331	plávka belavá	inat
-gbif:2551419	plávka hlinovožltá	inat
 gbif:8894724	plávka obyčajná	inat
-gbif:2551203	plávka krvavá	inat
-gbif:2551388	plávka zlatožltá	inat
-gbif:2551597	plávka buková	inat
-gbif:2551274	plávka zlomocná	inat
-gbif:2551392	plávka menlivá	inat
-gbif:2551426	plávka lievikovitá	inat
-gbif:9089269	plávka lesklá	inat
-gbif:2551231	plávka fialovohlúbiková	inat
-gbif:2551318	plávka hnedočervená	inat
-gbif:9075447	plávka smutná	inat
-gbif:9770228	plávka červená	inat
-gbif:2551233	plávka pôvabná	inat
-gbif:2551504	plávka lepkavá	inat
-gbif:2551206	plávka červenobiela	inat
-gbif:2551176	plávka malá	inat
 gbif:2536706	bedľa	inat
-gbif:8914748	Bedľa vysoká	inat
-gbif:2536733	bedľa čipkovaná	inat
-gbif:2536707	bedľa štíhla	inat
-gbif:3339783	bedľa vyniknutá	inat
 gbif:6005964	muchotrávka	inat
-gbif:7496350	muchotrávka červenkastá	inat
-gbif:7765582	muchotrávka plavohnedá	inat
-gbif:5240282	muchotrávka oranžová	inat
-gbif:5240213	muchotrávka chrastavá	inat
-gbif:5240269	muchotrávka cisárska	inat
 gbif:2526826	štítovka	inat
-gbif:7446067	štítovka jelenia	inat
-gbif:5241354	štítovka čiernolupeňová	inat
-gbif:5241254	štítovka šarlátová	inat
-gbif:5241259	štítovka žltá	inat
-gbif:5241314	štítovka biela	inat
 gbif:2526677	lakovka	inat
-gbif:2530926	lakovka obyčajná	inat
-gbif:2530983	Lakovka ametystová	inat
-gbif:2530973	lakovka dvojfarebná	inat
-gbif:2530966	lakovka veľká	inat
 gbif:2529580	klanolupeňovka	inat
-gbif:5241128	klanolupeňovka obyčajná	inat
 gbif:2526678	tanečnica	inat
-gbif:2537250	tanečnica poľná	inat
 gbif:2526827	plamienka	inat
-gbif:3341441	plamienka zimná	inat
 gbif:9367003	Prášnica	inat
-gbif:5243258	prášnica bradavičnatá	inat
-gbif:5453425	prášnica	inat
-gbif:5243244	popolníček stlačený	inat
-gbif:5243243	prášnica huňatá	inat
-gbif:5243279	Rozpadavec stopkatý	inat
-gbif:5243210	prášnica tmavá	inat
 gbif:9441377	fúkavec	inat
-gbif:2535193	fúkavec sivý	inat
-gbif:2535211	fúkavec malý	inat
-gbif:10852503	prášnica hruškovitá	inat
 gbif:2519188	strmuľka	inat
-gbif:2531072	strmuľka inovaťová	inat
 gbif:8691923	machovka	inat
-gbif:2539197	machovka obyčajná	inat
-gbif:2531012	Pečeňovec dubový	inat
 gbif:2521377	chriapač	inat
-gbif:2594776	chriapač brvitý	inat
-gbif:2594756	Chriapač kalíškovitý	inat
-gbif:2594716	chriapač pružný	inat
-gbif:2594765	chriapač jamkatý	inat
 gbif:2525706	šťavnačka	inat
-gbif:9053531	šťavnačka slonovinová	inat
-gbif:2538788	šťavnačka žltovločkatá	inat
-gbif:2538807	šťavnačka plávkovitá	inat
-gbif:2538799	šťavnačka červenkastá	inat
-gbif:2538727	šťavnačka voňavá	inat
-gbif:2538784	šťavnačka olivovohnedá	inat
-gbif:2538720	šťavnačka čiernovláknitá	inat
-gbif:2538774	šťavnačka smrekovcová	inat
-gbif:2538716	šťavnačka vláknitá	inat
-gbif:2538718	šťavnačka buková	inat
-gbif:2534578	Hnojník ligotavý	inat
-gbif:2534625	hnojník rozsiaty	inat
 gbif:2524960	pavučinovec	inat
-gbif:7844497	pavučinovec bledofialový	inat
-gbif:2529415	pavučinovec inovaťový	inat
-gbif:8802917	pavučinovec červenopásový	inat
-gbif:7476637	pavučinovec plavooranžový	inat
-gbif:12012261	pavučinovec marhuľovožltý	inat
-gbif:2528978	pavučinovec sivastý	inat
 gbif:2530002	hodvábnica	inat
-gbif:3345846	hodvábnica jarná	inat
-gbif:2539763	hodvábnica Bloxamova	inat
 gbif:2521461	strapačka	inat
-gbif:5238602	strapačka lososovoružová	inat
-gbif:5238663	Strapačka úhľadná	inat
-gbif:5238654	strapačka žltá	inat
-gbif:5238642	strapačka zlatožltá	inat
-gbif:7486196	strapačka koralovitá	inat
-gbif:5238688	strapačka červenejúca	inat
-gbif:8869949	strapačka vzpriamená	gbif
 gbif:2551762	krásnopórovec	inat
-gbif:2551823	krásnopórovec ovčí	inat
 gbif:2524961	sliziak	inat
-gbif:2524996	sliziak lepkavý	inat
-gbif:2538864	strmuľka kyjakovitá	inat
-gbif:12008655	drobuľka Candolleova	inat
 gbif:2540196	konárovka	inat
-gbif:5249883	konárovka hrebenitá	inat
-gbif:5249808	konárovka vráskavá	inat
-gbif:5249860	konárovka popolavá	inat
-gbif:5447198	konárovka ametystová	inat
-gbif:3345381	Lúčnica snehobiela	inat
-gbif:3291564	lúčnica statná	inat
-gbif:7542962	trúdnik plástovitý	inat
-gbif:9154166	húževnatec tigrovaný	inat
 gbif:2529999	bedlica	inat
-gbif:9217873	peniazovka maslová	inat
-gbif:3321179	peniazovka	inat
 gbif:9091779	kyjačik	inat
-gbif:5244501	kyjačik lámavý	inat
 gbif:2521383	kyjak	inat
-gbif:2521401	kyjak useknutý	inat
-gbif:2521391	Kyjak obrovský	inat
-gbif:12092733	peniazovka štipľavá	inat
-gbif:11993337	peniazovka trsovitá	inat
-gbif:9713443	podpňovka bezprsteňová	inat
 gbif:2525056	Hviezdovka	inat
-gbif:2554355	hviezdovka strapkatá	inat
 gbif:2593331	ušiak	inat
-gbif:5258510	ušiak obyčajný	inat
 gbif:2525560	líška	inat
-gbif:2525710	líška oranžová	inat
 gbif:5955261	prilbička	inat
-gbif:2527219	prilbička reďkovková	inat
 gbif:7850509	húževnatec	inat
-gbif:8689071	húževnatec škľabkovitý	inat
 gbif:2581823	ohnivec	inat
-gbif:8156721	ohnivec šarlatový	inat
-gbif:2550493	Korunovec svietnikovitý	inat
 gbif:2523631	práchnovček	inat
-gbif:2542395	Práchnovček pásikavý	inat
-gbif:2543474	Práchnovček lekársky	gbif
-gbif:12081600	čiaška hnedá	inat
 gbif:2529618	tmavuľka	inat
-gbif:5242142	tmavuľka obyčajná	inat
-gbif:5242168	tmavuľka krátkohlúbiková	inat
-gbif:8849982	tmavuľka ryhovaná	inat
-gbif:8191932	pavučinovec nadvinutý	inat
 gbif:2526774	drobuľka	inat
-gbif:2534836	Drobuľka vodomilná	inat
 gbif:2526775	holohlavec	inat
 gbif:2527828	poľnička	inat
-gbif:9050242	poľnička polguľovitá	inat
-gbif:2533227	poľnička močiarna	inat
-gbif:5955395	bedľa červenejúca	inat
 gbif:2607519	dutohlávka	inat
-gbif:2607712	dutohlávka horská	inat
 gbif:2534316	hnojník	inat
-gbif:5242740	hnojník atramentový	inat
-gbif:5242754	hnojník mrvový	inat
-gbif:5242778	hnojník statný	inat
-gbif:3333955	vločkovka žltozelená	inat
 gbif:2527854	šupinovec	inat
 gbif:2524677	hríbovník	inat
-gbif:8972210	hríbovník jelšový	inat
 gbif:2528519	slzivka	inat
-gbif:2533062	slzivka hnedá	inat
 gbif:2523318	lúčnica	inat
-gbif:2538524	lúčnica kužeľovitá	inat
-gbif:2538445	lúčnica šarlátová	inat
-gbif:2538552	lúčnica granátovočervená	inat
 gbif:2535536	bedľovec	inat
 gbif:2540760	pórnatec	inat
-gbif:2540761	Vejárovec obrovský	inat
-gbif:7865386	trúdnik veľkopórový	inat
 gbif:8312950	húževnatec	inat
-gbif:9129313	húževnatec šupinatý	inat
-gbif:2548894	húževnatec pritlačený	inat
 gbif:2565599	diskovka	inat
 gbif:2528397	šupinovka	inat
-gbif:2534102	šupinovka zlatozávojová	inat
-gbif:2534205	šupinovka šupinatá	inat
-gbif:2534085	Šupinovka slizká	inat
-gbif:9091857	šupinovka hlinovookrová	inat
-gbif:2534112	šupinovka hnedočervená	inat
 gbif:11200098	trúdnik	inat
-gbif:5246840	trúdnik klobúčkatý	inat
-gbif:2594999	tulipánovka fialová	inat
 gbif:2518415	lojovka	inat
 gbif:2519084	Trúdnikovec	inat
-gbif:2548311	trúdnikovec pestrý	inat
-gbif:9227816	Červenica rumelková	inat
-gbif:2548374	trúdnikovec pásikavý	inat
 gbif:2519062	ryhovec	inat
 gbif:2518649	tvarohovec	inat
 gbif:2600611	pupkovka	inat
-gbif:5260525	pupkovka japonská	inat
 gbif:2513349	sneť	inat
-gbif:5454113	popolníček prostredný	inat
 gbif:2533397	strapcovka	inat
-gbif:2533424	strapcovka tehlovočervená	inat
 gbif:2513794	plesňovka	inat
 gbif:2519220	lesklokôrovka	inat
-gbif:2549730	Lesklokôrovka obyčajná	inat
 gbif:2533959	šupinačka	inat
-gbif:2533962	šupinačka menlivá	inat
-gbif:8329645	pošvovec obyčajný	inat
 gbif:2527767	peniazovka	inat
-gbif:5243756	peniazovka dubová	inat
-gbif:5243758	peniazovka vretenovitohlúbiková	inat
 gbif:2524102	hadovka	inat
-gbif:3314876	Hadovka smradľavá	inat
-gbif:5249353	pajelenka želatínová	inat
-gbif:3355021	hríb siný	inat
 gbif:2581719	tanierovka	inat
-gbif:5258678	tanierovka oranžová	inat
 gbif:2524936	pestrec	inat
-gbif:5239982	pestrec obyčajný	inat
-gbif:5239959	pestrec bradavičnatý	inat
-gbif:2532720	čechratec obrovský	inat
 gbif:2525061	hviezdovec	inat
-gbif:5239766	hviezdovec vlahojavný	inat
 gbif:2524865	meďovec	inat
-gbif:9156243	meďovec korenistý	inat
-gbif:8114489	peniazovka nakopená	inat
-gbif:5243011	bedlička ostrošupinatá	inat
-gbif:2525027	Sliziak mazľavý	inat
-gbif:2525039	sliziak škvrnitý	inat
-gbif:2537418	tanečnica orešcová	inat
-gbif:11011338	pňovka neskorá	inat
 gbif:2531807	čírovec	inat
-gbif:9056826	čírovec ozdobný	inat
-gbif:2531814	čírovec červenožltý	inat
-gbif:2551821	krásnopórovec zrastený	inat
-gbif:2523872	pakyjačik purpurový	inat
-gbif:8203051	hríb červený	inat
-gbif:7550396	hríb horký	inat
 gbif:2512968	parôžkovec	inat
-gbif:2512969	parôžkovec malý	inat
-gbif:9134585	Parôžkovec lepkavý	inat
 gbif:2526680	pahliva	inat
-gbif:5240984	pahliva plochá	inat
-gbif:5240943	pahliva mäkká	inat
 gbif:2526255	lastúrka	inat
-gbif:2526256	lastúrka lopatkovitá	inat
-gbif:7686337	drobuľka čokoládovohnedá	inat
-gbif:8060178	suchohríb karmínový	inat
 gbif:2534671	plačlivka	inat
-gbif:5242798	plačlivka zamatová	inat
 gbif:9227295	bedlička	inat
-gbif:2535486	bedlička vretenovitovýtrusná	inat
-gbif:2535456	bedlička vlnatá	inat
 gbif:2530576	strmuľkovec	inat
-gbif:2530577	strmuľkovec drevný	inat
 gbif:2521516	čechračka	inat
-gbif:5240002	čechračka podvinutá	inat
-gbif:2538000	hlivuľa uškatá	inat
-gbif:2524797	tmavohríb obyčajný	inat
 gbif:11159309	golierovka	inat
-gbif:2533347	golierovka slamomilná	inat
-gbif:7693097	Čechračka tmavohlúbiková	inat
-gbif:12054660	pavučinovec purpurovoškvrnitý	inat
 gbif:2527268	tanečnička	inat
-gbif:2527302	tanečnička zvončekovitá	inat
 gbif:2524697	hríbovník	inat
-gbif:2552020	trsovec horský	inat
 gbif:2524832	žltavec	inat
-gbif:12011663	pavučinovec pórovozelený	inat
-gbif:2532395	líštička machová	inat
-gbif:9400640	trúdnik premenlivý	inat
 gbif:2521976	pakonárovka	inat
-gbif:5244486	pakonárovka vretenovitá	inat
-gbif:9117445	pakonárovka žltooranžová	inat
-gbif:2542720	belák horský	inat
 gbif:2532412	strmuľník	inat
-gbif:2538229	strmuľník nakopený	inat
 gbif:2523508	lievikovka	inat
 gbif:2514221	mechúrnatka	inat
 gbif:7451789	zrnivka	inat
-gbif:5243525	zrnivka okrová	inat
 gbif:9049960	slzovec	inat
-gbif:2512921	slzovec oranžovočervený	inat
-gbif:5426027	slizovka žĺtková	inat
 gbif:2522021	strapatec	inat
-gbif:2522022	strapatec mexický	inat
 gbif:2519216	kališnica	inat
-gbif:3345400	lúčnica žltozelená	inat
-gbif:3304469	lúčnica sliznatá	inat
-gbif:8097905	lúčnica klzká	inat
-gbif:8824388	rôsolovec červený	inat
 gbif:2593381	komôrkovka	inat
-gbif:2593397	komôrovka Tulasneova	inat
 gbif:2532154	húževnatček	inat
-gbif:2550371	húževnatček ulitovitý	inat
-gbif:5241698	bielopavučinovec hľuznatý	inat
-gbif:8189348	strmulec biely	inat
 gbif:2526024	slizovnica	inat
-gbif:9793586	slizovnica klzká	inat
-gbif:2537689	povraznica širokolupeňová	inat
-gbif:2536182	škárka kožovitá	inat
 gbif:2593788	uško	inat
-gbif:9128195	uško oslie	inat
 gbif:8766080	čiaška	inat
-gbif:5259242	čiaška vosková	inat
-gbif:9645698	rôsolovka lupeňovitá	inat
 gbif:2522127	korkovec	inat
 gbif:2521975	stužkovec	inat
 gbif:2530750	sivolupeňovka	inat
-gbif:9055239	čírovnica opásaná	inat
 gbif:2536794	zamatka	inat
-gbif:10691289	slizovnica obyčajná	inat
 gbif:2521376	hrboľnačka	inat
-gbif:5238896	hrboľnačka černastá	inat
-gbif:2593184	bielohľuzovka obyčajná	inat
 gbif:2524119	lupeňopórovec	inat
-gbif:2524464	lupeňopórovec červenožltý	inat
