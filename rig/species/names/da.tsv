@@ -455,21 +455,8 @@ gbif:8010163	abrikos-kantarel	inat
 gbif:5249496	Bleg kantarel	inat
 gbif:2527766	Ridderhat	inat
 gbif:5241808	Jordfarvet ridderhat	inat
-gbif:5241784	Ko-ridderhat	inat
-gbif:3324883	Ægte ridderhat	inat
-gbif:3324249	Sæbe-ridderhat	gbif
-gbif:5241793	Birke-ridderhat	inat
 gbif:5241860	Grå ridderhat	inat
-gbif:5241729	Grøngul ridderhat	inat
-gbif:5241789	Dråbeplettet ridderhat	inat
-gbif:8897119	Svovl-ridderhat	inat
-gbif:5241767	Poppel-ridderhat	inat
-gbif:5241858	Skællet ridderhat	inat
-gbif:5241749	Honning-ridderhat	inat
-gbif:7242238	Sorthvid ridderhat	gbif
-gbif:5241832	Knippe-ridderhat	inat
 gbif:5241820	Duft-ridderhat	inat
-gbif:5241733	Rødbladet ridderhat	inat
 gbif:2594649	Hætte-morkel	inat
 gbif:8287374	Rørhat-slægten	inat
 gbif:5954958	Spiselig rørhat	inat
@@ -497,20 +484,10 @@ gbif:2532156	Mælkehatslægten	inat
 gbif:5248629	velsmagende mælkehat	inat
 gbif:5248684	Rødbrun mælkehat	inat
 gbif:8813286	Kamfer-mælkehat	inat
-gbif:5248664	Dunet mælkehat	inat
 gbif:7925734	Gran-mælkehat	inat
-gbif:5248616	Ege-mælkehat	inat
-gbif:5248610	Svovlmælket mælkehat	inat
-gbif:8881331	Grubestokket mælkehat	inat
-gbif:8122710	Skægget mælkehat	inat
 gbif:5248788	Laksefarvet mælkehat	inat
-gbif:5248714	Rosabladet mælkehat	inat
-gbif:9016531	Mild mælkehat	inat
 gbif:8959060	Gulmælket mælkehat	inat
-gbif:5248643	Zoneret mælkehat	inat
-gbif:9125990	Hassel-mælkehat	inat
 gbif:5248801	Nordisk mælkehat	inat
-gbif:9186214	Sødlig mælkehat	inat
 gbif:5248649	Irret mælkehat	inat
 gbif:2542160	Svovlporesvamp	gbif
 gbif:9072021	Svovlporesvamp	inat
@@ -518,48 +495,25 @@ gbif:2540799	Tueporesvamp	gbif
 gbif:2540800	Tueporesvamp	inat
 gbif:2518610	Østershatte	inat
 gbif:2526530	Almindelig østershat	inat
-gbif:2526548	Sommer-østershat	inat
-gbif:2526504	Gul østershat	inat
-gbif:2526564	Korkagtig østershat	inat
-gbif:7830030	Tragt-østershat	inat
 gbif:2526779	Parykhat	gbif
 gbif:7987658	Stor parykhat	inat
-gbif:2536689	Møg-parykhat	inat
 gbif:2526021	Honningsvamp	inat
 gbif:2536891	Ægte honningsvamp	inat
 gbif:2536899	Mørk honningsvamp	inat
 gbif:2536058	Kæmpe-Støvbold	inat
 gbif:7984308	Judasøre	inat
-gbif:7351381	filtet judasøre	inat
 gbif:5249271	Almindelig judasøre	inat
-gbif:5249297	Håret judasøre	inat
 gbif:7939704	Bævresvamp	inat
-gbif:11945016	Gul bævresvamp	inat
 gbif:2530192	Posesvamp	gbif
-gbif:5241399	Silkehåret posesvamp	inat
 gbif:2518646	Champignon	inat
 gbif:5243458	Mark-champignon	inat
-gbif:5243429	Prægtig champignon	inat
-gbif:5243403	Ager-champignon	inat
-gbif:5243374	Vej-champignon	inat
-gbif:8365581	Gulhvid champignon	inat
-gbif:5243392	Strandengs-champignon	inat
 gbif:5243447	Have-champignon	inat
-gbif:8108291	Lille blod-champignon	inat
-gbif:5243460	Kompost-champignon	gbif
-gbif:8353373	Hvid blod-champignon	inat
-gbif:5243354	Dværg-champignon	inat
-gbif:5243433	Kobberbrun champignon	inat
-gbif:5243507	Knippe-champignon	inat
-gbif:5243420	Skamløs champignon	inat
-gbif:3336440	Landsby-champignon	gbif
 gbif:5244571	Vedpigsvamp	gbif
 gbif:5248508	Pindsvinepigsvamp	inat
 gbif:5248532	Koralpigsvamp	inat
 gbif:2594601	Morkel	inat
 gbif:5259065	Klokkemorkel	gbif
 gbif:5259057	Rynket klokkemorkel	inat
-gbif:5499531	Glat klokkemorkel	inat
 gbif:2521977	Køllekantarel	gbif
 gbif:5238786	Køllekantarel	inat
 gbif:2521435	Kødpigsvampslægten	inat
@@ -569,8 +523,6 @@ gbif:8936224	Vårmusseron	inat
 gbif:2532282	Hekseringshat	gbif
 gbif:5242048	Violet hekseringshat	gbif
 gbif:5242097	Spinkel hekseringshat	gbif
-gbif:5242039	Slank hekseringshat	gbif
-gbif:5242058	Violduftende hekseringshat	gbif
 gbif:2532098	Tragthatslægten	inat
 gbif:2531146	almindelig tragthat	inat
 gbif:9186073	Stor tragthat	inat
@@ -586,11 +538,9 @@ gbif:7240529	Dværgrørhat	inat
 gbif:2519413	Rødsprukken rørhat	inat
 gbif:2519224	Filtrørhat	gbif
 gbif:2519457	Filtet rørhat	inat
-gbif:7816100	Vaskeskinds-rørhat	inat
 gbif:7730499	Indigorørhat	gbif
 gbif:2519406	Guldrørhat	gbif
 gbif:2519844	Galderørhat	gbif
-gbif:2524910	Galderørhat	inat
 gbif:2524262	Kammerrørhat	gbif
 gbif:9133361	Kastanie-kammerrørhat	inat
 gbif:2524265	Blånende kammerrørhat	inat
@@ -606,380 +556,164 @@ gbif:7414997	Slimrørhatte	inat
 gbif:8146046	Kornet slimrørhat	inat
 gbif:7777157	Brungul slimrørhat	inat
 gbif:5239864	Lærke-slimrørhat	inat
-gbif:5239925	Elfenbens-slimrørhat	inat
 gbif:9104622	Rosafodet slimrørhat	inat
 gbif:5239851	Hulstokket slimrørhat	inat
 gbif:7623986	Grovporet slimrørhat	inat
-gbif:5239873	Olivengrå slimrørhat	inat
 gbif:9043861	Broget slimrørhat	inat
-gbif:5239920	Grædende slimrørhat	gbif
 gbif:2524218	Skægtrøffel	inat
 gbif:2524228	Rødlig skægtrøffel	inat
-gbif:2524248	Gul skægtrøffel	gbif
 gbif:6009534	Mælkehat	gbif
 gbif:2551150	Spiselig mælkehat	inat
 gbif:7719797	Peber-mælkehat	inat
-gbif:2551071	Hvidfiltet mælkehat	inat
 gbif:2551169	Skørhatte	inat
 gbif:2551356	Hummer-skørhat	inat
-gbif:2551213	Stor gift-skørhat	inat
-gbif:2551254	Savbladet skørhat	inat
 gbif:2551542	Broget skørhat	inat
 gbif:2551201	Prægtig skørhat	inat
-gbif:3359736	Blodrød skørhat	inat
 gbif:2551173	Græsgrøn skørhat	inat
 gbif:2551479	Afblegende skørhat	inat
-gbif:2551457	Mild kam-skørhat	inat
 gbif:2551299	Birke-skørhat	inat
-gbif:2551470	Purpurbroget skørhat	inat
-gbif:2551443	Sorthvid skørhat	inat
 gbif:2551415	Spiselig skørhat	inat
-gbif:2551447	Stinkende skørhat	inat
-gbif:9561742	Stor skørhat	inat
-gbif:2551558	Quélets skørhat	inat
-gbif:9223923	Sveden skørhat	inat
-gbif:2551191	Tætbladet skørhat	inat
 gbif:2551423	Spanskgrøn skørhat	inat
 gbif:2551331	Tragt-skørhat	inat
-gbif:2551419	Okkergul skørhat	inat
 gbif:8894724	Mandel-skørhat	inat
-gbif:2551388	Gylden skørhat	inat
-gbif:2551597	Gaffelbladet skørhat	inat
-gbif:2551274	Citronbladet skørhat	inat
-gbif:2551392	Abrikos-skørhat	inat
-gbif:2551426	Grønhalset skørhat	inat
-gbif:9089269	Året skørhat	inat
-gbif:2551231	Ferskengul skørhat	inat
-gbif:2551504	Knippe-skørhat	gbif
-gbif:2551176	Liden skørhat	gbif
 gbif:2536706	Kæmpeparasolhat	gbif
-gbif:8914748	Stor kæmpeparasolhat	inat
-gbif:2536733	Mark-kæmpeparasolhat	inat
-gbif:2536707	Puklet kæmpeparasolhat	inat
 gbif:6005964	Fluesvampe	inat
-gbif:7496350	Rødmende fluesvamp	inat
-gbif:7765582	brun kam-fluesvamp	inat
-gbif:5240282	Gylden kam-fluesvamp	inat
-gbif:5240213	Stor kam-fluesvamp	inat
-gbif:5240269	kejser-fluesvamp	inat
-gbif:11464490	Mørkøjet kam-fluesvamp	gbif
-gbif:5240292	Okkergul fluesvamp	gbif
 gbif:2526826	Skærmhat	gbif
-gbif:7446067	Sodfarvet skærmhat	inat
-gbif:5241354	Sortrandet skærmhat	inat
-gbif:5241254	Skarlagen-skærmhat	inat
-gbif:5241259	Løvegul skærmhat	inat
-gbif:5241314	Bleg skærmhat	inat
 gbif:2526677	Ametysthatte	inat
-gbif:2530926	Rød ametysthat	inat
-gbif:2530983	Violet ametysthat	inat
-gbif:2530973	Tvefarvet ametysthat	inat
-gbif:2530966	Stor ametysthat	inat
 gbif:2529580	Kløvblad	gbif
-gbif:5241128	Kløvblad	inat
 gbif:2526678	Bruskhat	gbif
-gbif:2537250	elledans-bruskhat	inat
 gbif:2526827	Fløjlsfod	gbif
-gbif:3341441	Gul fløjlsfod	inat
 gbif:9367003	Støvboldslægten	inat
-gbif:5243258	Krystal-støvbold	inat
-gbif:5243244	Flad støvbold	inat
-gbif:5243243	Umbrabrun støvbold	inat
-gbif:5243279	Højstokket støvbold	inat
-gbif:5243210	Sortagtig støvbold	inat
 gbif:9441377	Bovister	inat
-gbif:2535193	Blygrå bovist	inat
-gbif:2535211	Puslinge-bovist	inat
-gbif:10852503	Pære-støvbold	inat
 gbif:2519188	Tragthat	inat
-gbif:2531072	Tåge-tragthat	inat
 gbif:8691923	Melhat	inat
-gbif:2539197	Gråhvid melhat	inat
 gbif:9072989	Oksetunge	gbif
-gbif:2531012	Oksetunge	inat
 gbif:2521377	Foldhat	inat
-gbif:2594776	Højstokket foldhat	inat
-gbif:2594756	Pokal-foldhat	inat
-gbif:2594716	Elastik-foldhat	inat
-gbif:2594765	Grubet foldhat	inat
 gbif:2525706	Sneglehat	gbif
-gbif:9053531	Elfenbens-sneglehat	inat
-gbif:2538788	Gulfnugget sneglehat	inat
-gbif:2538727	Vellugtende sneglehat	inat
-gbif:2538784	Hvidbrun sneglehat	inat
-gbif:2538720	Sodbrun sneglehat	inat
-gbif:2538774	Lærke-sneglehat	gbif
-gbif:2538718	Spiselig sneglehat	gbif
 gbif:2534558	Blækhat	gbif
-gbif:2534578	Glimmer-blækhat	inat
-gbif:2534625	Bredsået blækhat	inat
 gbif:2524960	Slørhatte	inat
-gbif:7844497	Lysviolet slørhat	inat
-gbif:2529415	Klidhat	inat
-gbif:8802917	Cinnoberbæltet slørhat	inat
-gbif:7476637	Spættet slørhat	inat
-gbif:12012261	Abrikos-slørhat	inat
-gbif:2528818	Høj slørhat	gbif
-gbif:2529520	violetrandet slørhat	gbif
 gbif:2530002	Rødblad	gbif
-gbif:3345846	Flammet rødblad	inat
-gbif:2539763	Indigo-rødblad	inat
-gbif:2539389	Maj-rødblad	inat
-gbif:8899985	Indigo-rødblad	gbif
 gbif:2521461	Koralsvamp	gbif
-gbif:5238602	Rødtoppet koralsvamp	gbif
-gbif:5238663	Smuk koralsvamp	inat
-gbif:7486196	Drue-koralsvamp	inat
-gbif:5238688	Blodplettet koralsvamp	inat
-gbif:8869949	Rank koralsvamp	gbif
-gbif:5238581	Grøntoppet koralsvamp	gbif
 gbif:2551762	Fåreporesvamp	gbif
-gbif:2551823	Hvidlig fåreporesvamp	inat
 gbif:2524961	Slimslør	gbif
-gbif:2524996	Brunrød slimslør	inat
 gbif:2538863	Køllefod	gbif
-gbif:2538864	Køllefod	inat
 gbif:11203266	Mørkhat	gbif
-gbif:12008655	Candolles mørkhat	inat
 gbif:2540196	Troldkølle	inat
-gbif:5249883	Kam-troldkølle	inat
-gbif:5249808	Rynket troldkølle	inat
-gbif:5249860	Grå troldkølle	inat
-gbif:5447198	Ametyst-troldkølle	inat
 gbif:7244096	Vokshat	inat
-gbif:3345381	Snehvid vokshat	inat
-gbif:3291564	Eng-vokshat	inat
-gbif:9154166	Tigerhat	inat
 gbif:2529999	Silkehat	gbif
-gbif:2535788	Gran-silkehat	gbif
 gbif:2538146	Fladhat	gbif
-gbif:9217873	Keglestokket fladhat	inat
-gbif:3321179	Furestokket fladhat	inat
 gbif:9091779	Køllesvamp	gbif
-gbif:5244501	Bugtet køllesvamp	inat
 gbif:2521383	Kæmpekølle	inat
-gbif:2521391	Herkules-kæmpekølle	inat
-gbif:12092733	Bestøvlet fladhat	inat
-gbif:11993337	Knippe-fladhat	inat
 gbif:9726177	Honningsvamp	gbif
 gbif:2525056	Stjernebold	inat
-gbif:2554367	kødet stjernebold	inat
-gbif:2554355	Frynset stjernebold	inat
 gbif:2593331	Stenmorkel	inat
-gbif:5258510	Ægte stenmorkel	inat
 gbif:2525560	Orangekantarel	gbif
-gbif:2525710	Almindelig orangekantarel	inat
 gbif:5955261	Huesvamp	inat
-gbif:2527219	Skær huesvamp	inat
-gbif:4911710	Grågul huesvamp	gbif
 gbif:7850509	Læderhat	inat
-gbif:8689071	Filtstokket læderhat	inat
 gbif:2581823	Pragtbæger	inat
-gbif:8156721	Skarlagen-pragtbæger	inat
 gbif:2550456	Kandelabersvamp	gbif
-gbif:2550493	Kandelabersvamp	inat
 gbif:2523631	Egetunge	gbif
-gbif:2542395	Randbæltet hovporesvamp	inat
 gbif:2524413	Skælrørhat	gbif
 gbif:11239960	Bægersvamp	gbif
-gbif:12081600	Leverbrun bægersvamp	gbif
 gbif:2529618	Munkehat	gbif
-gbif:5242142	Sorthvid munkehat	inat
-gbif:5242168	Kortstokket munkehat	inat
-gbif:8849982	Stribestokket munkehat	inat
-gbif:8191932	Knoldløs slørhat	inat
 gbif:2526774	Mørkhat	gbif
-gbif:2534836	Lysstokket mørkhat	inat
 gbif:2526775	Nøgenhat	inat
 gbif:2527828	Agerhat	inat
-gbif:9050242	Almindelig agerhat	inat
-gbif:9151391	Lav agerhat	inat
 gbif:2519998	Læderporesvamp	gbif
 gbif:3268912	Rabarberhatte	inat
-gbif:5955395	Ægte rabarberhat	inat
 gbif:2607519	Bæger- og Rensdyrlaver	inat
-gbif:2607712	Stjerne-rensdyrlav	inat
 gbif:2527585	Lighat	gbif
 gbif:2534316	Blækhatslægten	inat
-gbif:5242740	Almindelig blækhat	inat
-gbif:5242754	Mødding-blækhat	inat
-gbif:5242778	Kegle-blækhat	inat
 gbif:2518609	Foldporesvamp	inat
 gbif:2527854	Flammehat	inat
 gbif:2524677	Ellerørhat	gbif
-gbif:8972210	Ellerørhat	inat
 gbif:2528519	Tåreblad	gbif
-gbif:2533062	Lerbrun tåreblad	inat
 gbif:2523318	Vokshat	inat
-gbif:2538595	Kantarel-vokshat	inat
-gbif:2538524	Kegle-vokshat	inat
-gbif:2538445	Cinnober-vokshat	inat
-gbif:2538552	Skarlagen-vokshat	inat
 gbif:2535536	Silkehat	inat
-gbif:2535581	Melet silkehat	inat
 gbif:2540760	Kæmpeporesvamp	gbif
-gbif:2540761	Kæmpeporesvamp	inat
 gbif:8145379	Anishat	gbif
 gbif:8312950	Sejhat	gbif
-gbif:9129313	Skællet sejhat	inat
 gbif:2528397	Skælhat	inat
-gbif:2534205	Krumskællet skælhat	inat
-gbif:2534085	Højtsiddende skælhat	inat
-gbif:9091857	Løv-skælhat	inat
 gbif:11200098	Stilkporesvamp	gbif
-gbif:5246840	Skærmformet stilkporesvamp	inat
 gbif:2594998	Stjernebæger	gbif
-gbif:2594999	Stjernebæger	inat
 gbif:2518415	Bævretalg	inat
 gbif:2531603	Knoldfod	gbif
 gbif:2519084	Læderporesvamp	inat
-gbif:2548311	Broget læderporesvamp	inat
-gbif:9227816	Cinnoberporesvamp	inat
-gbif:2548374	Bæltet læderporesvamp	inat
 gbif:2518649	Blødporesvamp	gbif
 gbif:2600611	Navlelav	inat
 gbif:2513349	Brandsvamp	gbif
 gbif:2533397	Svovlhat	inat
-gbif:2533424	Teglrød svovlhat	inat
 gbif:2513794	Frynsesvamp	gbif
 gbif:2519220	Lakporesvamp	inat
-gbif:2549730	Skinnende lakporesvamp	inat
 gbif:2533959	Skælhat	inat
-gbif:2533962	Foranderlig skælhat	inat
 gbif:8005891	Posesvamp	gbif
-gbif:8329645	Høj Posesvamp	inat
 gbif:2527767	Fladhat	gbif
-gbif:5243756	Løv-fladhat	inat
-gbif:5243758	Tenstokket fladhat	inat
 gbif:2524102	Stinksvampslægten	inat
-gbif:3314876	Almindelig stinksvamp	inat
 gbif:2523243	Bævretand	gbif
-gbif:5249353	Bævretand	inat
 gbif:7240504	Indigorørhat	gbif
-gbif:3355021	Netstokket Indigorørhat	inat
 gbif:2581719	Orangebæger	gbif
-gbif:5258678	Almindelig Orangebæger	inat
 gbif:2524936	Bruskbold	gbif
-gbif:5239982	Almindelig bruskbold	inat
-gbif:5239959	Stilket bruskbold	inat
 gbif:2532024	Tragtridderhat	gbif
-gbif:2532720	Kæmpe-tragtridderhat	inat
 gbif:2525061	Hygrometerstjerne	gbif
-gbif:5239766	Barometerstjernebold	inat
 gbif:2524865	Peberrørhat	gbif
-gbif:9156243	Peberrørhat	inat
-gbif:8114489	Tue-fladhat	inat
 gbif:7242432	Pigparasolhat	gbif
-gbif:5243011	Pigget parasolhat	inat
 gbif:2525026	Slimslør	inat
-gbif:2525027	Grå slimslør	inat
-gbif:2525039	Rødmende slimslør	inat
 gbif:7243452	Porcelænshat	gbif
-gbif:2537081	Porcelænshat	gbif
 gbif:2537417	Løghat	gbif
-gbif:2537418	Lille løghat	inat
 gbif:3318847	Gummihat	gbif
-gbif:11011338	Gummihat	inat
 gbif:2531807	Skælvæbnerhat	inat
-gbif:9056826	Sortskællet væbnerhat	inat
-gbif:2531814	Purpur-væbnerhat	inat
 gbif:8399317	Bitterrørhat	inat
-gbif:8203051	Skønfodet rørhat	inat
-gbif:7550396	Rod-rørhat	inat
 gbif:2512968	Guldgaffel	gbif
-gbif:2512969	Liden guldgaffel	inat
-gbif:9134585	Almindelig guldgaffel	inat
 gbif:2526680	Muslingesvamp	gbif
-gbif:5240984	Tvefarvet muslingesvamp	inat
-gbif:5240943	Blød muslingesvamp	inat
 gbif:2526255	Filthat	gbif
-gbif:2526256	Stor filthat	inat
 gbif:3268970	Mørkhat	gbif
-gbif:7686337	Daddelbrun mørkhat	gbif
 gbif:7778366	Dværgrørhat	gbif
-gbif:8060178	Blodrød rørhat	inat
 gbif:2534671	Mørkhat	gbif
-gbif:5242798	Grædende mørkhat	inat
 gbif:9227295	Parasolhat	gbif
-gbif:2535486	Gulfnugget parasolhat	inat
-gbif:2535456	Flosset parasolhat	inat
 gbif:2530576	Vedtragthat	gbif
-gbif:2530577	Vedtragthat	inat
 gbif:2521516	Netbladhatte	inat
-gbif:5240002	Almindelig netbladhat	inat
 gbif:2535252	Gyldenhat	gbif
-gbif:2535253	Gyldenhat	gbif
 gbif:2530482	Kridthat	gbif
-gbif:2538000	Kridthat	inat
 gbif:7240441	Sodrørhat	gbif
-gbif:2524797	Sodrørhat	inat
 gbif:11159309	Bredblad	inat
-gbif:2533347	Rødbrun bredblad	inat
 gbif:2525650	Viftesvamp	inat
-gbif:7693097	Sortfiltet viftesvamp	inat
-gbif:12054660	Purpurbrun slørhat	inat
 gbif:2527268	Tørhat	inat
-gbif:2527302	Klokke-tørhat	inat
 gbif:2524832	Stødrørhat	gbif
 gbif:2523874	Åresvamp	gbif
 gbif:2532393	Gaffelblad	gbif
-gbif:2532395	Rødmende gaffelblad	inat
 gbif:7240748	Stilkporesvamp	gbif
-gbif:9400640	Foranderlig stilkporesvamp	inat
 gbif:2521976	Køllesvampslægten	inat
-gbif:5244486	Tenformet køllesvamp	inat
-gbif:9117445	Orangegul køllesvamp	inat
 gbif:2542719	Børsteporesvamp	gbif
-gbif:2542720	Børsteporesvamp	inat
 gbif:2523508	Navlesvamp	gbif
 gbif:2514221	Filtrust	gbif
 gbif:7451789	Grynhat	gbif
-gbif:5243525	Okkergul grynhat	inat
 gbif:9049960	Tåresvamp	inat
 gbif:3214437	Troldsmør	gbif
-gbif:5426027	Troldsmør	inat
 gbif:2522021	Grubetrøffel	gbif
 gbif:2538832	Vokshatslægten	inat
-gbif:3345400	Papegøje-vokshat	inat
-gbif:3304469	Brusk-vokshat	inat
-gbif:8097905	Slimet vokshat	inat
-gbif:8824388	Bævretunge	inat
 gbif:2593381	Foldtrøffel	gbif
-gbif:2593397	Almindelig foldtrøffel	gbif
 gbif:8154036	Pælerodshat	gbif
-gbif:8031042	Almindelig pælerodshat	gbif
 gbif:2518613	Skønpig	gbif
 gbif:2532154	Savbladhat	gbif
-gbif:2550371	Anis-savbladhat	inat
 gbif:2531301	Klumpfod	gbif
-gbif:5241698	Klumpfod	inat
 gbif:7603327	Tragthat	gbif
-gbif:8189348	Knippe-Tragthat	inat
 gbif:2526024	Snekkehat	gbif
 gbif:2537688	Væbnerhat	gbif
-gbif:2537689	Bredbladet væbnerhat	inat
 gbif:2536181	Læderbold	gbif
-gbif:2536182	Læderbold	inat
 gbif:2593788	Ørebæger	gbif
-gbif:9128195	Æsel-ørebæger	inat
 gbif:8766080	Bægersvamp	gbif
 gbif:7241701	Koralsvamp	inat
 gbif:2528493	Spidsskælhat	gbif
 gbif:2518397	Bævresvamp	gbif
-gbif:9645698	Kruset bævresvamp	inat
 gbif:2522127	læderpigsvamp	inat
-gbif:7562246	Pjusket duftpigsvamp	inat
 gbif:2531624	Okkerblad	gbif
 gbif:2521975	Grenlav	inat
 gbif:8815567	Støvpude	gbif
-gbif:5425828	skinnende støvpude	inat
 gbif:9756029	Stilklædersvamp	gbif
 gbif:2530750	Gråblad	gbif
 gbif:7243331	Fagerhat	gbif
-gbif:9055239	Ring-fagerhat	inat
 gbif:2536794	Pælerodshat	gbif
 gbif:10866754	Snekkehat	gbif
 gbif:2521376	Troldporesvamp	gbif
-gbif:5238896	Sorthvid troldporesvamp	inat
 gbif:2593180	Kartoffeltrøffel	gbif
 gbif:2524119	Lamelrørhat	gbif

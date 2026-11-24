@@ -125,7 +125,6 @@ gbif:5954958	onto zuri	gbif
 gbif:5954949	kaskabeltz	gbif
 gbif:5954691	udako onddozuri	gbif
 gbif:8733688	onddobeltz	gbif
-gbif:7601434	onddo hankagorri	gbif
 gbif:2544165	tripaki gorriska	gbif
 gbif:2554536	saltsa-perretxiko horilun	gbif
 gbif:2554662	saltsa-perretxiko beltz	gbif
@@ -134,116 +133,22 @@ gbif:5258468	Boilur beltz	gbif
 gbif:5248629	esne gorri	gbif
 gbif:5248684	esneki teilamin	gbif
 gbif:8813286	kanfor-esneki	gbif
-gbif:5248616	esneki arrunt	gbif
-gbif:5248610	esnehorikor arrunt	gbif
-gbif:8881331	esneki hankazulatua	gbif
 gbif:5248788	esne gorri	gbif
-gbif:5248714	esneki zuri-orriarrosa	gbif
-gbif:5248643	esneki zonadu	gbif
-gbif:9125990	hurrizti-esneki berde	gbif
-gbif:9186214	esneki erdigozoa	gbif
 gbif:5248648	esneardotsu	gbif
 gbif:5248649	esnegorrikor	gbif
 gbif:9072021	ardagai hori	gbif
 gbif:2526530	belarri landu	gbif
-gbif:2526564	pipa-belarri	gbif
-gbif:9075265	karduziza	gbif
-gbif:5249297	mukibelarri zonatu	gbif
-gbif:11945016	Mukiziza horia	inat
-gbif:5241399	kosko-ziza zetatsua	gbif
 gbif:5243458	barrengorri	gbif
-gbif:5243429	aspibeltz almendrausaina	gbif
-gbif:5243403	azpibeltz	gbif
-gbif:5243374	azpibeltz eraztunbiko	gbif
 gbif:5243447	franzes perretxico	gbif
-gbif:8108291	basoetako azpibeltz	gbif
 gbif:5248508	ahuntz-bizar	gbif
 gbif:5238865	tripakilun ezkatatsu	gbif
 gbif:2519457	onddo bigun	gbif
-gbif:2524910	Onddo mingots	gbif
 gbif:2524265	onddo urdinkor	gbif
 gbif:9225326	onddo ezkatatsu	gbif
 gbif:2524513	onto laranja	gbif
 gbif:5239864	onddo apai	gbif
-gbif:2551254	gibelmore hauskor	gbif
 gbif:2551542	urritx	gbif
-gbif:3359736	pinudi-gibelgorri	gbif
 gbif:2551173	gibelberde orrikrema	gbif
 gbif:2551415	gibelarrosa goiztiar	gbif
-gbif:9561742	gibeloliba	gbif
-gbif:2551191	gibelilum orritinkoa	gbif
 gbif:2551423	Gibelurdin	gbif
 gbif:2551331	gibelzuri orrizabal	gbif
-gbif:2551419	Gibelokre hankazuri	gbif
-gbif:2551388	gibel kuleto	gbif
-gbif:2551597	gibelurdin	gbif
-gbif:2551274	pinudi-gibelubel	gbif
-gbif:2551426	gibelzuri orribildu	gbif
-gbif:2551231	gibel hankamorea	gbif
-gbif:2551233	gibelmore polita	gbif
-gbif:8914748	Galanperna	gbif
-gbif:2536707	galanperna puntadun	gbif
-gbif:7765582	kukumelo marroiska	gbif
-gbif:5240282	kukumelo laranja	gbif
-gbif:5240269	Arrautza-perretxiko	gbif
-gbif:5241259	izokin horia	gbif
-gbif:5241314	izokin zuria	gbif
-gbif:5243258	Otsoputz	gbif
-gbif:5243243	Astapuz ilun	gbif
-gbif:2535193	Astaputz berunkara	gbif
-gbif:2539197	errotari	gbif
-gbif:9053531	ezko zuri lingirdatsu	gbif
-gbif:2538788	ezko hori-zuri	gbif
-gbif:2538727	ezko almendrausain	gbif
-gbif:2538784	Ezko-olibazuria	gbif
-gbif:2538718	pagadi-ezko zuriska	gbif
-gbif:8802917	sare marragorri	gbif
-gbif:7379140	sare bikain	gbif
-gbif:2528818	muki-sare ezpainzimur	gbif
-gbif:3345846	azpiarrosa goiztar	gbif
-gbif:5238663	atzapar eder	gbif
-gbif:5238654	Atzapar hori	gbif
-gbif:5238642	atzapar urregorri	gbif
-gbif:8869949	atzapar estu	gbif
-gbif:2524996	lerdekei marroi	gbif
-gbif:5249808	Atzapar zimur	gbif
-gbif:5249860	atzapar hauskara	gbif
-gbif:2521401	joiki goz	gbif
-gbif:2521391	joiki arrunt	gbif
-gbif:2554367	lurrizar hirukoitza	gbif
-gbif:2525710	zizahori faltsu	gbif
-gbif:8689071	montzondo-belarri leuna	gbif
-gbif:8156721	Txanogorritxua	inat
-gbif:2550493	atzapar koralzuri	gbif
-gbif:2542395	ardagai ezpaingorri	gbif
-gbif:12081600	Katilu marroi-oliba	inat
-gbif:8972210	Haltza-ondd	gbif
-gbif:2533062	arbiki pintoa	gbif
-gbif:2538595	ezkotxo hori	gbif
-gbif:2538524	ezko gorri-koniko	gbif
-gbif:2538445	ezko gorri-txiki	gbif
-gbif:2540761	ardagai erraldoia	gbif
-gbif:2534102	urrezko egur-ziza	gbif
-gbif:2534205	egur-ziza ezkatatsu	gbif
-gbif:9154129	baso erretako egur-ziza	gbif
-gbif:7365370	ardagai ezkatatsu-handi	gbif
-gbif:9227816	ardagai gorri	gbif
-gbif:2549730	ardagai pipa	gbif
-gbif:2533962	egur-ziza aldakor	gbif
-gbif:5239982	astaputz arrunt	gbif
-gbif:5239766	izarputz higrómetro	gbif
-gbif:9156243	piper-onddo	gbif
-gbif:2525027	lerdeki hankahori	gbif
-gbif:2525039	alertze-lerdeki	gbif
-gbif:8203051	Onddo hankaeder	gbif
-gbif:2512969	mukiadar labur	gbif
-gbif:9134585	mukiadar luze	gbif
-gbif:5240943	Txirla biguna	inat
-gbif:2535456	maluta-galanperna	gbif
-gbif:5240002	orri-onddo hiltzaile	gbif
-gbif:2524797	onddo ezkatatsu	gbif
-gbif:2533347	sorgin handi-marroi	gbif
-gbif:5244486	txitxardin hori	gbif
-gbif:5243525	galanperna zokousain	gbif
-gbif:2550371	anis-belarri	gbif
-gbif:5241698	sare orrizuria	gbif
