@@ -3,6 +3,9 @@
  *  colour (filled); otherwise it was handed out on arrival (dashed outline). */
 export type Identity = { label: string; color: string; self: boolean; picked: boolean; key?: string };
 
+/** You are always this gold, whatever your row holds. */
+export const SELF_GOLD = "#e8c53a";
+
 /** One person once: the same key (a folded twin resolves to its person's), the self, or a keyless label. */
 export const samePerson = (a: Identity, b: Identity) => (a.self && b.self) || (a.key || b.key ? a.key === b.key : a.label === b.label);
 
@@ -47,7 +50,7 @@ function read(e: MouseEvent, label: string) {
     onclick={(e) => read(e, label)}
     class:id-pill--picked={p.picked && !p.self}
     class:id-pill--self={p.self}
-    style:--id-c={p.color || null}
+    style:--id-c={p.self ? SELF_GOLD : p.color || null}
     title={p.label}>{label}</span
 >{/snippet}
 {#if who.label && !marks.some((e) => samePerson(e, who))}{@render own(who)}{/if}
