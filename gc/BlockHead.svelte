@@ -19,6 +19,7 @@ let {
 	total,
 	allocated,
 	sums = [],
+	folded = false,
 	onUnpick,
 	onSums,
 }: {
@@ -33,6 +34,8 @@ let {
 	/** The word for a total allocated on purpose; absent, the total is the area at its rate. */
 	allocated?: string;
 	sums?: Sum[];
+	/** Fades the sums out and closes their gap, so what sits under the head slides up instead of jumping. */
+	folded?: boolean;
 	onUnpick: () => void;
 	/** A tap on the sums: the sheet's own breakdown. */
 	onSums?: () => void;
@@ -58,8 +61,10 @@ let {
 </div>
 <i class="bh-line"></i>
 {#if sums.length}
-	{#if onSums}<button type="button" class="bh-sums" onclick={onSums}><SumLines {sums} /></button>
-	{:else}<div class="bh-sums"><SumLines {sums} /></div>{/if}
+	<div class="bh-fold" class:folded inert={folded}><div>
+		{#if onSums}<button type="button" class="bh-sums" onclick={onSums}><SumLines {sums} /></button>
+		{:else}<div class="bh-sums"><SumLines {sums} /></div>{/if}
+	</div></div>
 {/if}
 
 <style>
@@ -159,5 +164,20 @@ let {
 	}
 	div.bh-sums {
 		cursor: default;
+	}
+	.bh-fold {
+		display: grid;
+		grid-template-rows: 1fr;
+		transition:
+			grid-template-rows 500ms ease,
+			opacity 350ms ease;
+	}
+	.bh-fold > div {
+		min-height: 0;
+		overflow: hidden;
+	}
+	.bh-fold.folded {
+		grid-template-rows: 0fr;
+		opacity: 0;
 	}
 </style>
