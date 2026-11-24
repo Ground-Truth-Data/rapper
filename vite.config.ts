@@ -11,6 +11,7 @@ import { defineConfig } from "vitest/config";
 import { noEscapeHatch } from "./src/lib/guards/noEscapePlugin.ts";
 import { noRawCamera } from "./src/lib/guards/noRawCameraPlugin.ts";
 import { workspaceRoot } from "./src/lib/guards/workspaceRoot.ts";
+import { kitAlias, tsconfigPaths } from "./src/lib/vite/kitAlias.ts";
 import { pdfjsWasm } from "./src/lib/vite/pdfjsWasmPlugin.ts";
 import { CHILDREN, childByRepo, mountPath } from "./rig/childRegistry.ts";
 import { kitFiles, mountedChild } from "./scripts/mounted.mjs";
@@ -36,23 +37,6 @@ const kit = sveltekit({
 		: adapterVercel({ runtime: "nodejs24.x" }),
 	// No `$generated` here and no `#lib` in package.json, on purpose: a child reaching for
 	// ReTreever's private side must fail to build here (childBoundary.test.ts).
-	alias: {
-		// The `../` lives here, never in an import — noEscapePlugin rejects a raw climb.
-		"$parent/siblings": "../",
-		"$parent/siblings/*": "../*",
-
-		// Each tier points $parent at ITSELF, so a child's `$parent/…` lands in whichever tier is serving.
-		$parent: ".",
-		"$parent/*": "./*",
-
-		// The shared tree; keep in sync with ReTreever's vite.config.ts, which points these at ../rapper/.
-		$rig: "./rig",
-		"$rig/*": "./rig/*",
-		$gc: "./gc",
-		"$gc/*": "./gc/*",
-		$rt: "./rt",
-		"$rt/*": "./rt/*",
-	},
 	files: kitFiles(),
 });
 
@@ -155,7 +139,7 @@ const mountedFact = {
 };
 
 return {
-
+	resolve: { alias: kitAlias(import.meta.dirname, tsconfigPaths(import.meta.dirname)) },
 	plugins: [
 		printLandingUrl(),
 		// Rooted at the WORKSPACE: children are siblings of rapper, so rooting at rapper/ makes the guard vacuous.
