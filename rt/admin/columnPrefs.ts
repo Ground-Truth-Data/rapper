@@ -1,7 +1,7 @@
 // Prefs are keyed by table name only, so the IndexedDB and GC Supabase
 // viewers share one arrangement per table.
 
-// Not $app/environment, so the module stays importable outside SvelteKit.
+// Not $app/env, so the module stays importable outside SvelteKit.
 const hasStorage = () => typeof localStorage !== "undefined";
 
 /**
@@ -93,7 +93,7 @@ const SHOW_PARAM = "cols";
  * Absent or empty means every column.
  */
 export function hiddenFromParams(
-	params: URLSearchParams,
+	params: Pick<URLSearchParams, "get">,
 	columns: string[],
 ): string[] {
 	const names = (raw: string) =>

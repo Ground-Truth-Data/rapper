@@ -170,7 +170,7 @@ export const isSharedPath = (pathname: string): boolean =>
 export const urlOnSite = (
 	id: SiteId,
 	pathname: string,
-	current: URL,
+	current: Pick<URL, "hostname" | "port" | "protocol">,
 ): string => {
 	if (isTunnelOrDevice(current.hostname)) return pathname;
 
@@ -185,7 +185,7 @@ export const urlOnSite = (
 
 /** Get Cache is its own deployment (`fetch/getCache`), never served here; admin links across to it. Its dev server holds :5173,
  * but a page already on a Get Cache server (a test server's own port) stays on it. */
-export const getcacheUrl = (pathname: string, current: URL): string =>
+export const getcacheUrl = (pathname: string, current: Pick<URL, "hostname" | "origin">): string =>
 	current.hostname.startsWith("getcache.")
 		? `${current.origin}${pathname}`
 		: current.hostname.endsWith(".localhost")

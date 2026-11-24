@@ -12,3 +12,16 @@ export function mountedChild() {
 	if (typeof child !== "string" || !child) throw new Error(`${FILE}: "child" must name a folder beside rapper`);
 	return child;
 }
+
+/**
+ * SvelteKit's `files` for this rapper. The three keys follow the tree together:
+ * pointing `routes` alone loses a child's matchers and, silently, its reroute hook.
+ */
+export function kitFiles() {
+	const tree = mountedChild() ? `../${mountedChild()}` : "src";
+	return {
+		routes: `${tree}/routes`,
+		params: `${tree}/params`,
+		hooks: { universal: `${tree}/hooks`, server: "src/hooks.server" },
+	};
+}

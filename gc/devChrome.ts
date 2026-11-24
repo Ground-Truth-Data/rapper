@@ -7,7 +7,7 @@
 /** A URL segment here takes every dev instrument off that page. */
 export const NOT_ON = ["wiki", "admin", "contact", "stage"];
 
-export function devChromeShows(url: URL): boolean {
+export function devChromeShows(url: Pick<URL, "pathname">): boolean {
 	const segments = new Set(url.pathname.split("/"));
 	return !NOT_ON.some((word) => segments.has(word));
 }
