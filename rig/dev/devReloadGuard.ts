@@ -59,7 +59,8 @@ export function healLostModule(error: unknown): boolean {
 }
 
 export function installDevReloadGuard(): void {
-	if (!import.meta.hot) return;
+	// Vite's SSR runner has import.meta.hot too, and the server has no window.
+	if (import.meta.env.SSR || !import.meta.hot) return;
 
 	// Only a boot that stays up may clear the budget — clearing at install or in a rAF wiped the count on the healing reload itself. A broken boot throws within a few hundred ms, so wait past that.
 	setTimeout(() => {
