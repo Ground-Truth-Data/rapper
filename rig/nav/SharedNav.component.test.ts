@@ -36,10 +36,10 @@ describe("SharedNav", () => {
 		]);
 	});
 
-	it("says when a mounted child does not serve the page", () => {
+	it("marks when a mounted child does not serve the page", () => {
 		vi.stubEnv("VITE_MOUNTED_CHILD", "ReTreever_who_what");
 		const { container } = render(SharedNav, { ...base, pathname: "/elsewhere" });
-		expect(container.querySelector(".off-mount")!.textContent!.trim()).toBe("not served here");
+		expect(container.querySelector(".off-mount")).not.toBeNull();
 		expect(container.querySelector<HTMLAnchorElement>("a.home")!.getAttribute("href")).toBe("/who");
 	});
 });

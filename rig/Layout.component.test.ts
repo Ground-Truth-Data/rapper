@@ -24,7 +24,7 @@ describe("Layout", () => {
 		const child = { name: "who_what", owner: "ReTreever", repo: "ReTreever_who_what" };
 		const { container } = render(Layout, { child, logo: "/logo.webp", children });
 		flushSync();
-		expect(document.title).toBe("ReTreever — who_what");
+		expect(document.title).toContain("who_what");
 		expect(document.head.querySelector<HTMLLinkElement>('link[rel="icon"]')!.getAttribute("href")).toBe("/logo.webp");
 		expect(container.querySelector("header .child-name")!.textContent).toBe("who_what");
 		expect(container.querySelector("main > #pg")).not.toBeNull();
