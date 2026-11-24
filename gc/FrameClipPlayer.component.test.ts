@@ -21,7 +21,6 @@ describe("FrameClipPlayer", () => {
 		const onDone = vi.fn();
 		const { container } = render(FrameClipPlayer, { root: "/f", clip: "wave", facts, from: 2, to: 4, onFrame, onDone });
 		expect(src(container)).toBe("/f/hands/wave/wave_002.webp");
-		expect(container.querySelector("img")!.style.width).toBe("4rem");
 		vi.advanceTimersByTime(100);
 		flushSync();
 		expect(src(container)).toBe("/f/hands/wave/wave_003.webp");

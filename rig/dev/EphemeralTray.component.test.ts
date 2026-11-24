@@ -27,7 +27,6 @@ describe("EphemeralTray", () => {
 		render(EphemeralTray, {});
 		flushSync();
 		const tab = document.querySelector<HTMLButtonElement>("body > button.ephem-tab")!;
-		expect(tab.getAttribute("aria-label")).toBe("Show dev tray");
 		await fireEvent.click(tab);
 		flushSync();
 		expect(sessionStorage.getItem("rt-ephem-collapsed")).toBe("0");

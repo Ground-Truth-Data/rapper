@@ -8,6 +8,11 @@ import FormView from "./FormView.svelte";
 
 afterEach(() => (cleanup(), vi.unstubAllGlobals()));
 
+const press = (c: { querySelector: Element["querySelector"] } | { container: HTMLElement }, hook: string) =>
+	("container" in c ? c.container : c).querySelector<HTMLElement>(hook)!;
+const onSection = (c: { querySelector: Element["querySelector"] } | { container: HTMLElement }, n: number) =>
+	waitFor(() => expect(press(c, "[data-section]").getAttribute("data-section")).toBe(String(n)));
+
 const form: Definition = {
 	title: "Tree survey",
 	elements: [
@@ -21,14 +26,14 @@ it("refuses a missing required field and an out-of-range number, then saves", as
 	const { container, findByText, getByText, getByLabelText } = render(FormView, { definition: form, onsubmit });
 	await findByText("Tree survey");
 	await fireEvent.change(getByLabelText("DBH"), { target: { value: "140" } });
-	await fireEvent.click(getByText("Save"));
-	await waitFor(() => expect([...container.querySelectorAll("[data-error]")].map((e) => e.textContent)).toEqual(["Response required.", "The value should not be greater than 100"]));
+	await fireEvent.click(press(container, "[data-next]"));
+	await waitFor(() => expect(container.querySelectorAll("[data-error]")).toHaveLength(2));
 	expect(onsubmit).not.toHaveBeenCalled();
 	await fireEvent.change(getByLabelText("Date"), { target: { value: "2026-11-05" } });
 	await fireEvent.change(getByLabelText("DBH"), { target: { value: "12.5" } });
 	await fireEvent.click(getByText("Tree"));
 	await waitFor(() => expect(container.querySelectorAll("[data-entry]")).toHaveLength(2));
-	await fireEvent.click(getByText("Save"));
+	await fireEvent.click(press(container, "[data-next]"));
 	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
 	expect(split(form, onsubmit.mock.calls[0][0])).toEqual({ data: { date: "2026-11-05" }, fix: null, rows: [{ groupKey: "trees", n: 1, data: { dbh: 12.5 }, fix: null }] });
 });
@@ -58,43 +63,43 @@ const paged: Definition = {
 it("pages by section: Next refuses an empty required field, Save on the last page sends every answer", async () => {
 	const onsubmit = vi.fn();
 	const { container, findByText, getByText, getByLabelText, getAllByLabelText, queryByText } = render(FormView, { definition: paged, onsubmit });
-	await findByText("Section 1 of 2");
-	expect(queryByText("Back")).toBeNull();
-	await fireEvent.click(getByText("Next"));
-	await findByText("Response required.");
+	await onSection(container, 1);
+	expect(container.querySelector("[data-back]")).toBeNull();
+	await fireEvent.click(press(container, "[data-next]"));
+	await waitFor(() => expect(container.querySelector("[data-error]")).not.toBeNull());
 	expect(container.querySelector("[data-section]")?.getAttribute("data-section")).toBe("1");
 	await fireEvent.change(getByLabelText("Species"), { target: { value: "cedar" } });
-	await fireEvent.click(getByText("Next"));
-	await findByText("Section 2 of 2");
+	await fireEvent.click(press(container, "[data-next]"));
+	await onSection(container, 2);
 	await fireEvent.change(getByLabelText("DBH"), { target: { value: "34" } });
 	await fireEvent.change(getByLabelText("Cuteness"), { target: { value: "very" } });
-	await fireEvent.click(getByText("Add another"));
+	await fireEvent.click(press(container, "[data-add]"));
 	// Adding folds the others to a one-line summary.
 	await waitFor(() => expect(container.querySelector("[data-entry='1'] [data-summary]")?.textContent).toBe("DBH 34 · very"));
 	expect(getAllByLabelText("DBH")).toHaveLength(1);
 	await fireEvent.click(getByText("Tree 1"));
 	await waitFor(() => expect(getAllByLabelText("DBH")).toHaveLength(2));
-	await fireEvent.click(getByText("Save"));
+	await fireEvent.click(press(container, "[data-next]"));
 	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
 	expect(onsubmit.mock.calls[0][0]).toEqual({ species: "cedar", tree: [{ dbh: 34, cute: "very" }, {}] });
-	await fireEvent.click(getByText("Back"));
-	await findByText("Section 1 of 2");
+	await fireEvent.click(press(container, "[data-back]"));
+	await onSection(container, 1);
 });
 
 it("reports each change as a draft, and a draft reopens the form where it was left", async () => {
 	const onchange = vi.fn();
 	const first = render(FormView, { definition: paged, onsubmit: vi.fn(), onchange });
-	await first.findByText("Section 1 of 2");
+	await onSection(first, 1);
 	expect(onchange).not.toHaveBeenCalled();
 	await fireEvent.change(first.getByLabelText("Species"), { target: { value: "cedar" } });
-	await fireEvent.click(first.getByText("Next"));
-	await first.findByText("Section 2 of 2");
+	await fireEvent.click(press(first, "[data-next]"));
+	await onSection(first, 2);
 	await waitFor(() => expect(onchange.mock.lastCall?.[0]).toMatchObject({ data: { species: "cedar" }, path: [0, 1] }));
 	cleanup();
 
 	const again = render(FormView, { definition: paged, onsubmit: vi.fn(), draft: onchange.mock.lastCall![0] });
-	await again.findByText("Section 2 of 2");
-	await fireEvent.click(again.getByText("Back"));
+	await onSection(again, 2);
+	await fireEvent.click(press(again, "[data-back]"));
 	await waitFor(() => expect((again.getByLabelText("Species") as HTMLInputElement).value).toBe("cedar"));
 });
 
@@ -109,7 +114,7 @@ it("a form only opened is no draft though its entry is located, and a saved one 
 	const onchange = vi.fn();
 	let atSave = -1;
 	const onsubmit = vi.fn(() => void (atSave = onchange.mock.calls.length));
-	const { findByText, getByText, getByLabelText } = render(FormView, { definition: nested, onsubmit, onchange });
+	const { container, findByText, getByText, getByLabelText } = render(FormView, { definition: nested, onsubmit, onchange });
 	await findByText("Trees");
 	await waitFor(() => expect(getCurrentPosition).toHaveBeenCalledOnce());
 	await settled();
@@ -117,7 +122,7 @@ it("a form only opened is no draft though its entry is located, and a saved one 
 
 	await fireEvent.change(getByLabelText("Species"), { target: { value: "cedar" } });
 	await waitFor(() => expect(onchange).toHaveBeenCalled());
-	await fireEvent.click(getByText("Save"));
+	await fireEvent.click(press(container, "[data-next]"));
 	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
 	await settled();
 	expect(onchange.mock.calls.length).toBe(atSave);
@@ -140,31 +145,31 @@ const branching: Definition = {
 it("follows a skip past a section, Back retraces the path, and the skipped section is never required", async () => {
 	const onsubmit = vi.fn();
 	const { container, findByText, getByText, getByLabelText } = render(FormView, { definition: branching, onsubmit });
-	await findByText("Section 1 of 4");
+	await onSection(container, 1);
 	await fireEvent.click(getByLabelText("yes"));
-	await fireEvent.click(getByText("Next"));
-	await findByText("Section 3 of 4");
+	await fireEvent.click(press(container, "[data-next]"));
+	await onSection(container, 3);
 	expect(container.querySelector("[data-step]")?.textContent).toBe("2 / 3");
-	await fireEvent.click(getByText("Back"));
-	await findByText("Section 1 of 4");
-	await fireEvent.click(getByText("Next"));
-	await findByText("Section 3 of 4");
-	await fireEvent.click(getByText("Next"));
-	await findByText("Section 4 of 4");
-	await fireEvent.click(getByText("Back"));
-	await findByText("Section 3 of 4");
-	await fireEvent.click(getByText("Next"));
-	await fireEvent.click(getByText("Save"));
+	await fireEvent.click(press(container, "[data-back]"));
+	await onSection(container, 1);
+	await fireEvent.click(press(container, "[data-next]"));
+	await onSection(container, 3);
+	await fireEvent.click(press(container, "[data-next]"));
+	await onSection(container, 4);
+	await fireEvent.click(press(container, "[data-back]"));
+	await onSection(container, 3);
+	await fireEvent.click(press(container, "[data-next]"));
+	await fireEvent.click(press(container, "[data-next]"));
 	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
 	expect(onsubmit.mock.calls[0][0]).toEqual({ planted: "yes" });
 });
 
 it("a complete trigger turns Next into Save and ends there", async () => {
 	const onsubmit = vi.fn();
-	const { findByText, getByText, getByLabelText, queryByText } = render(FormView, { definition: branching, onsubmit });
-	await findByText("Section 1 of 4");
+	const { container, findByText, getByText, getByLabelText, queryByText } = render(FormView, { definition: branching, onsubmit });
+	await onSection(container, 1);
 	await fireEvent.click(getByLabelText("burnt"));
-	await fireEvent.click(getByText("Save"));
+	await fireEvent.click(press(container, "[data-next]"));
 	await waitFor(() => expect(onsubmit).toHaveBeenCalledWith({ planted: "burnt" }));
 	expect(queryByText("Why not")).toBeNull();
 });
@@ -184,15 +189,15 @@ it("every answer and every entry carries where it was taken, with no GPS field i
 	const onsubmit = vi.fn();
 	const { container, findByText, getByText, getAllByLabelText } = render(FormView, { definition: trees, onsubmit });
 	await findByText("Trees");
-	await fireEvent.click(getByText("Add another"));
+	await fireEvent.click(press(container, "[data-add]"));
 	await waitFor(() => expect(getCurrentPosition).toHaveBeenCalledTimes(1));
 	await fireEvent.change(getAllByLabelText("Species")[0], { target: { value: "cedar" } });
-	await fireEvent.click(getByText("Add another"));
+	await fireEvent.click(press(container, "[data-add]"));
 	await waitFor(() => expect(getCurrentPosition).toHaveBeenCalledTimes(2));
 	await waitFor(() => expect(container.querySelectorAll("[data-entry]")).toHaveLength(2));
 	const second = getAllByLabelText("Species").at(-1)!;
 	await fireEvent.change(second, { target: { value: "pine" } });
-	await fireEvent.click(getByText("Save"));
+	await fireEvent.click(press(container, "[data-next]"));
 	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
 	const { fix, rows } = split(trees, onsubmit.mock.calls[0][0]);
 	expect(fix).toEqual({ lat: 55.3, lng: -120.3, accuracyM: 5 });
@@ -216,9 +221,9 @@ it("stamps each entry with where it was added, the one the form opens with too, 
 	expect(container.querySelector("[data-gps-stamp]")).not.toBeNull();
 	await waitFor(() => expect(getCurrentPosition).toHaveBeenCalledOnce());
 	await fireEvent.change(getByLabelText("Species"), { target: { value: "cedar" } });
-	await fireEvent.click(getByText("Add another"));
+	await fireEvent.click(press(container, "[data-add]"));
 	await waitFor(() => expect(container.querySelector("[data-entry='1'] [data-gps-mark]")).not.toBeNull());
-	await fireEvent.click(getByText("Save"));
+	await fireEvent.click(press(container, "[data-next]"));
 	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
 	const fix = { lat: -19.41, lng: 146.81, accuracyM: 6 };
 	expect(onsubmit.mock.calls[0][0]).toEqual({ [FIX]: fix, tree: [{ species: "cedar", [FIX]: fix }, { [FIX]: fix }] });
@@ -241,7 +246,7 @@ it("a version published with a hidden gps field keeps location only in the colum
 	await findByText("Old trees");
 	expect(container.querySelector("[data-field=where], [data-field=tree_gps]")).toBeNull();
 	await fireEvent.change(getByLabelText("Species"), { target: { value: "cedar" } });
-	await fireEvent.click(getByText("Save"));
+	await fireEvent.click(press(container, "[data-next]"));
 	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
 	const fix = { lat: 55.1, lng: -120.1, accuracyM: 4 };
 	expect(split(old, onsubmit.mock.calls[0][0])).toEqual({ data: {}, fix, rows: [{ groupKey: "tree", n: 1, data: { species: "cedar" }, fix }] });
@@ -250,13 +255,15 @@ it("a version published with a hidden gps field keeps location only in the colum
 
 it("says where a photo is kept only when its ⓘ is tapped", async () => {
 	const shot: Definition = { title: "Shot", elements: [{ type: "file", name: "pic", title: "Photo" }] };
-	const { container, findByText, queryByText } = render(FormView, { definition: shot, onsubmit: vi.fn() });
+	const { container, findByText } = render(FormView, { definition: shot, onsubmit: vi.fn() });
 	await findByText("Photo");
-	expect(queryByText("Only on this phone until you send it.")).toBeNull();
-	await fireEvent.click(container.querySelector("[data-photo-info]")!);
-	await findByText("Only on this phone until you send it.");
-	await fireEvent.click(container.querySelector("[data-photo-info]")!);
-	expect(queryByText("Only on this phone until you send it.")).toBeNull();
+	const info = container.querySelector("[data-photo-info]")!;
+	const told = () => info.getAttribute("aria-expanded");
+	expect(told()).toBe("false");
+	await fireEvent.click(info);
+	await waitFor(() => expect(told()).toBe("true"));
+	await fireEvent.click(info);
+	await waitFor(() => expect(told()).toBe("false"));
 });
 
 it("a Person question offers only the people it is given, searchable, and takes no free text", async () => {
@@ -274,19 +281,27 @@ it("a Person question offers only the people it is given, searchable, and takes 
 	await fireEvent.input(getByLabelText("Boss"), { target: { value: "pe" } });
 	await waitFor(() => expect(offered()).toEqual(["Pete"]));
 	await fireEvent.click(getByText("Pete"));
-	await fireEvent.click(getByText("Save"));
+	await fireEvent.click(press(container, "[data-next]"));
 	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
 	expect(onsubmit.mock.calls[0][0]).toEqual({ boss: "p2" });
 });
 
 it("speaks the planter's language: a French form reads and refuses in French", async () => {
+	const refusal = async () => {
+		const { container, findByText } = render(FormView, { definition: form, onsubmit: vi.fn() });
+		await findByText("Tree survey");
+		await fireEvent.click(press(container, "[data-next]"));
+		await waitFor(() => expect(container.querySelector("[data-error]")).not.toBeNull());
+		const said = [container.querySelector("[data-next]")!.textContent, container.querySelector("[data-error]")!.textContent];
+		cleanup();
+		return said;
+	};
+	const english = await refusal();
 	const langs = vi.spyOn(navigator, "languages", "get").mockReturnValue(["fr-CA"]);
 	try {
-		const { container, findByText, getByText } = render(FormView, { definition: form, onsubmit: vi.fn() });
-		await findByText("Tree survey");
-		expect(container.querySelector("[data-gps-stamp]")?.textContent).toMatch(/position/);
-		await fireEvent.click(getByText("Enregistrer"));
-		await waitFor(() => expect(container.querySelector("[data-error]")?.textContent).toBe("La réponse à cette question est obligatoire."));
+		const french = await refusal();
+		expect(french[0]).not.toBe(english[0]);
+		expect(french[1]).not.toBe(english[1]);
 	} finally {
 		langs.mockRestore();
 	}

@@ -20,6 +20,11 @@ describe("IdentityPill", () => {
 		expect(self.className).not.toMatch(/id-pill--picked/);
 	});
 
+	it("draws you gold whatever colour your row holds: a merged contact's colour never reaches the you pill", () => {
+		const self = render(IdentityPill, { who: { ...me, color: "#e68a2e" } }).container.querySelector<HTMLElement>(".id-pill")!;
+		expect(self.style.getPropertyValue("--id-c")).toBe("#e8c53a");
+	});
+
 	it("a clobber is a hammer half joined to the editor's own pill, in their colour", () => {
 		const c = render(IdentityPill, { who: pete, editors: [pete], clobberBy: pete }).container;
 		expect(c.querySelector(".id-mark-half--hammer")).not.toBeNull();
