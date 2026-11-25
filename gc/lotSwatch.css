@@ -1,0 +1,34 @@
+/* A seedlot's swatch and count colour by its rank on the block, the same as the heat map paints it (blockHeat.ts
+   LOTS). 4 is "every other seedlot" while one is open: one faint segment. */
+.lot-p0 {
+	background-color: #ffd700;
+	background-image: repeating-linear-gradient(135deg, rgba(11, 12, 8, 0.3) 0 1.5px, transparent 1.5px 6px);
+}
+.lot-p1 {
+	background: radial-gradient(rgba(11, 12, 8, 0.35) 1.2px, transparent 1.7px) 0 0 / 5px 5px;
+	background-color: var(--rust);
+}
+.lot-p2 {
+	background: repeating-linear-gradient(90deg, rgba(11, 12, 8, 0.3) 0 1.5px, transparent 1.5px 6px) #838963;
+}
+.lot-p3 {
+	background: #5d5f55;
+}
+.lot-p4 {
+	background: repeating-linear-gradient(135deg, #3a3b36 0 3px, #2b2c28 3px 6px);
+}
+.lot-q0 {
+	color: #ffd700;
+}
+.lot-q1 {
+	color: var(--rust);
+}
+.lot-q2 {
+	color: #838963;
+}
+.lot-q3 {
+	color: var(--rt-cream);
+}
+.lot-q4 {
+	color: rgba(255, 255, 255, 0.3);
+}
