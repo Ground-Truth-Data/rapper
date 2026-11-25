@@ -18,7 +18,7 @@ setNestDepth(parent + 1);
     flex-direction: column;
     gap: var(--nest-gap, 6px);
     margin-left: 5px;
-    padding-left: 7px;
+    padding-left: 5px;
     border-left: 2px dashed color-mix(in srgb, var(--c) 75%, transparent);
 }
 .ng--top {
