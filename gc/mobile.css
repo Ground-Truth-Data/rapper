@@ -216,6 +216,14 @@ hr {
 	margin: 0;
 }
 
+/* Global <u>: a figure whose tap opens the sheet that changes it, like a block's trees/ha. Never style u locally. */
+u {
+	color: var(--rt-fg);
+	text-decoration: underline dotted color-mix(in srgb, currentColor 45%, transparent);
+	text-decoration-thickness: 2px;
+	text-underline-offset: 4px;
+}
+
 /* Item count on a row's type glyph (its parent is position:relative). Counts never sit on the meta line
    as text; the ring in the row surface cuts the badge out of the icon stroke. */
 .rt-count-badge {
