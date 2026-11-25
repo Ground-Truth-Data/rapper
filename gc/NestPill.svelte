@@ -22,7 +22,7 @@ let {
     small = false,
     detail = false,
     dashed = false,
-    tall = false,
+    stack,
     glyph,
     children,
     values,
@@ -39,8 +39,8 @@ let {
     detail?: boolean;
     /** A calculated value: dashed, unfilled. */
     dashed?: boolean;
-    /** Several rows of content: everything hangs from the top. */
-    tall?: boolean;
+    /** The label is several rows: centred on the pill, or with "top" everything hangs from its top edge. */
+    stack?: "middle" | "top";
     glyph?: Snippet;
     children: Snippet;
     values?: Snippet;
@@ -58,7 +58,7 @@ const color = depthColor(listDepth());
     {@render values?.()}
 {/snippet}
 
-<div class="np" class:np--small={small} class:np--detail={detail} class:np--dashed={dashed} class:np--tall={tall} class:np--go={ongo} style:--c={color}>
+<div class="np" class:np--small={small} class:np--detail={detail} class:np--dashed={dashed} class:np--stack={stack} class:np--top={stack === "top"} class:np--go={ongo} style:--c={color}>
     {#if ontoggle ?? ongo}
         <button type="button" class="np-main" aria-expanded={open} onclick={(e) => (ontoggle ? ontoggle(e) : ongo?.())}>{@render body()}</button>
     {:else}
@@ -157,23 +157,41 @@ button.np-main,
     color: var(--rt-fg-muted);
 }
 
-.np--tall > .np-main {
+.np--stack {
+    min-height: 62px;
+}
+.np--stack > .np-main {
+    padding-block: 6px;
+}
+.np--stack .np-label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow: visible;
+    white-space: normal;
+    line-height: 1.15;
+}
+.np--top > .np-main {
     align-items: flex-start;
     padding-block: 9px;
 }
-.np--tall .np-fold {
+.np--top .np-fold {
     margin-top: 8px;
 }
-.np--tall .np-label {
-    display: flex;
-    flex-direction: column;
+.np--top .np-label {
     gap: 6px;
-    overflow: visible;
     line-height: 1.1;
 }
-.np--tall > .np-side {
+.np--top > .np-side {
     justify-content: space-between;
     padding-block: 11px 31px;
+}
+/* One line of a stacked label, cut with … */
+.np :global(.nest-line) {
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 /* What a pill's label and values are written in, wherever the host puts them. */
