@@ -78,6 +78,8 @@
 	/* The one rust. Darker rusts read brown on #1a1a1a. */
 	--rust: #e99366;
 	--rust-soft: color-mix(in srgb, var(--rust) 14%, transparent);
+	/* Brass: gold at 30%. The border and grid of a table that hangs under a pill. */
+	--brass: var(--rt-border-strong);
 
 	/* The rose of ConfirmedDiamond's art, for text that names it. */
 	--rt-rose: #f0a3bb;
