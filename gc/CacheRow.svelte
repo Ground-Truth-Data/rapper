@@ -98,16 +98,17 @@ function roomy(label: HTMLElement) {
 		color: #fff;
 	}
 	.n {
-		display: block;
 		width: fit-content;
 	}
+	/* The name and the counts share line 1, so a nameless row's counts still sit above its bar. */
 	.tx {
-		position: relative;
-		min-height: 1em;
+		display: grid;
+	}
+	.n,
+	.nums {
+		grid-area: 1 / 1;
 	}
 	.nums {
-		position: absolute;
-		inset: 0 0 auto;
 		display: flex;
 		gap: 2px;
 		pointer-events: none;
