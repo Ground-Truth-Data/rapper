@@ -36,27 +36,33 @@ const fmt = (n: number) => Math.round(n).toLocaleString(getLocale());
 const sum = $derived(lots.reduce((a, [, n]) => a + n, 0) || 1);
 const width = (n: number) => `${(n / sum) * 100 * scale}%`;
 
-// A count shows only with room to spare inside its own segment and clear of the name; a cramped one just goes.
-const ROOM_PX = 6;
-function roomy(label: HTMLElement) {
-	const box = label.parentElement!;
-	const name = label.closest(".tx")?.querySelector(".n");
+// Line 1 is a flex row weighted like the bar, so a count over a thin segment slides aside; only when the
+// name and the counts can't share the line does a count go, smallest first.
+// The counts are watched too: a late web font widens them without resizing the line.
+function fit(line: HTMLElement, _lots: typeof lots) {
 	const ro = new ResizeObserver(() => {
-		const l = label.getBoundingClientRect();
-		const fits = l.width + 2 * ROOM_PX <= box.getBoundingClientRect().width && (!name || l.left >= name.getBoundingClientRect().right + ROOM_PX);
-		label.style.visibility = fits ? "" : "hidden";
+		const cs = [...line.querySelectorAll<HTMLElement>(".c")];
+		for (const c of cs) c.hidden = false;
+		for (const c of cs.sort((a, b) => Number(a.dataset.n) - Number(b.dataset.n))) {
+			if (line.scrollWidth <= line.clientWidth) break;
+			c.hidden = true;
+		}
 	});
-	ro.observe(box);
-	return { destroy: () => ro.disconnect() };
+	const watch = () => [line, ...line.children].forEach((e) => ro.observe(e));
+	watch();
+	return { update: watch, destroy: () => ro.disconnect() };
 }
 </script>
 
 <span class="cr-row" class:wide>
 	{#if icon}<img src={icon} alt="" />{:else}<i class="sw" style:background={swatch}></i>{/if}
 	<span class="tx">
-		{#if name}<b class="n">{name}</b>{/if}
+		<span class="l1" use:fit={lots}>
+			{#if name}<b class="n">{name}</b>{/if}
+			{#each lots as [r, n] (r)}<b class="c lot-q{r}" data-n={n} style:flex-grow={n}>{fmt(n)}</b>{/each}
+			{#if lots.length}<i style:flex-grow={sum * (1 / Math.max(scale, 0.01) - 1)}></i>{/if}
+		</span>
 		{#if lots.length}
-			<span class="nums">{#each lots as [r, n] (r)}<i style:width={width(n)}><b class="lot-q{r}" use:roomy>{fmt(n)}</b></i>{/each}</span>
 			<span class="bar">{#each lots as [r, n] (r)}<i class="lot-p{r}" style:width={width(n)}></i>{/each}</span>
 		{/if}
 	</span>
@@ -97,29 +103,24 @@ function roomy(label: HTMLElement) {
 	.v {
 		color: #fff;
 	}
-	.n {
-		width: fit-content;
-	}
-	/* The name and the counts share line 1, so a nameless row's counts still sit above its bar. */
-	.tx {
-		display: grid;
+	.l1 {
+		display: flex;
+		gap: 6px;
+		min-height: 1em;
+		overflow: hidden;
 	}
 	.n,
-	.nums {
-		grid-area: 1 / 1;
-	}
-	.nums {
-		display: flex;
-		gap: 2px;
-		pointer-events: none;
-	}
-	.nums i {
-		display: flex;
-		justify-content: center;
-		min-width: 0;
-	}
-	.nums b {
+	.c {
+		flex: none;
 		white-space: nowrap;
+	}
+	.c,
+	.l1 i {
+		flex: 0 1 0;
+	}
+	.c {
+		min-width: max-content;
+		text-align: center;
 	}
 	.bar {
 		display: flex;

@@ -10,7 +10,7 @@ const text = (e: Element | null) => e?.textContent?.replace(/\s+/g, " ").trim() 
 it("names the cache and gives each seedlot its count over its own bar segment, then the total and its share", () => {
 	const { container } = render(CacheRow, { icon: "/pin.webp", name: "c3", lots: [[0, 333], [1, 810]], total: 1143, pct: 12 });
 	expect(text(container.querySelector(".n"))).toBe("c3");
-	expect([...container.querySelectorAll(".nums b")].map(text)).toEqual(["333", "810"]);
+	expect([...container.querySelectorAll(".c")].map(text)).toEqual(["333", "810"]);
 	expect(container.querySelectorAll(".bar i")).toHaveLength(2);
 	expect(text(container.querySelector(".v"))).toBe("1,14312%");
 });
