@@ -5,6 +5,7 @@
   then the sheet's own sums under the total. The date and the owner live in the block's drawer. It formats nothing. -->
 
 <script lang="ts">
+import type { Snippet } from "svelte";
 import Plaque from "./Plaque.svelte";
 import SumLines, { type Sum } from "./SumLines.svelte";
 import TreeGlyph from "./TreeGlyph.svelte";
@@ -16,6 +17,7 @@ let {
 	unpickLabel,
 	ha,
 	rate,
+	rateLink,
 	total,
 	allocated,
 	sums = [],
@@ -30,6 +32,8 @@ let {
 	unpickLabel: string;
 	ha: string;
 	rate: string;
+	/** The host's tappable rate with its own unit, in place of `rate`: a tap changes the block's rate. */
+	rateLink?: Snippet;
 	total: string;
 	/** The word for a total allocated on purpose; absent, the total is the area at its rate. */
 	allocated?: string;
@@ -42,6 +46,8 @@ let {
 } = $props();
 </script>
 
+{#snippet perArea()}{#if rateLink}{@render rateLink()}{:else}{rate}<span class="u">/{areaLabel()}</span>{/if}{/snippet}
+
 <div class="bh">
 	<img class="bh-ic" src={icon} alt="" />
 	<div class="bh-c">
@@ -50,10 +56,10 @@ let {
 		</Plaque>
 		<div class="bh-meta" class:on-purpose={allocated}>
 			{#if allocated}
-				<span class="bh-rate">{ha}<span class="u">{` ${areaLabel()} @ `}</span>{rate}<span class="u">/{areaLabel()}</span></span>
+				<span class="bh-rate">{ha}<span class="u">{` ${areaLabel()} @ `}</span>{@render perArea()}</span>
 				<span class="bh-end"><span class="bh-alloc">{allocated}</span><span class="bh-tot"><TreeGlyph />{total}</span></span>
 			{:else}
-				<span class="bh-rate">{ha}<span class="u">{` ${areaLabel()} × `}</span>{rate}<span class="u">/{areaLabel()} =</span></span>
+				<span class="bh-rate">{ha}<span class="u">{` ${areaLabel()} × `}</span>{@render perArea()}<span class="u"> =</span></span>
 				<span class="bh-tot"><TreeGlyph />{total}</span>
 			{/if}
 		</div>
