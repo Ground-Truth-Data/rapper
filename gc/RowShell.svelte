@@ -124,12 +124,6 @@ let { title, href, onclick, tier, selected = false, active = false, inspecting =
     .rt-row--active {
         border-color: var(--rt-row-tone, var(--rt-yellow));
         box-shadow: inset 0 0 0 1px var(--rt-row-tone, var(--rt-yellow));
-        /* background-image layer so the row's base surface stays black,
-           just gold-washed. */
-        background-image: linear-gradient(
-            color-mix(in srgb, var(--rt-row-tone, var(--rt-yellow)) 9%, transparent),
-            color-mix(in srgb, var(--rt-row-tone, var(--rt-yellow)) 9%, transparent)
-        );
     }
     .rt-row--dim {
         opacity: 0.4;
