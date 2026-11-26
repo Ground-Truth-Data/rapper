@@ -1,5 +1,5 @@
 <!--
-  Checkbox — small square checkbox. Used inside RowCard, popovers, etc.
+  Checkbox — small square checkbox. Used inside rows, popovers, etc.
   Token-driven: terracotta when checked (mode-indicator) by default.
 -->
 <script lang="ts">
