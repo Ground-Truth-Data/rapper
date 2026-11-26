@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
 // The person, then one joined pill per editor: a pen half for their saves, a hammer half for a clobber.
-import { render } from "@testing-library/svelte";
+import { fireEvent, render } from "@testing-library/svelte";
 import { describe, expect, it } from "vitest";
 import IdentityPill, { onePerPerson } from "./IdentityPill.svelte";
 
@@ -49,6 +49,20 @@ describe("IdentityPill", () => {
 		const c = render(IdentityPill, { who: pete, editors: [mikeA, mikeB, { ...mikeA }] }).container;
 		expect([...c.querySelectorAll(".id-mark .id-pill")].map((p) => p.textContent)).toEqual(["Mike", "Mike"]);
 		expect(onePerPerson([mikeA, mikeB, { ...mikeA }, { label: "Kim", color: "", self: false, picked: false }]).map((w) => w.key ?? w.label)).toEqual(["p-a", "p-b", "Kim"]);
+	});
+
+	it("a name over 12 characters draws its first 12 and an ellipsis, as owner and as editor; a tap reads it whole", async () => {
+		const long = { label: "somethingELse", color: "#3a3", self: false, picked: true };
+		const c = render(IdentityPill, { who: long, editors: [{ ...long, label: "anotherLongName", key: "p-x" }] }).container;
+		const [owner, editor] = [...c.querySelectorAll<HTMLElement>(".id-pill")];
+		expect(owner!.textContent).toBe("somethingELs…");
+		expect(owner!.title).toBe("somethingELse");
+		expect(editor!.closest(".id-mark")).not.toBeNull();
+		expect(editor!.textContent).toBe("anotherLongN…");
+		await fireEvent.click(owner!);
+		expect(owner!.textContent).toBe("somethingELse");
+		const twelve = render(IdentityPill, { who: { ...long, label: "twelve_chars" } }).container.querySelector(".id-pill")!;
+		expect(twelve.textContent).toBe("twelve_chars");
 	});
 
 	it("a nameless author draws nothing: no blank pill, no pen", () => {

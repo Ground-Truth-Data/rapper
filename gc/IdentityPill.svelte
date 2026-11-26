@@ -11,6 +11,9 @@ export const samePerson = (a: Identity, b: Identity) => (a.self && b.self) || (a
 
 /** Pills for a list, each person once, keyed `(w.key ?? w.label)`: two people may share a name, never a key. */
 export const onePerPerson = (ws: readonly Identity[]): Identity[] => ws.filter((w, i) => ws.findIndex((o) => samePerson(o, w)) === i);
+
+/** THE cut of a person's name, everywhere one is drawn: over 12 characters, its first 12 and an ellipsis. */
+export const nameCut = (name: string) => (name.length > 12 ? `${name.slice(0, 12)}…` : name);
 </script>
 
 <script lang="ts">
@@ -31,11 +34,10 @@ const marks = $derived(
     onePerPerson((clobberBy ? [clobberBy, ...editors] : editors).filter((e) => e.label)).sort((a, b) => Number(samePerson(b, who)) - Number(samePerson(a, who))),
 );
 
-// A name cut short by its cell reads whole on a tap, in place; the tap is the pill's, not the row's under it.
+// A cut name reads whole on a tap, in place; the tap is the pill's, not the row's under it.
 const full = new SvelteSet<string>();
 function read(e: MouseEvent, label: string) {
-    const el = e.currentTarget as HTMLElement;
-    if (!full.has(label) && el.scrollWidth <= el.clientWidth) return;
+    if (nameCut(label) === label) return;
     e.stopPropagation();
     if (!full.delete(label)) full.add(label);
 }
@@ -51,7 +53,7 @@ function read(e: MouseEvent, label: string) {
     class:id-pill--picked={p.picked && !p.self}
     class:id-pill--self={p.self}
     style:--id-c={p.self ? SELF_GOLD : p.color || null}
-    title={p.label}>{label}</span
+    title={p.label}>{full.has(label) ? label : nameCut(label)}</span
 >{/snippet}
 {#if who.label && !marks.some((e) => samePerson(e, who))}{@render own(who)}{/if}
 {#each marks as e (e.key ?? e.label)}
@@ -65,11 +67,9 @@ function read(e: MouseEvent, label: string) {
 <style>
     .id-pill {
         --id-ink: var(--id-c, var(--rt-row-sender, #c3c8ac));
-        /* inline-block, not flex: a flex box clips the name but never draws its …. */
         display: inline-block;
         vertical-align: middle;
         flex: none;
-        max-width: min(9rem, 100%);
         height: 1rem;
         padding: 0 0.35rem;
         box-sizing: border-box;
@@ -83,10 +83,9 @@ function read(e: MouseEvent, label: string) {
         font-weight: 600;
         line-height: calc(1rem - 3px);
         white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
     }
     .id-pill--full {
+        max-width: 100%;
         height: auto;
         min-height: 1rem;
         padding-block: 2px;
@@ -107,7 +106,7 @@ function read(e: MouseEvent, label: string) {
     .id-mark {
         display: inline-flex;
         flex: none;
-        max-width: min(9rem, 100%);
+        max-width: 100%;
     }
     .id-mark-half {
         display: inline-flex;
@@ -128,8 +127,6 @@ function read(e: MouseEvent, label: string) {
         color: var(--rust);
     }
     .id-mark .id-pill {
-        flex: 0 1 auto;
-        min-width: 0;
         border-radius: 0 999px 999px 0;
     }
 </style>
