@@ -3,7 +3,7 @@
      `import { counts, delta, faultTags } from "$gc/PlotMarks.svelte"` then
      `{@render counts(planted, spots, { planted: "planted", spots: "spots" })}`. -->
 <script lang="ts" module>
-import TreeGlyph from "./TreeGlyph.svelte";
+import TreeCount from "./TreeCount.svelte";
 
 export { counts, delta, faultTags };
 
@@ -19,8 +19,7 @@ function tags(faults: string[]) {
 
 {#snippet counts(planted: number, spots: number, words: { planted: string; spots: string })}
     <span class="pm-num" data-counts>
-        <TreeGlyph />
-        <span class="pm-nl"><small>{words.planted}</small><span data-planted>{planted}</span></span>
+        <TreeCount n={planted} label={words.planted} data-planted />
         <span class="pm-j">/</span>
         <span class="pm-nl"><small>{words.spots}</small><span data-spots>{spots}</span></span>
     </span>
@@ -56,10 +55,6 @@ function tags(faults: string[]) {
     font-size: 24px;
     line-height: 1;
     color: var(--rt-fg);
-}
-.pm-num :global(.tg) {
-    margin-bottom: 2px;
-    font-size: 16px;
 }
 .pm-nl {
     display: inline-flex;

@@ -8,7 +8,7 @@ export type Sum = { k: string; v: string; who?: Identity; tone?: "rose" | "teal"
 
 <script lang="ts">
 import IdentityPill from "./IdentityPill.svelte";
-import TreeGlyph from "./TreeGlyph.svelte";
+import TreeCount from "./TreeCount.svelte";
 
 let { sums }: { sums: Sum[] } = $props();
 </script>
@@ -18,7 +18,7 @@ let { sums }: { sums: Sum[] } = $props();
 	<span class="bh-l">
 		{#if s.who}<span class="bh-who"><IdentityPill who={s.who} /></span>{/if}
 		<span class="bh-k">{s.k}</span>
-		<span class="bh-v {s.tone ?? ''}">{#if s.minus}<span class="bh-op">−</span>{/if}{#if s.eq}<span class="bh-op">=</span>{/if}{#if s.tree}<span class="bh-tree"><TreeGlyph /></span>{/if}{s.v}</span>
+		<span class="bh-v {s.tone ?? ''}">{#if s.minus}<span class="bh-op">−</span>{/if}{#if s.eq}<span class="bh-op">=</span>{/if}{#if s.tree}<TreeCount n={s.v} />{:else}{s.v}{/if}</span>
 	</span>
 {/each}
 
@@ -51,8 +51,7 @@ let { sums }: { sums: Sum[] } = $props();
 		color: var(--rt-sage);
 	}
 	/* The tree stays white beside a coloured number. */
-	.bh-tree {
-		display: contents;
+	.bh-v :global(.tg) {
 		color: var(--rt-fg);
 	}
 	.bh-rule {

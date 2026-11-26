@@ -12,10 +12,9 @@ import tree from "./assets/tree_white.webp";
         width: var(--thing-w, 0.62em);
         height: 0.95em;
         margin-right: 0.18em;
-        /* A margin, not vertical-align: it also holds in a baseline-aligned flex row. */
         flex: none;
-        margin-bottom: -0.1em;
         background: currentColor;
-        mask: var(--thing-glyph, var(--tg)) center / contain no-repeat;
+        /* Drawn from the box's bottom edge, which is the text baseline: the tree stands on the line. */
+        mask: var(--thing-glyph, var(--tg)) bottom / contain no-repeat;
     }
 </style>
