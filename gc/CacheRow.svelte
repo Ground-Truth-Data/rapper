@@ -15,6 +15,7 @@ let {
 	total,
 	pct,
 	empty,
+	blank = false,
 }: {
 	/** The pin, else a `swatch` background (planted has no pin). */
 	icon?: string;
@@ -30,6 +31,8 @@ let {
 	pct?: number;
 	/** In place of a zero total. */
 	empty?: string;
+	/** With nothing in it yet, the row keeps its empty track and a bare tree, waiting to be filled. */
+	blank?: boolean;
 } = $props();
 
 const fmt = (n: number) => Math.round(n).toLocaleString(getLocale());
@@ -62,11 +65,11 @@ function fit(line: HTMLElement, _lots: typeof lots) {
 			{#each lots as [r, n] (r)}<b class="c lot-q{r}" data-n={n} style:flex-grow={n}>{fmt(n)}</b>{/each}
 			{#if lots.length}<i style:flex-grow={sum * (1 / Math.max(scale, 0.01) - 1)}></i>{/if}
 		</span>
-		{#if lots.length}
+		{#if lots.length || blank}
 			<span class="bar">{#each lots as [r, n] (r)}<i class="lot-p{r}" style:width={width(n)}></i>{/each}</span>
 		{/if}
 	</span>
-	<b class="v" class:zero={!total}>{#if total}<TreeGlyph />{fmt(total)}{#if pct !== undefined}<small>{pct}%</small>{/if}{:else}{empty ?? fmt(0)}{/if}</b>
+	<b class="v" class:zero={!total}>{#if total}<TreeGlyph />{fmt(total)}{#if pct !== undefined}<small>{pct}%</small>{/if}{:else if blank}<TreeGlyph />{:else}{empty ?? fmt(0)}{/if}</b>
 </span>
 
 <style>
