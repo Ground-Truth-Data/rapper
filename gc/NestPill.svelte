@@ -179,19 +179,17 @@ button.np-main,
 }
 /* The corner note and the chevron share one cell: the note takes no height, so the chevron stays centred, but
    its width holds the pill's values clear of it. */
+/* Corner above, chevron dead centre: the equal rows either side of the chevron make the pill as tall as the
+   corner needs, so the two never meet at any line count. */
 .np-side {
     flex: none;
     display: grid;
-    align-items: center;
+    grid-template-rows: 1fr auto 1fr;
     justify-items: end;
     padding: 0 12px 0 9px;
 }
-.np-side > * {
-    grid-area: 1 / 1;
-}
 .np-corner {
     align-self: start;
-    height: 0;
     margin: 5px -2px 0 0;
     display: flex;
     flex-direction: column;
@@ -211,7 +209,8 @@ button.np-main,
     margin: 0 -6px 0 -5px;
 }
 .np-side > .np-chev {
-    margin: 0 -7px 0 -6px;
+    grid-row: 2;
+    margin: -5px -7px -5px -6px;
 }
 .np-label {
     flex: 1 1 auto;
