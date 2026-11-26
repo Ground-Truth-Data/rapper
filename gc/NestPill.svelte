@@ -27,6 +27,7 @@ let {
     glyph,
     children,
     values,
+    under,
     corner,
 }: {
     /** Set on a pill with children: draws the left chevron. `null` keeps the chevron's space, empty, so a
@@ -46,6 +47,8 @@ let {
     glyph?: Snippet;
     children: Snippet;
     values?: Snippet;
+    /** A line of whole items under the glyph and the label, as wide as both: it wraps, and ends where the values end. */
+    under?: Snippet;
     /** Sits in the pill's top right corner, clear of the centred ">". */
     corner?: Snippet;
 } = $props();
@@ -68,6 +71,9 @@ const rightHalf = (e: MouseEvent) => {
 </script>
 
 {#snippet body()}
+    {#if under}<span class="np-row">{@render row()}</span><span class="np-under">{@render under()}</span>{:else}{@render row()}{/if}
+{/snippet}
+{#snippet row()}
     {#if open !== undefined}<span class="np-fold np-chev">{#if open !== null}<GoChevron down={open} />{/if}</span>{/if}
     {@render glyph?.()}
     <span class="np-label">{@render children()}</span>
@@ -84,7 +90,7 @@ const rightHalf = (e: MouseEvent) => {
     class:np--pressed={pressed}
     class:np--split={split}
     data-at={at}
-    class="np" class:np--small={small} class:np--detail={detail} class:np--dashed={dashed} class:np--stack={stack} class:np--go={ongo} style:--c={color}>
+    class="np" class:np--small={small} class:np--detail={detail} class:np--dashed={dashed} class:np--stack={stack} class:np--go={ongo} class:np--under={under} style:--c={color}>
     {#if ontoggle ?? ongo}
         <button type="button" class="np-main" aria-expanded={open ?? undefined} onclick={tap}>{@render body()}</button>
     {:else}
@@ -179,6 +185,32 @@ button.np-main,
 .np--go > .np-main {
     padding-right: 0;
 }
+.np--under > .np-main {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 3px;
+    padding-block: 6px;
+}
+.np-row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+}
+.np-under {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px 6px;
+}
+/* Clear of the fold chevron, under the tick and the glyph. */
+.np-row:has(> .np-fold) + .np-under {
+    padding-left: 22px;
+}
+.np-under > :global(*) {
+    flex: none;
+}
 /* The corner note and the chevron share one cell: the note takes no height, so the chevron stays centred, but
    its width holds the pill's values clear of it. */
 /* Corner above, chevron dead centre: the equal rows either side of the chevron make the pill as tall as the
@@ -252,6 +284,20 @@ button.np-main,
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+/* A meta line is whole items: it wraps between them and cuts none. */
+.np :global(.nest-line.nest-meta) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px 4px;
+    overflow: visible;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+.np :global(.nest-line.nest-meta > *) {
+    flex: none;
+    max-width: 100%;
 }
 
 /* What a pill's label and values are written in, wherever the host puts them. */
