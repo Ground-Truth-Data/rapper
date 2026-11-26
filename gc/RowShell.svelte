@@ -1,5 +1,4 @@
-<!-- The row card's shell: layout and styling, nothing it says. Get Cache's RowCard fills it with the inbox's
-     content, Ops with plugins. Its CSS is global so the content a caller passes in is styled too. -->
+<!-- A row card's shell: layout and styling, nothing it says. Ops fills it with plugins. Its CSS is global so the content a caller passes in is styled too. -->
 <script lang="ts">
 import type { Snippet } from "svelte";
 

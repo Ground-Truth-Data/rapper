@@ -1,4 +1,4 @@
-<!-- The inbox's top: pill rows, search and buttons; RowCard draws the rows below it. Get Cache's inbox and Ops' plugins both draw through it. -->
+<!-- The inbox's top: pill rows, search and buttons. Get Cache's inbox and Ops' plugins both draw through it. -->
 <script lang="ts" module>
 export type ChromePill = { key: string; label: string; icon?: string | null; sep?: "chev" | "div" | null; on?: boolean; chain?: boolean };
 export type ChromeButton = { label: string; aria?: string; icon: Snippet; gold?: boolean; /** Gold border on black: the lead button without the fancy fill. */ ring?: boolean; onclick?: () => void; href?: string; /** As wide as its label, not an even share of the row. */ hug?: boolean };
