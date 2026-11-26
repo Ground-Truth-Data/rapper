@@ -1,17 +1,21 @@
-<!-- Repeating data under a pill, hung from it like a sack: no top edge, brass sides and grid, round bottom corners.
+<!-- Repeating data under a pill, hung from it like a sack: no top edge, sides and grid in its depth's colour, round bottom corners.
      Sits right after its pill in a NestGroup. Rows are `.ht-row`, one child per column. -->
 <script lang="ts">
 import type { Snippet } from "svelte";
 
+import { depthColor, listDepth } from "./NestPill.svelte";
+
 /** `cols`: the grid's column widths, shared by every row. */
 let { cols, children }: { cols: string; children: Snippet } = $props();
+
+// Its rows are the pill's children, so the grid wears the next depth's colour.
+const line = `color-mix(in srgb, ${depthColor(listDepth() + 1)} 50%, #111)`;
 </script>
 
-<div class="ht" style:grid-template-columns={cols}>{@render children()}</div>
+<div class="ht" style:grid-template-columns={cols} style:--line={line}>{@render children()}</div>
 
 <style>
 .ht {
-    --line: var(--brass);
     display: grid;
     /* Joined to the pill above; inset by the pill's corner radius so its sides start where the curve ends. */
     margin: calc(-1 * var(--nest-gap, 6px)) 14px 0;

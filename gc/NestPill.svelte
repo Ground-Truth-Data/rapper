@@ -13,6 +13,7 @@ export const depthColor = (d: number) => COLORS[Math.min(Math.max(d, 1), COLORS.
 
 <script lang="ts">
 import type { Snippet } from "svelte";
+import GoChevron from "./GoChevron.svelte";
 
 let {
     open,
@@ -28,8 +29,9 @@ let {
     values,
     corner,
 }: {
-    /** Set on a pill with children: draws the left chevron. */
-    open?: boolean;
+    /** Set on a pill with children: draws the left chevron. `null` keeps the chevron's space, empty, so a
+     *  childless pill lines up with its folding siblings. */
+    open?: boolean | null;
     ontoggle?: (e: MouseEvent) => void;
     /** Draws the right ">" and opens the pill's drawer. */
     ongo?: () => void;
@@ -44,7 +46,7 @@ let {
     glyph?: Snippet;
     children: Snippet;
     values?: Snippet;
-    /** Sits above the ">". */
+    /** Sits in the pill's top right corner, clear of the centred ">". */
     corner?: Snippet;
 } = $props();
 
@@ -52,7 +54,7 @@ const color = depthColor(listDepth());
 </script>
 
 {#snippet body()}
-    {#if open !== undefined}<svg class="np-fold" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d={open ? "M6 9l6 6 6-6" : "M9 6l6 6-6 6"} /></svg>{/if}
+    {#if open !== undefined}<span class="np-fold np-chev">{#if open !== null}<GoChevron down={open} />{/if}</span>{/if}
     {@render glyph?.()}
     <span class="np-label">{@render children()}</span>
     {@render values?.()}
@@ -60,14 +62,14 @@ const color = depthColor(listDepth());
 
 <div class="np" class:np--small={small} class:np--detail={detail} class:np--dashed={dashed} class:np--stack={stack} class:np--top={stack === "top"} class:np--go={ongo} style:--c={color}>
     {#if ontoggle ?? ongo}
-        <button type="button" class="np-main" aria-expanded={open} onclick={(e) => (ontoggle ? ontoggle(e) : ongo?.())}>{@render body()}</button>
+        <button type="button" class="np-main" aria-expanded={open ?? undefined} onclick={(e) => (ontoggle ? ontoggle(e) : ongo?.())}>{@render body()}</button>
     {:else}
         <div class="np-main">{@render body()}</div>
     {/if}
     {#if ongo}
         <button type="button" class="np-side" aria-label={goLabel} onclick={ongo}>
-            {@render corner?.()}
-            <svg width="11" height="18" viewBox="0 0 12 20" aria-hidden="true"><path d="M2 2l8 8-8 8" /></svg>
+            {#if corner}<span class="np-corner">{@render corner()}</span>{/if}
+            <span class="np-chev"><GoChevron /></span>
         </button>
     {/if}
 </div>
@@ -124,20 +126,35 @@ button.np-main,
     padding-right: 0;
 }
 .np-side {
+    position: relative;
     flex: none;
+    display: flex;
+    align-items: center;
+    padding: 0 12px 0 9px;
+}
+.np-corner {
+    position: absolute;
+    top: 5px;
+    right: 10px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    justify-content: center;
-    padding: 0 12px 0 9px;
+    gap: 2px;
+    line-height: 1;
+    white-space: nowrap;
 }
-.np svg {
+/* Both chevrons are the one GoChevron; its 24px box carries its own air, pulled back here. */
+.np-chev {
     flex: none;
-    fill: none;
-    stroke: var(--c);
-    stroke-width: 2.6;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+    display: flex;
+    color: var(--c);
+}
+.np-fold {
+    width: 24px;
+    margin: 0 -6px 0 -5px;
+}
+.np-side > .np-chev {
+    margin: 0 -7px 0 -6px;
 }
 .np-label {
     flex: 1 1 auto;
@@ -176,15 +193,11 @@ button.np-main,
     padding-block: 9px;
 }
 .np--top .np-fold {
-    margin-top: 8px;
+    margin-top: 3px;
 }
 .np--top .np-label {
     gap: 6px;
     line-height: 1.1;
-}
-.np--top > .np-side {
-    justify-content: space-between;
-    padding-block: 11px 31px;
 }
 /* One line of a stacked label, cut with … */
 .np :global(.nest-line) {
