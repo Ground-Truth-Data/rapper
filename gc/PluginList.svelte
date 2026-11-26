@@ -2,6 +2,7 @@
      forms sit under its white card, which opens in place. Swiped left a form rests on the archive box; a tap there
      archives it for you alone, and its own page unarchives it. -->
 <script lang="ts" module>
+	import GoChevron from "./GoChevron.svelte";
 	import type { PluginCardData } from "./PluginCard.svelte";
 
 	export type PluginOrg = { key: string; name: string; color?: string | null; logo?: string | null };
@@ -106,9 +107,7 @@
 		{@const theirs = ofOrg(o.key)}
 		<div class="org" data-org={o.key}>
 			<RowShell title={o.name} tier="top" onclick={() => (shut[o.key] = !shut[o.key])}>
-				{#snippet lead()}<span class="rt-row__fold" class:rt-row__fold--shut={shut[o.key]}
-						><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg></span
-					>{/snippet}
+				{#snippet lead()}<span class="rt-row__fold" class:rt-row__fold--shut={shut[o.key]}><GoChevron down /></span>{/snippet}
 				{#snippet glyph()}
 					<span class="org-tile" style:--tint={tint(o)}>
 						{#if o.logo}<img src={o.logo} alt="" crossorigin="anonymous" />{:else}{initials(o.name)}{/if}

@@ -41,8 +41,8 @@ let {
     detail?: boolean;
     /** A calculated value: dashed, unfilled. */
     dashed?: boolean;
-    /** The label is several rows: centred on the pill, or with "top" everything hangs from its top edge. */
-    stack?: "middle" | "top";
+    /** The label is several rows, centred on the pill. */
+    stack?: "middle";
     glyph?: Snippet;
     children: Snippet;
     values?: Snippet;
@@ -82,7 +82,7 @@ const rightHalf = (e: MouseEvent) => {
     class:np--pressed={pressed}
     class:np--split={split}
     data-at={at}
-    class="np" class:np--small={small} class:np--detail={detail} class:np--dashed={dashed} class:np--stack={stack} class:np--top={stack === "top"} class:np--go={ongo} style:--c={color}>
+    class="np" class:np--small={small} class:np--detail={detail} class:np--dashed={dashed} class:np--stack={stack} class:np--go={ongo} style:--c={color}>
     {#if ontoggle ?? ongo}
         <button type="button" class="np-main" aria-expanded={open ?? undefined} onclick={(e) => (ontoggle && !(split && rightHalf(e)) ? ontoggle(e) : ongo?.())}>{@render body()}</button>
     {:else}
@@ -244,17 +244,6 @@ button.np-main,
     overflow: visible;
     white-space: normal;
     line-height: 1.15;
-}
-.np--top > .np-main {
-    align-items: flex-start;
-    padding-block: 9px;
-}
-.np--top .np-fold {
-    margin-top: 3px;
-}
-.np--top .np-label {
-    gap: 6px;
-    line-height: 1.1;
 }
 /* One line of a stacked label, cut with … */
 .np :global(.nest-line) {
