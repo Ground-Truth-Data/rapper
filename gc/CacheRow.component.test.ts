@@ -21,6 +21,12 @@ it("a cache with nothing in it says so in place of a total", () => {
 	expect(container.querySelector(".bar")).toBeNull();
 });
 
+it("a blank row keeps its empty track and gives no number", () => {
+	const { container } = render(CacheRow, { icon: "/block.webp", lots: [], total: 0, blank: true });
+	expect(container.querySelector(".bar")).not.toBeNull();
+	expect(text(container.querySelector(".v"))).toBe("");
+});
+
 it("a row with a swatch and no icon is a plain total (planted)", () => {
 	const { container } = render(CacheRow, { swatch: "red", name: "planted", total: 40 });
 	expect(container.querySelector("img")).toBeNull();
