@@ -51,6 +51,18 @@ let {
 } = $props();
 
 const color = depthColor(listDepth());
+
+// A pill that both folds and opens is two halves: left folds, right opens, with a nib at the halfway mark.
+const split = $derived(typeof open === "boolean" && !!ontoggle && !!ongo);
+let pill = $state<HTMLElement>();
+let at = $state<"fold" | "go">();
+let pressed = $state(false);
+// A finger has no hover: its half stays lit for a moment after the tap, so the two halves get learned.
+const lift = (e: PointerEvent) => setTimeout(() => ((pressed = false), e.pointerType === "mouse" || (at = undefined)), 450);
+const rightHalf = (e: MouseEvent) => {
+    const r = pill!.getBoundingClientRect();
+    return e.clientX > r.left + r.width / 2;
+};
 </script>
 
 {#snippet body()}
@@ -60,9 +72,19 @@ const color = depthColor(listDepth());
     {@render values?.()}
 {/snippet}
 
-<div class="np" class:np--small={small} class:np--detail={detail} class:np--dashed={dashed} class:np--stack={stack} class:np--top={stack === "top"} class:np--go={ongo} style:--c={color}>
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div
+    bind:this={pill}
+    onpointermove={split ? (e) => (at = rightHalf(e) ? "go" : "fold") : undefined}
+    onpointerdown={split ? (e) => ((at = rightHalf(e) ? "go" : "fold"), (pressed = true)) : undefined}
+    onpointerup={split ? lift : undefined}
+    onpointerleave={(e) => (e.pointerType === "mouse" ? (at = undefined) : undefined)}
+    class:np--pressed={pressed}
+    class:np--split={split}
+    data-at={at}
+    class="np" class:np--small={small} class:np--detail={detail} class:np--dashed={dashed} class:np--stack={stack} class:np--top={stack === "top"} class:np--go={ongo} style:--c={color}>
     {#if ontoggle ?? ongo}
-        <button type="button" class="np-main" aria-expanded={open ?? undefined} onclick={(e) => (ontoggle ? ontoggle(e) : ongo?.())}>{@render body()}</button>
+        <button type="button" class="np-main" aria-expanded={open ?? undefined} onclick={(e) => (ontoggle && !(split && rightHalf(e)) ? ontoggle(e) : ongo?.())}>{@render body()}</button>
     {:else}
         <div class="np-main">{@render body()}</div>
     {/if}
@@ -86,6 +108,36 @@ const color = depthColor(listDepth());
     color: var(--rt-fg);
     font-family: var(--rt-font-display);
     font-size: 20px;
+}
+.np--split {
+    position: relative;
+    --wash: color-mix(in srgb, var(--rt-yellow) 22%, transparent);
+}
+.np--split::before,
+.np--split::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 1px;
+    height: 4px;
+    background: var(--c);
+    opacity: 0.6;
+    pointer-events: none;
+}
+.np--split::before {
+    top: 0;
+}
+.np--split::after {
+    bottom: 0;
+}
+.np--split[data-at="fold"] {
+    background-image: linear-gradient(to right, var(--wash) 50%, transparent 50%);
+}
+.np--split[data-at="go"] {
+    background-image: linear-gradient(to left, var(--wash) 50%, transparent 50%);
+}
+.np--pressed {
+    --wash: color-mix(in srgb, var(--rust) 28%, transparent);
 }
 .np--small {
     min-height: 38px;
