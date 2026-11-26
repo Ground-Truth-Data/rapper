@@ -5,7 +5,7 @@
 <script lang="ts" module>
 import TreeCount from "./TreeCount.svelte";
 
-export { counts, delta, faultTags };
+export { counts, delta, faultTags, pct };
 
 /** Each code once with how often it was called, most called first. Two tags fit: past that, the first and a "+N". */
 function tags(faults: string[]) {
@@ -31,6 +31,11 @@ function tags(faults: string[]) {
     {:else if excess > 0}
         <span class="pm-tile pm-over" data-delta="excess">+{excess}<small>{words.excess}</small></span>
     {/if}
+{/snippet}
+
+<!-- A survey's density or quality as a chip: `word` names it and gives the chip its letter, `text` is the percent as shown. -->
+{#snippet pct(kind: "density" | "quality", text: string, word: string, label?: string)}
+    <span class="pm-pct pm-pct--{kind}" data-act={kind} aria-label={label ?? word}><span class="pm-pct-key">{word.charAt(0).toUpperCase()}</span>{text}</span>
 {/snippet}
 
 {#snippet faultTags(faults: string[])}
@@ -130,5 +135,24 @@ function tags(faults: string[]) {
 }
 .pm-ct i {
     font: 700 9px var(--rt-font-meta);
+}
+.pm-pct {
+    padding: 1px 6px;
+    border: 1.5px solid rgba(250, 250, 250, 0.5);
+    border-radius: 999px;
+    font-size: 15px;
+    /* A box of its own, so the line it sits in grows to hold its border and nothing of it is clipped. */
+    display: inline-block;
+    line-height: 1;
+    white-space: nowrap;
+}
+.pm-pct--quality {
+    border-color: rgba(255, 215, 0, 0.6);
+    color: var(--rt-yellow);
+}
+.pm-pct-key {
+    margin-right: 4px;
+    opacity: 0.85;
+    font: 700 11px var(--rt-font-meta);
 }
 </style>
