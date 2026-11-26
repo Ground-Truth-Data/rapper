@@ -172,6 +172,7 @@ function fit(el: HTMLElement, _label: string) {
 	/* Numbers white, joiners and units (`.unit`) sage. */
 	.name-tag-foot {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
 		gap: 7px;
 		margin-top: 7px;
@@ -184,16 +185,6 @@ function fit(el: HTMLElement, _label: string) {
 	}
 	.name-tag-date {
 		color: var(--rust);
-	}
-	/* A long name gives way, down to its first letters, so the figure is never pushed past the edge. */
-	.name-tag-foot :global(.id-pill) {
-		flex: 0 1 auto;
-		min-width: 2.5em;
-		max-width: 96px;
-	}
-	.name-tag-foot :global(.id-mark) {
-		flex: 0 1 auto;
-		min-width: 4em;
 	}
 	.name-tag-figure {
 		margin-left: auto;
