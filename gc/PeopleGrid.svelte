@@ -1,6 +1,7 @@
 <!-- Who surveyed and who planted: icon and word | name pills. Two cells a role, so the pills line up and none
      wraps under the other's word. Both roles always show, even the same name twice: the repetition is the
-     reminder that two roles exist. Everyone in a role is named once, one a line: nobody hides behind a count. -->
+     reminder that two roles exist. Everyone in a role is named once, one a line: nobody hides behind a count.
+     A host sizes it with `--people-icon` and `--people-word` on a wrapper. -->
 <script lang="ts">
 import contactGold from "./assets/contact_gold.webp";
 import shovelGold from "./assets/shovel_gold.webp";
@@ -56,13 +57,13 @@ const roles = $derived([
 }
 .role {
     align-self: start;
-    font-size: 13px;
+    font-size: var(--people-word, 13px);
     text-transform: lowercase;
     color: var(--rust);
 }
 .role img {
-    width: 15px;
-    height: 15px;
+    width: var(--people-icon, 15px);
+    height: var(--people-icon, 15px);
     object-fit: contain;
 }
 </style>
