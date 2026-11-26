@@ -596,15 +596,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				href: `${FOUNDR_TOOL}/mapsheet`,
 				title: "The focused site's ledger by table and column, and what {s}3Map.ts does not read yet",
 			},
-			// Chris's benchmark: a person against mlFindr and Jev on decided paths.
-			{
-				key: "bench",
-				stage: "map",
-				label: "benchmark",
-				href: `${FOUNDR_TOOL}/bench`,
-				title:
-					"Name the column for decided paths, a minute each, then see how you did against mlFindr and Jev",
-			},
 			// Not `scopedToSite`: draws the whole corpus with no project picked,
 			// narrows if one is.
 			{
