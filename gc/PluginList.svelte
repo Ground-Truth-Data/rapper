@@ -1,8 +1,7 @@
 <!-- The one plugins list, phone and Ops alike. Your own forms stand loose, in the order you drag them to; a company's
-     forms sit under its white card, which opens in place. Swiped left a form rests on the archive box; a tap there
+     forms sit under its pill, which folds. Swiped left a form rests on the archive box; a tap there
      archives it for you alone, and its own page unarchives it. -->
 <script lang="ts" module>
-	import GoChevron from "./GoChevron.svelte";
 	import type { PluginCardData } from "./PluginCard.svelte";
 
 	export type PluginOrg = { key: string; name: string; color?: string | null; logo?: string | null };
@@ -13,8 +12,9 @@
 	import type { Snippet } from "svelte";
 	import Icon from "./Icon.svelte";
 	import PluginCard from "./PluginCard.svelte";
+	import NestGroup from "./NestGroup.svelte";
+	import NestPill from "./NestPill.svelte";
 	import RowGrip from "./RowGrip.svelte";
-	import RowShell from "./RowShell.svelte";
 	import { ago } from "./ago";
 	import { type RowDrag, rowDragHandle, rowShift, rowSwipe } from "./rowDrag";
 
@@ -99,42 +99,40 @@
 {/snippet}
 
 {#snippet subs(p: PluginListItem)}
-	{#if folded && isOpen?.(p.id)}{@render folded(p)}{/if}
+	{#if folded && isOpen?.(p.id)}<NestGroup>{@render folded(p)}</NestGroup>{/if}
 {/snippet}
 
-<div class="plugin-list">
+<NestGroup>
 	{#each orgs as o (o.key)}
 		{@const theirs = ofOrg(o.key)}
-		<div class="org" data-org={o.key}>
-			<RowShell title={o.name} tier="top" onclick={() => (shut[o.key] = !shut[o.key])}>
-				{#snippet lead()}<span class="rt-row__fold" class:rt-row__fold--shut={shut[o.key]}><GoChevron down /></span>{/snippet}
+		{@const when = newest(theirs)}
+		<div data-org={o.key}>
+			<NestPill stack="middle" open={!shut[o.key]} ontoggle={() => (shut[o.key] = !shut[o.key])}>
 				{#snippet glyph()}
 					<span class="org-tile" style:--tint={tint(o)}>
 						{#if o.logo}<img src={o.logo} alt="" crossorigin="anonymous" />{:else}{initials(o.name)}{/if}
-						<span class="rt-count-badge org-count">{theirs.length}</span>
+						<span class="rt-count-badge">{theirs.length}</span>
 					</span>
 				{/snippet}
-				{#snippet subtitle()}<span class="rt-row__subtitle">{theirs.length} {theirs.length === 1 ? "form" : "forms"}</span>{/snippet}
-				{#snippet end()}
-					{@const when = newest(theirs)}
-					<span class="rt-row__cell rt-row__cell--chevron">{#if when}<span class="rt-row__when">{ago(when)}</span>{/if}</span>
-				{/snippet}
-			</RowShell>
-			{#if !shut[o.key]}
-				<div class="kids">
-					{#each theirs as p (p.id)}
-						<div class="row" data-row-id={p.id} data-retired={p.retired ? "" : undefined}>{@render form(p)}</div>
-						{@render subs(p)}
-					{/each}
-				</div>
-			{/if}
+				<span class="nest-line">{o.name}</span>
+				<span class="nest-line nest-time">{theirs.length} {theirs.length === 1 ? "form" : "forms"}</span>
+				{#snippet values()}{#if when}<span class="nest-time">{ago(when)}</span>{/if}{/snippet}
+			</NestPill>
 		</div>
+		{#if !shut[o.key]}
+			<NestGroup>
+				{#each theirs as p (p.id)}
+					<div data-row-id={p.id} data-retired={p.retired ? "" : undefined}>{@render form(p)}</div>
+					{@render subs(p)}
+				{/each}
+			</NestGroup>
+		{/if}
 	{/each}
 	{#each loose as p, i (p.id)}
 		{@const moving = drag?.rowId === p.id}
 		{@const shift = rowShift(drag, p.id, i)}
 		<div
-			class="row rt-row-track rt-row-track--grip"
+			class="rt-row-track rt-row-track--grip"
 			class:rt-row-track--dragging={moving}
 			data-row-id={p.id}
 			data-retired={p.retired ? "" : undefined}
@@ -150,41 +148,22 @@
 		</div>
 		{@render subs(p)}
 	{/each}
-</div>
+</NestGroup>
 
 <style>
-	.plugin-list,
-	.org,
-	.kids {
-		display: flex;
-		flex-direction: column;
-		gap: var(--rt-space-2, 0.6rem);
-	}
-	.row {
-		margin-left: 1rem;
-	}
-	/* Outlines by depth: the company card white, its forms gold one step in. */
-	.kids {
-		margin-left: 0.6rem;
-		padding-left: 0.9rem;
-		border-left: 2px dashed var(--rt-border-subtle);
-	}
-	.kids .row {
-		margin-left: 0;
-	}
 	.org-tile {
 		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		flex: none;
-		width: 3.25rem;
-		height: 3.25rem;
-		border-radius: 0.9rem;
+		width: 2.4rem;
+		height: 2.4rem;
+		margin-right: 8px;
+		border-radius: 0.7rem;
 		background: var(--tint);
 		color: #0f1514;
-		font-weight: 900;
-		font-size: 1.25rem;
+		font: 900 1rem var(--rt-font-body);
 	}
 	.org-tile img {
 		width: 100%;
@@ -192,27 +171,19 @@
 		border-radius: inherit;
 		object-fit: cover;
 	}
-	.org-count {
-		background: var(--rt-cream);
-	}
 	/* Grey, not red: archiving is undoable, never a delete. A retired row greys with no bed. */
 	.swipe {
 		position: relative;
-		flex: 1;
-		min-width: 0;
-		border-radius: var(--rt-radius-lg);
+		border-radius: 14px;
 		background: var(--rt-btn-neutral-bg);
 	}
 	.swipe.past {
 		background: none;
-	}
-	.swipe.past :global(.rt-row) {
-		border-color: var(--rt-border-subtle);
 		opacity: 0.55;
 	}
 	.track {
 		position: relative;
-		border-radius: var(--rt-radius-lg);
+		border-radius: 14px;
 		background: var(--rt-bg);
 		touch-action: pan-y;
 		transition: transform 160ms ease;
