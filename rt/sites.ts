@@ -115,6 +115,7 @@ export const SITES: readonly Site[] = [
 			"/retreever_dash",
 			"/getcache_dash",
 			"/foundr_dash",
+			"/dash_hound",
 			"/docs", // lowercase so it stays off urlCase's exemption list
 			"/decisions",
 		],
