@@ -125,17 +125,22 @@ button.np-main,
 .np--go > .np-main {
     padding-right: 0;
 }
+/* The corner note and the chevron share one cell: the note takes no height, so the chevron stays centred, but
+   its width holds the pill's values clear of it. */
 .np-side {
-    position: relative;
     flex: none;
-    display: flex;
+    display: grid;
     align-items: center;
+    justify-items: end;
     padding: 0 12px 0 9px;
 }
+.np-side > * {
+    grid-area: 1 / 1;
+}
 .np-corner {
-    position: absolute;
-    top: 5px;
-    right: 10px;
+    align-self: start;
+    height: 0;
+    margin: 5px -2px 0 0;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -212,8 +217,12 @@ button.np-main,
     flex: none;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     white-space: nowrap;
+}
+/* The tree stands on its number's baseline, close beside it. */
+.np :global(.nest-value .tg) {
+    margin: 0 0 0.1em;
 }
 .np :global(.nest-value--money) {
     color: var(--rt-yellow);
