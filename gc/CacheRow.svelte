@@ -2,6 +2,7 @@
   total with its share of the block. The heat sheet and the deliver picture both draw it; the host owns the button. -->
 <script lang="ts">
 import { getLocale } from "$parent/src/lib/paraglide/runtime";
+import TreeCount from "./TreeCount.svelte";
 import TreeGlyph from "./TreeGlyph.svelte";
 import "./lotSwatch.css";
 
@@ -69,7 +70,7 @@ function fit(line: HTMLElement, _lots: typeof lots) {
 			<span class="bar">{#each lots as [r, n] (r)}<i class="lot-p{r}" style:width={width(n)}></i>{/each}</span>
 		{/if}
 	</span>
-	<b class="v" class:zero={!total}>{#if total}<TreeGlyph />{fmt(total)}{#if pct !== undefined}<small>{pct}%</small>{/if}{:else if blank}<TreeGlyph />{:else}{empty ?? fmt(0)}{/if}</b>
+	<b class="v" class:zero={!total}>{#if total}<TreeCount n={fmt(total)} />{#if pct !== undefined}<small>{pct}%</small>{/if}{:else if blank}<TreeGlyph />{:else}{empty ?? fmt(0)}{/if}</b>
 </span>
 
 <style>
@@ -139,7 +140,7 @@ function fit(line: HTMLElement, _lots: typeof lots) {
 	}
 	.v {
 		display: flex;
-		align-items: center;
+		align-items: baseline;
 		font-size: 18px;
 		white-space: nowrap;
 	}

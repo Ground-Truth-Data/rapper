@@ -8,7 +8,7 @@
 import type { Snippet } from "svelte";
 import Plaque from "./Plaque.svelte";
 import SumLines, { type Sum } from "./SumLines.svelte";
-import TreeGlyph from "./TreeGlyph.svelte";
+import TreeCount from "./TreeCount.svelte";
 import { areaLabel } from "./units.svelte";
 
 let {
@@ -57,10 +57,10 @@ let {
 		<div class="bh-meta" class:on-purpose={allocated}>
 			{#if allocated}
 				<span class="bh-rate">{ha}<span class="u">{` ${areaLabel()} @ `}</span>{@render perArea()}</span>
-				<span class="bh-end"><span class="bh-alloc">{allocated}</span><span class="bh-tot"><TreeGlyph />{total}</span></span>
+				<span class="bh-end"><span class="bh-alloc">{allocated}</span><span class="bh-tot"><TreeCount n={total} /></span></span>
 			{:else}
 				<span class="bh-rate">{ha}<span class="u">{` ${areaLabel()} × `}</span>{@render perArea()}<span class="u"> =</span></span>
-				<span class="bh-tot"><TreeGlyph />{total}</span>
+				<span class="bh-tot"><TreeCount n={total} /></span>
 			{/if}
 		</div>
 	</div>
@@ -145,9 +145,6 @@ let {
 		color: var(--rust);
 	}
 	.bh-tot {
-		display: flex;
-		align-items: center;
-		gap: 4px;
 		font: 20px/1 var(--rt-font-display);
 		color: var(--rt-fg);
 	}

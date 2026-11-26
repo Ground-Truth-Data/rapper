@@ -308,10 +308,6 @@ button.np-main,
     gap: 4px;
     white-space: nowrap;
 }
-/* The tree stands on its number's baseline, close beside it. */
-.np :global(.nest-value .tg) {
-    margin: 0 0 0.1em;
-}
 .np :global(.nest-value--money) {
     color: var(--rt-yellow);
 }
