@@ -52,8 +52,8 @@ let {
 
 const color = depthColor(listDepth());
 
-// A pill that both folds and opens is two halves: left folds, right opens, with a nib at the halfway mark.
-const split = $derived(typeof open === "boolean" && !!ontoggle && !!ongo);
+// A pill with both taps is two halves, chevron on the left or not: left folds, right opens, a nib at halfway.
+const split = $derived(!!ontoggle && !!ongo);
 let pill = $state<HTMLElement>();
 let at = $state<"fold" | "go">();
 let pressed = $state(false);
