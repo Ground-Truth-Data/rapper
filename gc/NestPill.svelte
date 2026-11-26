@@ -52,8 +52,10 @@ let {
 
 const color = depthColor(listDepth());
 
-// A pill with both taps is two halves, chevron on the left or not: left folds, right opens, a nib at halfway.
-const split = $derived(!!ontoggle && !!ongo);
+// Every pill that takes a tap is two halves with a nib at halfway: left folds, right opens. One with a single
+// tap does it from both halves.
+const split = $derived(!!(ontoggle ?? ongo));
+const tap = (e: MouseEvent) => (rightHalf(e) ? (ongo ? ongo() : ontoggle?.(e)) : ontoggle ? ontoggle(e) : ongo?.());
 let pill = $state<HTMLElement>();
 let at = $state<"fold" | "go">();
 let pressed = $state(false);
@@ -84,7 +86,7 @@ const rightHalf = (e: MouseEvent) => {
     data-at={at}
     class="np" class:np--small={small} class:np--detail={detail} class:np--dashed={dashed} class:np--stack={stack} class:np--go={ongo} style:--c={color}>
     {#if ontoggle ?? ongo}
-        <button type="button" class="np-main" aria-expanded={open ?? undefined} onclick={(e) => (ontoggle && !(split && rightHalf(e)) ? ontoggle(e) : ongo?.())}>{@render body()}</button>
+        <button type="button" class="np-main" aria-expanded={open ?? undefined} onclick={tap}>{@render body()}</button>
     {:else}
         <div class="np-main">{@render body()}</div>
     {/if}
