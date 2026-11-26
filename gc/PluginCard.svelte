@@ -47,9 +47,7 @@
 	<RowShell {title} tier="top">
 		{#snippet lead()}
 			{#if fold}
-				<span class="rt-row__fold" class:rt-row__fold--shut={!fold.open} class:none={!card.answers}
-					><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6" /></svg></span
-				>
+				<span class="rt-row__fold" class:rt-row__fold--shut={!fold.open} class:none={!card.answers}><GoChevron down /></span>
 			{/if}
 		{/snippet}
 		{#snippet overlay()}

@@ -3,6 +3,7 @@
 	import type { Model, PanelModel, Question } from 'survey-core';
 	import { type Definition, type El, FIX, type Fix, type Trigger } from './form';
 	import IdentityPill from './IdentityPill.svelte';
+	import GoChevron from './GoChevron.svelte';
 	import Icon from './Icon.svelte';
 	import { loadSurvey } from './formSurvey';
 	import { plainly } from './plainly';
@@ -257,7 +258,7 @@
 					{@const name = `${v.title} ${i + 1}`}
 					<div class="entry" data-entry={i + 1}>
 						<button type="button" class="fold" aria-expanded={shown} onclick={() => (open[entry.p.id] = !shown)} data-fold>
-							<svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+							<span class="chev"><GoChevron /></span>
 							<span class="name font-display">{name}</span>
 							{#if !shown}<span class="summary" data-summary>{summary(entry.items)}</span>{/if}
 							{#if entry.stamped}
@@ -356,7 +357,7 @@
 	}
 	.entry { display: flex; flex-direction: column; border: 2px solid var(--rt-sage); border-radius: 1rem; }
 	.fold { display: flex; align-items: center; gap: 0.6rem; min-height: 3.25rem; padding: 0 0.875rem; text-align: left; }
-	.chev { flex: none; width: 1rem; height: 1rem; color: var(--rt-sage); transition: transform 0.15s; }
+	.chev { flex: none; display: flex; margin: 0 -6px; color: var(--rt-sage); transition: transform 0.15s; }
 	[aria-expanded="true"] > .chev { transform: rotate(90deg); }
 	.name { color: var(--rt-sage); font-size: 1.05rem; }
 	.summary { flex: 1; min-width: 0; text-align: right; color: var(--rt-fg-muted); font-size: 0.875rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
