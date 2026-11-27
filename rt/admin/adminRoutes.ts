@@ -463,16 +463,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				title:
 					"Decide the focused site's raw paths one card at a time — writes {s}3MissMeta.json and runs missMap",
 			},
-			// Not `scopedToSite`: draws the whole corpus with no project picked,
-			// narrows if one is.
-			{
-				key: "schema",
-				stage: "database",
-				label: "schema",
-				href: `${FOUNDR_TOOL}/schema`,
-				title:
-					"Every table and column, coloured by how much of it is actually populated",
-			},
 			{
 				key: "trace",
 				stage: "prove",
