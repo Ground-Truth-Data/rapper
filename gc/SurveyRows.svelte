@@ -1,7 +1,6 @@
-<!-- A survey or one of its plots, as every list draws them. One file so they stay one design:
+<!-- What a survey, one of its plots and a plot's species put inside their NestPill, as every list draws them:
      `<SurveyRows row={{ kind: "plot", … }} {words} ongo={…} />`. A survey folds its plots (`open`,
-     `ontoggle`, children); a plot folds its own species. The chevron at the right opens the row (`ongo`).
-     Its colour is its depth, as a NestPill's is. -->
+     `ontoggle`, children); a plot folds its own species. The pill, its halves and its colour are NestPill's. -->
 <script lang="ts" module>
 import type { Identity } from "./IdentityPill.svelte";
 
@@ -43,7 +42,7 @@ import contactGold from "./assets/contact_gold.webp";
 import treeWhite from "./assets/tree_white.webp";
 import IdentityPill, { onePerPerson } from "./IdentityPill.svelte";
 import NestGroup from "./NestGroup.svelte";
-import { depthColor, listDepth } from "./NestPill.svelte";
+import NestPill from "./NestPill.svelte";
 import TreeCount from "./TreeCount.svelte";
 
 let {
@@ -54,15 +53,11 @@ let {
     open = false,
     ontoggle,
     ongo,
-    onchip,
-    onart,
     lead,
     children,
 }: {
-    /** The host's own control ahead of the row: the inbox's tick. */
+    /** The host's own control ahead of the row: the inbox's tick. Never a button: it sits inside the pill's. */
     lead?: Snippet;
-    /** A survey's icon was tapped. */
-    onart?: () => void;
     /** A survey's plots, drawn while it is open. */
     children?: Snippet;
     row: SurveyRow;
@@ -72,178 +67,92 @@ let {
     /** The quality icon a survey wears. */
     art?: string;
     open?: boolean;
-    ontoggle?: () => void;
+    ontoggle?: (e: MouseEvent) => void;
     ongo?: () => void;
-    /** A survey's chip was tapped. */
-    onchip?: (kind: "density" | "quality") => void;
 } = $props();
 
-const depth = listDepth();
 let speciesOpen = $state(false);
 const species = $derived(row.kind === "plot" ? (row.species ?? []) : []);
-const folds = $derived(row.kind === "survey" || species.length > 0);
-const isOpen = $derived(row.kind === "survey" ? open : speciesOpen);
-const label = $derived(row.kind === "survey" ? row.name : `#${row.plotNo}`);
-const fold = () => (row.kind === "survey" ? ontoggle?.() : (speciesOpen = !speciesOpen));
-
-function tap(e: MouseEvent) {
-    if ((e.target as Element).closest("button")) return;
-    if (folds) fold();
-    else ongo?.();
-}
 </script>
 
-{#snippet chev(d: string)}
-    <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path {d} /></svg>
-{/snippet}
-
-<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
-<div class="sr sr--{row.kind}" data-row={row.kind} style:--c={depthColor(depth)} onclick={tap}>
-    {#if when}<span class="ago" data-when>{when}</span>{/if}
-    {#if folds}
-        <button type="button" class="btn" data-fold aria-expanded={isOpen} aria-label={label} onclick={fold}>{@render chev(isOpen ? "M5 9l7 7 7-7" : "M9 5l7 7-7 7")}</button>
-    {/if}
-    {@render lead?.()}
+<div class="sr" data-row={row.kind}>
     {#if row.kind === "survey"}
-        <button type="button" class="btn art" data-act="map" aria-label={label} disabled={!onart} onclick={onart}><img src={art} alt="" /><span class="badge" data-count>{row.count}</span></button>
-        <span class="main">
-            <span class="name" data-name title={row.name}>{row.name}</span>
+        <NestPill {open} {ontoggle} {ongo} goLabel={row.name} stack="middle">
+            {#snippet glyph()}
+                {@render lead?.()}
+                <span class="art"><img src={art} alt="" /><span class="badge" data-count>{row.count}</span></span>
+            {/snippet}
+            <span class="nest-line" data-name title={row.name}>{row.name}</span>
             <span class="who" data-role="surveyor"><img src={contactGold} alt="" />{#each onePerPerson(row.surveyors) as w (w.key ?? w.label)}<IdentityPill who={w} />{/each}</span>
-        </span>
-        <span class="pcts">
-            {#each ["density", "quality"] as const as kind (kind)}
-                {@const n = row[kind]}
-                {#if n != null}
-                    <button type="button" class="pct pct--{kind}" data-act={kind} aria-label={words[kind]} disabled={!onchip} onclick={() => onchip?.(kind)}>{words[kind].charAt(0).toUpperCase()} {Math.round(n)}%</button>
-                {/if}
-            {/each}
-        </span>
+            {#snippet values()}
+                <span class="pcts">
+                    {#each ["density", "quality"] as const as kind (kind)}
+                        {@const n = row[kind]}
+                        {#if n != null}<span class="pct pct--{kind}" data-pct={kind} title={words[kind]}>{words[kind].charAt(0).toUpperCase()} {Math.round(n)}%</span>{/if}
+                    {/each}
+                </span>
+            {/snippet}
+            {#snippet corner()}{#if when}<span class="ago" data-when>{when}</span>{/if}{/snippet}
+        </NestPill>
+        {#if open && children}<NestGroup>{@render children()}</NestGroup>{/if}
     {:else}
         {@const t = chips(row.faults)}
-        <span class="no" data-no>#{row.plotNo}</span>
-        <span class="num" data-counts>
-            <img src={treeWhite} alt="" />
-            <span class="nl"><small>{words.planted}</small><span data-planted>{row.planted}</span></span>
-            <span class="j">/</span>
-            <span class="nl"><small>{words.spots}</small><span data-spots>{row.spots}</span></span>
-        </span>
-        <span class="gap"></span>
-        {#if row.missed > 0}
-            <span class="tile under" data-delta="missed">-{row.missed}<small>{words.missed}</small></span>
-        {:else if row.excess > 0}
-            <span class="tile over" data-delta="excess">+{row.excess}<small>{words.excess}</small></span>
-        {/if}
-        {#if t.shown.length}
-            <span class="codes" data-faults>
-                {#each t.shown as [code, n] (code)}
-                    <span class="ct" class:solo={t.shown.length + t.more === 1} data-code={code}>{code}{#if n > 1}<i>·{n}</i>{/if}</span>
-                {/each}
-                {#if t.more}<span class="ct" data-more>+{t.more}</span>{/if}
+        <NestPill
+            open={species.length ? speciesOpen : null}
+            ontoggle={species.length ? () => (speciesOpen = !speciesOpen) : undefined}
+            {ongo}
+            goLabel="#{row.plotNo}"
+        >
+            <span class="plot">
+                <span class="no" data-no>#{row.plotNo}</span>
+                <span class="num" data-counts>
+                    <img src={treeWhite} alt="" />
+                    <span class="nl"><small>{words.planted}</small><span data-planted>{row.planted}</span></span>
+                    <span class="j">/</span>
+                    <span class="nl"><small>{words.spots}</small><span data-spots>{row.spots}</span></span>
+                </span>
             </span>
+            {#snippet values()}
+                {#if row.missed > 0}
+                    <span class="tile under" data-delta="missed">-{row.missed}<small>{words.missed}</small></span>
+                {:else if row.excess > 0}
+                    <span class="tile over" data-delta="excess">+{row.excess}<small>{words.excess}</small></span>
+                {/if}
+                {#if t.shown.length}
+                    <span class="codes" data-faults>
+                        {#each t.shown as [code, n] (code)}
+                            <span class="ct" class:solo={t.shown.length + t.more === 1} data-code={code}>{code}{#if n > 1}<i>·{n}</i>{/if}</span>
+                        {/each}
+                        {#if t.more}<span class="ct" data-more>+{t.more}</span>{/if}
+                    </span>
+                {/if}
+            {/snippet}
+        </NestPill>
+        {#if speciesOpen}
+            <NestGroup>
+                {#each species as s (s.name)}
+                    <div data-row="species">
+                        <NestPill small>
+                            {#snippet glyph()}{#if s.code}<span class="code" data-code>{s.code}</span>{/if}{/snippet}
+                            <span class="sp" data-species>{s.name}</span>
+                            {#snippet values()}<TreeCount n={s.count} data-trees />{/snippet}
+                        </NestPill>
+                    </div>
+                {/each}
+            </NestGroup>
         {/if}
-    {/if}
-    {#if ongo}
-        <button type="button" class="btn" data-go aria-label={label} onclick={ongo}>{@render chev("M9 5l7 7-7 7")}</button>
-    {:else}
-        <span class="chev"></span>
     {/if}
 </div>
-{#if isOpen}
-    {#if row.kind === "survey"}
-        {#if children}<NestGroup>{@render children()}</NestGroup>{/if}
-    {:else}
-        <NestGroup>
-            {#each species as s (s.name)}
-                <div class="sr sr--species" data-row="species" style:--c={depthColor(depth + 1)}>
-                    {#if s.code}<span class="code" data-code>{s.code}</span>{/if}
-                    <span class="sp" data-species>{s.name}</span>
-                    <TreeCount n={s.count} data-trees />
-                </div>
-            {/each}
-        </NestGroup>
-    {/if}
-{/if}
 
 <style>
 .sr {
-    position: relative;
     display: flex;
-    align-items: center;
-    gap: 8px;
-    box-sizing: border-box;
-    min-height: 54px;
-    padding: 8px 6px;
-    border: 1.5px solid var(--c);
-    border-radius: 16px;
-    background: #151515;
-    color: #fafafa;
-    line-height: normal;
-    cursor: pointer;
-}
-.sr.sr--survey {
-    min-height: 62px;
-}
-.sr.sr--species {
-    min-height: 38px;
-    padding: 4px 16px;
-    gap: 12px;
-    font-family: var(--rt-font-display);
-    font-size: 18px;
-    cursor: default;
-}
-.sr::before,
-.sr::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    width: 1.5px;
-    height: 5px;
-    background: var(--c);
-    opacity: 0.4;
-}
-.sr::before {
-    top: 0;
-}
-.sr::after {
-    bottom: 0;
+    flex-direction: column;
+    gap: var(--nest-gap, 6px);
 }
 .ago {
-    position: absolute;
-    top: 4px;
-    right: 10px;
     font: 600 10px var(--rt-font-meta);
     color: var(--c);
-}
-.btn {
-    flex: none;
-    display: flex;
-    padding: 0;
-    border: 0;
-    background: none;
-    color: var(--c);
-    cursor: pointer;
-}
-/* A finger's worth of target around a 22 px chevron, without moving anything. */
-.btn::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 44px;
-}
-.btn.art::after {
-    content: none;
-}
-.btn[data-fold]::after {
-    left: 0;
-}
-.btn[data-go]::after {
-    right: 0;
-}
-.chev {
-    flex: none;
-    width: 22px;
-    height: 22px;
 }
 .art {
     position: relative;
@@ -269,20 +178,6 @@ function tap(e: MouseEvent) {
     color: #1c0d04;
     font: 800 10px/18px var(--rt-font-meta);
     text-align: center;
-}
-.main {
-    flex: 1 1 auto;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-.name {
-    overflow: hidden;
-    font-family: var(--rt-font-display);
-    font-size: 20px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 }
 /* People who do not fit are left off, never wrapped. */
 .who {
@@ -317,26 +212,25 @@ function tap(e: MouseEvent) {
     padding: 1px 8px;
     border: 1.5px solid #838963;
     border-radius: 999px;
-    background: none;
     color: #fafafa;
     font: 600 11px/15px var(--rt-font-meta);
     text-align: center;
     white-space: nowrap;
 }
-.pct:enabled {
-    cursor: pointer;
-}
 .pct--quality {
     border-color: var(--rt-yellow);
     color: var(--rt-yellow);
 }
+.plot {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-block: 6px;
+}
 .num {
     display: flex;
     align-items: flex-end;
-    justify-content: flex-end;
     gap: 4px;
-    min-width: 78px;
-    font-family: var(--rt-font-display);
     font-size: 24px;
     line-height: 1;
 }
@@ -361,15 +255,9 @@ function tap(e: MouseEvent) {
     letter-spacing: 0.02em;
     color: var(--rust);
 }
-.gap {
-    flex: 1;
-}
 .no {
     flex: none;
-    box-sizing: content-box;
-    width: 38px;
-    padding-left: 6px;
-    font-family: var(--rt-font-display);
+    width: 44px;
     font-size: 22px;
 }
 .code {
@@ -377,13 +265,8 @@ function tap(e: MouseEvent) {
     min-width: 28px;
 }
 .sp {
-    flex: 1 1 auto;
-    min-width: 0;
-    overflow: hidden;
     font: 500 14px var(--rt-font-meta);
     color: var(--rust);
-    white-space: nowrap;
-    text-overflow: ellipsis;
 }
 .tile {
     flex: none;
@@ -397,7 +280,6 @@ function tap(e: MouseEvent) {
     padding: 0 6px;
     border: 1.5px solid;
     border-radius: 10px;
-    font-family: var(--rt-font-display);
     font-size: 19px;
     line-height: 1;
 }
@@ -434,7 +316,6 @@ function tap(e: MouseEvent) {
     border-radius: 7px;
     background: rgba(240, 70, 58, 0.08);
     color: #f0463a;
-    font-family: var(--rt-font-display);
     font-size: 13px;
     line-height: 1;
 }

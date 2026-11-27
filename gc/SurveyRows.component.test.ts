@@ -27,39 +27,45 @@ it("fault codes are counted per code; past two, the most called shows with how m
 	expect(codes(["C9", "C3", "C3", "B1"])).toEqual([["C3"], "+2"]);
 });
 
-it("a plot's tap opens it; a survey's tap folds it, its chevron opens it and a chip reports its kind", async () => {
+it("a plot's tap opens it; a survey's left half folds it and its right half opens it, chips included", async () => {
 	const ongo = vi.fn();
 	const p = render(SurveyRows, { row: plot(), words, ongo }).container;
 	await fireEvent.click(p.querySelector("[data-no]")!);
 	expect(ongo).toHaveBeenCalledTimes(1);
 
 	const ontoggle = vi.fn();
-	const onchip = vi.fn();
-	const s = render(SurveyRows, { row: { ...survey, density: 104, quality: null }, words, ongo, ontoggle, onchip }).container;
-	await fireEvent.click(s.querySelector("[data-name]")!);
+	const s = render(SurveyRows, { row: { ...survey, density: 104, quality: null }, words, ongo, ontoggle }).container;
+	const wide = (c: Element) => (c.querySelector<HTMLElement>(".np")!.getBoundingClientRect = () => ({ left: 0, width: 300 }) as DOMRect);
+	wide(s);
+	await fireEvent.click(s.querySelector("[data-name]")!, { clientX: 100 });
 	expect(ontoggle).toHaveBeenCalledTimes(1);
-	await fireEvent.click(s.querySelector("[data-go]")!);
+	await fireEvent.click(s.querySelector(".np-side")!);
 	expect(ongo).toHaveBeenCalledTimes(2);
-	expect(s.querySelector("[data-act=quality]")).toBeNull();
-	await fireEvent.click(s.querySelector("[data-act=density]")!);
-	expect(onchip).toHaveBeenCalledWith("density");
+	expect(s.querySelector("[data-pct=quality]")).toBeNull();
+	await fireEvent.click(s.querySelector("[data-pct=density]")!, { clientX: 250 });
+	expect(ongo).toHaveBeenCalledTimes(3);
 	expect(ontoggle).toHaveBeenCalledTimes(1);
+
+	const still = render(SurveyRows, { row: survey, words, ontoggle }).container;
+	wide(still);
+	await fireEvent.click(still.querySelector("[data-name]")!, { clientX: 250 });
+	expect(ontoggle, "no right chevron: the whole pill folds").toHaveBeenCalledTimes(2);
 });
 
 it("a survey counts its plots, names each surveyor once and rounds its percentages to whole numbers", () => {
 	const c = render(SurveyRows, { row: { ...survey, surveyors: [who("Carlie"), who("Carlie"), who("Sam")], density: 90.9, quality: 87.5 }, words }).container;
 	expect(c.querySelector("[data-count]")!.textContent).toBe("9");
 	expect([...c.querySelectorAll("[data-role=surveyor] .id-pill")].map((e) => e.getAttribute("title"))).toEqual(["Carlie", "Sam"]);
-	expect(c.querySelector("[data-act=density]")!.textContent).toMatch(/\b91%/);
-	expect(c.querySelector("[data-act=quality]")!.textContent).toMatch(/\b88%/);
+	expect(c.querySelector("[data-pct=density]")!.textContent).toMatch(/\b91%/);
+	expect(c.querySelector("[data-pct=quality]")!.textContent).toMatch(/\b88%/);
 });
 
 it("a plot with a split folds its species under it; one without has nothing to fold", async () => {
 	const bare = render(SurveyRows, { row: plot(), words }).container;
-	expect(bare.querySelector("[data-fold]")).toBeNull();
+	expect(bare.querySelector(".np-main")!.getAttribute("aria-expanded")).toBeNull();
 	const c = render(SurveyRows, { row: plot({ species: [{ code: "PL", name: "Lodgepole pine", count: 20 }, { code: "", name: "Hybrid spruce", count: 13 }] }), words }).container;
 	expect(c.querySelector("[data-row=species]")).toBeNull();
-	await fireEvent.click(c.querySelector("[data-fold]")!);
+	await fireEvent.click(c.querySelector("[data-no]")!);
 	const rows = [...c.querySelectorAll("[data-row=species]")];
 	expect(rows.map((r) => [r.querySelector("[data-code]")?.textContent, r.querySelector("[data-species]")!.textContent, r.querySelector("[data-trees]")!.textContent])).toEqual([
 		["PL", "Lodgepole pine", "20"],
