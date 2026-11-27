@@ -192,15 +192,15 @@ const tableLabel = (t: string): string => t;
 // Spelled once: pill hrefs, the bare /retreever_dash redirect and sites.ts's host-boundary list must agree.
 const RETREEVER_DASH = "/retreever_dash";
 export const RETREEVER_TOOL = `${RETREEVER_DASH}/tool`;
-export const RETREEVER_TABLE = `${RETREEVER_DASH}/table`;
 /** The admin's home: one tree for every product. */
 export const DASH_HOUND = "/dash_hound";
 export const RETREEVER_HOME = DASH_HOUND;
+/** Dash Hound's table viewer: `/dash_hound/table/<model, lowercased>`. */
+export const TABLE_VIEWER = `${DASH_HOUND}/table`;
 
 /** Foundr's namespace. Same shape as ReTreever's, for the same reason. */
 export const FOUNDR_DASH = "/foundr_dash";
 export const FOUNDR_TOOL = `${FOUNDR_DASH}/tool`;
-export const FOUNDR_TABLE = `${FOUNDR_DASH}/table`;
 export const FOUNDR_HOME = FOUNDR_DASH;
 const FOUNDR_REPORT = `${FOUNDR_DASH}/report`;
 
@@ -291,8 +291,8 @@ export const foundrReportPath = (key: string): string =>
 export const foundrReportHref = (key: string, site: string | null): string =>
 	withSiteParam(foundrReportPath(key), site);
 
-/** Every ReTreever (Prisma) model, labelled with the real SQL table name (no model has `@@map`). Declared by hand — a shape heuristic mislabels the core tables. */
-const RETREEVER_ENTITIES = [
+/** Every ReTreever (Prisma) model by its real SQL table name (no model has `@@map`). Declared by hand — a shape heuristic mislabels the core tables. */
+export const RETREEVER_ENTITIES = [
 	"OrganizationTable",
 	"ProjectTable",
 	"ClaimTable",
@@ -325,21 +325,6 @@ export const RETREEVER_LOOKUPS = [
 	"GlobalDefaultsTable",
 ] as const;
 
-const retreeverTablePills = (base: string): AdminLink[] => [
-	...RETREEVER_ENTITIES.map((t) => ({
-		label: t,
-		href: `${base}/${t.toLowerCase()}`,
-		title: `${t} — Prisma model (SQL table name)`,
-		kind: "table" as const,
-	})),
-	...RETREEVER_LOOKUPS.map((t) => ({
-		label: t,
-		href: `${base}/${t.toLowerCase()}`,
-		title: `${t} — reference table (fixed vocabulary)`,
-		kind: "lookup" as const,
-	})),
-];
-
 const mirroredTablePills = (base: string): AdminLink[] =>
 	MIRRORED_TABLES.map((t) => ({
 		label: tableLabel(t),
@@ -363,16 +348,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 		logo: rtLogo,
 		home: RETREEVER_HOME,
 		tools: [
-			// `match` is the table prefix: there is no /tool/supabase screen,
-			// the CRUD row IS the tool.
-			{
-				key: "supabase",
-				label: "Supabase",
-				href: `${RETREEVER_TABLE}/${RETREEVER_ENTITIES[0].toLowerCase()}`,
-				match: RETREEVER_TABLE,
-				title: "The ReTreever (Prisma) database — every table, raw",
-				tables: retreeverTablePills(RETREEVER_TABLE),
-			},
 			{
 				key: "decisions",
 				label: "Decisions",
@@ -554,18 +529,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				href: `${FOUNDR_TOOL}/schema`,
 				title:
 					"Every table and column, coloured by how much of it is actually populated",
-			},
-			// The same database from this side; `ownRow` so the tables show on
-			// every Foundr screen.
-			{
-				key: "supabase",
-				stage: "database",
-				label: "Supabase",
-				href: `${FOUNDR_TABLE}/${RETREEVER_ENTITIES[0].toLowerCase()}`,
-				match: FOUNDR_TABLE,
-				title: "The ReTreever (Prisma) database — every table, raw",
-				ownRow: true,
-				tables: retreeverTablePills(FOUNDR_TABLE),
 			},
 			{
 				key: "trace",
