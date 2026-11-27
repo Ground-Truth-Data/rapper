@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Icon from "./Icon.svelte";
+	import { inPill } from "./Pill2.svelte";
 	import { m } from "$parent/src/lib/paraglide/messages";
 
 	/** Shared by link: `n` live links to this thing (a pill), or `via` the shared thing it sits inside (the bare
@@ -8,6 +9,7 @@
 	const label = $derived(
 		"n" in shared ? m.gc_shared_count({ n: shared.n > 99 ? "99+" : String(shared.n) }) : m.gc_shared_via({ name: shared.via }),
 	);
+	const still = inPill();
 	const tap = (e: Event) => {
 		e.stopPropagation();
 		onclick?.();
@@ -17,12 +19,13 @@
 <span
 	class="rt-shared"
 	class:rt-shared--own={"n" in shared}
-	role="button"
-	tabindex="0"
+	class:rt-shared--still={still}
+	role={still ? undefined : "button"}
+	tabindex={still ? undefined : 0}
 	aria-label={label}
 	title={label}
-	onclick={tap}
-	onkeydown={(e) => (e.key === " " || e.key === "Enter") && (e.preventDefault(), tap(e))}
+	onclick={still ? undefined : tap}
+	onkeydown={still ? undefined : (e) => (e.key === " " || e.key === "Enter") && (e.preventDefault(), tap(e))}
 >
 	<Icon name="cloud" size={"n" in shared ? 12 : 14} fill={"n" in shared ? "currentColor" : "none"} stroke={"n" in shared ? 0 : 2.4} />
 </span>
@@ -38,6 +41,10 @@
 		cursor: pointer;
 		/* Over a row's tap halves, or the pill on a map with rows inside never hears a tap. */
 		z-index: 2;
+	}
+	.rt-shared--still {
+		cursor: inherit;
+		z-index: auto;
 	}
 	/* The same box as IdentityPill's, so it sits level with the "you" beside it. */
 	.rt-shared--own {

@@ -9,11 +9,17 @@ const COLORS = ["var(--rt-fg)", "var(--rt-yellow)", "var(--rust)", "var(--rt-sag
 export const listDepth = () => getContext<number>(DEPTH) ?? 0;
 export const setNestDepth = (d: number) => setContext(DEPTH, d);
 export const depthColor = (d: number) => COLORS[Math.min(Math.max(d, 1), COLORS.length) - 1]!;
+
+const TWO = Symbol("pill2");
+/** Every NestPill under the caller draws as a Pill2: the /app/*2 mirror pages, until Pill2 replaces NestPill. */
+export const usePill2 = () => setContext(TWO, true);
+export const pill2On = () => getContext<boolean>(TWO) ?? false;
 </script>
 
 <script lang="ts">
 import type { Snippet } from "svelte";
 import GoChevron from "./GoChevron.svelte";
+import Pill2 from "./Pill2.svelte";
 
 let {
     open,
@@ -57,6 +63,7 @@ let {
 } = $props();
 
 const color = depthColor(listDepth());
+const two = pill2On();
 
 // Every pill that takes a tap is two halves with a nib at halfway: left folds, right opens. One with a single
 // tap does it from both halves.
@@ -83,6 +90,9 @@ const rightHalf = (e: MouseEvent) => {
     {@render values?.()}
 {/snippet}
 
+{#if two}
+<Pill2 {open} {ontoggle} {ongo} {goLabel} {small} {detail} {dashed} {stack} {glyph} {children} {values} {under} {corner} {foot} />
+{:else}
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
     bind:this={pill}
@@ -107,6 +117,7 @@ const rightHalf = (e: MouseEvent) => {
         </button>
     {/if}
 </div>
+{/if}
 
 <style>
 .np {
