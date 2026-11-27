@@ -374,11 +374,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				tables: retreeverTablePills(RETREEVER_TABLE),
 			},
 			{
-				key: "platforms",
-				label: "Platforms",
-				href: `${RETREEVER_TOOL}/platforms`,
-			},
-			{
 				key: "stakeholders",
 				label: "Stakeholders",
 				href: `${RETREEVER_TOOL}/stakeholders`,
@@ -511,16 +506,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 		home: FOUNDR_HOME,
 		// In stage order: the array IS the strip, and FOUNDR_STAGES names the groups.
 		tools: [
-			// The same screen as ReTreever's Platforms pill; the project dropdown
-			// reads this table.
-			{
-				key: "platforms",
-				stage: "sources",
-				label: "Platforms",
-				href: `${FOUNDR_TOOL}/platforms`,
-				title:
-					"The platform table — Foundr's scrape targets, one row per platform",
-			},
 			{
 				key: "endpoints",
 				stage: "sources",
