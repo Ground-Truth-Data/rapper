@@ -12,9 +12,9 @@ let { label, n, text = Math.abs(n).toLocaleString() }: { label: string; n: numbe
 
 <style>
 .up {
-    color: #3fb6c8;
+    color: var(--rt-q704-over);
 }
 .dn {
-    color: #f0a3bb;
+    color: var(--rt-q704-under);
 }
 </style>

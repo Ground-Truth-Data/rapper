@@ -3,7 +3,7 @@
 <script lang="ts" module>
 import type { Identity } from "./IdentityPill.svelte";
 /** `who`: the one person a line's number is theirs alone. */
-export type Sum = { k: string; v: string; who?: Identity; tone?: "rose" | "teal" | "ok"; minus?: boolean; eq?: boolean; tree?: boolean; rule?: boolean };
+export type Sum = { k: string; v: string; who?: Identity; tone?: "under" | "over" | "ok"; minus?: boolean; eq?: boolean; tree?: boolean; rule?: boolean };
 </script>
 
 <script lang="ts">
@@ -60,10 +60,10 @@ let { sums }: { sums: Sum[] } = $props();
 		margin: 1px 0;
 		border-top: 1.5px solid color-mix(in srgb, var(--rt-yellow) 30%, transparent);
 	}
-	.bh-v.rose {
-		color: var(--rt-rose);
+	.bh-v.under {
+		color: var(--rt-q704-under);
 	}
-	.bh-v.teal {
+	.bh-v.over {
 		color: var(--rt-q704-over);
 	}
 	.bh-v.ok {
