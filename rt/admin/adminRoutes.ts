@@ -483,14 +483,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				title:
 					"Launch Foundr's ETL pipeline and watch its output — local dev only",
 			},
-			{
-				key: "overview",
-				stage: "map",
-				label: "overview",
-				href: `${FOUNDR_TOOL}/overview`,
-				title:
-					"Corpus-wide: how much of every site's raw scrape has a home in the schema",
-			},
 			// A tool, not a report: the desk that writes `{s}3MissMeta.json`.
 			{
 				key: "missmeta",
