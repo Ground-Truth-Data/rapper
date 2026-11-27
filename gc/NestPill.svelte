@@ -36,6 +36,8 @@ let {
     under,
     corner,
     foot,
+    tickBox,
+    ontick,
 }: {
     /** Set on a pill with children: draws the left chevron. `null` keeps the chevron's space, empty, so a
      *  childless pill lines up with its folding siblings. */
@@ -60,6 +62,9 @@ let {
     corner?: Snippet;
     /** Sits in the pill's bottom right corner, the corner's mirror under the ">". */
     foot?: Snippet;
+    /** Pill2 only: see Pill2. */
+    tickBox?: Snippet;
+    ontick?: () => void;
 } = $props();
 
 const color = depthColor(listDepth());
@@ -91,7 +96,7 @@ const rightHalf = (e: MouseEvent) => {
 {/snippet}
 
 {#if two}
-<Pill2 {open} {ontoggle} {ongo} {goLabel} {small} {detail} {dashed} {stack} {glyph} {children} {values} {under} {corner} {foot} />
+<Pill2 {open} {ontoggle} {ongo} {goLabel} {small} {detail} {dashed} {stack} {glyph} {children} {values} {under} {corner} {foot} {tickBox} {ontick} />
 {:else}
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
