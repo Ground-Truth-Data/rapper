@@ -199,7 +199,6 @@ export const TABLE_VIEWER = `${DASH_HOUND}/table`;
 export const FOUNDR_DASH = "/foundr_dash";
 export const FOUNDR_TOOL = `${FOUNDR_DASH}/tool`;
 export const FOUNDR_HOME = DASH_HOUND;
-const FOUNDR_REPORT = `${FOUNDR_DASH}/report`;
 
 /** The decision logs, `/decisions/<log>`: each log is a tool of its own parent. */
 export const DECISIONS = "/decisions";
@@ -275,18 +274,6 @@ export const FOUNDR_STAGES: FoundrStage[] = [
 	{ key: "database", n: 4, label: "Database", line: "What reached the database, and how full each column is." },
 	{ key: "prove", n: 5, label: "Prove", line: "Any number on the public site, followed back to its source." },
 ];
-
-/** Per-project reports, each a file in `Foundr/scripts/siteSpecificScripts/{s}/{s}{suffix}`. */
-export type FoundrReport = { key: string; label: string; suffix: string; stage: FoundrStageKey };
-export const FOUNDR_REPORTS: FoundrReport[] = [
-	{ key: "raw", label: "2Raw.json", suffix: "2Raw.json", stage: "scrape" },
-	{ key: "jsonpaths", label: "2jsonPaths", suffix: "2JSONPath.ts", stage: "scrape" },
-];
-
-export const foundrReportPath = (key: string): string =>
-	`${FOUNDR_REPORT}/${key}`;
-export const foundrReportHref = (key: string, site: string | null): string =>
-	withSiteParam(foundrReportPath(key), site);
 
 /** Every ReTreever (Prisma) model by its real SQL table name (no model has `@@map`). Declared by hand — a shape heuristic mislabels the core tables. */
 export const RETREEVER_ENTITIES = [
@@ -583,10 +570,8 @@ const foundrTools = (): AdminTool[] =>
 export const foundrStageTools = (key: FoundrStageKey): AdminTool[] =>
 	foundrTools().filter((t) => t.stage === key);
 
-/** The stage the path is in: the active tool's, `scrape` for a report page, null off the pipeline (the bare dash included). */
+/** The stage the path is in: the active tool's, null off the pipeline. */
 export function foundrStageOf(pathname: string): FoundrStage | null {
-	const key = pathname.startsWith(FOUNDR_REPORT)
-		? FOUNDR_REPORTS.find((r) => pathname.startsWith(foundrReportPath(r.key)))?.stage
-		: activeTool(pathname)?.stage;
+	const key = activeTool(pathname)?.stage;
 	return FOUNDR_STAGES.find((s) => s.key === key) ?? null;
 }
