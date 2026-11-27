@@ -196,11 +196,6 @@ export const RETREEVER_TABLE = `${RETREEVER_DASH}/table`;
 /** The admin's home: one tree for every product. */
 export const DASH_HOUND = "/dash_hound";
 export const RETREEVER_HOME = DASH_HOUND;
-/** The record lists and their record pages; a record sits under its list so the header lights the tool. */
-export const RETREEVER_PROJECTS = `${RETREEVER_TOOL}/projects`;
-export const RETREEVER_PROJECT_RECORD = `${RETREEVER_PROJECTS}/record`;
-export const RETREEVER_ORGANISATIONS = `${RETREEVER_TOOL}/organisations`;
-export const RETREEVER_ORGANISATION_RECORD = `${RETREEVER_ORGANISATIONS}/record`;
 
 /** Foundr's namespace. Same shape as ReTreever's, for the same reason. */
 export const FOUNDR_DASH = "/foundr_dash";
@@ -377,12 +372,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				match: RETREEVER_TABLE,
 				title: "The ReTreever (Prisma) database — every table, raw",
 				tables: retreeverTablePills(RETREEVER_TABLE),
-			},
-			{
-				key: "records",
-				label: "Records",
-				href: RETREEVER_PROJECTS,
-				title: "Every project and organisation family: what it holds, what needs a fix, and the project pairs to answer",
 			},
 			{
 				key: "platforms",
