@@ -5,8 +5,9 @@ import SurveyRows from "./SurveyRows.svelte";
 
 afterEach(cleanup);
 
-const words = { planted: "p", spots: "s", missed: "m", excess: "e", surveyor: "sv", planter: "pl", density: "density", quality: "quality" };
+const words = { planted: "p", spots: "s", missed: "m", excess: "e", density: "density", quality: "quality" };
 const who = (label: string) => ({ key: label, label, color: "#abc", self: false, picked: true });
+const survey = { kind: "survey" as const, name: "survey3", count: 9, surveyors: [who("Carlie")], density: 91 as number | null, quality: 88 as number | null };
 const plot = (o = {}) => ({ kind: "plot" as const, plotNo: 3, planted: 7, spots: 8, missed: 0, excess: 0, faults: [] as string[], ...o });
 
 it("a plot shows its miss or its excess, never both, and neither on target", () => {
@@ -34,7 +35,7 @@ it("a plot's tap opens it; a survey's tap folds it, its chevron opens it and a c
 
 	const ontoggle = vi.fn();
 	const onchip = vi.fn();
-	const s = render(SurveyRows, { row: { kind: "survey", name: "Kintail", density: 104, quality: null, planted: 9, spots: 8 }, words, ongo, ontoggle, onchip }).container;
+	const s = render(SurveyRows, { row: { ...survey, density: 104, quality: null }, words, ongo, ontoggle, onchip }).container;
 	await fireEvent.click(s.querySelector("[data-name]")!);
 	expect(ontoggle).toHaveBeenCalledTimes(1);
 	await fireEvent.click(s.querySelector("[data-go]")!);
@@ -45,10 +46,23 @@ it("a plot's tap opens it; a survey's tap folds it, its chevron opens it and a c
 	expect(ontoggle).toHaveBeenCalledTimes(1);
 });
 
-it("a day counts its plots and names each surveyor and planter once", () => {
-	const c = render(SurveyRows, { row: { kind: "date", date: "2 Nov", count: 9, surveyors: [who("Carlie"), who("Carlie")], planters: [who("Pete"), who("Sam"), who("Pete")] }, words }).container;
-	const names = (role: string) => [...c.querySelectorAll(`[data-role=${role}] .id-pill`)].map((e) => e.getAttribute("title"));
+it("a survey counts its plots, names each surveyor once and rounds its percentages to whole numbers", () => {
+	const c = render(SurveyRows, { row: { ...survey, surveyors: [who("Carlie"), who("Carlie"), who("Sam")], density: 90.9, quality: 87.5 }, words }).container;
 	expect(c.querySelector("[data-count]")!.textContent).toBe("9");
-	expect(names("surveyor")).toEqual(["Carlie"]);
-	expect(names("planter")).toEqual(["Pete", "Sam"]);
+	expect([...c.querySelectorAll("[data-role=surveyor] .id-pill")].map((e) => e.getAttribute("title"))).toEqual(["Carlie", "Sam"]);
+	expect(c.querySelector("[data-act=density]")!.textContent).toMatch(/\b91%/);
+	expect(c.querySelector("[data-act=quality]")!.textContent).toMatch(/\b88%/);
+});
+
+it("a plot with a split folds its species under it; one without has nothing to fold", async () => {
+	const bare = render(SurveyRows, { row: plot(), words }).container;
+	expect(bare.querySelector("[data-fold]")).toBeNull();
+	const c = render(SurveyRows, { row: plot({ species: [{ code: "PL", name: "Lodgepole pine", count: 20 }, { code: "", name: "Hybrid spruce", count: 13 }] }), words }).container;
+	expect(c.querySelector("[data-row=species]")).toBeNull();
+	await fireEvent.click(c.querySelector("[data-fold]")!);
+	const rows = [...c.querySelectorAll("[data-row=species]")];
+	expect(rows.map((r) => [r.querySelector("[data-code]")?.textContent, r.querySelector("[data-species]")!.textContent, r.querySelector("[data-trees]")!.textContent])).toEqual([
+		["PL", "Lodgepole pine", "20"],
+		[undefined, "Hybrid spruce", "13"],
+	]);
 });
