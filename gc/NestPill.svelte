@@ -29,6 +29,7 @@ let {
     values,
     under,
     corner,
+    foot,
 }: {
     /** Set on a pill with children: draws the left chevron. `null` keeps the chevron's space, empty, so a
      *  childless pill lines up with its folding siblings. */
@@ -51,6 +52,8 @@ let {
     under?: Snippet;
     /** Sits in the pill's top right corner, clear of the centred ">". */
     corner?: Snippet;
+    /** Sits in the pill's bottom right corner, the corner's mirror under the ">". */
+    foot?: Snippet;
 } = $props();
 
 const color = depthColor(listDepth());
@@ -100,6 +103,7 @@ const rightHalf = (e: MouseEvent) => {
         <button type="button" class="np-side" aria-label={goLabel} onclick={ongo}>
             {#if corner}<span class="np-corner">{@render corner()}</span>{/if}
             <span class="np-chev"><GoChevron /></span>
+            {#if foot}<span class="np-corner np-foot">{@render foot()}</span>{/if}
         </button>
     {/if}
 </div>
@@ -231,6 +235,11 @@ button.np-main,
     gap: 2px;
     line-height: 1;
     white-space: nowrap;
+}
+.np-foot {
+    grid-row: 3;
+    align-self: end;
+    margin: 0 -6px 5px 0;
 }
 /* Both chevrons are the one GoChevron; its 24px box carries its own air, pulled back here. */
 .np-chev {
