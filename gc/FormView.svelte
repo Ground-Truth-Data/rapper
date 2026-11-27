@@ -357,8 +357,10 @@
 		justify-content: center; background: var(--rt-sage); color: #161a10; font-weight: 800; font-size: 0.875rem;
 	}
 	.entry { display: flex; flex-direction: column; gap: 0.75rem; }
-	.summary { flex: 0 1 auto; min-width: 0; color: var(--rt-fg-muted); font: 500 0.875rem var(--rt-font-meta); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-	.gem { flex: none; width: 1.125rem; height: 1.125rem; color: #ede7da; }
+	/* The entry's name is never the part that is cut: the summary gives way. */
+	.entry :global(.np-label) { flex: none; }
+	.summary { flex: 1 1 0; min-width: 0; text-align: right; color: var(--rt-fg-muted); font: 500 0.875rem var(--rt-font-meta); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+	.gem { flex: none; margin-left: auto; width: 1.125rem; height: 1.125rem; color: #ede7da; }
 	.inside { display: flex; flex-direction: column; gap: 0.75rem; padding: 0 0.875rem 0.875rem; }
 	.remove { align-self: flex-end; min-height: 2.75rem; padding: 0 0.75rem; color: var(--rt-fg-muted); }
 	.add {
