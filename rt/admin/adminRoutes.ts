@@ -389,7 +389,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				label: "Platforms",
 				href: `${RETREEVER_TOOL}/platforms`,
 			},
-			{ key: "claims", label: "Claims", href: `${RETREEVER_TOOL}/claims` },
 			{
 				key: "stakeholders",
 				label: "Stakeholders",
