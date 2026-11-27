@@ -20,6 +20,7 @@ export const nameCut = (name: string) => (name.length > 12 ? `${name.slice(0, 12
 import { m } from "$parent/src/lib/paraglide/messages";
 import { SvelteSet } from "svelte/reactivity";
 import Icon from "./Icon.svelte";
+import { inPill } from "./Pill2.svelte";
 
 /** The owner, then one joined pill per editor: a pen half for having saved it again, a rust hammer half on
  *  `clobberBy`, whose version beat yours. An owner who edited is one joined pill, never two. */
@@ -36,6 +37,7 @@ const marks = $derived(
 
 // A cut name reads whole on a tap, in place; the tap is the pill's, not the row's under it.
 const full = new SvelteSet<string>();
+const still = inPill();
 function read(e: MouseEvent, label: string) {
     if (nameCut(label) === label) return;
     e.stopPropagation();
@@ -49,7 +51,7 @@ function read(e: MouseEvent, label: string) {
 {#snippet own(p: Identity, label = p.label)}<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions --><span
     class="id-pill"
     class:id-pill--full={full.has(label)}
-    onclick={(e) => read(e, label)}
+    onclick={still ? undefined : (e) => read(e, label)}
     class:id-pill--picked={p.picked && !p.self}
     class:id-pill--self={p.self}
     style:--id-c={p.self ? SELF_GOLD : p.color || null}
