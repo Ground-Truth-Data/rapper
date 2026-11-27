@@ -178,7 +178,10 @@ button.np-main,
 .np-side {
     cursor: pointer;
 }
+/* Above the go column: text that runs long draws over it, never under it. */
 .np-main {
+    position: relative;
+    z-index: 1;
     flex: 1 1 auto;
     min-width: 0;
     display: flex;
