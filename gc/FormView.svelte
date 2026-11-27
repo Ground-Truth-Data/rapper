@@ -260,7 +260,7 @@
 						<NestPill open={shown} ontoggle={() => (open[entry.p.id] = !shown)}>
 							{name}
 							{#snippet values()}
-								{#if !shown}<span class="summary" data-summary>{summary(entry.items)}</span>{/if}
+								<span class="summary" data-summary>{summary(entry.items)}</span>
 								{#if entry.stamped}
 									<svg class="gem" viewBox="0 0 24 24" role="img" aria-label={t.gc_form_gps_stamped()} data-gps-mark
 										><path d="M6 4h12l4 5-10 11L2 9z M2 9h20 M9 4l-2 5 5 11 5-11-2-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" /></svg
