@@ -23,6 +23,7 @@ import IdentityPill, { type Identity } from "$gc/IdentityPill.svelte";
 import SharedPill from "$gc/SharedPill.svelte";
 import Icon from "$gc/Icon.svelte";
 import Plaque from "./Plaque.svelte";
+import { setNestDepth } from "./NestPill.svelte";
 
 const {
 	art,
@@ -42,7 +43,13 @@ const {
 	caret = false,
 	dataPlaque,
 	ariaLabel,
+	ring = false,
+	children,
 }: {
+	/** A white ring around the plaque: the name heads everything nested under it. */
+	ring?: boolean;
+	/** Hung under the name on a dashed line, after the meta line: the sheet's pills. */
+	children?: Snippet;
 	/** The item's icon, outside the plaque on its left, about the plaque's height. */
 	art?: Snippet;
 	name?: string;
@@ -72,6 +79,9 @@ const {
 	ariaLabel?: string;
 } = $props();
 
+// The nest's line is white, the list's first depth: the pills hung on it are the next, gold.
+setNestDepth(2);
+
 const label = $derived(name.trim());
 
 // One step, not a slide: a name that won't fit on one line drops to the
@@ -92,7 +102,7 @@ function fit(el: HTMLElement, _label: string) {
 </script>
 
 <div class="name-tag">
-	<div class="name-tag-row">
+	<div class="name-tag-row" class:name-tag-ring={ring}>
 	{#if art}<span class="name-tag-art">{@render art()}</span>{/if}
 	<Plaque class="plaque--name-tag" {onclick} {empty} {caret} {dataPlaque} {ariaLabel}>
 		{#if label}
@@ -103,6 +113,12 @@ function fit(el: HTMLElement, _label: string) {
 		{#if onclick && !caret}<span class="name-tag-pen"><Icon name="pen" size={14} /></span>{/if}
 	</Plaque>
 	</div>
+	{#if children}
+		<div class="name-tag-nest">{@render foot()}{@render children()}</div>
+	{:else}{@render foot()}{/if}
+</div>
+
+{#snippet foot()}
 	{#if date || who || chip || shared || trail}
 		<div class="name-tag-foot">
 			{#if date}<span class="name-tag-date">{date}</span>{/if}
@@ -115,7 +131,7 @@ function fit(el: HTMLElement, _label: string) {
 			{#if trail}<span class="name-tag-figure">{@render trail()}</span>{/if}
 		</div>
 	{/if}
-</div>
+{/snippet}
 
 <style>
 	.name-tag {
@@ -157,6 +173,23 @@ function fit(el: HTMLElement, _label: string) {
 	.name-tag-row > :global(.plaque-trigger) {
 		flex: 1;
 		min-width: 0;
+	}
+	.name-tag-ring {
+		padding: 4px;
+		border: 1.5px solid var(--rt-fg);
+		border-radius: 20px;
+	}
+	.name-tag-nest {
+		display: flex;
+		flex-direction: column;
+		gap: 7px;
+		margin-left: 16px;
+		padding: 8px 0 4px 10px;
+		border-left: 1.5px dashed color-mix(in srgb, var(--rt-fg) 70%, transparent);
+	}
+	.name-tag-nest > .name-tag-foot {
+		margin-top: 0;
+		min-height: 22px;
 	}
 	.name-tag-art {
 		flex: none;
