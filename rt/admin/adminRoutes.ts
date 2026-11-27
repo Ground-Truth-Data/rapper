@@ -474,15 +474,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				title:
 					"Every url Foundr asks each platform, and what this machine has called — local dev only",
 			},
-			{
-				key: "orchestrator",
-				stage: "scrape",
-				scopedToSite: true,
-				label: "orchestrator",
-				href: `${FOUNDR_TOOL}/orchestrator`,
-				title:
-					"Launch Foundr's ETL pipeline and watch its output — local dev only",
-			},
 			// A tool, not a report: the desk that writes `{s}3MissMeta.json`.
 			{
 				key: "missmeta",
@@ -607,7 +598,3 @@ export function foundrStageOf(pathname: string): FoundrStage | null {
 		: activeTool(pathname)?.stage;
 	return FOUNDR_STAGES.find((s) => s.key === key) ?? null;
 }
-
-/** Where a stage opens: its first tool, carrying the picked site so the walk keeps it. */
-export const foundrStageHref = (stage: FoundrStageKey, site: string | null): string =>
-	withSiteParam(foundrStageTools(stage)[0].href, site);
