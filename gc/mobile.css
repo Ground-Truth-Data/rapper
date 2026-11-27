@@ -677,14 +677,12 @@ body.shovel-cursor .fake-cursor {
 	width: 100%;
 	height: 100%;
 	opacity: 0;
-	/* The words under the cursor must read through it: the shovel's handle all but vanishes. */
-	mask-image: linear-gradient(to bottom, #000 40%, rgb(0 0 0 / 0.12) 62%);
 }
 .fake-cursor[data-frame="point"] .fake-cursor-point,
 .fake-cursor[data-frame="open"] .fake-cursor-open,
 .fake-cursor[data-frame="fist"] .fake-cursor-fist,
 .fake-cursor[data-frame="gold"] .fake-cursor-gold {
-	opacity: 0.6;
+	opacity: 1;
 }
 
 /* The held finger, under ShovelCursor's Loupe. */
