@@ -193,7 +193,9 @@ const tableLabel = (t: string): string => t;
 const RETREEVER_DASH = "/retreever_dash";
 export const RETREEVER_TOOL = `${RETREEVER_DASH}/tool`;
 export const RETREEVER_TABLE = `${RETREEVER_DASH}/table`;
-export const RETREEVER_HOME = `${RETREEVER_TOOL}/orgs`;
+/** The admin's home: one tree for every product. */
+export const DASH_HOUND = "/dash_hound";
+export const RETREEVER_HOME = DASH_HOUND;
 /** The record lists and their record pages; a record sits under its list so the header lights the tool. */
 export const RETREEVER_PROJECTS = `${RETREEVER_TOOL}/projects`;
 export const RETREEVER_PROJECT_RECORD = `${RETREEVER_PROJECTS}/record`;
@@ -375,12 +377,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				match: RETREEVER_TABLE,
 				title: "The ReTreever (Prisma) database — every table, raw",
 				tables: retreeverTablePills(RETREEVER_TABLE),
-			},
-			{
-				key: "orgs",
-				label: "Org editor",
-				href: `${RETREEVER_TOOL}/orgs`,
-				title: "Change an organisation: its name, its parent, its children",
 			},
 			{
 				// One tool, two lists: the Projects | Organisations tabs sit on the pages, so both paths light it.
@@ -617,13 +613,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				title: "The ReTreever (Prisma) database — every table, raw",
 				ownRow: true,
 				tables: retreeverTablePills(FOUNDR_TABLE),
-			},
-			{
-				key: "orgs",
-				stage: "database",
-				label: "Orgs",
-				href: `${FOUNDR_TOOL}/orgs`,
-				title: "Parents and unlinked children in one alphabetical list",
 			},
 			{
 				key: "trace",
