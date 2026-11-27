@@ -391,12 +391,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 			},
 			{ key: "claims", label: "Claims", href: `${RETREEVER_TOOL}/claims` },
 			{
-				key: "claimDesk",
-				label: "Claims desk",
-				href: `${RETREEVER_TOOL}/claimDesk`,
-				title: "Claims the hunt found on the web: read each beside its saved copy, approve or decline it, and start a hunt",
-			},
-			{
 				key: "stakeholders",
 				label: "Stakeholders",
 				href: `${RETREEVER_TOOL}/stakeholders`,
