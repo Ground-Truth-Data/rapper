@@ -198,7 +198,7 @@ export const TABLE_VIEWER = `${DASH_HOUND}/table`;
 /** Foundr's namespace: the pages Dash Hound has not replaced yet. */
 export const FOUNDR_DASH = "/foundr_dash";
 export const FOUNDR_TOOL = `${FOUNDR_DASH}/tool`;
-export const FOUNDR_HOME = FOUNDR_DASH;
+export const FOUNDR_HOME = DASH_HOUND;
 const FOUNDR_REPORT = `${FOUNDR_DASH}/report`;
 
 /** The decision logs, `/decisions/<log>`: each log is a tool of its own parent. */
