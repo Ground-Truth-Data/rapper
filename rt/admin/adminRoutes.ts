@@ -189,16 +189,13 @@ export const GC_SCHEMA_SEATS: Readonly<Record<string, readonly string[]>> = {
 // The pill caption IS the SQL identifier, casing included.
 const tableLabel = (t: string): string => t;
 
-// Spelled once: pill hrefs, the bare /retreever_dash redirect and sites.ts's host-boundary list must agree.
-const RETREEVER_DASH = "/retreever_dash";
-export const RETREEVER_TOOL = `${RETREEVER_DASH}/tool`;
 /** The admin's home: one tree for every product. */
 export const DASH_HOUND = "/dash_hound";
 export const RETREEVER_HOME = DASH_HOUND;
 /** Dash Hound's table viewer: `/dash_hound/table/<model, lowercased>`. */
 export const TABLE_VIEWER = `${DASH_HOUND}/table`;
 
-/** Foundr's namespace. Same shape as ReTreever's, for the same reason. */
+/** Foundr's namespace: the pages Dash Hound has not replaced yet. */
 export const FOUNDR_DASH = "/foundr_dash";
 export const FOUNDR_TOOL = `${FOUNDR_DASH}/tool`;
 export const FOUNDR_HOME = FOUNDR_DASH;
@@ -582,10 +579,9 @@ export function activeParent(pathname: string): AdminParent {
 			if (matchesOf(tool).some((m) => pathname.startsWith(m))) return parent;
 		}
 	}
-	// The bare dash addresses redirect, but the header renders BEFORE the
-	// redirect lands — without these the pill blinks off for one paint.
-	const dash = [RETREEVER_DASH, "/getcache_dash", FOUNDR_DASH].findIndex((d) => pathname.startsWith(d));
-	return ADMIN_PARENTS[dash] ?? NO_PARENT;
+	// A page under a dash that no tool claims still belongs to that dash's product.
+	const key = pathname.startsWith(GETCACHE_DASH) ? "getcache" : pathname.startsWith(FOUNDR_DASH) ? "foundr" : null;
+	return ADMIN_PARENTS.find((p) => p.key === key) ?? NO_PARENT;
 }
 
 /** The admin tab icon follows the lit pill; Get Cache's is its G¢ app icon, not the pill's dragonfly logo. "" with none lit. */
