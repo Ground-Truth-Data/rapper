@@ -1,6 +1,7 @@
-<!-- A block's two lines, the same on every screen, inside a NestPill. Line 1: its name, its tree count, its time.
-     Line 2: who made it at the left; at the right how far delivered (ATV) and planted (shovel) are off its total,
-     ending under the tree count. `left` holds the attribution and anything else that sits with it. -->
+<!-- A block's two lines, the same on every screen, inside a NestPill. Line 1: its name and its tree count.
+     Line 2: who made it at the left; at the right how far delivered (ATV) and planted (shovel) are off its total.
+     Both lines end on the row's right edge, so the host puts the time in the pill's corner, never after the count.
+     `left` holds the attribution and anything else that sits with it. -->
 <script lang="ts" module>
 import { getLocale } from "$parent/src/lib/paraglide/runtime";
 
@@ -19,24 +20,19 @@ import TreeCount from "./TreeCount.svelte";
 let {
 	name,
 	trees = 0,
-	when = "",
 	delivered = 0,
 	planted = 0,
 	words,
 	left,
-	after,
 }: {
 	name: string;
 	/** The block's total, allocated or calculated. 0 = none: no count and no offsets. */
 	trees?: number;
-	when?: string;
 	delivered?: number;
 	planted?: number;
 	/** What the ATV and the shovel stand for, for a screen reader. */
 	words: { delivered: string; planted: string };
 	left?: Snippet;
-	/** After the time on line 1. */
-	after?: Snippet;
 } = $props();
 </script>
 
@@ -47,7 +43,6 @@ let {
 <span class="br" data-block-row {@attach fitTitle}>
 	<span class="nest-line name" data-title>{name}</span>
 	<span class="nest-value count" data-trees>{#if trees}<TreeCount n={short(trees)} />{/if}</span>
-	<span class="tail">{#if when}<span class="nest-time" data-when>{when}</span>{/if}{@render after?.()}</span>
 	<span class="l2 nest-meta">
 		<span class="who" data-left {@attach fitLine}>{@render left?.()}</span>
 		{#if trees}
@@ -60,10 +55,9 @@ let {
 </span>
 
 <style>
-	/* Name | count | time. Line 2 spans the first two, so its right edge is the count's. */
 	.br {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) auto auto;
+		grid-template-columns: minmax(0, 1fr) auto;
 		align-items: center;
 		column-gap: 6px;
 		row-gap: 2px;
@@ -71,13 +65,8 @@ let {
 	.count {
 		justify-self: end;
 	}
-	.tail {
-		display: inline-flex;
-		align-items: center;
-		gap: 4px;
-	}
 	.l2 {
-		grid-column: 1 / 3;
+		grid-column: 1 / -1;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
