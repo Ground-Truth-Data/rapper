@@ -28,6 +28,8 @@ let {
     under,
     corner,
     foot,
+    tickBox,
+    ontick,
 }: {
     /** Set on a pill with children: draws the fold chevron. `null` draws none: the left half is too narrow to
      *  hold an empty slot. */
@@ -45,12 +47,17 @@ let {
     under?: Snippet;
     corner?: Snippet;
     foot?: Snippet;
+    /** Export mode: the tick box, in a column of its own at the left, while the pill slides right past the edge. */
+    tickBox?: Snippet;
+    ontick?: () => void;
 } = $props();
 
 const color = depthColor(listDepth());
 setContext(STILL, true);
 </script>
 
+<div class="p2-row" class:p2-row--tick={ontick}>
+{#if ontick}<button type="button" class="p2-tick" aria-label={goLabel} onclick={ontick}>{@render tickBox?.()}</button>{/if}
 <div class="p2" class:p2--small={small} class:p2--detail={detail} class:p2--dashed={dashed} class:p2--stack={stack} style:--c={color}>
     <button type="button" class="p2-l" disabled={!ontoggle} aria-expanded={open ?? undefined} onclick={ontoggle}>
         {#if open != null}<span class="p2-chev p2-fold"><GoChevron down={open} /></span>{/if}
@@ -64,8 +71,33 @@ setContext(STILL, true);
         <span class="p2-foot">{@render foot?.()}</span>
     </button>
 </div>
+</div>
 
 <style>
+.p2-row {
+    position: relative;
+    overflow-x: clip;
+}
+.p2-row > .p2 {
+    transition: transform 0.25s ease;
+}
+.p2-row--tick > .p2 {
+    transform: translateX(44px);
+}
+.p2-tick {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0 4px 0 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+}
 .p2 {
     position: relative;
     display: grid;
@@ -205,6 +237,11 @@ button:disabled {
     justify-content: center;
     gap: 4px;
     line-height: 1.15;
+}
+/* A chip on its own line keeps its own width. */
+.p2-label > :global(.id-pill),
+.p2-label > :global(.id-mark) {
+    align-self: flex-start;
 }
 .p2-under {
     display: flex;
