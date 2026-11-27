@@ -3,7 +3,7 @@
 	import type { Model, PanelModel, Question } from 'survey-core';
 	import { type Definition, type El, FIX, type Fix, type Trigger } from './form';
 	import IdentityPill from './IdentityPill.svelte';
-	import GoChevron from './GoChevron.svelte';
+	import NestPill from './NestPill.svelte';
 	import Icon from './Icon.svelte';
 	import { loadSurvey } from './formSurvey';
 	import { plainly } from './plainly';
@@ -257,16 +257,17 @@
 					{@const shown = isOpen(entry, i, v.panels.length)}
 					{@const name = `${v.title} ${i + 1}`}
 					<div class="entry" data-entry={i + 1}>
-						<button type="button" class="fold" aria-expanded={shown} onclick={() => (open[entry.p.id] = !shown)} data-fold>
-							<span class="chev"><GoChevron /></span>
-							<span class="name font-display">{name}</span>
-							{#if !shown}<span class="summary" data-summary>{summary(entry.items)}</span>{/if}
-							{#if entry.stamped}
-								<svg class="gem" viewBox="0 0 24 24" role="img" aria-label={t.gc_form_gps_stamped()} data-gps-mark
-									><path d="M6 4h12l4 5-10 11L2 9z M2 9h20 M9 4l-2 5 5 11 5-11-2-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" /></svg
-								>
-							{/if}
-						</button>
+						<NestPill open={shown} ontoggle={() => (open[entry.p.id] = !shown)}>
+							{name}
+							{#snippet values()}
+								{#if !shown}<span class="summary" data-summary>{summary(entry.items)}</span>{/if}
+								{#if entry.stamped}
+									<svg class="gem" viewBox="0 0 24 24" role="img" aria-label={t.gc_form_gps_stamped()} data-gps-mark
+										><path d="M6 4h12l4 5-10 11L2 9z M2 9h20 M9 4l-2 5 5 11 5-11-2-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" /></svg
+									>
+								{/if}
+							{/snippet}
+						</NestPill>
 						{#if shown}
 							<div class="inside">
 								{#each entry.items as item (item.q.id)}{@render field(item)}{/each}
@@ -355,14 +356,9 @@
 		margin-left: auto; min-width: 1.75rem; height: 1.75rem; padding: 0 0.5rem; border-radius: 999px; display: flex; align-items: center;
 		justify-content: center; background: var(--rt-sage); color: #161a10; font-weight: 800; font-size: 0.875rem;
 	}
-	.entry { display: flex; flex-direction: column; border: 2px solid var(--rt-sage); border-radius: 1rem; }
-	.fold { display: flex; align-items: center; gap: 0.6rem; min-height: 3.25rem; padding: 0 0.875rem; text-align: left; }
-	.chev { flex: none; display: flex; margin: 0 -6px; color: var(--rt-sage); transition: transform 0.15s; }
-	[aria-expanded="true"] > .chev { transform: rotate(90deg); }
-	.name { color: var(--rt-sage); font-size: 1.05rem; }
-	.summary { flex: 1; min-width: 0; text-align: right; color: var(--rt-fg-muted); font-size: 0.875rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-	.gem { flex: none; width: 1.125rem; height: 1.125rem; margin-left: auto; color: #ede7da; }
-	.summary + .gem { margin-left: 0; }
+	.entry { display: flex; flex-direction: column; gap: 0.75rem; }
+	.summary { flex: 0 1 auto; min-width: 0; color: var(--rt-fg-muted); font: 500 0.875rem var(--rt-font-meta); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+	.gem { flex: none; width: 1.125rem; height: 1.125rem; color: #ede7da; }
 	.inside { display: flex; flex-direction: column; gap: 0.75rem; padding: 0 0.875rem 0.875rem; }
 	.remove { align-self: flex-end; min-height: 2.75rem; padding: 0 0.75rem; color: var(--rt-fg-muted); }
 	.add {
