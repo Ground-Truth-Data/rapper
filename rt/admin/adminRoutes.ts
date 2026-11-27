@@ -466,14 +466,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 		home: FOUNDR_HOME,
 		// In stage order: the array IS the strip, and FOUNDR_STAGES names the groups.
 		tools: [
-			{
-				key: "endpoints",
-				stage: "sources",
-				label: "endpoints",
-				href: `${FOUNDR_TOOL}/endpoints`,
-				title:
-					"Every url Foundr asks each platform, and what this machine has called — local dev only",
-			},
 			// A tool, not a report: the desk that writes `{s}3MissMeta.json`.
 			{
 				key: "missmeta",
