@@ -293,14 +293,14 @@ const species = $derived(row.kind === "plot" ? (row.species ?? []) : []);
     font-size: 10px;
 }
 .over {
-    border-color: #3fb6c8;
-    background: rgba(63, 182, 200, 0.12);
-    color: #3fb6c8;
+    border-color: var(--rt-q704-over);
+    background: var(--rt-q704-over-soft);
+    color: var(--rt-q704-over);
 }
 .under {
-    border-color: #ec6c9c;
-    background: rgba(236, 108, 156, 0.12);
-    color: #ec6c9c;
+    border-color: var(--rt-q704-under);
+    background: var(--rt-q704-under-soft);
+    color: var(--rt-q704-under);
 }
 .codes {
     flex: none;

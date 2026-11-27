@@ -96,14 +96,14 @@
 	--rt-danger: #d4574a;
 	--rt-danger-soft: rgba(214, 90, 74, 0.16);
 
-	/* Quality-704 status: UNDER=rose(missed), OVER=teal(excess), FAULT=red. Dark-UI + on-white(PDF) tone each; -soft = translucent pill fill. Add colours HERE, never hardcode per-component. */
-	--rt-q704-under: #ec6c9c; /* rose — under target (missed spots) */
-	--rt-q704-under-ink: #c42a6e;
-	--rt-q704-under-soft: rgba(236, 108, 156, 0.16);
-	--rt-q704-over: #3fb6c8; /* teal — over target (excess) */
-	--rt-q704-over-ink: #1d7d8e;
-	--rt-q704-over-soft: rgba(63, 182, 200, 0.16);
-	--rt-q704-fault: #f0463a; /* distinctly red — too close to --rt-q704-under (rose) and they read as the same chip */
+	/* Low and high everywhere (Quality, a block's gaps, diffs): UNDER=teal, OVER=rose, FAULT=red. Dark-UI + on-white(PDF) tone each; -soft = translucent pill fill. Add colours HERE, never hardcode per-component. */
+	--rt-q704-under: #3fb6c8;
+	--rt-q704-under-ink: #1d7d8e;
+	--rt-q704-under-soft: rgba(63, 182, 200, 0.16);
+	--rt-q704-over: #ec6c9c;
+	--rt-q704-over-ink: #c42a6e;
+	--rt-q704-over-soft: rgba(236, 108, 156, 0.16);
+	--rt-q704-fault: #f0463a; /* distinctly red — too close to --rt-q704-over (rose) and they read as the same chip */
 	--rt-q704-fault-ink: #c41f12;
 	--rt-q704-fault-soft: rgba(240, 70, 58, 0.16);
 

@@ -18,9 +18,16 @@ describe("parent pills remember the last tool", () => {
 	});
 
 	it("keeps path AND query, per parent", () => {
-		rememberTool("retreever", "/retreever_dash/tool/orgs?type=parent");
+		rememberTool("retreever", "/decisions/retreever?status=proposed");
 		rememberTool("foundr", "/foundr_dash/tool/missmeta?site=restor");
-		expect(lastTool("retreever")).toBe("/retreever_dash/tool/orgs?type=parent");
+		expect(lastTool("retreever")).toBe("/decisions/retreever?status=proposed");
 		expect(lastTool("foundr")).toBe("/foundr_dash/tool/missmeta?site=restor");
+	});
+
+	it("forgets a page no tool of that parent owns any more", () => {
+		rememberTool("retreever", "/retreever_dash/tool/projects/record?p=a-1");
+		rememberTool("foundr", "/foundr_dash/tool/upkeep");
+		expect(lastTool("retreever")).toBeNull();
+		expect(lastTool("foundr")).toBeNull();
 	});
 });

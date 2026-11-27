@@ -26,17 +26,14 @@ import Icon from "$gc/Icon.svelte";
 import { getcacheUrl, urlOnSite } from "../sites";
 import {
 	ADMIN_PARENTS,
-	FOUNDR_REPORTS,
 	FOUNDR_STAGES,
 	SITE_PARAM,
 	STAGE_TOOLS,
 	activeParent,
 	activeTables,
 	activeTool,
-	foundrReportHref,
 	foundrStageOf,
 	withSiteParam,
-	foundrReportPath,
 } from "./adminRoutes";
 import type {
 	AdminLink,
@@ -78,7 +75,7 @@ $effect(() => {
 	remembered[current.key] = here;
 	rememberTool(current.key, here);
 });
-// Foundr's home is the pipeline board, which reads the site: a page nothing remembers yet (a report, the server render) must not drop it.
+// Foundr's home carries the picked site: a page nothing remembers yet (the server render) must not drop it.
 const parentHome = (parent: AdminParent): string =>
 	withSiteParam(parent.home, parent.key === "foundr" ? site || null : null);
 const parentHref = (parent: AdminParent): string =>
@@ -238,19 +235,18 @@ $effect(() => {
         {#if n === 0}<span class="empty-dot" aria-hidden="true"></span>{/if}
     </Pill>
 {/snippet}
-<!-- A `scopedToSite` pill means nothing until a site is picked, so it dims; the reports ride in their stage after its tools. -->
+<!-- A `scopedToSite` pill means nothing until a site is picked, so it dims. -->
 {#snippet stageGroup(s: FoundrStage)}
     {@const pills = stageTools(s)}
-    {@const reports = FOUNDR_REPORTS.filter((r) => r.stage === s.key)}
     {@const here = activeStage === s.key}
     {@const caption = `${s.n} · ${s.label.toUpperCase()}`}
-    {#if !here && peek !== s.key && (pills.length || reports.length)}
+    {#if !here && peek !== s.key && pills.length}
         <span class="grp">
             <button class="grp-tag stage-tag fold" type="button" title={s.line} aria-expanded="false"
                 onclick={() => togglePeek(s.key)}>{caption}<span class="chev" aria-hidden="true">›</span></button
             >
         </span>
-    {:else if pills.length || reports.length}
+    {:else if pills.length}
         <span class="grp">
             {#each pills.slice(0, 1) as tool}
                 <span class="lead">
@@ -266,17 +262,6 @@ $effect(() => {
             {/each}
             {#each pills.slice(1) as tool}
                 {@render toolPill(tool, !!tool.scopedToSite && !site)}
-            {/each}
-            {#each reports as r (r.key)}
-                <Pill
-                    kind="scr"
-                    dim={!site}
-                    active={path === foundrReportPath(r.key)}
-                    href={adminHref(foundrReportHref(r.key, site || null))}
-                    title={site ? `${site}${r.suffix}` : `Pick a site to open its ${r.suffix}`}
-                >
-                    {r.label}
-                </Pill>
             {/each}
         </span>
     {/if}

@@ -105,7 +105,8 @@ export const SITES: readonly Site[] = [
 		hosts: ["admin.retreever.org", "admin.localhost"],
 		devHost: "admin.localhost",
 		icon: rtLogo,
-		home: "/login",
+		// Signed out, the admin layout's gate sends this on to /login and back.
+		home: "/dash_hound",
 
 		pages: [],
 		// Nothing in these paths says "admin", so the hostname is the only lock.

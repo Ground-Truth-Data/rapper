@@ -189,23 +189,16 @@ export const GC_SCHEMA_SEATS: Readonly<Record<string, readonly string[]>> = {
 // The pill caption IS the SQL identifier, casing included.
 const tableLabel = (t: string): string => t;
 
-// Spelled once: pill hrefs, the bare /retreever_dash redirect and sites.ts's host-boundary list must agree.
-const RETREEVER_DASH = "/retreever_dash";
-export const RETREEVER_TOOL = `${RETREEVER_DASH}/tool`;
-export const RETREEVER_TABLE = `${RETREEVER_DASH}/table`;
-export const RETREEVER_HOME = `${RETREEVER_TOOL}/orgs`;
-/** The record lists and their record pages; a record sits under its list so the header lights the tool. */
-export const RETREEVER_PROJECTS = `${RETREEVER_TOOL}/projects`;
-export const RETREEVER_PROJECT_RECORD = `${RETREEVER_PROJECTS}/record`;
-export const RETREEVER_ORGANISATIONS = `${RETREEVER_TOOL}/organisations`;
-export const RETREEVER_ORGANISATION_RECORD = `${RETREEVER_ORGANISATIONS}/record`;
+/** The admin's home: one tree for every product. */
+export const DASH_HOUND = "/dash_hound";
+export const RETREEVER_HOME = DASH_HOUND;
+/** Dash Hound's table viewer: `/dash_hound/table/<model, lowercased>`. */
+export const TABLE_VIEWER = `${DASH_HOUND}/table`;
 
-/** Foundr's namespace. Same shape as ReTreever's, for the same reason. */
+/** Foundr's namespace: the pages Dash Hound has not replaced yet. */
 export const FOUNDR_DASH = "/foundr_dash";
 export const FOUNDR_TOOL = `${FOUNDR_DASH}/tool`;
-export const FOUNDR_TABLE = `${FOUNDR_DASH}/table`;
-export const FOUNDR_HOME = FOUNDR_DASH;
-const FOUNDR_REPORT = `${FOUNDR_DASH}/report`;
+export const FOUNDR_HOME = DASH_HOUND;
 
 /** The decision logs, `/decisions/<log>`: each log is a tool of its own parent. */
 export const DECISIONS = "/decisions";
@@ -282,20 +275,8 @@ export const FOUNDR_STAGES: FoundrStage[] = [
 	{ key: "prove", n: 5, label: "Prove", line: "Any number on the public site, followed back to its source." },
 ];
 
-/** Per-project reports, each a file in `Foundr/scripts/siteSpecificScripts/{s}/{s}{suffix}`. */
-export type FoundrReport = { key: string; label: string; suffix: string; stage: FoundrStageKey };
-export const FOUNDR_REPORTS: FoundrReport[] = [
-	{ key: "raw", label: "2Raw.json", suffix: "2Raw.json", stage: "scrape" },
-	{ key: "jsonpaths", label: "2jsonPaths", suffix: "2JSONPath.ts", stage: "scrape" },
-];
-
-export const foundrReportPath = (key: string): string =>
-	`${FOUNDR_REPORT}/${key}`;
-export const foundrReportHref = (key: string, site: string | null): string =>
-	withSiteParam(foundrReportPath(key), site);
-
-/** Every ReTreever (Prisma) model, labelled with the real SQL table name (no model has `@@map`). Declared by hand — a shape heuristic mislabels the core tables. */
-const RETREEVER_ENTITIES = [
+/** Every ReTreever (Prisma) model by its real SQL table name (no model has `@@map`). Declared by hand — a shape heuristic mislabels the core tables. */
+export const RETREEVER_ENTITIES = [
 	"OrganizationTable",
 	"ProjectTable",
 	"ClaimTable",
@@ -328,21 +309,6 @@ export const RETREEVER_LOOKUPS = [
 	"GlobalDefaultsTable",
 ] as const;
 
-const retreeverTablePills = (base: string): AdminLink[] => [
-	...RETREEVER_ENTITIES.map((t) => ({
-		label: t,
-		href: `${base}/${t.toLowerCase()}`,
-		title: `${t} — Prisma model (SQL table name)`,
-		kind: "table" as const,
-	})),
-	...RETREEVER_LOOKUPS.map((t) => ({
-		label: t,
-		href: `${base}/${t.toLowerCase()}`,
-		title: `${t} — reference table (fixed vocabulary)`,
-		kind: "lookup" as const,
-	})),
-];
-
 const mirroredTablePills = (base: string): AdminLink[] =>
 	MIRRORED_TABLES.map((t) => ({
 		label: tableLabel(t),
@@ -366,54 +332,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 		logo: rtLogo,
 		home: RETREEVER_HOME,
 		tools: [
-			// `match` is the table prefix: there is no /tool/supabase screen,
-			// the CRUD row IS the tool.
-			{
-				key: "supabase",
-				label: "Supabase",
-				href: `${RETREEVER_TABLE}/${RETREEVER_ENTITIES[0].toLowerCase()}`,
-				match: RETREEVER_TABLE,
-				title: "The ReTreever (Prisma) database — every table, raw",
-				tables: retreeverTablePills(RETREEVER_TABLE),
-			},
-			{
-				key: "orgs",
-				label: "Org editor",
-				href: `${RETREEVER_TOOL}/orgs`,
-				title: "Change an organisation: its name, its parent, its children",
-			},
-			{
-				// One tool, two lists: the Projects | Organisations tabs sit on the pages, so both paths light it.
-				key: "records",
-				label: "Records",
-				href: RETREEVER_PROJECTS,
-				match: [RETREEVER_PROJECTS, RETREEVER_ORGANISATIONS],
-				title: "Every project and organisation family: what it holds, what needs a fix, and the project pairs to answer",
-			},
-			{
-				key: "platforms",
-				label: "Platforms",
-				href: `${RETREEVER_TOOL}/platforms`,
-			},
-			{ key: "claims", label: "Claims", href: `${RETREEVER_TOOL}/claims` },
-			{
-				key: "claimDesk",
-				label: "Claims desk",
-				href: `${RETREEVER_TOOL}/claimDesk`,
-				title: "Claims the hunt found on the web: read each beside its saved copy, approve or decline it, and start a hunt",
-			},
-			{
-				key: "stakeholders",
-				label: "Stakeholders",
-				href: `${RETREEVER_TOOL}/stakeholders`,
-			},
-			{
-				key: "users",
-				label: "Users",
-				href: `${RETREEVER_TOOL}/users`,
-				title:
-					"The admin allowlist — who can sign in, and where it is declared",
-			},
 			{
 				key: "decisions",
 				label: "Decisions",
@@ -535,49 +453,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 		home: FOUNDR_HOME,
 		// In stage order: the array IS the strip, and FOUNDR_STAGES names the groups.
 		tools: [
-			// The same screen as ReTreever's Platforms pill; the project dropdown
-			// reads this table.
-			{
-				key: "platforms",
-				stage: "sources",
-				label: "Platforms",
-				href: `${FOUNDR_TOOL}/platforms`,
-				title:
-					"The platform table — Foundr's scrape targets, one row per platform",
-			},
-			{
-				key: "endpoints",
-				stage: "sources",
-				label: "endpoints",
-				href: `${FOUNDR_TOOL}/endpoints`,
-				title:
-					"Every url Foundr asks each platform, and what this machine has called — local dev only",
-			},
-			{
-				key: "orchestrator",
-				stage: "scrape",
-				scopedToSite: true,
-				label: "orchestrator",
-				href: `${FOUNDR_TOOL}/orchestrator`,
-				title:
-					"Launch Foundr's ETL pipeline and watch its output — local dev only",
-			},
-			{
-				key: "progress",
-				stage: "scrape",
-				label: "progress",
-				href: `${FOUNDR_TOOL}/progress`,
-				title:
-					"What each platform has yielded so far, against what its index says is there",
-			},
-			{
-				key: "overview",
-				stage: "map",
-				label: "overview",
-				href: `${FOUNDR_TOOL}/overview`,
-				title:
-					"Corpus-wide: how much of every site's raw scrape has a home in the schema",
-			},
 			// A tool, not a report: the desk that writes `{s}3MissMeta.json`.
 			{
 				key: "missmeta",
@@ -587,43 +462,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				href: `${FOUNDR_TOOL}/missmeta`,
 				title:
 					"Decide the focused site's raw paths one card at a time — writes {s}3MissMeta.json and runs missMap",
-			},
-			{
-				key: "mapsheet",
-				stage: "map",
-				scopedToSite: true,
-				label: "Map sheet",
-				href: `${FOUNDR_TOOL}/mapsheet`,
-				title: "The focused site's ledger by table and column, and what {s}3Map.ts does not read yet",
-			},
-			// Not `scopedToSite`: draws the whole corpus with no project picked,
-			// narrows if one is.
-			{
-				key: "schema",
-				stage: "database",
-				label: "schema",
-				href: `${FOUNDR_TOOL}/schema`,
-				title:
-					"Every table and column, coloured by how much of it is actually populated",
-			},
-			// The same database from this side; `ownRow` so the tables show on
-			// every Foundr screen.
-			{
-				key: "supabase",
-				stage: "database",
-				label: "Supabase",
-				href: `${FOUNDR_TABLE}/${RETREEVER_ENTITIES[0].toLowerCase()}`,
-				match: FOUNDR_TABLE,
-				title: "The ReTreever (Prisma) database — every table, raw",
-				ownRow: true,
-				tables: retreeverTablePills(FOUNDR_TABLE),
-			},
-			{
-				key: "orgs",
-				stage: "database",
-				label: "Orgs",
-				href: `${FOUNDR_TOOL}/orgs`,
-				title: "Parents and unlinked children in one alphabetical list",
 			},
 			{
 				key: "trace",
@@ -641,13 +479,7 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				title:
 					"A project's or org's score followed down: rank, ratio, the projects it averaged, each field's points",
 			},
-			// No stage: not a pipeline tool, so the header puts these in a trailing group after the stages.
-			{
-				key: "upkeep",
-				label: "Upkeep",
-				href: `${FOUNDR_TOOL}/upkeep`,
-				title: "Routine Foundr jobs and their state — runs are local dev only",
-			},
+			// No stage: not a pipeline tool, so the header puts it in a trailing group after the stages.
 			{
 				key: "decisions",
 				label: "Decisions",
@@ -677,10 +509,9 @@ export function activeParent(pathname: string): AdminParent {
 			if (matchesOf(tool).some((m) => pathname.startsWith(m))) return parent;
 		}
 	}
-	// The bare dash addresses redirect, but the header renders BEFORE the
-	// redirect lands — without these the pill blinks off for one paint.
-	const dash = [RETREEVER_DASH, "/getcache_dash", FOUNDR_DASH].findIndex((d) => pathname.startsWith(d));
-	return ADMIN_PARENTS[dash] ?? NO_PARENT;
+	// A page under a dash that no tool claims still belongs to that dash's product.
+	const key = pathname.startsWith(GETCACHE_DASH) ? "getcache" : pathname.startsWith(FOUNDR_DASH) ? "foundr" : null;
+	return ADMIN_PARENTS.find((p) => p.key === key) ?? NO_PARENT;
 }
 
 /** The admin tab icon follows the lit pill; Get Cache's is its G¢ app icon, not the pill's dragonfly logo. "" with none lit. */
@@ -715,14 +546,8 @@ const foundrTools = (): AdminTool[] =>
 export const foundrStageTools = (key: FoundrStageKey): AdminTool[] =>
 	foundrTools().filter((t) => t.stage === key);
 
-/** The stage the path is in: the active tool's, `scrape` for a report page, null off the pipeline (the bare dash included). */
+/** The stage the path is in: the active tool's, null off the pipeline. */
 export function foundrStageOf(pathname: string): FoundrStage | null {
-	const key = pathname.startsWith(FOUNDR_REPORT)
-		? FOUNDR_REPORTS.find((r) => pathname.startsWith(foundrReportPath(r.key)))?.stage
-		: activeTool(pathname)?.stage;
+	const key = activeTool(pathname)?.stage;
 	return FOUNDR_STAGES.find((s) => s.key === key) ?? null;
 }
-
-/** Where a stage opens: its first tool, carrying the picked site so the walk keeps it. */
-export const foundrStageHref = (stage: FoundrStageKey, site: string | null): string =>
-	withSiteParam(foundrStageTools(stage)[0].href, site);
