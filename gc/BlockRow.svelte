@@ -24,7 +24,6 @@ let {
 	planted = 0,
 	words,
 	left,
-	part,
 }: {
 	name: string;
 	/** The block's total, allocated or calculated. 0 = none: no count and no offsets. */
@@ -34,8 +33,6 @@ let {
 	/** What the ATV and the shovel stand for, for a screen reader. */
 	words: { delivered: string; planted: string };
 	left?: Snippet;
-	/** One half of a Pill2: the name and `left`, or the count and the offsets, stacked for the right half. */
-	part?: "words" | "numbers";
 } = $props();
 </script>
 
@@ -43,28 +40,19 @@ let {
 	<b class:up={n > 0} class:dn={n < 0}>{n > 0 ? "+" : n < 0 ? "−" : ""}{short(Math.abs(n), 1000)}</b>
 {/snippet}
 
-{#snippet count()}<span class="nest-value count" data-trees>{#if trees}<TreeCount n={short(trees)} />{/if}</span>{/snippet}
-{#snippet offs()}
-	{#if trees}
-		<span class="offs">
-			<span class="off" data-off="delivered"><img src={atv} alt={words.delivered} width="22" />{@render off(delivered - trees)}</span>
-			<span class="off" data-off="planted"><img src={shovel} alt={words.planted} width="15" />{@render off(planted - trees)}</span>
-		</span>
-	{/if}
-{/snippet}
-
-{#if part === "numbers"}
-	<span class="br br--numbers" data-block-row>{@render count()}{@render offs()}</span>
-{:else}
-	<span class="br" class:br--words={part} data-block-row {@attach fitTitle}>
-		<span class="nest-line name" data-title>{name}</span>
-		{#if !part}{@render count()}{/if}
-		<span class="l2 nest-meta">
-			<span class="who" data-left {@attach fitLine}>{@render left?.()}</span>
-			{#if !part}{@render offs()}{/if}
-		</span>
+<span class="br" data-block-row {@attach fitTitle}>
+	<span class="nest-line name" data-title>{name}</span>
+	<span class="nest-value count" data-trees>{#if trees}<TreeCount n={short(trees)} />{/if}</span>
+	<span class="l2 nest-meta">
+		<span class="who" data-left {@attach fitLine}>{@render left?.()}</span>
+		{#if trees}
+			<span class="offs">
+				<span class="off" data-off="delivered"><img src={atv} alt={words.delivered} width="22" />{@render off(delivered - trees)}</span>
+				<span class="off" data-off="planted"><img src={shovel} alt={words.planted} width="15" />{@render off(planted - trees)}</span>
+			</span>
+		{/if}
 	</span>
-{/if}
+</span>
 
 <style>
 	.br {
@@ -76,14 +64,6 @@ let {
 	}
 	.count {
 		justify-self: end;
-	}
-	.br--words {
-		grid-template-columns: minmax(0, 1fr);
-	}
-	.br--numbers {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
 	}
 	.l2 {
 		grid-column: 1 / -1;
