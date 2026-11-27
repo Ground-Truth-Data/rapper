@@ -79,6 +79,7 @@ it("pages by section: Next refuses an empty required field, Save on the last pag
 	expect(getAllByLabelText("DBH")).toHaveLength(1);
 	await fireEvent.click(getByText("Tree 1"));
 	await waitFor(() => expect(getAllByLabelText("DBH")).toHaveLength(2));
+	expect(container.querySelector("[data-entry='1'] [data-summary]")?.textContent).toBe("DBH 34 · very");
 	await fireEvent.click(press(container, "[data-next]"));
 	await waitFor(() => expect(onsubmit).toHaveBeenCalledOnce());
 	expect(onsubmit.mock.calls[0][0]).toEqual({ species: "cedar", tree: [{ dbh: 34, cute: "very" }, {}] });
