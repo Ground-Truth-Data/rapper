@@ -374,11 +374,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				tables: retreeverTablePills(RETREEVER_TABLE),
 			},
 			{
-				key: "stakeholders",
-				label: "Stakeholders",
-				href: `${RETREEVER_TOOL}/stakeholders`,
-			},
-			{
 				key: "users",
 				label: "Users",
 				href: `${RETREEVER_TOOL}/users`,
