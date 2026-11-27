@@ -374,13 +374,6 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				tables: retreeverTablePills(RETREEVER_TABLE),
 			},
 			{
-				key: "users",
-				label: "Users",
-				href: `${RETREEVER_TOOL}/users`,
-				title:
-					"The admin allowlist — who can sign in, and where it is declared",
-			},
-			{
 				key: "decisions",
 				label: "Decisions",
 				href: `${DECISIONS}/retreever`,
