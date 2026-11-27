@@ -83,15 +83,15 @@ const species = $derived(row.kind === "plot" ? (row.species ?? []) : []);
                 <span class="art"><img src={art} alt="" /><span class="badge" data-count>{row.count}</span></span>
             {/snippet}
             <span class="nest-line" data-name title={row.name}>{row.name}</span>
-            <span class="who" data-role="surveyor"><img src={contactGold} alt="" />{#each onePerPerson(row.surveyors) as w (w.key ?? w.label)}<IdentityPill who={w} />{/each}</span>
-            {#snippet values()}
+            <span class="l2">
+                <span class="who" data-role="surveyor"><img src={contactGold} alt="" />{#each onePerPerson(row.surveyors) as w (w.key ?? w.label)}<IdentityPill who={w} />{/each}</span>
                 <span class="pcts">
                     {#each ["density", "quality"] as const as kind (kind)}
                         {@const n = row[kind]}
                         {#if n != null}<span class="pct pct--{kind}" data-pct={kind} title={words[kind]}>{words[kind].charAt(0).toUpperCase()} {Math.round(n)}%</span>{/if}
                     {/each}
                 </span>
-            {/snippet}
+            </span>
             {#snippet corner()}{#if when}<span class="ago" data-when>{when}</span>{/if}{/snippet}
         </NestPill>
         {#if open && children}<NestGroup>{@render children()}</NestGroup>{/if}
@@ -179,8 +179,15 @@ const species = $derived(row.kind === "plot" ? (row.species ?? []) : []);
     font: 800 10px/18px var(--rt-font-meta);
     text-align: center;
 }
+.l2 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
 /* People who do not fit are left off, never wrapped. */
 .who {
+    flex: 1 1 auto;
+    min-width: 0;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -203,12 +210,10 @@ const species = $derived(row.kind === "plot" ? (row.species ?? []) : []);
 .pcts {
     flex: none;
     display: flex;
-    flex-direction: column;
     gap: 4px;
 }
 .pct {
     box-sizing: border-box;
-    min-width: 50px;
     padding: 1px 8px;
     border: 1.5px solid #838963;
     border-radius: 999px;
