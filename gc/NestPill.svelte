@@ -211,10 +211,9 @@ button.np-main,
 .np-under > :global(*) {
     flex: none;
 }
-/* The corner note and the chevron share one cell: the note takes no height, so the chevron stays centred, but
-   its width holds the pill's values clear of it. */
 /* Corner above, chevron dead centre: the equal rows either side of the chevron make the pill as tall as the
-   corner needs, so the two never meet at any line count. */
+   corner needs, so the two never meet at any line count. The corner has no width of its own: the column is the
+   chevron's, and a long note hangs left over the pill instead of narrowing its lines. */
 .np-side {
     flex: none;
     display: grid;
@@ -224,7 +223,8 @@ button.np-main,
 }
 .np-corner {
     align-self: start;
-    margin: 5px -2px 0 0;
+    width: 0;
+    margin: 5px -6px 0 0;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
