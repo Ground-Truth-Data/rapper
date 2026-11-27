@@ -379,11 +379,9 @@ export const ADMIN_PARENTS: AdminParent[] = [
 				tables: retreeverTablePills(RETREEVER_TABLE),
 			},
 			{
-				// One tool, two lists: the Projects | Organisations tabs sit on the pages, so both paths light it.
 				key: "records",
 				label: "Records",
 				href: RETREEVER_PROJECTS,
-				match: [RETREEVER_PROJECTS, RETREEVER_ORGANISATIONS],
 				title: "Every project and organisation family: what it holds, what needs a fix, and the project pairs to answer",
 			},
 			{
