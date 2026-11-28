@@ -162,6 +162,7 @@ gbif:3169131	navadna trdoleska	inat
 gbif:2984492	navadni koprivovec	inat
 gbif:3152816	vzhodna platana	gbif
 gbif:2882796	jagodičnica	gbif
+gbif:2882802	jagodičnica	gbif
 gbif:2882803	navadna jagodičnica	inat
 gbif:9220780	enovrati glog	inat
 gbif:8252683	navadni glog	inat
@@ -246,6 +247,7 @@ gbif:8109416	žuka	gbif
 gbif:5355395	navadna žuka	inat
 gbif:5415039	španski bezeg	inat
 gbif:2684902	Tise	inat
+gbif:5284555	Pacifiška tisa	inat
 gbif:5284517	tisa	inat
 gbif:2926960	Materina dušica	inat
 gbif:9410160	brek	inat
@@ -279,8 +281,8 @@ gbif:7242238	črnoluska kolobarnica	inat
 gbif:5241832	sluzasta kolobarnica	inat
 gbif:5241733	žarolistna kolobarnica	inat
 gbif:8426492	zastirni smrček	inat
-gbif:2594649	šilasti smrček	inat
 gbif:2594626	visoki smrček	inat
+gbif:2594649	šilasti smrček	inat
 gbif:8287374	gobani	inat
 gbif:5954958	Jesenski goban	inat
 gbif:5954949	borov goban	inat
@@ -454,8 +456,8 @@ gbif:2551415	užitna golobica	inat
 gbif:2551447	smrdljiva golobica	inat
 gbif:9561742	olivna golobica	inat
 gbif:2551558	Queletova golobica	inat
-gbif:9223923	osmojena golobica	inat
 gbif:2551191	gostolistna golobica	inat
+gbif:9223923	osmojena golobica	inat
 gbif:2551423	zelenkasta golobica	inat
 gbif:2551331	modrolistna golobica	inat
 gbif:2551419	okrasta golobica	inat
@@ -552,9 +554,9 @@ gbif:2539389	aprilska rdečelistka	inat
 gbif:2521461	grive	inat
 gbif:5238602	prelestna griva	inat
 gbif:5238663	lepa griva	inat
+gbif:7486196	rdeča griva	inat
 gbif:5238654	rumena griva	inat
 gbif:5238642	zlata griva	inat
-gbif:7486196	rdeča griva	inat
 gbif:5238688	krvobetna griva	inat
 gbif:8869949	čopičasta griva	gbif
 gbif:2551823	ovčji mesnatovec	inat

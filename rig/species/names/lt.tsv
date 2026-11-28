@@ -47,6 +47,7 @@ gbif:2686156	Maumedis	inat
 gbif:2686231	Amerikinis maumedis	gbif
 gbif:2686270	Vakarinis maumedis	gbif
 gbif:2686212	Europinis maumedis	inat
+gbif:2686273	Subalpinis maumedis	gbif
 gbif:2686276	Sibirinis maumedis	inat
 gbif:3040215	Smulkiadantė tuopa	inat
 gbif:3040249	Paprastoji drebulė	inat
@@ -99,11 +100,11 @@ gbif:2879411	Kamštinis ąžuolas	inat
 gbif:2879098	Akmeninis ąžuolas	inat
 gbif:2880580	Burgundinis ąžuolas	inat
 gbif:7930013	Kaštainialapis ąžuolas	inat
-gbif:2880130	Bekotis ąžuolas	inat
 gbif:2879787	Storažievis ąžuolas	inat
+gbif:2880130	Bekotis ąžuolas	inat
 gbif:2879175	Krūminis ąžuolas	inat
-gbif:2880808	Kanarinis ąžuolas	inat
 gbif:2881283	pūkuotasis ąžuolas	inat
+gbif:2880808	Kanarinis ąžuolas	inat
 gbif:2881010	Turkinis ąžuolas	inat
 gbif:2878554	Persinis ąžuolas	inat
 gbif:7940744	grevilėja	gbif
@@ -166,6 +167,7 @@ gbif:3020791	Paprastoji trešnė	inat
 gbif:3021496	Vaistinė ieva	inat
 gbif:8149923	Paprastasis persikas	inat
 gbif:3021730	Vyšninė slyva	inat
+gbif:7272137	Karčiavaisė vyšnia	inat
 gbif:7931731	Naminė slyva	inat
 gbif:3021037	Paprastoji ieva	inat
 gbif:3022789	Kvapioji vyšnia	inat
@@ -293,6 +295,7 @@ gbif:3152542	Kinrožė	inat
 gbif:3152811	Platanas	inat
 gbif:3152816	Rytinis platanas	inat
 gbif:3190529	Raudonmedis	gbif
+gbif:2882802	Amerikinis arbutas	inat
 gbif:2882803	Žemuoginis arbutas	inat
 gbif:7661971	Paprastasis bambukas	inat
 gbif:2888831	Uoginė pajūrenė	inat
@@ -434,8 +437,8 @@ gbif:5241767	Drebulyninis baltikas	inat
 gbif:5241858	Šiurpėtasis baltikas	inat
 gbif:5241749	Baltasis baltikas	inat
 gbif:5241832	Kartusis baltikas	inat
-gbif:2594649	Puslaisvis briedžiukas	inat
 gbif:2594626	Aukštasis briedžiukas	inat
+gbif:2594649	Puslaisvis briedžiukas	inat
 gbif:8287374	Baravykas	inat
 gbif:5954958	Tikrinis baravykas	inat
 gbif:5954949	Pušyninis baravykas	inat
@@ -605,8 +608,8 @@ gbif:2551415	Tikroji Ūmėdė	inat
 gbif:2551447	Dvokioji ūmėdė	inat
 gbif:9561742	Rausvažalė ūmėdė	inat
 gbif:2551558	Agrastinė ūmėdė	inat
-gbif:9223923	Juodmėsė ūmėdė	inat
 gbif:2551191	Tankialakštė ūmėdė	inat
+gbif:9223923	Juodmėsė ūmėdė	inat
 gbif:2551423	Žalsvoji ūmėdė	inat
 gbif:2551331	Ūmėdė garduolė	inat
 gbif:2551419	Geltonviršė Ūmėdė	inat
@@ -698,9 +701,9 @@ gbif:2539389	Ankstyvoji gijabudė	inat
 gbif:2521461	Šakočius	inat
 gbif:5238663	Bekotis šakočius	inat
 gbif:5238449	Rauzganasis šakočius	inat
+gbif:7486196	Kekinis šakočius	inat
 gbif:5238654	Krūmiškasis šakočius	inat
 gbif:5238642	Auksaspalvis šakočius	inat
-gbif:7486196	Kekinis šakočius	inat
 gbif:5238647	Geltonrudis šakočius	inat
 gbif:5238760	Bukašakis šakočius	inat
 gbif:5238688	Raudondėmis šakočius	inat

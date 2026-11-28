@@ -105,8 +105,8 @@ gbif:2879098	Sten-eg	inat
 gbif:2880580	frynseeg	inat
 gbif:2880130	Vinter-eg	inat
 gbif:2879175	Kermeseg	inat
-gbif:2881283	Duneg	inat
 gbif:2881550	Steneg	inat
+gbif:2881283	Duneg	inat
 gbif:2878826	Pyrenæisk eg	inat
 gbif:3190483	Mahogni	gbif
 gbif:3190485	ægte mahogni	inat
@@ -321,6 +321,7 @@ gbif:3152820	amerikansk platan	inat
 gbif:3152816	orientalsk platan	inat
 gbif:2886817	Argan	inat
 gbif:2886244	argan	inat
+gbif:2882802	madrone	inat
 gbif:2882803	Almindelig Jordbærtræ	gbif
 gbif:2888831	Elefantøre	inat
 gbif:3013395	Hvidtjørn	inat
@@ -433,6 +434,7 @@ gbif:8012439	almindelig snebær	inat
 gbif:3172235	Syrenslægten	gbif
 gbif:5415039	Almindelig syren	inat
 gbif:2684902	Taksslægten	inat
+gbif:5284555	vestamerikansk taks	inat
 gbif:5284517	Taks	inat
 gbif:2926960	Timian	inat
 gbif:9410160	Tarmvrid-røn	inat
@@ -637,8 +639,8 @@ gbif:2551415	Spiselig skørhat	inat
 gbif:2551447	Stinkende skørhat	inat
 gbif:9561742	Stor skørhat	inat
 gbif:2551558	Quélets skørhat	inat
-gbif:9223923	Sveden skørhat	inat
 gbif:2551191	Tætbladet skørhat	inat
+gbif:9223923	Sveden skørhat	inat
 gbif:2551423	Spanskgrøn skørhat	inat
 gbif:2551331	Tragt-skørhat	inat
 gbif:2551419	Okkergul skørhat	inat
