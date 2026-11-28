@@ -5,7 +5,7 @@ import NestPill from "./NestPill.svelte";
 let { label, n, text = Math.abs(n).toLocaleString() }: { label: string; n: number; /** |n| in the host's locale. */ text?: string } = $props();
 </script>
 
-<NestPill detail dashed>
+<NestPill detail dotted>
     {label}
     {#snippet values()}<span class="nest-value" class:up={n > 0} class:dn={n < 0}>{n > 0 ? "+" : n < 0 ? "−" : ""}{text}</span>{/snippet}
 </NestPill>
