@@ -1,7 +1,7 @@
-<!-- The block a sheet is on, drawn the same on deliver, allocated and the cache audit: its icon across two lines,
+<!-- The block the cache audit is on: its icon across two lines,
   the name alone in the steel plaque (a tap unpicks it), and line 2 saying where the total came from. Worked out,
-  it reads "ha × rate/ha = total" on the right; allocated on purpose, "ha @ rate/ha" sits dimmed at the left and the
-  word allocated stands beside the total, so the allocated number never takes the worked-out spot. A rust rule,
+  it reads "ha × rate/ha = total" on the right; prescribed on purpose, "ha @ rate/ha" sits dimmed at the left and the
+  word prescribed stands beside the total, so the prescribed number never takes the worked-out spot. A rust rule,
   then the sheet's own sums under the total. The date and the owner live in the block's drawer. It formats nothing. -->
 
 <script lang="ts">
@@ -19,7 +19,7 @@ let {
 	rate,
 	rateLink,
 	total,
-	allocated,
+	prescribed,
 	sums = [],
 	folded = false,
 	onUnpick,
@@ -35,8 +35,8 @@ let {
 	/** The host's tappable rate with its own unit, in place of `rate`: a tap changes the block's rate. */
 	rateLink?: Snippet;
 	total: string;
-	/** The word for a total allocated on purpose; absent, the total is the area at its rate. */
-	allocated?: string;
+	/** The word for a total prescribed on purpose; absent, the total is the area at its rate. */
+	prescribed?: string;
 	sums?: Sum[];
 	/** Fades the sums out and closes their gap, so what sits under the head slides up instead of jumping. */
 	folded?: boolean;
@@ -54,10 +54,10 @@ let {
 		<Plaque class="bh-plaque" onclick={onUnpick} ariaLabel={unpickLabel}>
 			<span class="bh-name">{name}</span>
 		</Plaque>
-		<div class="bh-meta" class:on-purpose={allocated}>
-			{#if allocated}
+		<div class="bh-meta" class:on-purpose={prescribed}>
+			{#if prescribed}
 				<span class="bh-rate">{ha}<span class="u">{` ${areaLabel()} @ `}</span>{@render perArea()}</span>
-				<span class="bh-end"><span class="bh-alloc">{allocated}</span><span class="bh-tot"><TreeCount n={total} /></span></span>
+				<span class="bh-end"><span class="bh-pre">{prescribed}</span><span class="bh-tot"><TreeCount n={total} /></span></span>
 			{:else}
 				<span class="bh-rate">{ha}<span class="u">{` ${areaLabel()} × `}</span>{@render perArea()}<span class="u"> =</span></span>
 				<span class="bh-tot"><TreeCount n={total} /></span>
@@ -140,7 +140,7 @@ let {
 		align-items: baseline;
 		gap: 8px;
 	}
-	.bh-alloc {
+	.bh-pre {
 		font: 14px/1 var(--rt-font-display);
 		color: var(--rust);
 	}
