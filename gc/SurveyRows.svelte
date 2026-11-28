@@ -41,6 +41,7 @@ import treeWhite from "./assets/tree_white.webp";
 import IdentityPill, { onePerPerson } from "./IdentityPill.svelte";
 import NestGroup from "./NestGroup.svelte";
 import NestPill from "./NestPill.svelte";
+import PctChips from "./PctChips.svelte";
 import TreeCount from "./TreeCount.svelte";
 
 let {
@@ -84,12 +85,7 @@ const species = $derived(row.kind === "plot" ? (row.species ?? []) : []);
             <span class="nest-line" data-name title={row.name}>{row.name}</span>
             <span class="l2">
                 <span class="who" data-role="surveyor"><img src={contactGold} alt="" />{#each onePerPerson(row.surveyors) as w (w.key ?? w.label)}<IdentityPill who={w} />{/each}</span>
-                <span class="pcts">
-                    {#each ["density", "quality"] as const as kind (kind)}
-                        {@const n = row[kind]}
-                        {#if n != null}<span class="pct pct--{kind}" data-pct={kind} title={words[kind]}>{words[kind].charAt(0).toUpperCase()} {Math.round(n)}%</span>{/if}
-                    {/each}
-                </span>
+                <PctChips density={row.density} quality={row.quality} {words} />
             </span>
             {#snippet corner()}{#if when}<span class="ago" data-when>{when}</span>{/if}{/snippet}
         </NestPill>
@@ -205,25 +201,6 @@ const species = $derived(row.kind === "plot" ? (row.species ?? []) : []);
     padding: 1px 8px;
     font-size: 10px;
     line-height: 14px;
-}
-.pcts {
-    flex: none;
-    display: flex;
-    gap: 4px;
-}
-.pct {
-    box-sizing: border-box;
-    padding: 1px 8px;
-    border: 1.5px solid #838963;
-    border-radius: 999px;
-    color: #fafafa;
-    font: 600 11px/15px var(--rt-font-meta);
-    text-align: center;
-    white-space: nowrap;
-}
-.pct--quality {
-    border-color: var(--rt-yellow);
-    color: var(--rt-yellow);
 }
 .plot {
     display: flex;
