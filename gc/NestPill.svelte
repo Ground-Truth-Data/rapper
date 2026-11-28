@@ -107,7 +107,9 @@ setContext(STILL, !!(ontoggle || ongo !== undefined));
     <!-- A pill that neither folds nor opens has no halves: its own controls (a rate, a link) keep their taps. -->
     {#if ontoggle || ongo !== undefined}
         <button type="button" class="np-half np-main" disabled={!ontoggle} aria-expanded={open ?? expanded} aria-labelledby="{id}-l" onclick={ontoggle}></button>
-        {#if ongo !== undefined}<button type="button" class="np-half np-side" disabled={!ongo} aria-label={goLabel} onclick={ongo ?? undefined}></button>{/if}
+        {#if ongo}<button type="button" class="np-half np-side" aria-label={goLabel} onclick={ongo}></button>
+        <!-- Nothing to open: the still half acts as the left does, since the centred word lies over both. -->
+        {:else if ongo === null}<button type="button" class="np-half np-side" disabled={!ontoggle} aria-hidden="true" tabindex="-1" onclick={ontoggle}></button>{/if}
     {/if}
 </div>
 
