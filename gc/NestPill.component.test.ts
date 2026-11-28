@@ -2,7 +2,7 @@
 import { cleanup, render } from "@testing-library/svelte";
 import { createRawSnippet } from "svelte";
 import { afterEach, expect, it } from "vitest";
-import NestPill from "./NestPill.svelte";
+import NestPill, { depthColor } from "./NestPill.svelte";
 
 afterEach(cleanup);
 
@@ -27,4 +27,9 @@ it("a fold with no chevron still says whether it is open", () => {
 		expect(c.querySelector(".np-fold")).toBeNull();
 		cleanup();
 	}
+});
+
+it("each nesting depth has its own colour, down to the fifth: white, gold, rust, sage, bronze", () => {
+	const five = [1, 2, 3, 4, 5].map(depthColor);
+	expect(new Set(five).size).toBe(5);
 });
