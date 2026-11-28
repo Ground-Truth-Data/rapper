@@ -68,7 +68,7 @@ let {
 
 const color = depthColor(listDepth());
 const id = $props.id();
-setContext(STILL, true);
+setContext(STILL, !!(ontoggle || ongo));
 </script>
 
 {#snippet row()}
@@ -92,8 +92,11 @@ setContext(STILL, true);
             </span>
         {/if}
     </div>
-    <button type="button" class="np-half np-main" disabled={!ontoggle} aria-expanded={open ?? undefined} aria-labelledby="{id}-l" onclick={ontoggle}></button>
-    {#if ongo}<button type="button" class="np-half np-side" aria-label={goLabel} onclick={ongo}></button>{/if}
+    <!-- A pill that neither folds nor opens has no halves: its own controls (a rate, a link) keep their taps. -->
+    {#if ontoggle || ongo}
+        <button type="button" class="np-half np-main" disabled={!ontoggle} aria-expanded={open ?? undefined} aria-labelledby="{id}-l" onclick={ontoggle}></button>
+        {#if ongo}<button type="button" class="np-half np-side" aria-label={goLabel} onclick={ongo}></button>{/if}
+    {/if}
 </div>
 
 <style>
@@ -170,6 +173,8 @@ setContext(STILL, true);
 .np-body {
     display: flex;
     min-height: inherit;
+}
+.np:has(> .np-half) > .np-body {
     pointer-events: none;
 }
 .np-half {
