@@ -84,8 +84,7 @@ setNestDepth(2);
 
 const label = $derived(name.trim());
 
-// One step, not a slide: a name that won't fit on one line drops to the
-// ledger's trees size (CacheLedger .cl-btn) and wraps from there.
+// One step, not a slide: a name that won't fit on one line drops a size and wraps from there.
 function fit(el: HTMLElement, _label: string) {
 	const run = () => {
 		el.style.whiteSpace = "nowrap";
