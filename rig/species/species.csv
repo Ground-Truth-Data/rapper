@@ -120,6 +120,7 @@
 "gbif:2685619","tree","species","Abies spectabilis","East Himalayan fir","gbif:2684876","0","AFG","fra","Abies spictablis","",""
 "gbif:2685476","tree","species","Abies densa","Sikkim fir","gbif:2684876","0","BTN","fra","","",""
 "gbif:2875008","tree","genus","Betula","Birch","","0","","gbif-genus","","",""
+"name:alaska-birch","tree","species","Betula neoalaskana","Alaska birch","gbif:2875008","0","CAN USA","made","","","EA"
 "gbif:5332120","tree","species","Betula papyrifera","Paper birch","gbif:2875008","0","SPM","fra;retreever;bc;getcache","","Betula papyrifera","EP"
 "gbif:5331779","tree","species","Betula alleghaniensis","Yellow birch","gbif:2875008","0","","retreever;getcache","","Betula alleghaniensis",""
 "gbif:5331532","tree","species","Betula nigra","River birch","gbif:2875008","0","","retreever","","Betula nigra",""
