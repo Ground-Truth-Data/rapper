@@ -30,6 +30,8 @@ let {
     dotted = false,
     dashed = false,
     steel = false,
+    bare = false,
+    expanded,
     stack,
     glyph,
     children,
@@ -56,6 +58,10 @@ let {
     dashed?: boolean;
     /** A value you can change right here: a steel track, no ">". Its value sits on a raised `.np-plac`. */
     steel?: boolean;
+    /** A right half with no ">": its mark sits in `values` (a star). */
+    bare?: boolean;
+    /** The fold state of a pill that folds with no chevron: it says aria-expanded and draws nothing. */
+    expanded?: boolean;
     /** The label is several rows, centred on the pill. */
     stack?: "middle";
     glyph?: Snippet;
@@ -90,17 +96,17 @@ setContext(STILL, !!(ontoggle || ongo !== undefined));
         <span class="np-face">
             {#if under}<span class="np-line">{@render row()}</span><span class="np-under">{@render under()}</span>{:else}{@render row()}{/if}
         </span>
-        {#if (ongo && !steel) || corner || foot}
+        {#if (ongo && !steel && !bare) || corner || foot}
             <span class="np-end">
                 {#if corner}<span class="np-corner">{@render corner()}</span>{/if}
-                <span class="np-chev np-go">{#if ongo && !steel}<GoChevron />{/if}</span>
+                <span class="np-chev np-go">{#if ongo && !steel && !bare}<GoChevron />{/if}</span>
                 {#if foot}<span class="np-corner np-foot">{@render foot()}</span>{/if}
             </span>
         {/if}
     </div>
     <!-- A pill that neither folds nor opens has no halves: its own controls (a rate, a link) keep their taps. -->
     {#if ontoggle || ongo !== undefined}
-        <button type="button" class="np-half np-main" disabled={!ontoggle} aria-expanded={open ?? undefined} aria-labelledby="{id}-l" onclick={ontoggle}></button>
+        <button type="button" class="np-half np-main" disabled={!ontoggle} aria-expanded={open ?? expanded} aria-labelledby="{id}-l" onclick={ontoggle}></button>
         {#if ongo !== undefined}<button type="button" class="np-half np-side" disabled={!ongo} aria-label={goLabel} onclick={ongo ?? undefined}></button>{/if}
     {/if}
 </div>
