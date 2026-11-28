@@ -126,6 +126,24 @@ describe("rowSwipe", () => {
 		a.destroy();
 	});
 
+	it("with right, a swipe right past 96 px runs right, not swiped, and a left one still runs swiped", () => {
+		const swiped = vi.fn();
+		const right = vi.fn();
+		rowSwipe(el, { swiped, right })!;
+		gesture(el, [[100, 10], [140, 12], [220, 14], [220, 14]]);
+		expect([right.mock.calls.length, swiped.mock.calls.length]).toEqual([1, 0]);
+		gesture(el, [[300, 10], [260, 12], [180, 14], [180, 14]]);
+		expect([right.mock.calls.length, swiped.mock.calls.length]).toEqual([1, 1]);
+	});
+
+	it("without right, a swipe right does nothing", () => {
+		const swiped = vi.fn();
+		rowSwipe(el, { swiped })!;
+		gesture(el, [[100, 10], [140, 12], [220, 14], [220, 14]]);
+		expect(swiped).not.toHaveBeenCalled();
+		expect(el.style.transform).toBe("");
+	});
+
 	it("a short swipe springs back without running it", () => {
 		const swiped = vi.fn();
 		rowSwipe(el, { swiped })!;

@@ -12,3 +12,11 @@ it("shows the confirmed diamond, and the muted one once the delivery is done", (
 	const grey = render(ConfirmedDiamond, { muted: true, art: "vert", tone: "dark", size: 12 }).getByRole("img");
 	expect(grey.classList.contains("muted")).toBe(true);
 });
+
+it("far and fill paint the art's shape; plain draws the art", () => {
+	for (const props of [{ far: true }, { fill: "var(--palette-sky)" }]) {
+		expect(render(ConfirmedDiamond, props).getByRole("img").classList.contains("painted")).toBe(true);
+		cleanup();
+	}
+	expect(render(ConfirmedDiamond).getByRole("img").tagName).toBe("IMG");
+});

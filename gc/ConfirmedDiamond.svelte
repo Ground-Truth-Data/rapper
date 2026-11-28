@@ -9,20 +9,23 @@ const ART = { light: { tilt: lightTilt, vert: lightVert }, dark: { tilt: darkTil
 
 /** The one "location confirmed" mark. `muted`: a delivery no longer out
  *  there — planted or removed. `far`: swiped away from the cache, dark red.
- *  `size` in px, else three-quarters of the text. */
+ *  `fill`: the art's shape in that colour instead. `size` in px, else three-quarters of the text. */
 let {
 	muted = false,
 	far = false,
+	fill,
 	size,
 	art = "tilt",
 	tone = "light",
-}: { muted?: boolean; far?: boolean; size?: number; art?: "tilt" | "vert"; tone?: "light" | "dark" } = $props();
+}: { muted?: boolean; far?: boolean; fill?: string; size?: number; art?: "tilt" | "vert"; tone?: "light" | "dark" } = $props();
+const paint = $derived(far ? "color-mix(in srgb, var(--rt-danger) 80%, black)" : fill);
 </script>
 
-{#if far}
+{#if paint}
 	<span
-		class="gc-dia far"
+		class="gc-dia painted"
 		role="img"
+		style:background={paint}
 		style:mask-image="url({ART[tone][art]})"
 		style:width={size ? `${size}px` : null}
 		style:height={size ? `${size}px` : null}
@@ -53,9 +56,8 @@ let {
 	filter: grayscale(1);
 	opacity: 0.6;
 }
-/* The art's shape filled with a darkened danger red; a recolour filter can't land on a token. */
-.far {
-	background: color-mix(in srgb, var(--rt-danger) 80%, black);
+/* The art's shape filled with a colour; a recolour filter can't land on a token. */
+.painted {
 	mask-size: contain;
 	mask-repeat: no-repeat;
 	mask-position: center;
