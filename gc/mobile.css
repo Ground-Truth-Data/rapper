@@ -88,6 +88,8 @@
 
 	/* Sage = third accent: gold=commit, terracotta/rust=context, sage=nature. */
 	--rt-sage: #838963;
+	/* The fifth nesting depth, after sage. */
+	--rt-bronze: #cd7f32;
 
 	/* Orange = admin / consequential, between gold and danger; tan is its quieter sibling. */
 	--rt-orange: #e6943c;

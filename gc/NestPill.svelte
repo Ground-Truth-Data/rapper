@@ -5,7 +5,7 @@
 import { getContext, setContext } from "svelte";
 
 const DEPTH = Symbol("nest-depth");
-const COLORS = ["var(--rt-fg)", "var(--rt-yellow)", "var(--rust)", "var(--rt-sage)"];
+const COLORS = ["var(--rt-fg)", "var(--rt-yellow)", "var(--rust)", "var(--rt-sage)", "var(--rt-bronze)"];
 /** 0 outside any NestGroup, 1 in the list, one more inside each NestGroup under it. */
 export const listDepth = () => getContext<number>(DEPTH) ?? 0;
 export const setNestDepth = (d: number) => setContext(DEPTH, d);
