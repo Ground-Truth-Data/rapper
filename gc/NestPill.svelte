@@ -1,5 +1,6 @@
-<!-- One pill of a nested list. `open` set = a parent that folds the NestGroup after it; `ongo` = the right ">"
-     that opens its drawer. Its colour is its depth, counted from the NestGroups around it. -->
+<!-- One pill of a nested list: one body laid out across the whole pill, under two real buttons, half each. The
+     left folds, the right opens its drawer; the body takes no tap, and a half with no handler does nothing. Its
+     colour is its depth, counted from the NestGroups around it. -->
 <script lang="ts" module>
 import { getContext, setContext } from "svelte";
 
@@ -10,16 +11,14 @@ export const listDepth = () => getContext<number>(DEPTH) ?? 0;
 export const setNestDepth = (d: number) => setContext(DEPTH, d);
 export const depthColor = (d: number) => COLORS[Math.min(Math.max(d, 1), COLORS.length) - 1]!;
 
-const TWO = Symbol("pill2");
-/** Every NestPill under the caller draws as a Pill2: the /app/*2 mirror pages, until Pill2 replaces NestPill. */
-export const usePill2 = () => setContext(TWO, true);
-export const pill2On = () => getContext<boolean>(TWO) ?? false;
+const STILL = Symbol("pill-still");
+/** Inside a pill a chip is a plain span: its tap belongs to the half under it. */
+export const inPill = () => getContext<boolean>(STILL) ?? false;
 </script>
 
 <script lang="ts">
 import type { Snippet } from "svelte";
 import GoChevron from "./GoChevron.svelte";
-import Pill2 from "./Pill2.svelte";
 
 let {
     open,
@@ -62,71 +61,70 @@ let {
     corner?: Snippet;
     /** Sits in the pill's bottom right corner, the corner's mirror under the ">". */
     foot?: Snippet;
-    /** Pill2 only: see Pill2. */
+    /** Export mode: the tick box, in a column of its own at the left, while the pill slides right past the edge. */
     tickBox?: Snippet;
     ontick?: () => void;
 } = $props();
 
 const color = depthColor(listDepth());
-const two = pill2On();
-
-// Every pill that takes a tap is two halves with a nib at halfway: left folds, right opens. One with a single
-// tap does it from both halves.
-const split = $derived(!!(ontoggle ?? ongo));
-const tap = (e: MouseEvent) => (rightHalf(e) ? (ongo ? ongo() : ontoggle?.(e)) : ontoggle ? ontoggle(e) : ongo?.());
-let pill = $state<HTMLElement>();
-let at = $state<"fold" | "go">();
-let pressed = $state(false);
-// A finger has no hover: its half stays lit for a moment after the tap, so the two halves get learned.
-const lift = (e: PointerEvent) => setTimeout(() => ((pressed = false), e.pointerType === "mouse" || (at = undefined)), 450);
-const rightHalf = (e: MouseEvent) => {
-    const r = pill!.getBoundingClientRect();
-    return e.clientX > r.left + r.width / 2;
-};
+const id = $props.id();
+setContext(STILL, !!(ontoggle || ongo));
 </script>
 
-{#snippet body()}
-    {#if under}<span class="np-row">{@render row()}</span><span class="np-under">{@render under()}</span>{:else}{@render row()}{/if}
-{/snippet}
 {#snippet row()}
     {#if open !== undefined}<span class="np-fold np-chev">{#if open !== null}<GoChevron down={open} />{/if}</span>{/if}
     {@render glyph?.()}
-    <span class="np-label">{@render children()}</span>
+    <span class="np-label" id="{id}-l">{@render children()}</span>
     {@render values?.()}
 {/snippet}
 
-{#if two}
-<Pill2 {open} {ontoggle} {ongo} {goLabel} {small} {detail} {dashed} {stack} {glyph} {children} {values} {under} {corner} {foot} {tickBox} {ontick} />
-{:else}
-<!-- svelte-ignore a11y_no_static_element_interactions -->
-<div
-    bind:this={pill}
-    onpointermove={split ? (e) => (at = rightHalf(e) ? "go" : "fold") : undefined}
-    onpointerdown={split ? (e) => ((at = rightHalf(e) ? "go" : "fold"), (pressed = true)) : undefined}
-    onpointerup={split ? lift : undefined}
-    onpointerleave={(e) => (e.pointerType === "mouse" ? (at = undefined) : undefined)}
-    class:np--pressed={pressed}
-    class:np--split={split}
-    data-at={at}
-    class="np" class:np--small={small} class:np--detail={detail} class:np--dashed={dashed} class:np--stack={stack} class:np--go={ongo} class:np--under={under} style:--c={color}>
-    {#if ontoggle ?? ongo}
-        <button type="button" class="np-main" aria-expanded={open ?? undefined} onclick={tap}>{@render body()}</button>
-    {:else}
-        <div class="np-main">{@render body()}</div>
-    {/if}
-    {#if ongo}
-        <button type="button" class="np-side" aria-label={goLabel} onclick={ongo}>
-            {#if corner}<span class="np-corner">{@render corner()}</span>{/if}
-            <span class="np-chev"><GoChevron /></span>
-            {#if foot}<span class="np-corner np-foot">{@render foot()}</span>{/if}
-        </button>
+<div class="np" class:np--small={small} class:np--detail={detail} class:np--dashed={dashed} class:np--stack={stack} class:np--go={ongo} class:np--under={under} class:np--tick={ontick} style:--c={color}>
+    {#if ontick}<button type="button" class="np-tick" aria-label={goLabel} onclick={ontick}>{@render tickBox?.()}</button>{/if}
+    <div class="np-body">
+        <span class="np-face">
+            {#if under}<span class="np-line">{@render row()}</span><span class="np-under">{@render under()}</span>{:else}{@render row()}{/if}
+        </span>
+        {#if ongo || corner || foot}
+            <span class="np-end">
+                {#if corner}<span class="np-corner">{@render corner()}</span>{/if}
+                <span class="np-chev np-go">{#if ongo}<GoChevron />{/if}</span>
+                {#if foot}<span class="np-corner np-foot">{@render foot()}</span>{/if}
+            </span>
+        {/if}
+    </div>
+    <!-- A pill that neither folds nor opens has no halves: its own controls (a rate, a link) keep their taps. -->
+    {#if ontoggle || ongo}
+        <button type="button" class="np-half np-main" disabled={!ontoggle} aria-expanded={open ?? undefined} aria-labelledby="{id}-l" onclick={ontoggle}></button>
+        {#if ongo}<button type="button" class="np-half np-side" aria-label={goLabel} onclick={ongo}></button>{/if}
     {/if}
 </div>
-{/if}
 
 <style>
+/* Export mode: the pill slides right by the tick's column, and its list clips what goes past the edge. */
 .np {
+    transition: transform 0.25s ease;
+}
+.np--tick {
+    transform: translateX(44px);
+}
+.np-tick {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -44px;
+    width: 44px;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0 4px 0 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+}
+.np {
+    position: relative;
     box-sizing: border-box;
     width: 100%;
     min-height: 46px;
@@ -137,12 +135,9 @@ const rightHalf = (e: MouseEvent) => {
     font-family: var(--rt-font-display);
     font-size: 20px;
 }
-.np--split {
-    position: relative;
-    --wash: color-mix(in srgb, var(--rt-yellow) 22%, transparent);
-}
-.np--split::before,
-.np--split::after {
+/* The nib at halfway: where one button ends and the other begins. */
+.np::before,
+.np::after {
     content: "";
     position: absolute;
     left: 50%;
@@ -152,20 +147,11 @@ const rightHalf = (e: MouseEvent) => {
     opacity: 0.6;
     pointer-events: none;
 }
-.np--split::before {
+.np::before {
     top: 0;
 }
-.np--split::after {
+.np::after {
     bottom: 0;
-}
-.np--split[data-at="fold"] {
-    background-image: linear-gradient(to right, var(--wash) 50%, transparent 50%);
-}
-.np--split[data-at="go"] {
-    background-image: linear-gradient(to left, var(--wash) 50%, transparent 50%);
-}
-.np--pressed {
-    --wash: color-mix(in srgb, var(--rust) 28%, transparent);
 }
 .np--small {
     min-height: 38px;
@@ -180,21 +166,47 @@ const rightHalf = (e: MouseEvent) => {
     border-style: dashed;
     background: none;
 }
-.np-main,
-.np-side {
+.np--stack {
+    min-height: 62px;
+}
+/* The body is what the pill shows; the halves over it are what a finger meets. */
+.np-body {
+    display: flex;
+    min-height: inherit;
+}
+.np:has(> .np-half) > .np-body {
+    pointer-events: none;
+}
+.np-half {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
     margin: 0;
+    padding: 0;
     border: 0;
     background: none;
-    color: inherit;
-    font: inherit;
-    text-align: left;
+    cursor: pointer;
     -webkit-tap-highlight-color: transparent;
 }
-button.np-main,
-.np-side {
-    cursor: pointer;
-}
 .np-main {
+    left: 0;
+    border-radius: 12.5px 0 0 12.5px;
+}
+.np-side {
+    right: 0;
+    border-radius: 0 12.5px 12.5px 0;
+}
+.np-half:enabled:hover {
+    background: color-mix(in srgb, var(--rt-yellow) 22%, transparent);
+}
+.np-half:enabled:active {
+    background: color-mix(in srgb, var(--rust) 28%, transparent);
+}
+.np-half:disabled {
+    cursor: default;
+}
+.np-face {
     flex: 1 1 auto;
     min-width: 0;
     display: flex;
@@ -202,17 +214,17 @@ button.np-main,
     gap: 9px;
     padding: 0 12px;
 }
-.np--go > .np-main {
+.np-body:has(> .np-end) > .np-face {
     padding-right: 0;
 }
-.np--under > .np-main {
+.np--under .np-face {
     flex-direction: column;
     align-items: stretch;
     justify-content: center;
     gap: 3px;
     padding-block: 6px;
 }
-.np-row {
+.np-line {
     display: flex;
     align-items: center;
     gap: 9px;
@@ -224,17 +236,15 @@ button.np-main,
     align-items: center;
     gap: 2px 6px;
 }
-/* Clear of the fold chevron, under the tick and the glyph. */
-.np-row:has(> .np-fold) + .np-under {
+.np-line:has(> .np-fold) + .np-under {
     padding-left: 22px;
 }
 .np-under > :global(*) {
     flex: none;
 }
-/* Corner above, chevron dead centre: the equal rows either side of the chevron make the pill as tall as the
-   corner needs, so the two never meet at any line count. The corner has no width of its own: the column is the
-   chevron's, and a long note hangs left over the pill instead of narrowing its lines. */
-.np-side {
+/* Corner above, chevron dead centre, foot below: the corner has no width of its own, so a long one hangs left
+   over the pill instead of narrowing its lines. */
+.np-end {
     flex: none;
     display: grid;
     grid-template-rows: 1fr auto 1fr;
@@ -257,7 +267,7 @@ button.np-main,
     align-self: end;
     margin: 0 -6px 5px 0;
 }
-/* Both chevrons are the one GoChevron; its 24px box carries its own air, pulled back here. */
+/* GoChevron's 24px box carries its own air, pulled back here. */
 .np-chev {
     flex: none;
     display: flex;
@@ -267,7 +277,7 @@ button.np-main,
     width: 24px;
     margin: 0 -6px 0 -5px;
 }
-.np-side > .np-chev {
+.np-go {
     grid-row: 2;
     margin: -5px -7px -5px -6px;
 }
@@ -288,11 +298,7 @@ button.np-main,
 .np--dashed .np-label {
     color: var(--rt-fg-muted);
 }
-
-.np--stack {
-    min-height: 62px;
-}
-.np--stack > .np-main {
+.np--stack .np-face {
     padding-block: 6px;
 }
 .np--stack .np-label {
@@ -303,14 +309,17 @@ button.np-main,
     white-space: normal;
     line-height: 1.15;
 }
-/* One line of a stacked label, cut with … */
+/* A chip on its own line keeps its own width. */
+.np--stack .np-label > :global(.id-pill),
+.np--stack .np-label > :global(.id-mark) {
+    align-self: flex-start;
+}
 .np :global(.nest-line) {
     max-width: 100%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-/* A meta line is whole items: it wraps between them and cuts none. */
 .np :global(.nest-line.nest-meta) {
     display: flex;
     flex-wrap: wrap;
@@ -324,8 +333,6 @@ button.np-main,
     flex: none;
     max-width: 100%;
 }
-
-/* What a pill's label and values are written in, wherever the host puts them. */
 .np :global(.nest-value) {
     flex: none;
     display: flex;

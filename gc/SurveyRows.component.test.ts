@@ -27,29 +27,26 @@ it("fault codes are counted per code; past two, the most called shows with how m
 	expect(codes(["C9", "C3", "C3", "B1"])).toEqual([["C3"], "+2"]);
 });
 
-it("a plot's tap opens it; a survey's left half folds it and its right half opens it, chips included", async () => {
+it("a plot's right half opens it; a survey's left half folds it and its right half opens it", async () => {
 	const ongo = vi.fn();
 	const p = render(SurveyRows, { row: plot(), words, ongo }).container;
-	await fireEvent.click(p.querySelector("[data-no]")!);
+	await fireEvent.click(p.querySelector(".np-side")!);
 	expect(ongo).toHaveBeenCalledTimes(1);
 
 	const ontoggle = vi.fn();
 	const s = render(SurveyRows, { row: { ...survey, density: 104, quality: null }, words, ongo, ontoggle }).container;
-	const wide = (c: Element) => (c.querySelector<HTMLElement>(".np")!.getBoundingClientRect = () => ({ left: 0, width: 300 }) as DOMRect);
-	wide(s);
-	await fireEvent.click(s.querySelector("[data-name]")!, { clientX: 100 });
+	await fireEvent.click(s.querySelector(".np-main")!);
 	expect(ontoggle).toHaveBeenCalledTimes(1);
 	await fireEvent.click(s.querySelector(".np-side")!);
 	expect(ongo).toHaveBeenCalledTimes(2);
-	expect(s.querySelector("[data-pct=quality]")).toBeNull();
-	await fireEvent.click(s.querySelector("[data-pct=density]")!, { clientX: 250 });
-	expect(ongo).toHaveBeenCalledTimes(3);
 	expect(ontoggle).toHaveBeenCalledTimes(1);
+	expect(s.querySelector("[data-pct=density]")).not.toBeNull();
+	expect(s.querySelector("[data-pct=quality]")).toBeNull();
 
 	const still = render(SurveyRows, { row: survey, words, ontoggle }).container;
-	wide(still);
-	await fireEvent.click(still.querySelector("[data-name]")!, { clientX: 250 });
-	expect(ontoggle, "no right chevron: the whole pill folds").toHaveBeenCalledTimes(2);
+	expect(still.querySelector(".np-side"), "nothing to open: no right half").toBeNull();
+	await fireEvent.click(still.querySelector(".np-main")!);
+	expect(ontoggle).toHaveBeenCalledTimes(2);
 });
 
 it("a survey counts its plots, names each surveyor once and rounds its percentages to whole numbers", () => {
@@ -62,10 +59,10 @@ it("a survey counts its plots, names each surveyor once and rounds its percentag
 
 it("a plot with a split folds its species under it; one without has nothing to fold", async () => {
 	const bare = render(SurveyRows, { row: plot(), words }).container;
-	expect(bare.querySelector(".np-main")!.getAttribute("aria-expanded")).toBeNull();
+	expect(bare.querySelector("[aria-expanded]")).toBeNull();
 	const c = render(SurveyRows, { row: plot({ species: [{ code: "PL", name: "Lodgepole pine", count: 20 }, { code: "", name: "Hybrid spruce", count: 13 }] }), words }).container;
 	expect(c.querySelector("[data-row=species]")).toBeNull();
-	await fireEvent.click(c.querySelector("[data-no]")!);
+	await fireEvent.click(c.querySelector(".np-main")!);
 	const rows = [...c.querySelectorAll("[data-row=species]")];
 	expect(rows.map((r) => [r.querySelector("[data-code]")?.textContent, r.querySelector("[data-species]")!.textContent, r.querySelector("[data-trees]")!.textContent])).toEqual([
 		["PL", "Lodgepole pine", "20"],

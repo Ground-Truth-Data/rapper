@@ -77,7 +77,7 @@ it("pages by section: Next refuses an empty required field, Save on the last pag
 	// Adding folds the others to a one-line summary.
 	await waitFor(() => expect(container.querySelector("[data-entry='1'] [data-summary]")?.textContent).toBe("DBH 34 · very"));
 	expect(getAllByLabelText("DBH")).toHaveLength(1);
-	await fireEvent.click(getByText("Tree 1"));
+	await fireEvent.click(getByText("Tree 1").closest(".np")!.querySelector(".np-main")!);
 	await waitFor(() => expect(getAllByLabelText("DBH")).toHaveLength(2));
 	expect(container.querySelector("[data-entry='1'] [data-summary]")?.textContent).toBe("DBH 34 · very");
 	await fireEvent.click(press(container, "[data-next]"));

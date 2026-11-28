@@ -53,16 +53,13 @@ let {
     open = false,
     ontoggle,
     ongo,
-    lead,
     tickBox,
     ontick,
     children,
 }: {
-    /** Export mode on a Pill2: the tick in its own column. */
+    /** Export mode: the tick in its own column. */
     tickBox?: Snippet;
     ontick?: () => void;
-    /** The host's own control ahead of the row: the inbox's tick. Never a button: it sits inside the pill's. */
-    lead?: Snippet;
     /** A survey's plots, drawn while it is open. */
     children?: Snippet;
     row: SurveyRow;
@@ -84,7 +81,6 @@ const species = $derived(row.kind === "plot" ? (row.species ?? []) : []);
     {#if row.kind === "survey"}
         <NestPill {open} {ontoggle} {ongo} {tickBox} {ontick} goLabel={row.name} stack="middle">
             {#snippet glyph()}
-                {@render lead?.()}
                 <span class="art"><img src={art} alt="" /><span class="badge" data-count>{row.count}</span></span>
             {/snippet}
             <span class="nest-line" data-name title={row.name}>{row.name}</span>
