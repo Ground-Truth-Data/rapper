@@ -8,7 +8,7 @@ import lightVert from "./assets/diamond_lightRose_vert.webp";
 const ART = { light: { tilt: lightTilt, vert: lightVert }, dark: { tilt: darkTilt, vert: darkVert } };
 
 /** The one "location confirmed" mark. `muted`: a delivery no longer out
- *  there — planted or removed. `far`: swiped away from the cache, dark red.
+ *  there — planted or removed. `far`: swiped away from the cache, red.
  *  `fill`: the art's shape in that colour instead. `size` in px, else three-quarters of the text. */
 let {
 	muted = false,
@@ -18,7 +18,7 @@ let {
 	art = "tilt",
 	tone = "light",
 }: { muted?: boolean; far?: boolean; fill?: string; size?: number; art?: "tilt" | "vert"; tone?: "light" | "dark" } = $props();
-const paint = $derived(far ? "color-mix(in srgb, var(--rt-danger) 80%, black)" : fill);
+const paint = $derived(far ? "var(--rt-q704-fault)" : fill);
 </script>
 
 {#if paint}
