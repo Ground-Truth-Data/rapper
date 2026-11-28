@@ -47,5 +47,5 @@ it("a saved answer reads back as its form's questions, in the form's order, by t
 		{ key: "block", label: "Block number", kind: "text", value: "B7" },
 		{ key: "foreman", label: "Foreman", kind: "person", value: "k1" },
 	]);
-	expect(answerFacts(titled, { height: 12.5 }, "tree")).toEqual([{ key: "height", label: "height", kind: "text:number", value: 12.5 }]);
+	expect(answerFacts(titled, { height: 12.5 }, "tree"), "an untitled question shows no label, never its key").toEqual([{ key: "height", label: "", kind: "text:number", value: 12.5 }]);
 });

@@ -46,7 +46,7 @@ export function answerFacts(d: Definition, data: Record<string, unknown>, group?
 		.filter((f) => f.group === group && f.kind !== "panel" && f.kind !== "paneldynamic" && data[f.key] != null && data[f.key] !== "")
 		.map((f) => {
 			const e = els.get(f.key)!;
-			return { key: f.key, label: e.title ?? e.name, kind: e.contacts ? "person" : f.kind, value: data[f.key] };
+			return { key: f.key, label: e.title ?? "", kind: e.contacts ? "person" : f.kind, value: data[f.key] };
 		});
 }
 
