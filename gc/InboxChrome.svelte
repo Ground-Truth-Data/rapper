@@ -1,7 +1,7 @@
 <!-- The inbox's top: pill rows, search and buttons. Get Cache's inbox and Ops' plugins both draw through it. -->
 <script lang="ts" module>
 export type ChromePill = { key: string; label: string; icon?: string | null; sep?: "chev" | "div" | null; on?: boolean; chain?: boolean };
-export type ChromeButton = { label: string; aria?: string; icon?: Snippet; gold?: boolean; /** Gold border on black: the lead button without the fancy fill. */ ring?: boolean; onclick?: () => void; href?: string; /** As wide as its label, not an even share of the row. */ hug?: boolean; /** Draws the slot itself: a button that opens a menu. */ render?: Snippet };
+export type ChromeButton = { label: string; aria?: string; icon: Snippet; gold?: boolean; /** Gold border on black: the lead button without the fancy fill. */ ring?: boolean; onclick?: () => void; href?: string; /** As wide as its label, not an even share of the row. */ hug?: boolean };
 </script>
 
 <script lang="ts">
@@ -24,9 +24,11 @@ type Props = {
     searchEnd?: Snippet;
     below?: Snippet;
     buttons?: ChromeButton[];
+    /** Search above the pill rows, not under them. */
+    searchFirst?: boolean;
 };
 
-let { rows = [], onpill, query = $bindable(""), placeholder, clearLabel, pillsEnd, searchEnd, below, buttons = [] }: Props = $props();
+let { rows = [], onpill, query = $bindable(""), placeholder, clearLabel, pillsEnd, searchEnd, below, buttons = [], searchFirst = false }: Props = $props();
 
 let scrollers = $state<HTMLElement[]>([]);
 // The lit pill slides to the front, so its row scrolls back to show it.
@@ -38,8 +40,21 @@ $effect(() => {
 });
 </script>
 
+{#snippet search()}
+    {#if rows.length}
+        <div class="inbox2-search">
+            <div class="inbox2-search-field">
+                <SearchInput bind:value={query} {placeholder} {clearLabel} />
+            </div>
+            {@render searchEnd?.()}
+        </div>
+        {@render below?.()}
+    {/if}
+{/snippet}
+
 {#if rows.length || buttons.length}
     <div class="inbox2-chrome">
+        {#if searchFirst}{@render search()}{/if}
         {#each rows as row, ri (ri)}
             <div class="inbox2-pills" bind:this={scrollers[ri]}>
                 {#each row as p (p.key)}
@@ -69,26 +84,16 @@ $effect(() => {
                 {/if}
             </div>
         {/each}
-        {#if rows.length}
-            <div class="inbox2-search">
-                <div class="inbox2-search-field">
-                    <SearchInput bind:value={query} {placeholder} {clearLabel} />
-                </div>
-                {@render searchEnd?.()}
-            </div>
-            {@render below?.()}
-        {/if}
+        {#if !searchFirst}{@render search()}{/if}
         {#if buttons.length}
             <div class="inbox2-actions">
                 {#each buttons as b (b.label)}
                     <div class="inbox2-slot" class:inbox2-slot--hug={b.hug}>
-                        {#if b.render}
-                            {@render b.render()}
-                        {:else if b.gold}
+                        {#if b.gold}
                             <FancyButton size="md" href={b.href} onclick={b.onclick} ariaLabel={b.aria} icon={b.icon}>{b.label}</FancyButton>
                         {:else}
                             <svelte:element this={b.href ? "a" : "button"} type={b.href ? undefined : "button"} href={b.href} class="inbox2-newmap" class:inbox2-newmap--ring={b.ring} aria-label={b.aria} onclick={b.onclick} role={b.href ? "link" : "button"}>
-                                {#if b.icon}<span class="inbox2-newmap-badge">{@render b.icon()}</span>{/if}
+                                <span class="inbox2-newmap-badge">{@render b.icon()}</span>
                                 <span class="inbox2-newmap-label">{b.label}</span>
                             </svelte:element>
                         {/if}
