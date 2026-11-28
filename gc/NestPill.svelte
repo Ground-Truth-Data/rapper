@@ -86,7 +86,7 @@ setContext(STILL, !!(ontoggle || ongo !== undefined));
 {#snippet row()}
     {#if open !== undefined}<span class="np-fold np-chev">{#if open !== null}<GoChevron down={open} />{/if}</span>{/if}
     {@render glyph?.()}
-    <span class="np-label" id="{id}-l">{@render children()}</span>
+    <span class="np-label" class:np-label--alone={glyph && !values && !stack && !corner} id="{id}-l">{@render children()}</span>
     {@render values?.()}
 {/snippet}
 
@@ -333,6 +333,11 @@ setContext(STILL, !!(ontoggle || ongo !== undefined));
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+/* A glyph and a plain word, nothing else: the word sits centred, as on boards D, J and N. */
+.np-label--alone:not(:has(*)) {
+    text-align: center;
+    justify-content: center;
 }
 .np--detail .np-label {
     display: flex;
