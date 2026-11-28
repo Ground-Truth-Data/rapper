@@ -51,6 +51,7 @@ gbif:2684171	Tuia plicata	inat
 gbif:2686156	Larici	inat
 gbif:2686270	larice occidentale	gbif
 gbif:2686212	Larice comune	inat
+gbif:2686273	Larice subalpino	gbif
 gbif:2686276	larice siberiano	gbif
 gbif:2686157	Larice del Giappone	inat
 gbif:3040215	Pioppo tremulo	inat
@@ -107,8 +108,8 @@ gbif:2879098	Leccio	inat
 gbif:2880580	Cerro	inat
 gbif:2880130	Rovere	inat
 gbif:2879175	Quercia spinosa	inat
-gbif:2881283	roverella	inat
 gbif:2881550	Leccio iberico	inat
+gbif:2881283	roverella	inat
 gbif:2878826	quercia dei pirenei	inat
 gbif:3190485	Mogano	gbif
 gbif:2891930	Casuarina delle spiagge	inat
@@ -119,8 +120,8 @@ gbif:5284698	Cedro dell'Himalaya	inat
 gbif:5284702	Cedro dell'Atlante	inat
 gbif:5284682	Cedro del Libano	inat
 gbif:2979265	gaggia	gbif
-gbif:3974754	acacia orrida	inat
 gbif:3974700	Acacia ad ombrello	inat
+gbif:3974754	acacia orrida	inat
 gbif:3974788	Spina fischiettante	inat
 gbif:5914287	Albero dei paternosti	inat
 gbif:10225588	Cipressi	inat
@@ -243,6 +244,7 @@ gbif:5361935	fico del diavolo	gbif
 gbif:5361921	Sicomoro	inat
 gbif:2684359	ginepro	inat
 gbif:2684709	ginepro comune	inat
+gbif:2684773	ginepro delle Montagne Rocciose	gbif
 gbif:2684451	ginepro rosso	inat
 gbif:2684640	ginepro fenicio	inat
 gbif:2886750	Carité	inat

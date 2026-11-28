@@ -24,6 +24,7 @@ gbif:5284871	Pícea pungent	gbif
 gbif:5284917	Pícea d'Engelmann	gbif
 gbif:2685796	Avet de Douglas	inat
 gbif:2686212	làrix	inat
+gbif:2686273	Làrix alpí	gbif
 gbif:3040215	Trèmol americà	inat
 gbif:3040249	Trèmol	inat
 gbif:2684876	Avets	inat
@@ -47,17 +48,18 @@ gbif:2874875	Faig	gbif
 gbif:2882316	faig	inat
 gbif:2877951	Alzines i roures	inat
 gbif:2879737	Roure blanc americà	gbif
+gbif:2879260	Roure d'Oregon blanc	gbif
 gbif:2878688	roure pènol	inat
 gbif:2879411	Alzina surera	inat
 gbif:2879098	Alzina	inat
 gbif:2880580	Roure turc	inat
 gbif:2880130	Roure de fulla gran	inat
 gbif:2879175	garric	inat
-gbif:2880808	Roure africà	inat
-gbif:2881283	roure martinenc	inat
 gbif:2881550	carrasca	inat
+gbif:2881283	roure martinenc	inat
 gbif:2878826	reboll	inat
 gbif:2881480	Roure de fulla petita	inat
+gbif:2880808	Roure africà	inat
 gbif:2891932	Casuarina de Cunningham	inat
 gbif:2970418	Aromer blanc	inat
 gbif:2684855	Tuia oriental	inat
@@ -180,6 +182,7 @@ gbif:3152811	Plataners	inat
 gbif:3152820	Plàtan americà	inat
 gbif:3152816	Plàtan oriental	inat
 gbif:2882796	Arboços	inat
+gbif:2882802	Arboç del Pacífic	gbif
 gbif:2882803	arboç	inat
 gbif:4170901	arboç grec	inat
 gbif:7661971	bambú gros	inat

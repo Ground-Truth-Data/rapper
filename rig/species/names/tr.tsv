@@ -58,6 +58,7 @@ gbif:2686156	melez	inat
 gbif:2686231	Avrupa Melez Çamı	inat
 gbif:2686270	Amerikan Batı Melezi	inat
 gbif:2686212	Avrupa Melezi	inat
+gbif:2686273	Alp melezi	gbif
 gbif:2686276	Sibirya Melezi	inat
 gbif:2686157	Japon Melezi	inat
 gbif:3040215	Titrek Kavak	inat
@@ -128,6 +129,7 @@ gbif:2877951	Meşe	inat
 gbif:2880539	Kızıl Meşe	inat
 gbif:2879737	Ak meşe	gbif
 gbif:8313153	Bataklık Meşesi	inat
+gbif:2879260	Oregon Meşesi	inat
 gbif:2878688	Saplı Meşe	inat
 gbif:2879411	Mantar Tıpa Meşesi	inat
 gbif:2879098	Pırnal Meşe	inat
@@ -135,9 +137,9 @@ gbif:2880580	Saçlı Meşe	inat
 gbif:7930013	Kestane Yapraklı Meşe	inat
 gbif:2880130	Sapsız Meşe	inat
 gbif:2879175	Kermes Meşesi	inat
-gbif:2880808	Cezayir meşesi	gbif
 gbif:2881283	Tüylü meşe	inat
 gbif:2881480	Portekiz Meşesi	inat
+gbif:2880808	Cezayir meşesi	gbif
 gbif:2881010	Mazı Meşesi	inat
 gbif:2878554	İspir Meşesi	inat
 gbif:3190485	Maun	gbif
@@ -156,8 +158,8 @@ gbif:5284702	Atlas sediri	inat
 gbif:5284682	Lübnan sediri	inat
 gbif:10803341	Sandaroz	inat
 gbif:2979265	Amber Ağacı	inat
-gbif:3974754	Akasya	inat
 gbif:3974700	Afrika Akasyası	inat
+gbif:3974754	Akasya	inat
 gbif:3974722	Kitre Ağacı	inat
 gbif:3977346	Beyaz Zamk Ağacı	inat
 gbif:3796190	Kad Hindi	inat
@@ -433,6 +435,7 @@ gbif:3172032	yüksük otu	inat
 gbif:2882780	funda	inat
 gbif:3039453	Barutağacı	inat
 gbif:3039454	Barut Ağacı	inat
+gbif:8286637	kaskara sagrada	inat
 gbif:2940025	Borcaklar	inat
 gbif:3036021	Duvar sarmaşığı	inat
 gbif:8351737	duvar sarmaşığı	inat
@@ -506,6 +509,7 @@ gbif:8012439	İnci Çalısı	inat
 gbif:3172235	Leylak	inat
 gbif:5415039	leylak	inat
 gbif:2684902	Porsuk Ağacı	inat
+gbif:5284555	Pasifik Porsuk Ağacı	inat
 gbif:5284517	Porsuk Ağacı	inat
 gbif:2926960	Kekik	inat
 gbif:9410160	Pitlicen	inat
@@ -676,8 +680,8 @@ gbif:2534625	Minikmürekkep mantarı	inat
 gbif:2529415	Çingene Mantarı	inat
 gbif:2521461	Beşbarmak	inat
 gbif:5238663	Sürgün Tellice	inat
-gbif:5238654	sarı saçak mantarı	inat
 gbif:7486196	Tellice	inat
+gbif:5238654	sarı saçak mantarı	inat
 gbif:2524996	Çam Kabara Mantarı	inat
 gbif:12008655	Çöp Mantarı	inat
 gbif:5249860	Gri Mercan Mantarı	inat

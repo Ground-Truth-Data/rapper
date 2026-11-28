@@ -44,8 +44,8 @@ gbif:5285224	pino blanco	inat
 gbif:5285134	pino cembro	inat
 gbif:5285629	ocote de carretilla	inat
 gbif:5285332	pino negro	inat
-gbif:5285079	Pino de Macedonia	gbif
 gbif:5285359	Pino de Manchuria	gbif
+gbif:5285079	Pino de Macedonia	gbif
 gbif:5285203	Pino chino de Armand	gbif
 gbif:7606064	Pinabetes	inat
 gbif:5284884	pícea común	inat
@@ -63,6 +63,7 @@ gbif:2686156	alerces	inat
 gbif:2686231	Alerce tamarack	gbif
 gbif:2686270	Alerce americano occidental	gbif
 gbif:2686212	alerce europeo	inat
+gbif:2686273	Alerce subalpino	gbif
 gbif:2686157	Alerce del Japón	inat
 gbif:3040215	Álamo temblón	inat
 gbif:3040249	Álamo temblón europeo	inat
@@ -125,6 +126,7 @@ gbif:2882316	Haya común	inat
 gbif:2877951	Encinos o robles	inat
 gbif:2880539	roble rojo americano	inat
 gbif:2879737	Encino blanco	inat
+gbif:2879260	Roble oregón blanco	gbif
 gbif:2878688	roble común	inat
 gbif:2879411	Alcornoque	inat
 gbif:2879098	Encina mediterránea	inat
@@ -134,11 +136,11 @@ gbif:2879847	encino amarillo	inat
 gbif:2880775	chaparro	inat
 gbif:2880130	Roble albar	inat
 gbif:2879175	Encino Kermes	inat
-gbif:2880808	Roble andaluz	inat
-gbif:2881283	Roble pubescente	inat
 gbif:2881550	Encina Carrasca	inat
+gbif:2881283	Roble pubescente	inat
 gbif:2878826	melojo	inat
 gbif:2881480	Quejigo	inat
+gbif:2880808	Roble andaluz	inat
 gbif:8247889	Melina	inat
 gbif:3190483	Caobas	inat
 gbif:3190485	Caoba de las Antillas	inat
@@ -163,8 +165,8 @@ gbif:5284682	cedro de Líbano	inat
 gbif:8142432	huizaches	inat
 gbif:2979265	Huizache	inat
 gbif:3974744	acacia gomifera	gbif
-gbif:3974754	Aromo Sudafricano	inat
 gbif:3974700	espino de parasol	gbif
+gbif:3974754	Aromo Sudafricano	inat
 gbif:7989631	Espinos	inat
 gbif:2980360	Carbonera	inat
 gbif:3977346	acacia del Senegal	gbif
@@ -430,6 +432,7 @@ gbif:5361921	higuera loca	gbif
 gbif:2950750	Cuapinol	inat
 gbif:2684359	enebros y sabinas	inat
 gbif:2684709	enebro	inat
+gbif:2684773	enebro de las Rocallosas	inat
 gbif:2684626	sabina griega	inat
 gbif:2684528	sabina albar	inat
 gbif:2684451	enebro de la miera	inat
@@ -473,8 +476,8 @@ gbif:3039576	sauces	inat
 gbif:5372513	sauce blanco	inat
 gbif:5372800	Mimbrera púrpura	inat
 gbif:5372605	sauce ceniciento	inat
-gbif:5372952	Sauce cabruno	inat
 gbif:5372914	Sauce colorado	inat
+gbif:5372952	Sauce cabruno	inat
 gbif:5372933	Mimbre	inat
 gbif:3190592	Jobos o jocotes	inat
 gbif:8185571	Jobo	inat
@@ -513,8 +516,8 @@ gbif:6627713	huizaches	inat
 gbif:10687779	frijolillo	inat
 gbif:5416458	Pitanga	inat
 gbif:5417437	Cerella	inat
-gbif:5418198	Ubajay	inat
 gbif:5417616	Uvaia	inat
+gbif:5418198	Ubajay	inat
 gbif:5416332	Guayabo blanco	inat
 gbif:5417919	Amonkabekan	gbif
 gbif:2889785	Sándalo	inat
@@ -596,6 +599,7 @@ gbif:7264964	Chal chal	inat
 gbif:2952808	Candelón de teta	inat
 gbif:2952823	huilco	inat
 gbif:2882796	Madroños	inat
+gbif:2882802	Madroño del Pacífico	inat
 gbif:2882803	madroño europeo	inat
 gbif:4170901	Madroño griego	inat
 gbif:2705751	Bambús	inat
@@ -695,8 +699,8 @@ gbif:3871067	flor de mosquito amarillo	gbif
 gbif:3174691	capulincillo	inat
 gbif:3173954	Cambuí	inat
 gbif:3188150	Lanches	inat
-gbif:3188288	guayabo colorado	inat
 gbif:3188295	guaviyú	inat
+gbif:3188288	guayabo colorado	inat
 gbif:7362006	Árbol bálsamo y parientes	inat
 gbif:5357189	Bálsamo	gbif
 gbif:3034076	Laureles Criollos	inat
@@ -938,6 +942,7 @@ gbif:5415039	Lila común	inat
 gbif:7792065	palo bolero	inat
 gbif:7321555	Cirrí Blanco	inat
 gbif:2684902	Tejos	inat
+gbif:5284555	tejo del Pacífico	inat
 gbif:5284517	tejo negro	inat
 gbif:2926960	Tomillos	inat
 gbif:9410160	Sorbo Silvestre	inat
@@ -1159,9 +1164,9 @@ gbif:2529520	cortinaria abundante	gbif
 gbif:3345846	Hongo de encino	inat
 gbif:2521461	Escobetillas	inat
 gbif:5238663	clavaria elegante	gbif
+gbif:7486196	Hongo pata de pájaro	inat
 gbif:5238654	Changle	inat
 gbif:5238642	cresta de gallo	gbif
-gbif:7486196	Hongo pata de pájaro	inat
 gbif:8869949	Mano de santo	gbif
 gbif:2524996	pata de perdiz	inat
 gbif:7523802	Hongos de panal	inat

@@ -28,10 +28,10 @@ gbif:5285074	ヒマラヤゴヨウ	inat
 gbif:5285565	フランスカイガンショウ	inat
 gbif:5284979	チョウセンゴヨウ	inat
 gbif:5285134	シモフリマツ	inat
-gbif:5285079	makedonia-matsu	gbif
 gbif:5285359	アブラマツ	inat
-gbif:5285084	ヒマラヤマツ	inat
+gbif:5285079	makedonia-matsu	gbif
 gbif:5285215	バビショウ	inat
+gbif:5285084	ヒマラヤマツ	inat
 gbif:5284667	シベリアマツ	inat
 gbif:5285824	カシヤマツ	inat
 gbif:5285119	メルクシマツ	inat
@@ -130,8 +130,8 @@ gbif:2879411	コルクガシ	inat
 gbif:2879098	セイヨウヒイラギガシ	inat
 gbif:2879353	カシワ	inat
 gbif:2879685	ミズナラ（広義）	inat
-gbif:2880130	フユナラ	gbif
 gbif:2879787	アベマキ	inat
+gbif:2880130	フユナラ	gbif
 gbif:2876863	アカガシ	inat
 gbif:2968261	ファルカタ	gbif
 gbif:10691906	モルッカネム	inat
@@ -332,8 +332,8 @@ gbif:3190642	コショウボク	inat
 gbif:3172488	タチノウゼン属	inat
 gbif:3033980	クスノキ属	inat
 gbif:3033987	シナモン	inat
-gbif:9128079	タマラニッケイ	inat
 gbif:3033991	クスノキ	gbif
+gbif:9128079	タマラニッケイ	inat
 gbif:5421126	ランブータン	inat
 gbif:3189556	フクギ属	inat
 gbif:9407103	ゴレンシ属	inat
@@ -373,6 +373,7 @@ gbif:9512597	バンヤンイチジク	inat
 gbif:3234563	ギランイヌビワ	inat
 gbif:2684359	ビャクシン属	inat
 gbif:2684709	セイヨウネズ	inat
+gbif:2684773	コロラドビャクシン	gbif
 gbif:2736531	ビンロウ	inat
 gbif:2963414	カワラケツメイ／ナンバンサイカチ属	inat
 gbif:5357108	ゴールデンシャワー	inat
@@ -768,8 +769,8 @@ gbif:5450746	バカマツタケ	inat
 gbif:5450587	ハエトリシメジ	inat
 gbif:2594624	コトガリアミガサタケ	gbif
 gbif:2594620	アシボソアミガサタケ	inat
-gbif:2594649	トガリフカアミガサタケ	inat
 gbif:2594626	オオトガリアミガサタケ	inat
+gbif:2594649	トガリフカアミガサタケ	inat
 gbif:8287374	ヤマドリタケ属	inat
 gbif:5954958	ヤマドリタケ	inat
 gbif:5954691	ヤマドリタケモドキ	inat
@@ -961,8 +962,8 @@ gbif:2551443	シロクロハツ	inat
 gbif:2551415	チギレハツタケ	inat
 gbif:2551447	クサハツ	inat
 gbif:9561742	クサイロアカネタケ	inat
-gbif:9223923	コゲイロハツタケ	inat
 gbif:2551191	クロハツモドキ	inat
+gbif:9223923	コゲイロハツタケ	inat
 gbif:2551423	アイタケ	inat
 gbif:2551331	シロハツ	inat
 gbif:2551419	ヤマブキハツ	inat
@@ -1067,9 +1068,9 @@ gbif:3346727	ウラベニホテイシメジ	gbif
 gbif:2521461	ホウキタケ属	inat
 gbif:5238602	サンゴホウキタケ	inat
 gbif:5238663	ハナホウキタケ	inat
+gbif:7486196	ホウキタケ	inat
 gbif:5238654	キホウキタケ	inat
 gbif:5238642	コガネホウキタケ	inat
-gbif:7486196	ホウキタケ	inat
 gbif:5238760	トサカホウキタケ	inat
 gbif:8869949	チャホウキタケ	gbif
 gbif:5238581	チャホウキタケモドキ	gbif

@@ -38,10 +38,10 @@ gbif:5285565	rannikkomänty	inat
 gbif:5284979	koreansembra	inat
 gbif:5285134	sembramänty	inat
 gbif:5285332	alppimänty	inat
-gbif:5285079	makedonianmänty	inat
 gbif:5285359	kiinanmustamänty	inat
-gbif:5285084	himalajanmänty	inat
+gbif:5285079	makedonianmänty	inat
 gbif:5285215	kiinanpunamänty	inat
+gbif:5285084	himalajanmänty	inat
 gbif:5284667	siperiansembra	inat
 gbif:5285824	khasinmänty	inat
 gbif:5285119	indonesianmänty	inat
@@ -72,6 +72,7 @@ gbif:2686156	lehtikuuset	inat
 gbif:2686231	kanadanlehtikuusi	inat
 gbif:2686270	lännenlehtikuusi	inat
 gbif:2686212	euroopanlehtikuusi	inat
+gbif:2686273	lyallinlehtikuusi	inat
 gbif:2686276	siperianlehtikuusi	inat
 gbif:2686157	japaninlehtikuusi	inat
 gbif:2686170	dahurianlehtikuusi	inat
@@ -150,6 +151,7 @@ gbif:2880539	punatammi	inat
 gbif:2879737	rinnevalkotammi	inat
 gbif:2878213	takiaistammi	inat
 gbif:8313153	otatammi	inat
+gbif:2879260	oregoninvalkotammi	inat
 gbif:2878688	metsätammi	inat
 gbif:2877959	sahatammi	inat
 gbif:2879411	korkkitammi	inat
@@ -158,13 +160,13 @@ gbif:2880580	turkintammi	inat
 gbif:2879353	hammastammi	inat
 gbif:2879685	mongoliantammi	inat
 gbif:7930013	kastanjatammi	inat
-gbif:2880130	talvitammi	inat
 gbif:2879787	kiinankaarnatammi	inat
+gbif:2880130	talvitammi	inat
 gbif:2879175	kermestammi	inat
-gbif:2880808	marokontammi	inat
 gbif:2881283	nukkatammi	inat
 gbif:2878826	pyreneittentammi	inat
 gbif:2881480	pyökkitammi	inat
+gbif:2880808	marokontammi	inat
 gbif:2881010	rieputammi	inat
 gbif:2878554	vuoritammi	inat
 gbif:2876863	peitsitammi	inat
@@ -199,8 +201,8 @@ gbif:3974744	hartsiakaasia	inat
 gbif:3974700	kierreakaasia	inat
 gbif:7989631	tähkäakaasiat	inat
 gbif:3977346	kumiakaasia	inat
-gbif:6710006	mesiakaasia	inat
 gbif:3796190	Rohtoakaasia	gbif
+gbif:6710006	mesiakaasia	inat
 gbif:2977374	anapuut	inat
 gbif:5360150	anapuu	inat
 gbif:3190507	kaijamahongit	inat
@@ -352,8 +354,8 @@ gbif:3183534	rusojambolaani	inat
 gbif:3184410	australianmausteneilikka	inat
 gbif:3183335	vesijambolaani	inat
 gbif:3183002	mausteneilikka	inat
-gbif:8652576	herttajambolaani	inat
 gbif:3183278	guineanjambolaani	inat
+gbif:8652576	herttajambolaani	inat
 gbif:3039411	jujubat	inat
 gbif:3039423	intianjujuba	inat
 gbif:3039424	intianjujuba	inat
@@ -468,6 +470,7 @@ gbif:2950720	jatobapuut	inat
 gbif:2950750	amerikanjatobapuu	inat
 gbif:2684359	katajat	inat
 gbif:2684709	Kataja	inat
+gbif:2684773	kalliovuortenkataja	inat
 gbif:2684451	okakataja	inat
 gbif:2684640	foinikiankataja	inat
 gbif:2684500	afrikankataja	inat
@@ -683,6 +686,7 @@ gbif:2952807	mimosiot	inat
 gbif:2952808	jopomimosio	inat
 gbif:2952823	sebilmimosio	inat
 gbif:2882796	mansikkapuut	inat
+gbif:2882802	kalifornianmansikkapuu	inat
 gbif:2882803	lännenmansikkapuu	inat
 gbif:4170901	idänmansikkapuu	inat
 gbif:2705751	hujabambut	inat
@@ -698,8 +702,8 @@ gbif:9220780	tylppöorapihlaja	inat
 gbif:8252683	pyöröorapihlaja	inat
 gbif:3013739	etelänorapihlaja	inat
 gbif:3057454	krotonit	inat
-gbif:3059413	afrikankrotoni	inat
 gbif:3059962	kuulakrotoni	inat
+gbif:3059413	afrikankrotoni	inat
 gbif:2947465	derrisjuuret	inat
 gbif:3190017	akeat	inat
 gbif:7271366	kapteeninmarjat	inat
@@ -868,6 +872,7 @@ gbif:7844167	keltarakkopensas	inat
 gbif:2978115	kopaivapuut	inat
 gbif:2766216	liljapuut	inat
 gbif:3082226	kanukat	inat
+gbif:8288790	oregoninkanukka	inat
 gbif:3082263	punamarjakanukka	inat
 gbif:8365953	pensaskanukka	inat
 gbif:3082234	mustamarjakanukka	inat
@@ -892,6 +897,7 @@ gbif:5293398	paranassaipalmu	inat
 gbif:5293403	atlantinassaipalmu	inat
 gbif:3039453	haprapaatsamat	inat
 gbif:3039454	Korpipaatsama	inat
+gbif:8286637	rohtopaatsama	inat
 gbif:2940025	väriherneet	inat
 gbif:5347571	karvaväriherne	inat
 gbif:3080069	miinaajankukat	inat
@@ -1024,6 +1030,7 @@ gbif:5415039	pihasyreeni	inat
 gbif:3169624	palliot	inat
 gbif:3621804	malawinpallio	inat
 gbif:2684902	marjakuuset	inat
+gbif:5284555	lännenmarjakuusi	inat
 gbif:5284517	euroopanmarjakuusi	inat
 gbif:2926960	ajuruohot	inat
 gbif:7307056	isokukkatimjami	inat
@@ -1238,8 +1245,8 @@ gbif:2551415	palterohapero	inat
 gbif:2551447	haisuhapero	inat
 gbif:9561742	kirjonahkahapero	inat
 gbif:2551558	kuusihapero	inat
-gbif:9223923	savuhapero	inat
 gbif:2551191	harmohapero	inat
+gbif:9223923	savuhapero	inat
 gbif:2551423	ruutuhapero	inat
 gbif:2551331	suppilohapero	inat
 gbif:2551419	sinappihapero	inat

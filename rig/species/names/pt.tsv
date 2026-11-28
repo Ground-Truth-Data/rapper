@@ -104,10 +104,10 @@ gbif:2879098	azinheira-costeira	inat
 gbif:2880580	carvalho-turco	inat
 gbif:7930013	carvalho-folha-de-castanha	gbif
 gbif:2879175	carrasco	inat
-gbif:2880808	Carvalho-de-Monchique	inat
 gbif:2881550	azinheira	inat
 gbif:2878826	Carvalho-negral	inat
 gbif:2881480	Carvalho-cerquinho	inat
+gbif:2880808	Carvalho-de-Monchique	inat
 gbif:8247889	Gamelina	inat
 gbif:10691906	albízia	gbif
 gbif:3190483	Mognos	inat
@@ -371,6 +371,7 @@ gbif:2950750	Jatobá	inat
 gbif:2950730	Trachylobium	gbif
 gbif:2684359	Zimbros	inat
 gbif:2684709	zimbro-comum	inat
+gbif:2684773	junipero-das-montanhas-rochosas	gbif
 gbif:2684528	sabina-alvar	inat
 gbif:2684451	oxicedro	inat
 gbif:2684640	sabina-da-praia	gbif
@@ -408,8 +409,8 @@ gbif:3060685	Mandioca	gbif
 gbif:3039576	salgueiros	inat
 gbif:5372513	Vimeiro-branco	inat
 gbif:5372800	Salgueiro-de-casca-roxa	inat
-gbif:5372952	Salgueiro	gbif
 gbif:5372914	Sarandi	inat
+gbif:5372952	Salgueiro	gbif
 gbif:5372933	Vimieiro	inat
 gbif:5372934	chorão-macarrão	gbif
 gbif:3190592	Cajás e Umbus	inat
@@ -444,8 +445,8 @@ gbif:3177662	Pitangas	inat
 gbif:5416458	Pitangueira	inat
 gbif:5416882	Grumixama	inat
 gbif:5417437	Cereja-do-rio-grande	inat
-gbif:5418198	Pêssego-do-mato	inat
 gbif:5417616	Uvaia	inat
+gbif:5418198	Pêssego-do-mato	inat
 gbif:5416332	Guapijuim	inat
 gbif:5417919	Guamirim	inat
 gbif:5416868	Batinga-vermelha	inat
@@ -683,6 +684,7 @@ gbif:5293425	Açaí-do-amazonas	inat
 gbif:5293398	Açaí	inat
 gbif:5293403	Juçara	inat
 gbif:3039454	sanguinho	inat
+gbif:8286637	cáscara sagrada	inat
 gbif:7309641	Pau-d'alho	inat
 gbif:6401269	Ipês e Afins	inat
 gbif:6401337	Ipê-amarelo	inat
@@ -814,6 +816,7 @@ gbif:3616928	Leiteiro	inat
 gbif:7321555	Peito-de-pombo	inat
 gbif:3659992	Pau-pombo	inat
 gbif:2684902	Teixos	inat
+gbif:5284555	teixo-do-Pacífico	inat
 gbif:5284517	teixo	inat
 gbif:2926960	Tomilho	gbif
 gbif:9410160	Mostajeiro-das-cólicas	inat

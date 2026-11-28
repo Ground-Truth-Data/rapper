@@ -34,10 +34,10 @@ gbif:5285565	Sosna nadmorska	inat
 gbif:5284979	Sosna koreańska	inat
 gbif:5285134	Sosna Limba	inat
 gbif:5285332	sosna hakowata	inat
-gbif:5285079	sosna rumelijska	inat
 gbif:5285359	sosna chińska	inat
-gbif:5285084	sosna długoszpilkowa	inat
+gbif:5285079	sosna rumelijska	inat
 gbif:5285215	sosna Massona	inat
+gbif:5285084	sosna długoszpilkowa	inat
 gbif:5284667	sosna syberyjska	inat
 gbif:5285824	sosna wiotka	inat
 gbif:5285119	sosna Merkusa	inat
@@ -68,6 +68,7 @@ gbif:2686156	Modrzew	inat
 gbif:2686231	modrzew amerykański	inat
 gbif:2686270	modrzew zachodni	inat
 gbif:2686212	Modrzew europejski	inat
+gbif:2686273	modrzew Lyalla	inat
 gbif:2686276	Modrzew syberyjski	inat
 gbif:2686157	Modrzew japoński	inat
 gbif:2686170	Modrzew dahurski	inat
@@ -137,14 +138,15 @@ gbif:2880539	Dąb czerwony	inat
 gbif:2879737	dąb biały	inat
 gbif:2878213	Dąb wielkoowocowy	inat
 gbif:8313153	Dąb błotny	inat
+gbif:2879260	dąb oregoński	inat
 gbif:2878688	Dąb szypułkowy	inat
 gbif:2879411	dąb korkowy	inat
 gbif:2879098	dąb ostrolistny	inat
 gbif:2880580	Dąb burgundzki	inat
 gbif:2880130	Dąb bezszypułkowy	inat
 gbif:2879175	Dąb skalny	inat
-gbif:2881283	dąb omszony	inat
 gbif:2881550	dąb okrągłolistny	inat
+gbif:2881283	dąb omszony	inat
 gbif:2878826	dąb pirenejski	inat
 gbif:2881480	Dąb portugalski	inat
 gbif:2881010	dąb alepski	inat
@@ -166,12 +168,12 @@ gbif:3189684	damarzyk mocny	inat
 gbif:2979265	akacja Farnesa	inat
 gbif:7403310	akacja żółtokorowa	inat
 gbif:3974744	akacja ciernista	inat
-gbif:7564113	akacja papierowa	inat
 gbif:3974700	akacja parasolowata	inat
+gbif:7564113	akacja papierowa	inat
 gbif:3974722	akacja czerwona	inat
 gbif:3977346	senegalia senegalska	inat
-gbif:6710006	senegalia miododajna	inat
 gbif:3796190	senegalia czarna	inat
+gbif:6710006	senegalia miododajna	inat
 gbif:3190508	mahoń senegalski	inat
 gbif:3852095	mahoń afrykański	inat
 gbif:3852039	mahoń beniński	inat
@@ -296,9 +298,9 @@ gbif:3183534	czapetka jambos	inat
 gbif:3182605	czapetka południowa	inat
 gbif:3183335	czapetka wodnista	inat
 gbif:3183002	Czapetka pachnąca	inat
-gbif:8652576	czapetka serdeczna	inat
-gbif:3183278	czapetka gwinejska	inat
 gbif:3183521	czapetka Wilsona	inat
+gbif:3183278	czapetka gwinejska	inat
+gbif:8652576	czapetka serdeczna	inat
 gbif:3183459	czapetka fidżijska	inat
 gbif:3182746	czapetka piękna	inat
 gbif:3039411	Głożyna	gbif
@@ -372,6 +374,7 @@ gbif:5361921	Figowiec sykomora	inat
 gbif:7262513	figowiec drobnolistny	inat
 gbif:2684359	Jałowiec	inat
 gbif:2684709	Jałowiec Pospolity	inat
+gbif:2684773	jałowiec skalny	inat
 gbif:2684626	jałowiec grecki	inat
 gbif:2684451	Jałowiec kolczasty	inat
 gbif:2684640	jałowiec fenicki	inat
@@ -401,8 +404,8 @@ gbif:3039576	Wierzba	inat
 gbif:5372513	Wierzba biała	inat
 gbif:5372800	Wierzba purpurowa	inat
 gbif:5372605	Wierzba szara	inat
-gbif:5372952	Wierzba iwa	inat
 gbif:5372914	wierzba Humboldta	inat
+gbif:5372952	Wierzba iwa	inat
 gbif:5372933	Wierzba wiciowa	inat
 gbif:3190592	Śliwiec	gbif
 gbif:3661030	śliwiec pierzasty	inat
@@ -477,6 +480,7 @@ gbif:3152820	Platan zachodni	inat
 gbif:3152816	Platan wschodni	inat
 gbif:2886817	żelaźnik	inat
 gbif:2882796	Chruścina	inat
+gbif:2882802	chruścina pacyficzna	inat
 gbif:2882803	Chruścina jagodna	inat
 gbif:2705751	Bambus	inat
 gbif:7661971	Bambus zwyczajny	inat
@@ -632,6 +636,7 @@ gbif:8012439	Śnieguliczka biała	inat
 gbif:3172235	Lilak	inat
 gbif:5415039	Lilak pospolity	inat
 gbif:2684902	Cis	inat
+gbif:5284555	cis krótkolistny	inat
 gbif:5284517	Cis pospolity	inat
 gbif:2926960	Macierzanka	inat
 gbif:9410160	Jarząb brekinia	inat
@@ -673,8 +678,8 @@ gbif:7242238	Gąska czarnołuskowa	inat
 gbif:5241820	Gąska sosnowa	inat
 gbif:5241733	Gąska czerwieniejąca	inat
 gbif:8426492	Smardz parastożkowaty	inat
-gbif:2594649	smardz półwolny	inat
 gbif:2594626	Smardz wyniosły	inat
+gbif:2594649	smardz półwolny	inat
 gbif:8287374	Borowik	inat
 gbif:5954958	Prawdziwek	inat
 gbif:5954949	Borowik sosnowy	inat
@@ -823,8 +828,8 @@ gbif:2551415	Gołąbek wyborny	inat
 gbif:2551447	gołąbek śmierdzący	inat
 gbif:9561742	Gołąbek oliwkowy	inat
 gbif:2551558	Gołąbek agrestowy	inat
-gbif:9223923	Gołąbek podpalany	inat
 gbif:2551191	Gołąbek gęstoblaszkowy	inat
+gbif:9223923	Gołąbek podpalany	inat
 gbif:2551423	Gołąbek zielonawy	inat
 gbif:2551331	Gołąbek smaczny	inat
 gbif:2551419	Gołąbek brudnożółty	inat
@@ -903,8 +908,8 @@ gbif:2539763	Dzwonkówka szarofioletowa	gbif
 gbif:2539389	Dzwonkówka kwietniowa	inat
 gbif:2521461	Koralówka	inat
 gbif:5238663	koralówka strojna	inat
-gbif:5238654	Koralówka żółta	inat
 gbif:7486196	koralówka czerwonowierzchołkowa	inat
+gbif:5238654	Koralówka żółta	inat
 gbif:8869949	Koralówka sztywna	gbif
 gbif:2551823	naziemek białawy	inat
 gbif:2524996	Klejek czerwonawy	inat

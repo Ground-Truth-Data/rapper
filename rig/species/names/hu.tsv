@@ -21,8 +21,8 @@ gbif:5285074	himalájai selyemfenyő	inat
 gbif:5285565	tengerparti fenyő	inat
 gbif:5284979	koreai selyemfenyő	inat
 gbif:5285332	kampósfenyő	inat
-gbif:5285079	Balkáni selyemfenyő	gbif
 gbif:5285359	Kínai táblásfenyő	gbif
+gbif:5285079	Balkáni selyemfenyő	gbif
 gbif:7606064	Lucfenyők	inat
 gbif:5284745	szürke luc	inat
 gbif:5284884	Közönséges lucfenyő	inat
@@ -100,14 +100,14 @@ gbif:2879098	Magyaltölgy	inat
 gbif:2880580	Csertölgy	inat
 gbif:2879353	Császártölgy	inat
 gbif:7930013	Gesztenyelevelű tölgy	inat
-gbif:2880130	kocsánytalan tölgy	inat
 gbif:2879787	Paráskérgű tölgy	inat
+gbif:2880130	kocsánytalan tölgy	inat
 gbif:2879175	karmazsintölgy	inat
-gbif:2880808	Kanári-tölgy	inat
-gbif:2881283	Molyhos tölgy	inat
 gbif:2881550	kereklevelű magyaltölgy	inat
+gbif:2881283	Molyhos tölgy	inat
 gbif:2878826	Pireneusi tölgy	inat
 gbif:2881480	Ibériai tölgy	inat
+gbif:2880808	Kanári-tölgy	inat
 gbif:2881010	Kurdisztáni tölgy	inat
 gbif:2878554	kaukázusi tölgy	inat
 gbif:2968672	Rio paliszander	gbif
@@ -222,6 +222,7 @@ gbif:5361909	közönséges füge	inat
 gbif:7835333	Szobafikusz	inat
 gbif:2684359	boróka	inat
 gbif:2684709	Közönséges boróka	inat
+gbif:2684773	oregoni boróka	inat
 gbif:2684451	vörös boróka	inat
 gbif:2736531	bételpálma	inat
 gbif:3172574	Afrikai tulipánfa	inat
@@ -259,6 +260,7 @@ gbif:3152542	varjúmák	inat
 gbif:3152811	Platán	gbif
 gbif:3152820	Nyugati platán	inat
 gbif:3152816	keleti platán	inat
+gbif:2882802	Kaliforniai szamócafa	gbif
 gbif:2882803	Nyugati Szamócafa	inat
 gbif:4170901	Görög szamócafa	gbif
 gbif:3013395	Galagonya	inat
@@ -293,6 +295,7 @@ gbif:3033558	Erdei iszalag	inat
 gbif:7844167	pukkanó dudafürt	inat
 gbif:3013215	Házi berkenye	inat
 gbif:3082226	som	inat
+gbif:8288790	Nagyvirágú som	gbif
 gbif:3082263	Húsos som	inat
 gbif:8365953	fehér som	inat
 gbif:3082234	Veresgyűrű som	inat
@@ -302,6 +305,7 @@ gbif:3172032	gyűszűvirág	inat
 gbif:2873937	Kokacserje	gbif
 gbif:3039453	kutyabenge	inat
 gbif:3039454	közönséges kutyabenge	inat
+gbif:8286637	Kaszkarabokor	gbif
 gbif:2940025	Rekettye	gbif
 gbif:5347571	selymes rekettye	inat
 gbif:3036021	borostyán	inat
@@ -389,8 +393,8 @@ gbif:5241832	gesztenyebarna pereszke	inat
 gbif:5241733	rózsáslemezű pereszke	inat
 gbif:8426492	fakéreg kucsmagomba	inat
 gbif:2594620	Hegyes kucsmagomba	inat
-gbif:2594649	Fattyú kucsmagomba	inat
 gbif:2594626	Nyúlánk kucsmagomba	inat
+gbif:2594649	Fattyú kucsmagomba	inat
 gbif:5954958	Ízletes vargánya	inat
 gbif:5954949	Vörösbarna vargánya	inat
 gbif:5954691	Nyári vargánya	inat
@@ -546,8 +550,8 @@ gbif:2551415	Ráncos galambgomba	inat
 gbif:2551447	Büdös galambgomba	inat
 gbif:9561742	vöröstönkű galambgomba	inat
 gbif:2551558	lucfenyő-galambgomba	inat
-gbif:9223923	Sötétedő galambgomba	inat
 gbif:2551191	feketedő galambgomba	inat
+gbif:9223923	Sötétedő galambgomba	inat
 gbif:2551423	Varashátú galambgomba	inat
 gbif:2551331	földtoló galambgomba	inat
 gbif:2551419	fakósárga galambgomba	inat
@@ -636,9 +640,9 @@ gbif:8899985	kék döggomba	inat
 gbif:2521461	Korallgomba	inat
 gbif:5238602	pompás korallgomba	inat
 gbif:5238663	Cifra korallgomba	inat
+gbif:7486196	Rózsáságú korallgomba	inat
 gbif:5238654	Sárga korallgomba	inat
 gbif:5238642	narancsszínű korallgomba	inat
-gbif:7486196	Rózsáságú korallgomba	inat
 gbif:5238688	vörösfoltos korallgomba	inat
 gbif:8869949	merev korallgomba	gbif
 gbif:5238581	hegyesvégű korallgomba	gbif

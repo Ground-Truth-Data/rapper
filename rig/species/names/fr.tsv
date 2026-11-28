@@ -38,10 +38,10 @@ gbif:5285565	Pin maritime	inat
 gbif:5284979	Pin blanc de Corée	inat
 gbif:5285134	Pin cembro	inat
 gbif:5285332	Pin à crochets	inat
-gbif:5285079	Pin de Macédoine	inat
 gbif:5285359	Pin rouge de Chine	gbif
-gbif:5285084	Pin de Roxburgh	inat
+gbif:5285079	Pin de Macédoine	inat
 gbif:5285215	Pin de Masson	gbif
+gbif:5285084	Pin de Roxburgh	inat
 gbif:5284667	Pin de Sibérie	inat
 gbif:5285192	Pin du Tibet	inat
 gbif:5285824	Pin à trois épines	inat
@@ -74,6 +74,7 @@ gbif:2686156	Mélèzes	inat
 gbif:2686231	tamarac	inat
 gbif:2686270	mélèze de l'Ouest	inat
 gbif:2686212	Mélèze d'Europe	inat
+gbif:2686273	mélèze subalpin	inat
 gbif:2686276	mélèze de Sibérie	inat
 gbif:2686157	Mélèze du Japon	inat
 gbif:2686170	Mélèze de Dahurie	inat
@@ -154,6 +155,7 @@ gbif:2880539	Chêne rouge d'Amérique	inat
 gbif:2879737	Chêne blanc	inat
 gbif:2878213	Chêne à gros fruits	inat
 gbif:8313153	chêne des marais	inat
+gbif:2879260	chêne de Garry	inat
 gbif:2878688	chêne pédonculé	inat
 gbif:2877959	Chêne du Japon	inat
 gbif:2879411	Chêne liège	inat
@@ -162,11 +164,11 @@ gbif:2880580	Chêne chevelu	inat
 gbif:7930013	Chêne à feuilles de châtaignier	inat
 gbif:2880130	Chêne sessile	inat
 gbif:2879175	chêne kermès	inat
-gbif:2880808	Chêne Zéen	inat
-gbif:2881283	chêne pubescent	inat
 gbif:2881550	chêne-vert à feuilles rondes	inat
+gbif:2881283	chêne pubescent	inat
 gbif:2878826	Chêne tauzin	inat
 gbif:2881480	Chêne portugais	inat
+gbif:2880808	Chêne Zéen	inat
 gbif:2878554	Chêne de Perse	inat
 gbif:2878082	Chêne de l'Himalaya	gbif
 gbif:2878062	Chêne afarès	inat
@@ -198,12 +200,12 @@ gbif:3189684	Sal	inat
 gbif:2979265	Cassier	inat
 gbif:7403310	Arbre à fièvre	inat
 gbif:3974744	Acacia égyptien	inat
+gbif:3974700	Acacia faux-gommier	inat
 gbif:7564113	Acacia des Ouèds	inat
 gbif:3974754	mimosa odorant	inat
-gbif:3974700	Acacia faux-gommier	inat
 gbif:3977346	Acacia du Sénégal	inat
-gbif:6710006	Acacia mellifère	inat
 gbif:3796190	Acacia à cachou	inat
+gbif:6710006	Acacia mellifère	inat
 gbif:5360150	Balanzan	inat
 gbif:3190508	Khaya du Sénégal	inat
 gbif:3852095	Acajou Blanc	gbif
@@ -273,6 +275,7 @@ gbif:3020791	merisier	inat
 gbif:3021496	Prunier laurier-cerise	inat
 gbif:8149923	Pêcher	inat
 gbif:3021730	Prunier myrobolan	inat
+gbif:7272137	cerisier amer	gbif
 gbif:7931731	Prunier cultivé	inat
 gbif:3021037	cerisier à grappes	inat
 gbif:3020871	Prunier du Portugal	inat
@@ -329,8 +332,8 @@ gbif:2975891	Acacia Saint-Domingue	inat
 gbif:3189394	Badamier	inat
 gbif:3699548	Arjuna	inat
 gbif:3189389	Framiré	inat
-gbif:3189393	Fraké	inat
 gbif:3189390	Myrobalan Beleric	gbif
+gbif:3189393	Fraké	inat
 gbif:3698332	Bouleau d'Afrique	inat
 gbif:2975927	Flémingie	gbif
 gbif:5359866	Flémingie à grandes feuilles	gbif
@@ -476,6 +479,7 @@ gbif:2950750	Courbaril	inat
 gbif:2950730	Copalier	gbif
 gbif:2684359	genévriers	inat
 gbif:2684709	genévrier commun	inat
+gbif:2684773	genévrier des Rocheuses	inat
 gbif:2684626	Genévrier élevé	gbif
 gbif:2684528	Genévrier thurifère	inat
 gbif:2684451	genévrier cade	inat
@@ -532,8 +536,8 @@ gbif:3039576	saules	inat
 gbif:5372513	Saule blanc	inat
 gbif:5372800	Osier pourpre	inat
 gbif:5372605	Saule cendré	inat
-gbif:5372952	saule marsault	inat
 gbif:5372914	saule chilien	inat
+gbif:5372952	saule marsault	inat
 gbif:5372933	Saule des vanniers	inat
 gbif:5372934	saule de Pékin	gbif
 gbif:3190592	Poupartie	gbif
@@ -692,6 +696,7 @@ gbif:3189992	Allophylle	gbif
 gbif:2952808	Bois écorce	inat
 gbif:2952823	Vilca	inat
 gbif:2882796	Arbousier	gbif
+gbif:2882802	arbousier d'Amérique	inat
 gbif:2882803	Arbousier	inat
 gbif:4170901	Arbousier andrachné	gbif
 gbif:2705751	Bambou	gbif
@@ -901,6 +906,7 @@ gbif:2978171	copahu	gbif
 gbif:3025305	Cormiers	inat
 gbif:3013215	Cormier	inat
 gbif:3082226	Cornouillers	inat
+gbif:8288790	cornouiller de Nuttall	gbif
 gbif:3082263	Cornouiller sauvage	inat
 gbif:8365953	cornouiller blanc	inat
 gbif:3082234	Cornouiller sanguin	inat
@@ -922,6 +928,7 @@ gbif:5293398	Açaï	inat
 gbif:5293403	euterpe	gbif
 gbif:3039453	Bourdaines	inat
 gbif:3039454	Bourdaine	inat
+gbif:8286637	cascara	inat
 gbif:2940025	Genêts	inat
 gbif:5347571	Genêt poilu	inat
 gbif:8000707	Genêt en Ombelle	inat
@@ -1046,6 +1053,7 @@ gbif:3618068	Pando	inat
 gbif:7321555	Tapirier de la Guyane	inat
 gbif:3659992	mombin blanc	gbif
 gbif:2684902	If	gbif
+gbif:5284555	if de l'ouest	inat
 gbif:5284517	if commun	inat
 gbif:2926960	thyms et serpollets	inat
 gbif:3026338	Alisier torminal	inat
@@ -1103,8 +1111,8 @@ gbif:8395134	Morillon des peupliers	inat
 gbif:7258337	Morille remarquable	gbif
 gbif:7665238	Morille jolie	inat
 gbif:2594620	Morille délicieuse	inat
-gbif:2594649	Morillon	inat
 gbif:2594626	Morille élevée	inat
+gbif:2594649	Morillon	inat
 gbif:2594628	Morille pourprée	inat
 gbif:3495590	Morille de Dunal	inat
 gbif:9662116	Morille disparate	inat
@@ -1293,8 +1301,8 @@ gbif:2551415	Russule vieux-rose	inat
 gbif:2551447	Russule fétide	inat
 gbif:9561742	russule olivacée	inat
 gbif:2551558	Russule de Quélet	inat
-gbif:9223923	Russule brûlée	inat
 gbif:2551191	russule à lames serrées	inat
+gbif:9223923	Russule brûlée	inat
 gbif:2551423	Russule verdoyante	inat
 gbif:2551331	Russule sans lait	inat
 gbif:2551419	Russule ocre et blanche	inat
@@ -1390,9 +1398,9 @@ gbif:2539763	Entolome de Bloxam	inat
 gbif:2539389	Entolome d'avril	inat
 gbif:5238602	Clavaire rouge corail	inat
 gbif:5238663	Clavaire élégante	inat
+gbif:7486196	Clavaire chou-fleur	inat
 gbif:5238654	Clavaire jaune	inat
 gbif:5238642	Clavaire dorée	inat
-gbif:7486196	Clavaire chou-fleur	inat
 gbif:5238688	Ramaire sanguine	inat
 gbif:8869949	Clavaire dressée	gbif
 gbif:5238581	Clavaire aux yeux verts	gbif

@@ -42,14 +42,14 @@ gbif:5284979	borovica kórejská	inat
 gbif:5285224	borovica duranžská	inat
 gbif:5285134	Borovica limbová	inat
 gbif:5285332	borovica zobáčikatá	inat
-gbif:5285079	borovica balkánska	inat
 gbif:5285359	borovica tabuľovitá	inat
-gbif:5285084	borovica Roxburgova	inat
+gbif:5285079	borovica balkánska	inat
 gbif:5285215	borovica Massonova	inat
+gbif:5285084	borovica Roxburgova	inat
 gbif:5284667	borovica sibírska	inat
 gbif:5285824	borovica khasijská	inat
-gbif:5285119	borovica Merkusova	inat
 gbif:5285783	borovica jünnanská	inat
+gbif:5285119	borovica Merkusova	inat
 gbif:5285203	borovica Armandova	gbif
 gbif:7606064	smrek	inat
 gbif:5284745	smrek sivý	inat
@@ -78,6 +78,7 @@ gbif:2686156	smrekovec	inat
 gbif:2686231	smrekovec americký	inat
 gbif:2686270	smrekovec západný	inat
 gbif:2686212	smrekovec opadavý	inat
+gbif:2686273	smrekovec Lyallov	inat
 gbif:2686276	smrekovec sibírsky	inat
 gbif:2686157	smrekovec japonský	inat
 gbif:2686170	smrekovec Gmelinov	inat
@@ -168,14 +169,14 @@ gbif:2880580	dub cerový	inat
 gbif:2879353	dub zúbkatý	inat
 gbif:2879685	dub mongolský	inat
 gbif:7930013	dub gaštanolistý	inat
-gbif:2880130	dub zimný	inat
 gbif:2879787	dub premenlivý	inat
+gbif:2880130	dub zimný	inat
 gbif:2879175	dub kermesový	inat
-gbif:2880808	dub alžírsky	inat
-gbif:2881283	dub plstnatý	inat
 gbif:2881550	dub okrúhlolistý	inat
+gbif:2881283	dub plstnatý	inat
 gbif:2878826	dub pyrenejský	inat
 gbif:2881480	dub bukovitý	inat
+gbif:2880808	dub alžírsky	inat
 gbif:2881010	dub hálkový	inat
 gbif:2878554	dub veľkokvetý	inat
 gbif:8247889	gmelina stromovitá	inat
@@ -209,8 +210,8 @@ gbif:4096555	šorea tupá	inat
 gbif:4097257	šorea hladká	inat
 gbif:2979265	akácia Farnesova	inat
 gbif:3974744	akácia nílska	inat
-gbif:3974754	akácia hrozná	inat
 gbif:3974700	akácia skrútená	inat
+gbif:3974754	akácia hrozná	inat
 gbif:3974788	akácia kosákovitostruková	inat
 gbif:7769517	kaliandra bezbranná	inat
 gbif:3974722	akácia egyptská	inat
@@ -351,8 +352,8 @@ gbif:2975891	lampášovník popolavý	inat
 gbif:3189387	vrcholiak	inat
 gbif:3189394	vrcholiak liečivý	inat
 gbif:3698958	vrcholiak močiarny	inat
-gbif:3189393	vrcholiak pyšný	inat
 gbif:3189390	vrcholiak myrobalánový	inat
+gbif:3189393	vrcholiak pyšný	inat
 gbif:2975767	tamarind	inat
 gbif:2975768	tamarind indooceánsky	inat
 gbif:2933053	tefrózia	inat
@@ -491,6 +492,7 @@ gbif:2950750	hymenea ovocná	inat
 gbif:2950730	hymenea bradavičnatá	inat
 gbif:2684359	borievka	inat
 gbif:2684709	borievka obyčajná	inat
+gbif:2684773	borievka skalnatohorská	inat
 gbif:2684626	borievka vysoká	inat
 gbif:2684528	borievka kadidlová	inat
 gbif:2684451	borievka červenoplodá	inat
@@ -626,8 +628,8 @@ gbif:8428976	dvojkrídlač rebernatý	inat
 gbif:3177662	eugénia	inat
 gbif:5416458	eugénia jednokvetá	inat
 gbif:5416882	eugénia brazílska	inat
-gbif:5418198	eugénia myrciokvetá	inat
 gbif:5417616	eugénia hruškovitá	inat
+gbif:5418198	eugénia myrciokvetá	inat
 gbif:2976322	izoberlínia	inat
 gbif:2976324	izoberlínia angolská	inat
 gbif:3039520	mézovec	inat
@@ -1094,6 +1096,7 @@ gbif:2978123	kopainovník plstnatokvetý	inat
 gbif:2766216	kordylínka	inat
 gbif:3013215	jarabina oskorušová	inat
 gbif:3082226	drieň	inat
+gbif:8288790	svíb Nuttalov	inat
 gbif:3082263	drieň obyčajný	inat
 gbif:8365953	svíb biely	inat
 gbif:3082234	svíb krvavý	inat
@@ -1145,6 +1148,7 @@ gbif:3169508	voňavkovec	inat
 gbif:3190185	hviezdicovník	inat
 gbif:3039453	krušina	inat
 gbif:3039454	krušina jelšová	inat
+gbif:8286637	krušina Purshova	inat
 gbif:7309638	galézia	inat
 gbif:7309641	galézia celistvolistá	inat
 gbif:7265133	jasnolist	inat
@@ -1348,6 +1352,7 @@ gbif:3169624	guľovník	inat
 gbif:2945125	záhubník	inat
 gbif:3659992	tapirira tupá	inat
 gbif:2684902	tis	inat
+gbif:5284555	tis krátkolistý	inat
 gbif:5284517	tis obyčajný	inat
 gbif:2926960	materina dúška	inat
 gbif:9410160	jarabina brekyňová	inat
@@ -1425,8 +1430,8 @@ gbif:7242238	čírovka čiernošupinatá	inat
 gbif:5241832	čírovka slizká	inat
 gbif:5241733	čírovka červenejúca	inat
 gbif:2594624	smrčok černastorebrový	inat
-gbif:2594649	smrčok hybridný	inat
 gbif:2594626	smrčok vysoký	inat
+gbif:2594649	smrčok hybridný	inat
 gbif:8287374	hríb	inat
 gbif:5954958	hríb smrekový	inat
 gbif:5954949	hríb sosnový	inat
@@ -1597,8 +1602,8 @@ gbif:2551415	plávka mandľová	inat
 gbif:2551447	plávka smradľavá	inat
 gbif:9561742	plávka olivová	inat
 gbif:2551558	plávka Quéletova	inat
-gbif:9223923	plávka počerná	inat
 gbif:2551191	plávka hustolupeňová	inat
+gbif:9223923	plávka počerná	inat
 gbif:2551423	plávka zelenkastá	inat
 gbif:2551331	plávka belavá	inat
 gbif:2551419	plávka hlinovožltá	inat
@@ -1693,9 +1698,9 @@ gbif:2539763	hodvábnica Bloxamova	inat
 gbif:2521461	strapačka	inat
 gbif:5238602	strapačka lososovoružová	inat
 gbif:5238663	Strapačka úhľadná	inat
+gbif:7486196	strapačka koralovitá	inat
 gbif:5238654	strapačka žltá	inat
 gbif:5238642	strapačka zlatožltá	inat
-gbif:7486196	strapačka koralovitá	inat
 gbif:5238688	strapačka červenejúca	inat
 gbif:8869949	strapačka vzpriamená	gbif
 gbif:2551762	krásnopórovec	inat

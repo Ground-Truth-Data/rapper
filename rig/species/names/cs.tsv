@@ -69,6 +69,7 @@ gbif:2686156	modřín	inat
 gbif:2686231	modřín americký	inat
 gbif:2686270	modřín západoamerický	inat
 gbif:2686212	modřín opadavý	inat
+gbif:2686273	modřín Lyallův	inat
 gbif:2686276	modřín sibiřský	inat
 gbif:2686157	modřín japonský	inat
 gbif:2686170	modřín Gmelinův	inat
@@ -140,6 +141,7 @@ gbif:2880539	dub červený	inat
 gbif:2879737	dub bílý	inat
 gbif:2878213	dub velkoplodý	inat
 gbif:8313153	dub bažinný	inat
+gbif:2879260	dub Garryův	inat
 gbif:2878688	dub letní	inat
 gbif:2877959	dub špičatolistý	inat
 gbif:2879411	dub korkový	inat
@@ -147,14 +149,14 @@ gbif:2879098	dub cesmínovitý	inat
 gbif:2880580	dub cer	inat
 gbif:2879353	dub zubatý	inat
 gbif:2879685	dub mongolský	inat
-gbif:2880130	dub zimní	inat
 gbif:2879787	dub proměnlivý	inat
+gbif:2880130	dub zimní	inat
 gbif:2879175	dub kermesový	inat
-gbif:2880808	dub alžírský	inat
-gbif:2881283	dub pýřitý	inat
 gbif:2881550	dub cesmínovitý okrouhlolistý	inat
+gbif:2881283	dub pýřitý	inat
 gbif:2878826	dub pyrenejský	inat
 gbif:2881480	dub portugalský	inat
+gbif:2880808	dub alžírský	inat
 gbif:2881010	dub hálkový	inat
 gbif:2878554	dub velkokvětý	inat
 gbif:3190474	azadirachta indická	inat
@@ -173,8 +175,8 @@ gbif:5284702	cedr atlaský	inat
 gbif:5284682	cedr libanonský	inat
 gbif:3189684	shorea silná	inat
 gbif:2979265	akácie Farnesova	inat
-gbif:3974754	Akácie dlouhotrnná	inat
 gbif:3974700	akácie zkroucená	inat
+gbif:3974754	Akácie dlouhotrnná	inat
 gbif:7989631	kapinice	inat
 gbif:3977346	akácie senegalská	inat
 gbif:3796190	kapinice katechová	inat
@@ -238,6 +240,7 @@ gbif:3020791	třešeň obecná	inat
 gbif:3021496	bobkovišeň lékařská	inat
 gbif:8149923	broskvoň obecná	inat
 gbif:3021730	myrobalán	inat
+gbif:7272137	slivoň vykrajovaná	inat
 gbif:7931731	slivoň švestka	inat
 gbif:3021037	střemcha obecná	inat
 gbif:3020871	bobkovišeň portugalská	inat
@@ -376,6 +379,7 @@ gbif:2950720	kurbaryl	inat
 gbif:2950750	kurbaryl obecný	inat
 gbif:2684359	jalovec	inat
 gbif:2684709	jalovec obecný	inat
+gbif:2684773	jalovec skalní	inat
 gbif:2684626	jalovec ztepilý	inat
 gbif:2684451	jalovec červenoplodý	inat
 gbif:2684640	jalovec fénický	inat
@@ -410,8 +414,8 @@ gbif:3039576	vrba	inat
 gbif:5372513	vrba bílá	inat
 gbif:5372800	vrba nachová	inat
 gbif:5372605	vrba popelavá	inat
-gbif:5372952	vrba jíva	inat
 gbif:5372914	vrba čilská	inat
+gbif:5372952	vrba jíva	inat
 gbif:5372933	vrba košíkářská	inat
 gbif:3190592	mombín	inat
 gbif:3190652	pajasan	inat
@@ -490,6 +494,7 @@ gbif:2886817	argánie	inat
 gbif:2886244	argánie trnitá	inat
 gbif:2917735	vangérie	inat
 gbif:2882796	planika	inat
+gbif:2882802	planika Menziesova	gbif
 gbif:2882803	planika velkoplodá	inat
 gbif:4170901	planika drobnoplodá	inat
 gbif:8234570	butea listnatá	inat
@@ -598,6 +603,7 @@ gbif:2766216	dračinka	inat
 gbif:3025305	jeřáb	inat
 gbif:3013215	jeřáb oskeruše	inat
 gbif:3082226	dřín	inat
+gbif:8288790	dřín Nuttallův	inat
 gbif:3082263	dřín jarní	inat
 gbif:8365953	svída bílá	inat
 gbif:3082234	svída krvavá	inat
@@ -613,6 +619,7 @@ gbif:7373031	vřesovec mnohokvětý	inat
 gbif:2873937	rudodřev	inat
 gbif:3039453	krušina	inat
 gbif:3039454	krušina olšová	inat
+gbif:8286637	krušina Purshova	inat
 gbif:2940025	kručinka	inat
 gbif:5347571	kručinka chlupatá	inat
 gbif:3036021	břečťan	inat
@@ -701,6 +708,7 @@ gbif:8012439	pámelník bílý	inat
 gbif:3172235	šeřík	inat
 gbif:5415039	šeřík obecný	inat
 gbif:2684902	tis	inat
+gbif:5284555	tis západoamerický	inat
 gbif:5284517	tis červený	inat
 gbif:2926960	mateřídouška	inat
 gbif:3026338	jeřáb	inat
@@ -746,8 +754,8 @@ gbif:5241820	čirůvka větší	inat
 gbif:5241733	čirůvka růžovolupenná	inat
 gbif:2594624	smrž úzkohlavý	gbif
 gbif:8426492	smrž koromilný	inat
-gbif:2594649	smrž polovolný	inat
 gbif:2594626	smrž vysoký	gbif
+gbif:2594649	smrž polovolný	inat
 gbif:8287374	Hřib	inat
 gbif:5954958	hřib smrkový	inat
 gbif:5954949	hřib borový	inat
@@ -926,8 +934,8 @@ gbif:2551415	holubinka mandlová	inat
 gbif:2551447	holubinka smrdutá	inat
 gbif:9561742	holubinka olivová	inat
 gbif:2551558	holubinka Quéletova	inat
-gbif:9223923	holubinka osmahlá	inat
 gbif:2551191	holubinka hustolistá	inat
+gbif:9223923	holubinka osmahlá	inat
 gbif:2551423	holubinka nazelenalá	inat
 gbif:2551331	holubinka bílá	inat
 gbif:2551419	holubinka hlínožlutá	inat
@@ -1036,9 +1044,9 @@ gbif:2521461	kuřátka	inat
 gbif:5238602	kuřátka lososová	inat
 gbif:5238663	kuřátka sličná	inat
 gbif:5238449	kuřátka načervenalá	inat
+gbif:7486196	kuřátka květáková	inat
 gbif:5238654	kuřátka žlutá	inat
 gbif:5238642	kuřátka zlatá	inat
-gbif:7486196	kuřátka květáková	inat
 gbif:5238647	kuřátka žlutohnědá	inat
 gbif:5238688	kuřátka krvavá	inat
 gbif:8869949	kuřátka přímá	gbif

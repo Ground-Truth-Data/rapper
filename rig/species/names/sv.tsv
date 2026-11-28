@@ -134,8 +134,8 @@ gbif:2879353	kejsarek	gbif
 gbif:2879685	japansk mongol-ek	gbif
 gbif:2880130	Bergek	inat
 gbif:2879175	Kermesek	inat
-gbif:2881283	ullek	gbif
 gbif:2881550	bellotaek	inat
+gbif:2881283	ullek	gbif
 gbif:2878826	pyreneisk ek	gbif
 gbif:2881010	aleppoek	gbif
 gbif:3190485	kubamahogny	gbif
@@ -265,8 +265,8 @@ gbif:2930210	rött känguruäpple	inat
 gbif:3189394	tropisk mandel	gbif
 gbif:3698958	svartbucida	gbif
 gbif:3189389	framiré	gbif
-gbif:3189393	afara	gbif
 gbif:3189390	belerisk myrobalan	gbif
+gbif:3189393	afara	gbif
 gbif:2975768	tamarind	gbif
 gbif:2933053	Flaggärtssläktet	gbif
 gbif:3172499	Jakaranda	inat
@@ -325,8 +325,8 @@ gbif:3190642	rosépeppar	inat
 gbif:3172488	trumpetbuskar	inat
 gbif:3033980	kanelsläktet	inat
 gbif:3033987	äkta kanel	gbif
-gbif:9128079	Indisk lager	gbif
 gbif:3033991	kamferträd	gbif
+gbif:9128079	Indisk lager	gbif
 gbif:3189421	mammiäpple	gbif
 gbif:5421126	rambutan	gbif
 gbif:5348811	petai	gbif
@@ -371,6 +371,7 @@ gbif:3234563	vaxfikus	inat
 gbif:2950750	jatoba	gbif
 gbif:2684359	enar	inat
 gbif:2684709	En	inat
+gbif:2684773	röden	inat
 gbif:2684451	stick-en	gbif
 gbif:2684640	fenicisk en	gbif
 gbif:2684584	druv-en	gbif
@@ -482,6 +483,7 @@ gbif:3152816	orientalisk platan	inat
 gbif:3172541	prima vera	gbif
 gbif:8185162	maconaträd	gbif
 gbif:2882796	smultronträd	inat
+gbif:2882802	kaliforniskt smultronträd	inat
 gbif:2882803	smultronträd	inat
 gbif:4170901	småfruktigt smultronträd	inat
 gbif:2705752	Taggbambu	inat
@@ -563,6 +565,7 @@ gbif:2978171	röd kopaiva	gbif
 gbif:2766216	kordylinesläktet	gbif
 gbif:3013215	äppelrönn	inat
 gbif:3082226	korneller	inat
+gbif:8288790	stor blomsterkornell	gbif
 gbif:3082263	körsbärskornell	inat
 gbif:8365953	kornell	inat
 gbif:3082234	skogskornell	inat
@@ -580,6 +583,7 @@ gbif:5293398	para-assaipalm	gbif
 gbif:5293403	assaipalm	gbif
 gbif:3039453	brakvedssläktet	inat
 gbif:3039454	brakved	inat
+gbif:8286637	sagradabuske	inat
 gbif:2940025	ginster	inat
 gbif:5347571	hårginst	inat
 gbif:3036021	Murgröna	inat
@@ -669,6 +673,7 @@ gbif:8012439	Snöbär	inat
 gbif:3172235	Syrener	inat
 gbif:5415039	syren	inat
 gbif:2684902	idegranar	inat
+gbif:5284555	läkeidegran	inat
 gbif:5284517	Idegran	inat
 gbif:2926960	timjansläktet	inat
 gbif:9410160	tyskoxel	inat
@@ -872,8 +877,8 @@ gbif:2551415	kantkremla	inat
 gbif:2551447	stinkkremla	inat
 gbif:9561742	rödfotad läderkremla	inat
 gbif:2551558	krusbärskremla	inat
-gbif:9223923	svedkremla	inat
 gbif:2551191	tätskivig svedkremla	inat
+gbif:9223923	svedkremla	inat
 gbif:2551423	rutkremla	inat
 gbif:2551331	trattkremla	inat
 gbif:2551419	senapskremla	inat

@@ -40,6 +40,7 @@ gbif:2684171	hiigel-elupuu	inat
 gbif:2686156	Lehis	gbif
 gbif:2686231	ameerika lehis	inat
 gbif:2686212	euroopa lehis	inat
+gbif:2686273	Lyalli lehis	gbif
 gbif:2686276	siberi lehis	inat
 gbif:3040215	ameerika haab	inat
 gbif:3040249	harilik haab	inat
@@ -147,6 +148,7 @@ gbif:3020791	magus kirsipuu	inat
 gbif:3021496	harilik loorberkirsipuu	inat
 gbif:8149923	harilik virsikupuu	inat
 gbif:3021730	haraline ploomipuu	inat
+gbif:7272137	must ploomipuu	inat
 gbif:7931731	ploomipuu	inat
 gbif:3021037	harilik toomingas	inat
 gbif:3020871	portugali loorberkirsipuu	inat
@@ -205,6 +207,7 @@ gbif:3234563	kirju viigipuu	inat
 gbif:7642634	Fraseri viigipuu	inat
 gbif:2684359	kadakad	inat
 gbif:2684709	harilik kadakas	inat
+gbif:2684773	kaljukadakas	inat
 gbif:2684626	kõrge kadakas	inat
 gbif:2684528	lõhnav kadakas	inat
 gbif:2684451	punane kadakas	inat
@@ -476,8 +479,8 @@ gbif:2551415	mage pilvik	inat
 gbif:2551447	haisev pilvik	inat
 gbif:9561742	oliivpilvik	inat
 gbif:2551558	kuusepilvik	inat
-gbif:9223923	mustjas pilvik	inat
 gbif:2551191	tihedalehine pilvik	inat
+gbif:9223923	mustjas pilvik	inat
 gbif:2551423	areoolpilvik	inat
 gbif:2551331	kuiv pilvik	inat
 gbif:2551419	paatjas pilvik	inat
