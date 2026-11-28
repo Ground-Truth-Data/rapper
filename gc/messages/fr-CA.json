@@ -39,7 +39,6 @@
 	"gc_form_photo_where": "Où cette photo est gardée",
 	"gc_form_photo_note": "Seulement sur ce téléphone jusqu'à ce que vous l'envoyiez.",
 	"gc_form_opening": "Ouverture du formulaire…",
-	"gc_plugin_untitled": "Sans titre",
 	"gc_plugin_not_published": "non publié",
 	"gc_plugin_replaced_by": "Remplacé par {title}",
 	"gc_plugin_created": "Créé le {date}",

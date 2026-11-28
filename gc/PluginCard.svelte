@@ -32,7 +32,7 @@
 	const saved = (iso: string) => new Date(iso).toLocaleString(getLocale(), { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
 	const num = (n: number) => n.toLocaleString(getLocale());
 	const submissions = (n: number) => t.gc_plugin_submissions({ count: n, shown: num(n) });
-	const title = $derived(card.title || t.gc_plugin_untitled());
+	const title = $derived(card.title);
 </script>
 
 <NestPill
@@ -56,7 +56,7 @@
 			{@const to = card.replacedBy.href}
 			<!-- A span, not a link: it sits inside the pill's button. -->
 			<span class="replaced" role="link" tabindex="0" onclick={(e) => (e.stopPropagation(), go(to))} onkeydown={(e) => e.key === "Enter" && (e.stopPropagation(), go(to))} data-replaced-by
-				>{t.gc_plugin_replaced_by({ title: card.replacedBy.title || t.gc_plugin_untitled() })}</span
+				>{t.gc_plugin_replaced_by({ title: card.replacedBy.title })}</span
 			>
 		{/if}
 	</span>

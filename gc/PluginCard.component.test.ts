@@ -12,7 +12,7 @@ it("a French phone reads the card in French, its date and numbers too", () => {
 	try {
 		const { container } = render(PluginCard, { card, href: "#", go: vi.fn() });
 		const text = container.textContent ?? "";
-		expect(text).toContain("Sans titre");
+		expect(text, "an untitled form shows no title, never a made-up one").not.toContain("Sans titre");
 		expect(text).toContain("1 question");
 		expect(container.querySelector("[data-created]")?.textContent).toMatch(/Créé le 10 nov\.? 2026/);
 		expect(container.querySelector("[data-submissions]")?.textContent).toMatch(/1\s200 réponses/);

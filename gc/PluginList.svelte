@@ -90,7 +90,7 @@
 {#snippet form(p: PluginListItem)}
 	<div class="swipe" class:past={p.past}>
 		{#if !p.retired}
-			<button type="button" class="retire" aria-label="Archive {p.title || 'Untitled'}" onclick={() => onretire(p.id)} data-retire><Icon name="archive" size={26} /></button>
+			<button type="button" class="retire" aria-label="Archive {p.title}" onclick={() => onretire(p.id)} data-retire><Icon name="archive" size={26} /></button>
 		{/if}
 		<div class="track" use:rowSwipe={p.retired ? null : { hold: RETIRE_PX }}>
 			<PluginCard card={p} href={p.href} {go} fold={folded && isOpen && ontoggle ? { open: isOpen(p.id), toggle: () => ontoggle(p.id) } : undefined} />
