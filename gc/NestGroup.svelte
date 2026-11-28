@@ -25,5 +25,7 @@ setNestDepth(parent + 1);
     margin: 0;
     padding: 0;
     border: 0;
+    /* A pill slid right for its export tick goes off the edge, never off the page. */
+    overflow-x: clip;
 }
 </style>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Icon from "./Icon.svelte";
-	import { inPill } from "./Pill2.svelte";
+	import { inPill } from "./NestPill.svelte";
 	import { m } from "$parent/src/lib/paraglide/messages";
 
 	/** Shared by link: `n` live links to this thing (a pill), or `via` the shared thing it sits inside (the bare

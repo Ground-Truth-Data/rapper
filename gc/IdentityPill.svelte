@@ -20,7 +20,7 @@ export const nameCut = (name: string) => (name.length > 12 ? `${name.slice(0, 12
 import { m } from "$parent/src/lib/paraglide/messages";
 import { SvelteSet } from "svelte/reactivity";
 import Icon from "./Icon.svelte";
-import { inPill } from "./Pill2.svelte";
+import { inPill } from "./NestPill.svelte";
 
 /** The owner, then one joined pill per editor: a pen half for having saved it again, a rust hammer half on
  *  `clobberBy`, whose version beat yours. An owner who edited is one joined pill, never two. */
