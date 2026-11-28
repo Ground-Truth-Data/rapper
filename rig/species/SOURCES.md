@@ -20,6 +20,17 @@ Every row's `source` column holds one or more of the keys below, `;`-separated. 
 | `gbif-genus` | A genus row, parent of the species under it. | | |
 | `made` | A parent people say that GBIF has no record for; its id is `name:<slug>`, fixed for life, and its rank is `group`. Aspen: *Populus tremuloides* and *P. tremula*. Black morel and Yellow morel: *Morchella* sect. Distantes and sect. Morchella, as listed in Wikipedia's "Morchella" article after Richard et al. 2015 (`scripts/species/morelSections.json`). A species in none of them stays under its genus. | | Wikipedia text CC BY-SA 4.0; only the grouping is used |
 
+**Codes** (the `code` column): BC Ministry of Forests tree species codes, written by Get Cache's
+`scripts/species/bcCodes.mjs` from its `bcCodes.tsv`, fetched 27 Nov 2026. `compendium` rows: the Tree species
+compendium index (code, common and Latin name),
+https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/silviculture/stocking-standards/tree-species-compendium-index
+, matched on the Latin name (Tamarack on its name: the page spells *Larix laricana*). `seedcentre` rows: the Tree
+Seed Centre's species codes,
+https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/tree-seed/tree-seed-centre/seed-testing/codes
+, matched on the common name, for species the compendium lacks (SX is its "Spruce Hybrid"). Codes are written in
+capitals, as the Seed Centre prints them. Codes longer than three letters are left out: the page says they are
+for shrubs and herbs. A species neither page lists has no code.
+
 **IDs and scientific names:** GBIF Backbone Taxonomy (GBIF Secretariat, dataset
 `d7dddbf4-2cf0-4f39-9b2a-bb099caae36c`, CC BY 4.0). `gbif:<n>` is the backbone key of the accepted species or
 genus. A name a source spells differently, or that has since been renamed, is in `listedAs`.
