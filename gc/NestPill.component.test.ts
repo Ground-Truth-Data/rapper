@@ -20,6 +20,13 @@ it("a bare right half opens its drawer with no chevron; its mark is the pill's o
 	expect(d.querySelector(".np-go svg, .np-go *")).not.toBeNull();
 });
 
+it("a pill with nothing to open acts on either half, so a tap on its centred word is never lost", () => {
+	let taps = 0;
+	const { container: c } = render(NestPill, { children, glyph: star, ontoggle: () => taps++, ongo: null });
+	for (const half of c.querySelectorAll<HTMLButtonElement>(".np-half")) half.click();
+	expect(taps).toBe(2);
+});
+
 it("a fold with no chevron still says whether it is open", () => {
 	for (const expanded of [true, false]) {
 		const { container: c } = render(NestPill, { children, steel: true, expanded, ontoggle: go, ongo: go });
