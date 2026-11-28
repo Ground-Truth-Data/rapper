@@ -5,7 +5,7 @@ import SurveyRows from "./SurveyRows.svelte";
 
 afterEach(cleanup);
 
-const words = { planted: "p", spots: "s", missed: "m", excess: "e", density: "density", quality: "quality" };
+const words = { missed: "m", excess: "e", density: "density", quality: "quality" };
 const who = (label: string) => ({ key: label, label, color: "#abc", self: false, picked: true });
 const survey = { kind: "survey" as const, name: "survey3", count: 9, surveyors: [who("Carlie")], density: 91 as number | null, quality: 88 as number | null };
 const plot = (o = {}) => ({ kind: "plot" as const, plotNo: 3, planted: 7, spots: 8, missed: 0, excess: 0, faults: [] as string[], ...o });

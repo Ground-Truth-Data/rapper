@@ -18,8 +18,6 @@ export type SurveyRow =
       };
 
 export type SurveyRowWords = {
-    planted: string;
-    spots: string;
     missed: string;
     excess: string;
     density: string;
@@ -108,9 +106,9 @@ const species = $derived(row.kind === "plot" ? (row.species ?? []) : []);
                 <span class="no" data-no>#{row.plotNo}</span>
                 <span class="num" data-counts>
                     <img src={treeWhite} alt="" />
-                    <span class="nl"><small>{words.planted}</small><span data-planted>{row.planted}</span></span>
+                    <span data-planted>{row.planted}</span>
                     <span class="j">/</span>
-                    <span class="nl"><small>{words.spots}</small><span data-spots>{row.spots}</span></span>
+                    <span data-spots>{row.spots}</span>
                 </span>
             </span>
             {#snippet values()}
@@ -249,17 +247,6 @@ const species = $derived(row.kind === "plot" ? (row.species ?? []) : []);
     margin-bottom: 2px;
     font: 500 13px var(--rt-font-meta);
     color: #838963;
-}
-.nl {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-}
-.nl small {
-    margin-bottom: 2px;
-    font: 600 9px var(--rt-font-meta);
-    letter-spacing: 0.02em;
-    color: var(--rust);
 }
 .no {
     flex: none;
