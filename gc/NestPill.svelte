@@ -27,6 +27,7 @@ let {
     goLabel,
     small = false,
     detail = false,
+    dotted = false,
     dashed = false,
     steel = false,
     stack,
@@ -43,15 +44,17 @@ let {
      *  childless pill lines up with its folding siblings. */
     open?: boolean | null;
     ontoggle?: (e: MouseEvent) => void;
-    /** Draws the right ">" and opens the pill's drawer. */
-    ongo?: () => void;
+    /** Draws the right ">" and opens the pill's drawer. `null`: a right half with nothing to do, disabled. */
+    ongo?: (() => void) | null;
     goLabel?: string;
     small?: boolean;
     /** A line of small text and one value, never tapped. */
     detail?: boolean;
-    /** A calculated value: dashed, unfilled. */
+    /** A calculated value: dotted, unfilled. */
+    dotted?: boolean;
+    /** An action that holds no value: dashed. */
     dashed?: boolean;
-    /** A value you can change right here: a steel track. Its value sits on a raised `.np-plac`. */
+    /** A value you can change right here: a steel track, no ">". Its value sits on a raised `.np-plac`. */
     steel?: boolean;
     /** The label is several rows, centred on the pill. */
     stack?: "middle";
@@ -71,7 +74,7 @@ let {
 
 const color = depthColor(listDepth());
 const id = $props.id();
-setContext(STILL, !!(ontoggle || ongo));
+setContext(STILL, !!(ontoggle || ongo !== undefined));
 </script>
 
 {#snippet row()}
@@ -81,24 +84,24 @@ setContext(STILL, !!(ontoggle || ongo));
     {@render values?.()}
 {/snippet}
 
-<div class="np" class:np--small={small} class:np--detail={detail} class:np--dashed={dashed} class:np--steel={steel} class:np--stack={stack} class:np--go={ongo} class:np--under={under} class:np--tick={ontick} style:--c={color}>
+<div class="np" class:np--small={small} class:np--detail={detail} class:np--dotted={dotted} class:np--dashed={dashed} class:np--steel={steel} class:np--stack={stack} class:np--go={ongo} class:np--under={under} class:np--tick={ontick} style:--c={color}>
     {#if ontick}<button type="button" class="np-tick" aria-label={goLabel} onclick={ontick}>{@render tickBox?.()}</button>{/if}
     <div class="np-body">
         <span class="np-face">
             {#if under}<span class="np-line">{@render row()}</span><span class="np-under">{@render under()}</span>{:else}{@render row()}{/if}
         </span>
-        {#if ongo || corner || foot}
+        {#if (ongo && !steel) || corner || foot}
             <span class="np-end">
                 {#if corner}<span class="np-corner">{@render corner()}</span>{/if}
-                <span class="np-chev np-go">{#if ongo}<GoChevron />{/if}</span>
+                <span class="np-chev np-go">{#if ongo && !steel}<GoChevron />{/if}</span>
                 {#if foot}<span class="np-corner np-foot">{@render foot()}</span>{/if}
             </span>
         {/if}
     </div>
     <!-- A pill that neither folds nor opens has no halves: its own controls (a rate, a link) keep their taps. -->
-    {#if ontoggle || ongo}
+    {#if ontoggle || ongo !== undefined}
         <button type="button" class="np-half np-main" disabled={!ontoggle} aria-expanded={open ?? undefined} aria-labelledby="{id}-l" onclick={ontoggle}></button>
-        {#if ongo}<button type="button" class="np-half np-side" aria-label={goLabel} onclick={ongo}></button>{/if}
+        {#if ongo !== undefined}<button type="button" class="np-half np-side" disabled={!ongo} aria-label={goLabel} onclick={ongo ?? undefined}></button>{/if}
     {/if}
 </div>
 
@@ -164,10 +167,14 @@ setContext(STILL, !!(ontoggle || ongo));
     min-height: 42px;
     font-size: 18px;
 }
+.np--dotted {
+    min-height: 36px;
+    border: 2px dotted var(--c);
+    background: none;
+}
 .np--dashed {
     min-height: 36px;
     border-style: dashed;
-    background: none;
 }
 .np--stack {
     min-height: 62px;
@@ -328,7 +335,7 @@ setContext(STILL, !!(ontoggle || ongo));
     color: var(--rt-yellow);
     font: 500 13px var(--rt-font-meta);
 }
-.np--dashed .np-label {
+.np--dotted .np-label {
     color: var(--rt-fg-muted);
 }
 .np--stack .np-face {
