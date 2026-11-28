@@ -28,6 +28,7 @@ let {
     small = false,
     detail = false,
     dashed = false,
+    steel = false,
     stack,
     glyph,
     children,
@@ -50,6 +51,8 @@ let {
     detail?: boolean;
     /** A calculated value: dashed, unfilled. */
     dashed?: boolean;
+    /** A value you can change right here: a steel track. Its value sits on a raised `.np-plac`. */
+    steel?: boolean;
     /** The label is several rows, centred on the pill. */
     stack?: "middle";
     glyph?: Snippet;
@@ -78,7 +81,7 @@ setContext(STILL, !!(ontoggle || ongo));
     {@render values?.()}
 {/snippet}
 
-<div class="np" class:np--small={small} class:np--detail={detail} class:np--dashed={dashed} class:np--stack={stack} class:np--go={ongo} class:np--under={under} class:np--tick={ontick} style:--c={color}>
+<div class="np" class:np--small={small} class:np--detail={detail} class:np--dashed={dashed} class:np--steel={steel} class:np--stack={stack} class:np--go={ongo} class:np--under={under} class:np--tick={ontick} style:--c={color}>
     {#if ontick}<button type="button" class="np-tick" aria-label={goLabel} onclick={ontick}>{@render tickBox?.()}</button>{/if}
     <div class="np-body">
         <span class="np-face">
@@ -168,6 +171,36 @@ setContext(STILL, !!(ontoggle || ongo));
 }
 .np--stack {
     min-height: 62px;
+}
+.np--steel {
+    min-height: 52px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #3a3a3a 0%, #2c2c2c 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    font-size: 21px;
+}
+.np--steel .np-label {
+    color: var(--c);
+}
+/* The raised steel button a steel pill's value sits on. */
+.np :global(.np-plac) {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    box-sizing: border-box;
+    min-width: 120px;
+    height: 42px;
+    margin: 5px 0;
+    padding: 0 14px;
+    border-radius: 13px;
+    background: var(--rt-btn-neutral-bg);
+    box-shadow: 0 2px 0 #111, 0 3px 8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-size: 24px;
+    text-shadow: 0 1px 0 #000, 0 2px 2px #000;
+    white-space: nowrap;
 }
 /* The body is what the pill shows; the halves over it are what a finger meets. */
 .np-body {
