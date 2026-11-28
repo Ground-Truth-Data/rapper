@@ -133,8 +133,9 @@ export function rowShift(d: RowDrag | null, rowId: string, index: number): numbe
 const SWIPE_PX = 96;
 
 /** `use:` action: drag a row left. Past SWIPE_PX `swiped` runs and the row springs back; with `hold` it rests open
- *  that many px instead, uncovering what sits behind it, until it is tapped or dragged back. Null: it stays put. */
-export function rowSwipe(el: HTMLElement, opts: { swiped?: () => void; hold?: number } | null) {
+ *  that many px instead, uncovering what sits behind it, until it is tapped or dragged back. With `right` it drags
+ *  right too, and past SWIPE_PX that way `right` runs. Null: it stays put. */
+export function rowSwipe(el: HTMLElement, opts: { swiped?: () => void; right?: () => void; hold?: number } | null) {
     let o = opts;
     if (!o) return;
     let open = 0;
@@ -155,7 +156,7 @@ export function rowSwipe(el: HTMLElement, opts: { swiped?: () => void; hold?: nu
         el,
         ({ last, movement: [mx], tap }) => {
             if (tap || !o) return;
-            const dx = Math.min(0, open + mx);
+            const dx = o.right ? open + mx : Math.min(0, open + mx);
             if (!last) {
                 el.style.transform = `translateX(${dx}px)`;
                 return;
@@ -164,6 +165,7 @@ export function rowSwipe(el: HTMLElement, opts: { swiped?: () => void; hold?: nu
             if (o.hold) return rest(dx <= -o.hold / 2 ? -o.hold : 0);
             rest(0);
             if (dx <= -SWIPE_PX) o.swiped?.();
+            if (dx >= SWIPE_PX) o.right?.();
         },
         // No axis latch: a slightly vertical start would drop the whole swipe.
         { threshold: 10, filterTaps: true, pointer: { keys: false, capture: false } },
