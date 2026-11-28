@@ -26,7 +26,7 @@ let {
 	left,
 }: {
 	name: string;
-	/** The block's total, allocated or calculated. 0 = none: no count and no offsets. */
+	/** The block's total, prescribed or calculated. 0 = none: no count and no offsets. */
 	trees?: number;
 	delivered?: number;
 	planted?: number;

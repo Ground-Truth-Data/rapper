@@ -9,9 +9,9 @@ afterEach(cleanup);
 const base = { icon: "/block.webp", name: "North 7", unpickLabel: "unpick", ha: "99", rate: "1,800", total: "178,200", onUnpick: () => {} };
 const rateLink = createRawSnippet(() => ({ render: () => `<button class="rate">1,800</button>` }));
 
-it("the host's rate link stands in for the plain rate, worked out or allocated", () => {
-	for (const allocated of [undefined, "allocated"]) {
-		const { container } = render(BlockHead, { ...base, allocated, rateLink });
+it("the host's rate link stands in for the plain rate, worked out or prescribed", () => {
+	for (const prescribed of [undefined, "prescribed"]) {
+		const { container } = render(BlockHead, { ...base, prescribed, rateLink });
 		const line = container.querySelector(".bh-rate")!;
 		expect(line.querySelector("button.rate")).not.toBeNull();
 		expect(line.textContent!.match(/1,800/g)).toHaveLength(1);

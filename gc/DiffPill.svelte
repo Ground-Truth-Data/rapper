@@ -1,4 +1,4 @@
-<!-- A calculated difference ("vs allocated"), nested under the thing it compares: rose when over, teal when under. -->
+<!-- A calculated difference ("vs prescribed"), nested under the thing it compares: rose when over, teal when under. -->
 <script lang="ts">
 import NestPill from "./NestPill.svelte";
 
